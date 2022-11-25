@@ -4,6 +4,7 @@ import LayoutAdmin from './layoutAdmin/layoutAdmin'
 import UsersList from './comps_admin/users/usersList'
 import FoodsList from './comps_admin/foods/foodsList'
 import Login from './assets/loginPage/login'
+import CategoriesList from './comps_admin/categories/categoriesList'
 
 function App() {
 
@@ -21,6 +22,7 @@ function App() {
         <Route path="/admin" element={<LayoutAdmin />} >
           {/* Outlet */}
           <Route path='/admin/users' element={<UsersList />} />
+          <Route path='/admin/categories' element={<CategoriesList />} />
           <Route path='/admin/foods' element={<FoodsList />} />
           {/* ******** */}
         </Route>
