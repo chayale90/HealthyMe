@@ -20,11 +20,11 @@ export default function Login() {
       let resp = await doApiMethod(url, "POST", bodyData);
       // לשמור את הטוקן
       localStorage.setItem(TOKEN_NAME, resp.data.token);
-      if (resp.data.user.role == "admin") 
+      if (resp.data.userRole == "admin") 
         // לשגר לעמוד של רשימת המשתמשים
         nav("/admin/users")
       
-      else if (resp.data.user.role == "user") 
+      else if (resp.data.userRole == "user") 
         nav("/user/foods")
       
       console.log(resp.data);
