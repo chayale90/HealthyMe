@@ -1,10 +1,9 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 import { API_URL, doApiMethod } from '../../services/apiService'
 
 export default function CategoryItem(props) {
     let item = props.item
-
-
 
 
     const onDeleteClick = async () => {
@@ -24,6 +23,7 @@ export default function CategoryItem(props) {
         }
     }
 
+    
 
 
     return (
@@ -34,7 +34,11 @@ export default function CategoryItem(props) {
             <th>{item.info}</th>
             <th> <img src={item.img_url} alt="categoryImg" width="100" /></th>
             <td>
-                <button onClick={onDeleteClick} className='badge bg-danger'>Del</button>
+            <Link className='btn btn-info me-2' to={"/admin/editCategory/"+item._id} >Edit</Link>
+
+            </td>
+            <td>
+                <button onClick={onDeleteClick}  className='btn btn-danger me-2 my-0'>Del</button>
             </td>
         </tr>
     )

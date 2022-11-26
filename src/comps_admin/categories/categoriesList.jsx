@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import { Link } from 'react-router-dom'
 import { API_URL, doApiGet } from '../../services/apiService'
 import CategoryItem from './categoryItem'
 
@@ -29,25 +30,28 @@ export default function CategoriesList() {
 
   return (
     <div className='container'>
-    <h1>List of users in systems</h1>
-    <table className='table table-striped table-hover'>
-      <thead>
-        <tr>
-          <th>#</th>
-          <th>Name</th>
-          <th>url_name</th>
-          <th>info</th>
-          <th>img_url</th>
-        </tr>
-      </thead>
-      <tbody>
-        {ar.map((item,i) => {
-          return(
-            <CategoryItem key={item._id} doApi={doApi} index={i} item={item}/>
-          )
-        })}
-      </tbody>
-    </table>
-  </div>
+      <h1 className='display-3 text-center p-3'>List of Catgories in systems</h1>
+      <Link to="/admin/addCategory" className='btn btn-success'>Add new Category</Link>
+      <table className='table table-striped table-hover'>
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Name</th>
+            <th>url_name</th>
+            <th>info</th>
+            <th>img_url</th>
+            <th>Edit</th>
+            <th>Delete</th>
+          </tr>
+        </thead>
+        <tbody>
+          {ar.map((item, i) => {
+            return (
+              <CategoryItem key={item._id} doApi={doApi} index={i} item={item} />
+            )
+          })}
+        </tbody>
+      </table>
+    </div>
   )
 }
