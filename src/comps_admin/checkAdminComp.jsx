@@ -9,11 +9,12 @@ export default function CheckAdminComp() {
         doApi();
     }, [])
 
-
+    
     const doApi = async () => {
         try {
             let url = API_URL + "/users/checkToken"
             let resp = await doApiGet(url);
+            console.log(resp)
             if (resp.data.role != "admin") {
                 alert("You must be admin to be here ,try log in again");
                 nav("/")
@@ -25,10 +26,7 @@ export default function CheckAdminComp() {
         }
     }
 
-
     return (
-      <React.Fragment></React.Fragment>
-      )
-
-
+        <React.Fragment></React.Fragment>
+    )
 }

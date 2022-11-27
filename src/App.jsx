@@ -18,6 +18,18 @@ function App() {
         <Route path="/" element={<Login />} />
 
 
+
+        {/* User Layout */}
+        {/* <Route path="/" element={<LayoutAdmin />} > */}
+        {/* Outlet */}
+         <Route path='/foods' element={<FoodsList />} />
+
+
+        {/* ******** */}
+        {/* </Route> */}
+
+
+
         {/* Admin Layout */}
         <Route path="/admin" element={<LayoutAdmin />} >
           {/* Outlet */}
@@ -29,16 +41,6 @@ function App() {
           {/* ******** */}
         </Route>
 
-
-
-        {/* User Layout */}
-        {/* <Route path="/user" element={<LayoutAdmin />} > */}
-        {/* Outlet */}
-         <Route path='/user/foods' element={<FoodsList />} />
-
-
-        {/* ******** */}
-        {/* </Route> */}
 
 
 

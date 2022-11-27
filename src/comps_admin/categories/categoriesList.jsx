@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { API_URL, doApiGet } from '../../services/apiService'
+import CheckAdminComp from '../checkAdminComp'
 import CategoryItem from './categoryItem'
 
 export default function CategoriesList() {
@@ -30,6 +31,7 @@ export default function CategoriesList() {
 
   return (
     <div className='container'>
+      <CheckAdminComp/>
       <h1 className='display-3 text-center p-3'>List of Catgories in systems</h1>
       <Link to="/admin/addCategory" className='btn btn-success'>Add new Category</Link>
       <table className='table table-striped table-hover'>

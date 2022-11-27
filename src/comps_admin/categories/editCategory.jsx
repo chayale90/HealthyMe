@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form';
 import { Link, useNavigate, useParams } from 'react-router-dom'
 import { API_URL, doApiGet, doApiMethod } from '../../services/apiService'
+import CheckAdminComp from '../checkAdminComp';
 
 export default function EditCategory() {
   const [info, setInfo] = useState({});
@@ -19,6 +20,7 @@ export default function EditCategory() {
       let url = API_URL + "/categories/byId/" + params["id"];
       let resp = await doApiGet(url);
       console.log(resp.data);
+      console.log(params["id"]);
       setInfo(resp.data)
     }
     catch (err) {
@@ -34,9 +36,12 @@ export default function EditCategory() {
   }
 
   const doApiForm = async (bodyFormData) => {
-    let url = API_URL + "categories/" + params["id"];
+    let url = API_URL + "/categories/" + params["id"];
     try {
-      let resp = doApiMethod(url, "PUT", bodyFormData);
+    
+      console.log(bodyFormData)
+      let resp = await doApiMethod(url, "PUT", bodyFormData);
+      console.log(resp.data)
       if (resp.data) {
         alert("Food update succefuly");
         nav("/admin/categories")
@@ -48,13 +53,13 @@ export default function EditCategory() {
     catch (err) {
       console.log(err);
       alert("There problem , or category url already in system")
-
     }
   }
 
 
   return (
     <div className='container'>
+      <CheckAdminComp/>
       <h2 className='text-center display-4'>Edit category</h2>
       {info.name ? <form onSubmit={handleSubmit(onSubForm)} className='col-md-8 p-3 shadow mx-auto'>
         <label>Name:</label>
@@ -63,10 +68,10 @@ export default function EditCategory() {
 
         <label >Url name:</label>
         {/* disabled={true} - לא מאפשר לגעת באינפוט */}
-        <input defaultValue={info.url_name} {...register("url_name", { required: true, minLength: 2 })} disabled={true} className='form-control' />
-        {errors.url_name && <div className='text-danger'>Enter valid url name (min 2 chars) </div>}
+        <input value={info.url_name} disabled className='form-control' />
+        {/* {errors.url_name && <div className='text-danger'>Enter valid url name (min 2 chars) </div>} */}
         <label>Info:</label>
-        <textarea defaultValue={info.info} {...register("info", { required: true, minLength: 2 })} className='form-control' rows="5"></textarea>
+        <textarea defaultValue={info.info} {...register("info", { required: true, minLength: 2 })}className='form-control' rows="5"></textarea>
         {errors.info && <div className='text-danger'>Enter valid info  (min 2 chars) </div>}
         <label>Img url:</label>
         <input defaultValue={info.img_url} {...register("img_url", { required: true, minLength: 2 })} type="text" className='form-control' />

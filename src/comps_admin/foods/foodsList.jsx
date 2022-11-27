@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { API_URL, doApiGet } from '../../services/apiService'
+import CheckAdminComp from '../checkAdminComp'
 import FoodItem from './foodItem'
 
 export default function FoodsList() {
@@ -27,10 +28,8 @@ export default function FoodsList() {
 
 
   return (
-
-
     <div className='container text-center'>
-      {/* <CheckAdminComp /> */}
+      <CheckAdminComp/>
       <h1 className='display-2'>List of foods</h1>
       {/* <PageNav urlPageApi={API_URL+"/foods/count"} perPage={5} navToDir="/admin/foods?page=" cssClass="btn btn-info ms-2"  /> */}
       <table className='table table-striped table-hover col-md-11'>
