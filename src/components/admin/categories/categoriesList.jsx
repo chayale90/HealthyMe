@@ -18,7 +18,6 @@ export default function CategoriesList() {
     let url = API_URL + "/categories"
     try {
       let resp = await doApiGet(url);
-      console.log(resp.data);
       setAr(resp.data)
     }
     catch (err) {

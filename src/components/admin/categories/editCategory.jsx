@@ -19,8 +19,6 @@ export default function EditCategory() {
     try {
       let url = API_URL + "/categories/byId/" + params["id"];
       let resp = await doApiGet(url);
-      console.log(resp.data);
-      console.log(params["id"]);
       setInfo(resp.data)
     }
     catch (err) {
@@ -43,7 +41,7 @@ export default function EditCategory() {
       let resp = await doApiMethod(url, "PUT", bodyFormData);
       console.log(resp.data)
       if (resp.data) {
-        alert("Food update succefuly");
+        alert("Category update succefuly");
         nav("/admin/categories")
       }
       else {

@@ -1,7 +1,7 @@
 import React from 'react'
 import { API_URL, doApiMethod } from '../../../services/apiService';
 
-export default function UserItem(props) {
+export default function UserItemAdmin(props) {
     let item = props.item;
 
     const onRoleClick = async () => {

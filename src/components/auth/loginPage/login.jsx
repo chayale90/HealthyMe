@@ -25,7 +25,7 @@ export default function Login() {
         nav("/admin/users")
       
       else if (resp.data.userRole == "user") 
-        nav("/client/foods")
+        nav("/foods")
       
       console.log(resp.data);
     }
@@ -45,7 +45,7 @@ export default function Login() {
 
   return (
     <div className='container'>
-      <h1 className='text-center'>Log in to admin</h1>
+      <h1 className='text-center'>Log in</h1>
       <form onSubmit={handleSubmit(onSubForm)} className='col-md-6 p-3 shadow mx-auto'>
         <label>Email:</label>
         <input {...emailRef} type="text" className='form-control' />

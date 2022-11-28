@@ -9,7 +9,7 @@ const LayoutAdmin = () => {
     <div>
        <HeaderAdmin/>
        <Outlet/>
-       <FooterAdmin/>
+       {/* <FooterAdmin/> */}
     </div>
   )
 }

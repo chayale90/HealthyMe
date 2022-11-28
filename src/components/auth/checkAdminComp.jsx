@@ -14,7 +14,6 @@ export default function CheckAdminComp() {
         try {
             let url = API_URL + "/users/checkToken"
             let resp = await doApiGet(url);
-            console.log(resp)
             if (resp.data.role != "admin") {
                 alert("You must be admin to be here ,try log in again");
                 nav("/")

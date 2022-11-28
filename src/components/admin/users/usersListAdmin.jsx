@@ -1,11 +1,14 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { API_URL, doApiGet } from '../../../services/apiService';
 import CheckAdminComp from '../../auth/checkAdminComp';
-import UserItem from './userItem';
+import UserItemAdmin from './userItemAdmin';
 
-export default function UsersList() {
+
+export default function UsersListAdmin() {
   const [ar, setAr] = useState([]);
+  const inputRef = useRef();
 
+ 
   useEffect(() => {
     doApi();
   }, [])
@@ -14,7 +17,6 @@ export default function UsersList() {
     let url = API_URL + "/users/usersList";
     try {
       let resp = await doApiGet(url);
-      console.log(resp.data);
       setAr(resp.data)
     }
     catch (err) {
@@ -25,8 +27,9 @@ export default function UsersList() {
 
   return (
     <div className='container'>
-      <CheckAdminComp/>
+      <CheckAdminComp />
       <h1 className='display-3 text-center p-3'>List of users in systems</h1>
+      <div className='col-md-6 d-flex'><input ref={inputRef} className='form-control' placeholder="Search user..." />  <button className=' btn btn-info'>Search</button></div>
       <table className='table table-striped table-hover'>
         <thead>
           <tr>
@@ -49,7 +52,7 @@ export default function UsersList() {
         <tbody>
           {ar.map((item, i) => {
             return (
-              <UserItem key={item._id} doApi={doApi} index={i} item={item} />
+              <UserItemAdmin key={item._id} doApi={doApi} index={i} item={item} />
             )
           })}
         </tbody>

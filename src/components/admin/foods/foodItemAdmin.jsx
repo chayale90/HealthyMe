@@ -2,7 +2,7 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import { API_URL, doApiMethod } from '../../../services/apiService';
 
-export default function FoodItem(props) {
+export default function FoodItemAdmin(props) {
 
     let item = props.item;
 
@@ -28,11 +28,11 @@ export default function FoodItem(props) {
         <tr>
             <th>{props.index + 1}</th>
             <th>{item.name}</th>
-            <th>{item.url_name}</th>
+          
        
+            <th>{item.description}</th>
             <th> <img src={item.img_url} alt="categoryImg" width="100" /></th>
             <th>{item.calories}</th>
-            <th>{item.description}</th>
             <th>{item.ingredient}</th>
             <th>{item.recipe}</th>
             <th>{item.dishes}</th>
