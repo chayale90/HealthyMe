@@ -1,6 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import { API_URL, doApiMethod } from '../../services/apiService'
+import { API_URL, doApiMethod } from '../../../services/apiService'
 
 export default function CategoryItem(props) {
     let item = props.item

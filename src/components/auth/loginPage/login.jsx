@@ -1,7 +1,7 @@
 import React from 'react'
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
-import { doApiMethod, API_URL, TOKEN_NAME } from '../../services/apiService';
+import { API_URL, doApiMethod, TOKEN_NAME } from '../../../services/apiService';
 
 export default function Login() {
 

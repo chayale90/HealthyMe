@@ -1,12 +1,13 @@
 import './App.css'
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom"
 import LayoutAdmin from './layoutAdmin/layoutAdmin'
-import UsersList from './comps_admin/users/usersList'
-import FoodsList from './comps_admin/foods/foodsList'
-import Login from './assets/loginPage/login'
-import CategoriesList from './comps_admin/categories/categoriesList'
-import EditCategory from './comps_admin/categories/editCategory'
-import AddCategoryForm from './comps_admin/categories/addCategoryForm'
+import UsersList from './components/admin/users/usersList'
+import FoodsList from './components/admin/foods/foodsList'
+import Login from './components/auth/loginPage/login'
+import CategoriesList from './components/admin/categories/categoriesList'
+import EditCategory from './components/admin/categories/editCategory'
+import AddCategoryForm from './components/admin/categories/addCategoryForm'
+import NotFound from './components/client/notFound'
 
 function App() {
 
@@ -18,11 +19,10 @@ function App() {
         <Route path="/" element={<Login />} />
 
 
-
         {/* User Layout */}
-        {/* <Route path="/" element={<LayoutAdmin />} > */}
+        {/* <Route path="/" element={<LayoutUser />} > */}
         {/* Outlet */}
-         <Route path='/foods' element={<FoodsList />} />
+        <Route path='/foods' element={<FoodsList />} />
 
 
         {/* ******** */}
@@ -37,12 +37,13 @@ function App() {
           <Route path='/admin/categories' element={<CategoriesList />} />
           <Route path='/admin/addCategory' element={<AddCategoryForm />} />
           <Route path='/admin/editCategory/:id' element={<EditCategory />} />
-          <Route path='/admin/foods' element={<FoodsList/>} />
+          <Route path='/admin/foods' element={<FoodsList />} />
           {/* ******** */}
         </Route>
 
 
-
+        {/*   (*) => Rest of routes!?!?  */}
+        <Route path='*' element={<NotFound />} />
 
 
       </Routes>

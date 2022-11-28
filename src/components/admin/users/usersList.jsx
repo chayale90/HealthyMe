@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react'
-import { API_URL, doApiGet } from '../../services/apiService';
-import CheckAdminComp from '../checkAdminComp';
-// import CheckAdminComp from '../checkAdminComp';
+import { API_URL, doApiGet } from '../../../services/apiService';
+import CheckAdminComp from '../../auth/checkAdminComp';
 import UserItem from './userItem';
 
 export default function UsersList() {

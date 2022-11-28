@@ -1,8 +1,10 @@
 import React from 'react'
 import { useForm } from 'react-hook-form';
 import { Link, useNavigate } from 'react-router-dom';
-import { API_URL, doApiMethod } from '../../services/apiService';
-import CheckAdminComp from '../checkAdminComp';
+import { API_URL, doApiMethod } from '../../../services/apiService';
+import CheckAdminComp from '../../auth/checkAdminComp';
+
+
 
 export default function AddCategoryForm() {
     const { register, handleSubmit, formState: { errors } } = useForm();

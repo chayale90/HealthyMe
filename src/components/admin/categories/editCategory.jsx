@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form';
 import { Link, useNavigate, useParams } from 'react-router-dom'
-import { API_URL, doApiGet, doApiMethod } from '../../services/apiService'
-import CheckAdminComp from '../checkAdminComp';
+import { API_URL, doApiGet, doApiMethod } from '../../../services/apiService';
+import CheckAdminComp from '../../auth/checkAdminComp';
 
 export default function EditCategory() {
   const [info, setInfo] = useState({});

@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { API_URL, doApiGet } from '../services/apiService'
+import { API_URL, doApiGet } from '../../services/apiService';
 
 export default function CheckAdminComp() {
     let nav = useNavigate()

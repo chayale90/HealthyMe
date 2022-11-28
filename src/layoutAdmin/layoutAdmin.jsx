@@ -1,5 +1,6 @@
 import React from 'react'
 import { Outlet } from "react-router-dom"
+import FooterAdmin from './footer/footerAdmin'
 import HeaderAdmin from './header/headerAdmin'
 
 
@@ -8,7 +9,7 @@ const LayoutAdmin = () => {
     <div>
        <HeaderAdmin/>
        <Outlet/>
-       {/* <FooterAdmin/> */}
+       <FooterAdmin/>
     </div>
   )
 }

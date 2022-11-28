@@ -1,5 +1,5 @@
 import React from 'react'
-import { API_URL, doApiMethod } from '../../services/apiService';
+import { API_URL, doApiMethod } from '../../../services/apiService';
 
 export default function UserItem(props) {
     let item = props.item;

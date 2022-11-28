@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
-import { API_URL, doApiGet } from '../../services/apiService'
-import CheckAdminComp from '../checkAdminComp'
+import { API_URL, doApiGet } from '../../../services/apiService'
+import CheckAdminComp from '../../auth/checkAdminComp'
 import CategoryItem from './categoryItem'
 
 export default function CategoriesList() {
