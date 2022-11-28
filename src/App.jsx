@@ -8,6 +8,8 @@ import CategoriesList from './components/admin/categories/categoriesList'
 import EditCategory from './components/admin/categories/editCategory'
 import AddCategoryForm from './components/admin/categories/addCategoryForm'
 import NotFound from './components/client/notFound'
+import FoodsListUser from './components/client/foods/foodsListUser'
+import Layout from './layout/layout'
 
 function App() {
 
@@ -18,20 +20,23 @@ function App() {
 
         <Route path="/" element={<Login />} />
 
+        {/* Client Layout */}
+        <Route path="/client" element={<Layout />} >
 
-        {/* User Layout */}
-        {/* <Route path="/" element={<LayoutUser />} > */}
-        {/* Outlet */}
-        <Route path='/foods' element={<FoodsList />} />
+          {/* Outlet */}
+          <Route path='/client/foods' element={<FoodsListUser />} />
 
 
-        {/* ******** */}
-        {/* </Route> */}
+
+          {/* ******** */}
+
+        </Route>
 
 
 
         {/* Admin Layout */}
         <Route path="/admin" element={<LayoutAdmin />} >
+
           {/* Outlet */}
           <Route path='/admin/users' element={<UsersList />} />
           <Route path='/admin/categories' element={<CategoriesList />} />
@@ -39,6 +44,7 @@ function App() {
           <Route path='/admin/editCategory/:id' element={<EditCategory />} />
           <Route path='/admin/foods' element={<FoodsList />} />
           {/* ******** */}
+
         </Route>
 
 

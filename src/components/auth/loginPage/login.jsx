@@ -25,7 +25,7 @@ export default function Login() {
         nav("/admin/users")
       
       else if (resp.data.userRole == "user") 
-        nav("/user/foods")
+        nav("/client/foods")
       
       console.log(resp.data);
     }
