@@ -39,7 +39,7 @@ export default function HeaderAdmin() {
                 </li>
               </ul> : <ul></ul>}
             <div>
-              {localStorage[TOKEN_NAME] ? <button className='btn btn-primary' onClick={onLogOut}>Log out</button> : <span></span>}
+              {localStorage[TOKEN_NAME] ? <button className='btn btn-light' onClick={onLogOut}>Log out</button> : <span></span>}
             </div>
           </nav>
         </div>
