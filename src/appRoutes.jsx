@@ -14,9 +14,6 @@ import FoodsList from './components/client/foods/foodsList'
 
 
 
-
-
-
 export default function AppRoutes() {
     return (
         <Router>
@@ -24,18 +21,14 @@ export default function AppRoutes() {
 
                 <Route index element={<Login />} />
 
-
                 {/* Client Layout */}
-                <Route path='/' element={<Layout/>} >
+                <Route path='/' element={<Layout />} >
                     {/* Outlet */}
-                    <Route path='/foods' element={<FoodsList/>} />
-                  
-
+                    <Route path='/foods' element={<FoodsList />} />
 
 
                     {/* ******** */}
                 </Route>
-
 
 
                 {/* Admin Layout */}
@@ -43,7 +36,7 @@ export default function AppRoutes() {
                     {/* Outlet */}
                     <Route path='/admin/users' element={<UsersListAdmin />} />
                     <Route path='/admin/categories' element={<CategoriesList />} />
-                    <Route path='/admin/addCategory' element={<AddCategoryForm/>} />
+                    <Route path='/admin/addCategory' element={<AddCategoryForm />} />
                     <Route path='/admin/editCategory/:id' element={<EditCategory />} />
                     <Route path='/admin/foods' element={<FoodsListAdmin />} />
                     {/* ******** */}
