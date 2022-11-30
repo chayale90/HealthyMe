@@ -14,10 +14,9 @@ export default function UsersListAdmin() {
 
   useEffect(() => {
     if (querys.get('search'))
-    doApiSearch()
-    else {
+      doApiSearch()
+    else
       doApi();
-    }
   }, [querys.get("search")])
 
 
@@ -60,7 +59,7 @@ export default function UsersListAdmin() {
         <button onClick={() => {
           nav('/admin/users?search=' + inputRef.current.value)
         }} className=' btn btn-info mx-3'>Search</button>
-        <button className='btn btn-dark' onClick={()=>nav('/admin/users')}>reset</button>
+        <button className='btn btn-dark' onClick={() => nav('/admin/users')}>reset</button>
       </div>
 
       <table className='table table-striped table-hover'>

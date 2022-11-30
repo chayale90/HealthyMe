@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react'
-import { useSearchParams } from 'react-router-dom'
+import React, { useEffect, useRef, useState } from 'react'
+import { useNavigate, useSearchParams } from 'react-router-dom'
 import { API_URL, doApiGet } from '../../../services/apiService'
 import CheckAdminComp from '../../auth/checkAdminComp'
 import PageNav from '../../general_comps/pageNav'
@@ -9,16 +9,41 @@ export default function FoodsListAdmin() {
 
   const [ar, setAr] = useState([]);
   const [querys] = useSearchParams();
+  const nav = useNavigate()
+  const inputRef = useRef();
+
   useEffect(() => {
-    doApi()
+    doApi();
   }, [querys.get("page")])
+
+  useEffect(() => {
+    if (querys.get("search"))
+      doApiSearch()
+  }, [querys.get("search")])
+
 
   const doApi = async () => {
     //?page= 
     let page = querys.get("page") || 1;
-    let url = API_URL + "/foods/?page="+page;
+    let url = API_URL + "/foods/?page=" + page;
     try {
       let resp = await doApiGet(url);
+      setAr(resp.data);
+      console.log(resp.data);
+    }
+    catch (err) {
+      console.log(err);
+      alert("there problem ,try again later")
+    }
+  }
+
+  const doApiSearch = async () => {
+    //search?
+    let search = querys.get("search");
+    let url = API_URL + "/foods/search?s=" + search;
+    try {
+      let resp = await doApiGet(url);
+      console.log(resp.data);
       setAr(resp.data);
     }
     catch (err) {
@@ -31,8 +56,18 @@ export default function FoodsListAdmin() {
   return (
     <div className='container text-center'>
       <CheckAdminComp />
-      <h1 className='display-2'>List of foods</h1>
+      <h1 className='display-5'>List of foods</h1>
+
+      <div className='col-md-6 d-flex text-center mx-auto'>
+        <input ref={inputRef} className='form-control' placeholder="Search food..." />
+        <button onClick={() => {
+          nav('/admin/foods?search=' + inputRef.current.value)
+        }} className=' btn btn-info mx-3'>Search</button>
+        <button className='btn btn-dark' onClick={() => doApi()}>reset</button>
+      </div>
+
       <PageNav urlPageApi={API_URL + "/foods/count"} perPage={5} navToDir="/admin/foods?page=" cssClass="btn btn-info ms-2" />
+
       <table className='table table-striped table-hover col-md-11'>
         <thead>
           <tr>

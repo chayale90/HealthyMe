@@ -9,7 +9,7 @@ export default function HeaderAdmin() {
 
 
   const onLogOut = () => {
-    //delet token
+    //delete token
     if (window.confirm("Are you sure you want to logout?")) {
       localStorage.removeItem(TOKEN_NAME)
       nav("/")
