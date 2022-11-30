@@ -1,6 +1,7 @@
 import React from 'react'
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import { API_URL, doApiMethod, TOKEN_NAME } from '../../../services/apiService';
 
 export default function Login() {
@@ -20,18 +21,18 @@ export default function Login() {
       let resp = await doApiMethod(url, "POST", bodyData);
       // לשמור את הטוקן
       localStorage.setItem(TOKEN_NAME, resp.data.token);
-      if (resp.data.role == "admin") 
-        // לשגר לעמוד של רשימת המשתמשים
+      if (resp.data.role == "admin") {
+        toast.info("Welcome admin!");
+        //go to userList
         nav("/admin/users")
-      
-      else if (resp.data.role == "user") 
+      }
+      else if (resp.data.role == "user")
         nav("/foods")
-      
       console.log(resp.data);
     }
     catch (err) {
       console.log(err.response);
-      alert("User or password worng, or service down");
+      toast.error("User or password worng, or service down");
     }
   }
 

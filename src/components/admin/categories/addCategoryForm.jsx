@@ -3,7 +3,7 @@ import { useForm } from 'react-hook-form';
 import { Link, useNavigate } from 'react-router-dom';
 import { API_URL, doApiMethod } from '../../../services/apiService';
 import CheckAdminComp from '../../auth/checkAdminComp';
-
+import { toast } from "react-toastify"
 
 
 export default function AddCategoryForm() {
@@ -20,16 +20,16 @@ export default function AddCategoryForm() {
         try {
             let resp = await doApiMethod(url, "POST", bodyFormData);
             if (resp.data._id) {
-                alert("Category added succefuly");
+                toast.success("Category added succefuly")
                 nav("/admin/categories")
             }
             else {
-                alert("There problem , try again later")
+                toast.error("There problem , try again later")
             }
         }
         catch (err) {
             console.log(err);
-            alert("There problem , or category url already in system")
+            toast.error("There problem , or category url already in system")
         }
     }
 

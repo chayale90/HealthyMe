@@ -1,8 +1,12 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { useNavigate, useSearchParams } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import { API_URL, doApiGet } from '../../../services/apiService';
 import CheckAdminComp from '../../auth/checkAdminComp';
+import PageNav from '../../general_comps/pageNav';
 import UserItemAdmin from './userItemAdmin';
+import Button from '@mui/material/Button';
+import TextField from '@mui/material/TextField';
 
 
 export default function UsersListAdmin() {
@@ -13,30 +17,35 @@ export default function UsersListAdmin() {
 
 
   useEffect(() => {
+    doApi();
+  }, [querys.get("page")])
+
+
+  useEffect(() => {
     if (querys.get('search'))
       doApiSearch()
-    else
-      doApi();
   }, [querys.get("search")])
 
 
 
   const doApi = async () => {
-    let url = API_URL + "/users/usersList";
+    //?page= 
+    let page = querys.get("page") || 1;
+    let url = API_URL + "/users/usersList?page="+page;
     try {
       let resp = await doApiGet(url);
       setAr(resp.data)
     }
     catch (err) {
       console.log(err);
-      alert("there problem ,try again later")
+      toast.error("there problem ,try again later")
     }
   }
 
   const doApiSearch = async () => {
     //search?
-    // let search = querys.get("search") || 1;
-    let url = API_URL + "/users/search?s=" + querys.get('search')
+    let search = querys.get("search");
+    let url = API_URL + "/users/search?s=" + search
     try {
       let resp = await doApiGet(url);
       console.log(resp.data);
@@ -49,19 +58,26 @@ export default function UsersListAdmin() {
   }
 
 
-
   return (
     <div className='container'>
       <CheckAdminComp />
-      <h1 className='display-3 text-center p-3'>List of users in systems</h1>
-      <div className='col-md-6 d-flex'>
-        <input ref={inputRef} className='form-control' placeholder="Search user..." />
-        <button onClick={() => {
+      <h1 className='display-5 text-center p-3'>List of users in systems</h1>
+      <div className='col-md-6 d-flex mx-auto'>
+       
+        <input onKeyDown={(e) => {
+          if(e.key=="Enter")
           nav('/admin/users?search=' + inputRef.current.value)
-        }} className=' btn btn-info mx-3'>Search</button>
-        <button className='btn btn-dark' onClick={() => nav('/admin/users')}>reset</button>
+        }}   ref={inputRef} className='form-control' placeholder="Search user..." />
+       
+        <Button onClick={() => {
+          nav('/admin/users?search=' + inputRef.current.value)
+        }} variant="contained" color="info">Search</Button>
+
+        <Button variant="contained" color='inherit'  onClick={doApi}>reset</Button>
       </div>
 
+      <PageNav urlPageApi={API_URL + "/users/count"} perPage={5} navToDir="/admin/users?page=" cssClass="btn btn-info ms-2" />
+      
       <table className='table table-striped table-hover'>
         <thead>
           <tr>

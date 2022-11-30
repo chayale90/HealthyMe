@@ -1,5 +1,7 @@
 import React from 'react'
+import { toast } from 'react-toastify';
 import { API_URL, doApiMethod } from '../../../services/apiService';
+import Button from '@mui/material/Button';
 
 export default function UserItemAdmin(props) {
     let item = props.item;
@@ -47,7 +49,7 @@ export default function UserItemAdmin(props) {
         }
         catch (err) {
             console.log(err);
-            alert("There problem, or you try to change superAdmin to user")
+            toast.error("There problem, or you try to change superAdmin to user")
         }
     }
 
@@ -77,14 +79,16 @@ export default function UserItemAdmin(props) {
             <td>{item.sex}</td>
             <td>{item.height}</td>
             <td>{item.weight}</td>
-            <td><button className='btn btn-success' onClick={onRoleClick}>{item.role}</button></td>
+            <td>
+                <Button disableElevation onClick={onRoleClick} color="success" variant="contained">{item.role}</Button>
+            </td>
             <td>{item.rank}</td>
             <td>{item.score}</td>
             <td>{<img src={item.img_url} alt="Avatar" width={60} />}</td>
             <td>{item.nickname}</td>
-            <td><button className='btn btn-warning' onClick={onActiveClick}>{String(item.active)}</button></td>
+            <td><Button color="secondary" variant="outlined" onClick={onActiveClick}>{String(item.active)}</Button></td>
             <td>
-                <button onClick={onDeleteClick} className='badge bg-danger'>Del</button>
+                <Button color="error" variant="contained" onClick={onDeleteClick} >Del</Button>
             </td>
         </tr>
     )

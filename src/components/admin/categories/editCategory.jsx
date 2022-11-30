@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form';
 import { Link, useNavigate, useParams } from 'react-router-dom'
+import { toast } from 'react-toastify';
 import { API_URL, doApiGet, doApiMethod } from '../../../services/apiService';
 import CheckAdminComp from '../../auth/checkAdminComp';
 
@@ -23,7 +24,7 @@ export default function EditCategory() {
     }
     catch (err) {
       console.log(err);
-      alert("There problem try come back later")
+      toast.error("There problem try come back later")
     }
   }
 
@@ -41,11 +42,11 @@ export default function EditCategory() {
       let resp = await doApiMethod(url, "PUT", bodyFormData);
       console.log(resp.data)
       if (resp.data) {
-        alert("Category update succefuly");
+        toast.success("Category update succefuly");
         nav("/admin/categories")
       }
       else {
-        alert("There problem , try again later")
+        toast.error("There problem , try again later")
       }
     }
     catch (err) {

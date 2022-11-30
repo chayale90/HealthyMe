@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { toast } from 'react-toastify';
 import { API_URL, doApiGet } from '../../services/apiService';
 
 export default function CheckUserComp() {
@@ -15,12 +16,12 @@ export default function CheckUserComp() {
             let resp = await doApiGet(url);
             console.log(resp.data);
             if (resp.data.role != "user") {
-                alert("You must be user to be here ,try log in again");
+                toast.error("You must be user to be here ,try log in again");
                 nav("/")
             }
         }
         catch (err) {
-            alert("There problem ,try log in again");
+            toast.error("There problem ,try log in again");
             nav("/")
         }
     }

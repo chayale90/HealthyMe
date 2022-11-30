@@ -12,6 +12,10 @@ import UsersListAdmin from './components/admin/users/usersListAdmin'
 import FoodsListAdmin from './components/admin/foods/foodsListAdmin'
 import FoodsList from './components/client/foods/foodsList'
 
+// בשביל הודעות טוסט צריך קונטיינר שיהיה באפ ואת
+// הסי אס אס שלו
+import {ToastContainer} from "react-toastify"
+import 'react-toastify/dist/ReactToastify.css';
 
 
 export default function AppRoutes() {
@@ -40,14 +44,17 @@ export default function AppRoutes() {
                     <Route path='/admin/editCategory/:id' element={<EditCategory />} />
                     <Route path='/admin/foods' element={<FoodsListAdmin />} />
                     {/* ******** */}
+                    
                 </Route>
 
 
                 {/*   (*) => Rest of routes!?!?  */}
                 <Route path='*' element={<NotFound />} />
 
+             
 
-            </Routes>
+            </Routes>  
+             <ToastContainer position="top-left" theme="colored" />
         </Router>
     )
 

@@ -4,6 +4,10 @@ import { API_URL, doApiGet } from '../../../services/apiService'
 import CheckAdminComp from '../../auth/checkAdminComp'
 import PageNav from '../../general_comps/pageNav'
 import FoodItemAdmin from './foodItemAdmin'
+import { toast } from "react-toastify"
+import Button from '@mui/material/Button';
+import TextField from '@mui/material/TextField';
+
 
 export default function FoodsListAdmin() {
 
@@ -33,7 +37,7 @@ export default function FoodsListAdmin() {
     }
     catch (err) {
       console.log(err);
-      alert("there problem ,try again later")
+      toast.error("there problem ,try again later")
     }
   }
 
@@ -48,7 +52,7 @@ export default function FoodsListAdmin() {
     }
     catch (err) {
       console.log(err);
-      alert("there problem ,try again later")
+      toast.error("there problem ,try again later")
     }
   }
 
@@ -59,11 +63,15 @@ export default function FoodsListAdmin() {
       <h1 className='display-5'>List of foods</h1>
 
       <div className='col-md-6 d-flex text-center mx-auto'>
-        <input ref={inputRef} className='form-control' placeholder="Search food..." />
-        <button onClick={() => {
+        <input  onKeyDown={(e) => {
+          if(e.key=="Enter")
           nav('/admin/foods?search=' + inputRef.current.value)
-        }} className=' btn btn-info mx-3'>Search</button>
-        <button className='btn btn-dark' onClick={() => doApi()}>reset</button>
+        }} ref={inputRef} className='form-control' type={"text"} placeholder="Search food..." />
+       
+        <Button variant='contained' onClick={() => {
+          nav('/admin/foods?search=' + inputRef.current.value)
+        }} className=' mx-3'>Search</Button>
+        <Button variant='contained' color='inherit' onClick={() => doApi()}>reset</Button>
       </div>
 
       <PageNav urlPageApi={API_URL + "/foods/count"} perPage={5} navToDir="/admin/foods?page=" cssClass="btn btn-info ms-2" />
