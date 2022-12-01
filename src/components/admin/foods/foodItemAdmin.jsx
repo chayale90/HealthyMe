@@ -1,26 +1,37 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { toast } from 'react-toastify';
 import { API_URL, doApiMethod } from '../../../services/apiService';
 import Button from '@mui/material/Button';
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogTitle from '@mui/material/DialogTitle';
+
+
 export default function FoodItemAdmin(props) {
-
   let item = props.item;
+  const [open, setOpen] = useState(false);
 
-  const onDelClick = async () => {
-    if (window.confirm("Are you sure you want to delete: " + item.name)) {
-      try {
-        let url = API_URL + "/foods/" + item._id;
-        let resp = await doApiMethod(url, "DELETE");
-        console.log(resp.data);
-        if (resp.data.deletedCount == 1) {
-          props.doApi();
-        }
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  const onDeleteClick = async () => {
+    try {
+      let url = API_URL + "/foods/" + item._id;
+      let resp = await doApiMethod(url, "DELETE");
+      console.log(resp.data);
+      if (resp.data.deletedCount == 1) {
+        props.doApi();
       }
-      catch (err) {
-        console.log(err.response);
-        toast.error("There problem , try again later")
-      }
+    }
+    catch (err) {
+      console.log(err.response);
+      toast.error("There problem , try again later")
     }
   }
 
@@ -45,8 +56,22 @@ export default function FoodItemAdmin(props) {
       <th>{String(item.updatedAt).slice(0, 10)}</th>
 
       <td>
-        <Button color='error' onClick={() => { onDelClick() }} className='btn btn-danger'>Del</Button>
+        <Button variant='contained' color='error' onClick={() => { handleClickOpen() }} className='btn btn-danger'>Del</Button>
       </td>
+      <Dialog
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+      >
+        <DialogTitle id="alert-dialog-title">
+          {"Are you sure you want to delete " + item.name}
+        </DialogTitle>
+        <DialogActions>
+          <Button onClick={handleClose}>Disagree</Button>
+          <Button onClick={onDeleteClick} autoFocus>Agree</Button>
+        </DialogActions>
+      </Dialog>
     </tr>
 
   )

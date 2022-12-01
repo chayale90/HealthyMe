@@ -15,7 +15,6 @@ export default function UsersListAdmin() {
   const nav = useNavigate()
   const inputRef = useRef();
 
-
   useEffect(() => {
     doApi();
   }, [querys.get("page")])
@@ -26,12 +25,11 @@ export default function UsersListAdmin() {
       doApiSearch()
   }, [querys.get("search")])
 
-
-
+  
   const doApi = async () => {
     //?page= 
     let page = querys.get("page") || 1;
-    let url = API_URL + "/users/usersList?page="+page;
+    let url = API_URL + "/users/usersList?page=" + page;
     try {
       let resp = await doApiGet(url);
       setAr(resp.data)
@@ -63,21 +61,21 @@ export default function UsersListAdmin() {
       <CheckAdminComp />
       <h1 className='display-5 text-center p-3'>List of users in systems</h1>
       <div className='col-md-6 d-flex mx-auto'>
-       
+
         <input onKeyDown={(e) => {
-          if(e.key=="Enter")
-          nav('/admin/users?search=' + inputRef.current.value)
-        }}   ref={inputRef} className='form-control' placeholder="Search user..." />
-       
+          if (e.key == "Enter")
+            nav('/admin/users?search=' + inputRef.current.value)
+        }} ref={inputRef} className='form-control' placeholder="Search user..." />
+
         <Button onClick={() => {
           nav('/admin/users?search=' + inputRef.current.value)
         }} variant="contained" color="info">Search</Button>
 
-        <Button variant="contained" color='inherit'  onClick={doApi}>reset</Button>
+        <Button variant="contained" color='inherit' onClick={doApi}>reset</Button>
       </div>
 
       <PageNav urlPageApi={API_URL + "/users/count"} perPage={5} navToDir="/admin/users?page=" cssClass="btn btn-info ms-2" />
-      
+
       <table className='table table-striped table-hover'>
         <thead>
           <tr>

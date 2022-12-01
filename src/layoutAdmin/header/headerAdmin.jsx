@@ -1,21 +1,30 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify';
 import Button from '@mui/material/Button';
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogTitle from '@mui/material/DialogTitle';
 import { TOKEN_NAME } from '../../services/apiService';
 import "./headerAdmin.css";
 
 export default function HeaderAdmin() {
   const nav = useNavigate();
+  const [open, setOpen] = useState(false);
 
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
 
   const onLogOut = () => {
     //delete token
-    if (window.confirm("Are you sure you want to logout?")) {
-      localStorage.removeItem(TOKEN_NAME);
-      toast.success("You logOut")
-      nav("/")
-    }
+    localStorage.removeItem(TOKEN_NAME);
+    toast.success("You logOut")
+    nav("/")
   }
 
   return (
@@ -39,8 +48,22 @@ export default function HeaderAdmin() {
                 </li>
               </ul> : <ul></ul>}
             <div>
-              {localStorage[TOKEN_NAME] ? <Button variant='contained' color='inherit' onClick={onLogOut}>Log out</Button> : <span></span>}
+              {localStorage[TOKEN_NAME] ? <Button variant='contained' color='inherit' onClick={handleClickOpen}>Log out</Button> : <span></span>}
             </div>
+            <Dialog
+              open={open}
+              onClose={handleClose}
+              aria-labelledby="alert-dialog-title"
+              aria-describedby="alert-dialog-description"
+            >
+              <DialogTitle id="alert-dialog-title">
+                {"Are you sure you want to logout?"}
+              </DialogTitle>
+              <DialogActions>
+                <Button onClick={handleClose}>Disagree</Button>
+                <Button onClick={onLogOut} autoFocus>Agree</Button>
+              </DialogActions>
+            </Dialog>
           </nav>
         </div>
       </div>

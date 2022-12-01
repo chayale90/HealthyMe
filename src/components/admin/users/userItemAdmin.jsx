@@ -1,10 +1,26 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { toast } from 'react-toastify';
-import { API_URL, doApiMethod } from '../../../services/apiService';
 import Button from '@mui/material/Button';
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle';
+import { API_URL, doApiMethod } from '../../../services/apiService';
+
+
 
 export default function UserItemAdmin(props) {
+    const [open, setOpen] = useState(false);
     let item = props.item;
+
+    const handleClickOpen = () => {
+        setOpen(true);
+    };
+
+    const handleClose = () => {
+        setOpen(false);
+    };
 
     const onRoleClick = async () => {
         let bodyData;
@@ -14,7 +30,6 @@ export default function UserItemAdmin(props) {
         else {
             bodyData = { role: "user" }
         }
-
         let url = API_URL + "/users/changeRole/" + item._id
         try {
             let resp = await doApiMethod(url, "PATCH", bodyData)
@@ -57,12 +72,10 @@ export default function UserItemAdmin(props) {
     const onDeleteClick = async () => {
         let url = API_URL + "/users/" + item._id
         try {
-            if (window.confirm("Are you sure you want delete this user?")) {
-                let resp = await doApiMethod(url, "DELETE")
-                console.log(resp.data);
-                if (resp.data) {
-                    props.doApi();
-                }
+            let resp = await doApiMethod(url, "DELETE")
+            console.log(resp.data);
+            if (resp.data) {
+                props.doApi();
             }
         }
         catch (err) {
@@ -88,8 +101,22 @@ export default function UserItemAdmin(props) {
             <td>{item.nickname}</td>
             <td><Button color="secondary" variant="outlined" onClick={onActiveClick}>{String(item.active)}</Button></td>
             <td>
-                <Button color="error" variant="contained" onClick={onDeleteClick} >Del</Button>
+                <Button color="error" variant="contained" onClick={handleClickOpen} >Del</Button>
             </td>
+            <Dialog
+                open={open}
+                onClose={handleClose}
+                aria-labelledby="alert-dialog-title"
+                aria-describedby="alert-dialog-description"
+            >
+                <DialogTitle id="alert-dialog-title">
+                    {"Are you sure you want delete this user?"}
+                </DialogTitle>
+                <DialogActions>
+                    <Button onClick={handleClose}>Disagree</Button>
+                    <Button onClick={onDeleteClick} autoFocus>Agree</Button>
+                </DialogActions>
+            </Dialog>
         </tr>
     )
 }
