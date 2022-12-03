@@ -90,7 +90,6 @@ export default function UsersListAdmin() {
             <th>Role</th>
             <th>Rank</th>
             <th>Score</th>
-
             <th>Nickname</th>
             <th>Active</th>
             <th>Delete</th>

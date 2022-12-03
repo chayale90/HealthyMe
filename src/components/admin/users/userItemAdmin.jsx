@@ -3,8 +3,6 @@ import { toast } from 'react-toastify';
 import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
-import DialogContent from '@mui/material/DialogContent';
-import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import { API_URL, doApiMethod } from '../../../services/apiService';
 
@@ -43,7 +41,6 @@ export default function UserItemAdmin(props) {
             alert("There problem, or you try to change superAdmin to user")
         }
     }
-
 
     const onActiveClick = async () => {
         let bodyData;
@@ -89,7 +86,7 @@ export default function UserItemAdmin(props) {
             <td>{props.index + 1}</td>
             <td>{item.name}</td>
             <td>{item.email}</td>    
-             <td>{<img src={item.img_url} alt="Avatar" width={60} />}</td>
+             <td>{<img src={(item.img_url).includes("http")?(item.img_url):("http://localhost:3003/"+item.img_url)} alt="Avatar" width={60} />}</td>
             <td>{item.sex}</td>
             <td>{item.height}</td>
             <td>{item.weight}</td>
