@@ -16,6 +16,7 @@ import FoodsList from './components/client/foods/foodsList'
 // הסי אס אס שלו
 import {ToastContainer} from "react-toastify"
 import 'react-toastify/dist/ReactToastify.css';
+import UploadTest from './assets/uploadTest'
 
 
 export default function AppRoutes() {
@@ -43,6 +44,7 @@ export default function AppRoutes() {
                     <Route path='/admin/addCategory' element={<AddCategoryForm />} />
                     <Route path='/admin/editCategory/:id' element={<EditCategory />} />
                     <Route path='/admin/foods' element={<FoodsListAdmin />} />
+                    <Route path='/admin/upload' element={<UploadTest />} />
                     {/* ******** */}
                     
                 </Route>

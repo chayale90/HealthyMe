@@ -25,7 +25,7 @@ export default function UsersListAdmin() {
       doApiSearch()
   }, [querys.get("search")])
 
-  
+
   const doApi = async () => {
     //?page= 
     let page = querys.get("page") || 1;
@@ -48,6 +48,7 @@ export default function UsersListAdmin() {
       let resp = await doApiGet(url);
       console.log(resp.data);
       setAr(resp.data);
+
     }
     catch (err) {
       console.log(err);
@@ -82,13 +83,14 @@ export default function UsersListAdmin() {
             <th>#</th>
             <th>Name</th>
             <th>Email</th>
+            <th>Img_url</th>
             <th>Sex</th>
             <th>height</th>
             <th>weight</th>
             <th>Role</th>
             <th>Rank</th>
             <th>Score</th>
-            <th>Img_url</th>
+
             <th>Nickname</th>
             <th>Active</th>
             <th>Delete</th>

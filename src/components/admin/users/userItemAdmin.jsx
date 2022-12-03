@@ -88,7 +88,8 @@ export default function UserItemAdmin(props) {
         <tr>
             <td>{props.index + 1}</td>
             <td>{item.name}</td>
-            <td>{item.email}</td>
+            <td>{item.email}</td>    
+             <td>{<img src={item.img_url} alt="Avatar" width={60} />}</td>
             <td>{item.sex}</td>
             <td>{item.height}</td>
             <td>{item.weight}</td>
@@ -97,7 +98,7 @@ export default function UserItemAdmin(props) {
             </td>
             <td>{item.rank}</td>
             <td>{item.score}</td>
-            <td>{<img src={item.img_url} alt="Avatar" width={60} />}</td>
+       
             <td>{item.nickname}</td>
             <td><Button color="secondary" variant="outlined" onClick={onActiveClick}>{String(item.active)}</Button></td>
             <td>
