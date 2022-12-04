@@ -61,15 +61,17 @@ export default function UsersListAdmin() {
     <div className='container'>
       <CheckAdminComp />
       <h1 className='display-5 text-center p-3'>List of users in systems</h1>
-      <div className='col-md-6 d-flex mx-auto'>
+      <div className='col-md-7 d-flex mx-auto'>
 
-        <input onKeyDown={(e) => {
+        <TextField 
+        onKeyDown={(e) => {
           if (e.key == "Enter")
-            nav('/admin/users?search=' + inputRef.current.value)
-        }} ref={inputRef} className='form-control' placeholder="Search user..." />
+            nav('/admin/users?search=' + e.target.value)
+        }} 
+        ref={inputRef} color="success" focused sx={{width:"400px"}} id="outlined-basic" label="Search user" variant="outlined" />
 
         <Button onClick={() => {
-          nav('/admin/users?search=' + inputRef.current.value)
+          nav('/admin/users?search=' + e.target.value)
         }} variant="contained" color="info">Search</Button>
 
         <Button variant="contained" color='inherit' onClick={doApi}>reset</Button>

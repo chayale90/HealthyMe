@@ -1,13 +1,42 @@
-import React from 'react'
+import { Button, TextField } from '@mui/material';
+import React, { useState } from 'react'
 import { useForm } from 'react-hook-form';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
+import IconButton from '@mui/material/IconButton';
+import OutlinedInput from '@mui/material/OutlinedInput';
+import InputLabel from '@mui/material/InputLabel';
+import InputAdornment from '@mui/material/InputAdornment';
+import FormControl from '@mui/material/FormControl';
+import Visibility from '@mui/icons-material/Visibility';
+import VisibilityOff from '@mui/icons-material/VisibilityOff';
+
+
 import { API_URL, doApiMethod, TOKEN_NAME } from '../../../services/apiService';
+import "./login.css"
 
 export default function Login() {
 
   const { register, handleSubmit, formState: { errors } } = useForm();
   const nav = useNavigate();
+
+  const [values, setValues] = useState({ password: '', showPassword: false });
+
+  const handleChange = (prop) => (event) => {
+    setValues({ ...values, [prop]: event.target.value });
+  };
+
+  const handleClickShowPassword = () => {
+    setValues({
+      ...values,
+      showPassword: !values.showPassword,
+    });
+  };
+
+  const handleMouseDownPassword = (event) => {
+    event.preventDefault();
+  };
+
 
 
   const onSubForm = (bodyData) => {
@@ -46,17 +75,62 @@ export default function Login() {
 
   return (
     <div className='container'>
-      <h1 className='text-center'>Log in</h1>
-      <form onSubmit={handleSubmit(onSubForm)} className='col-md-6 p-3 shadow mx-auto'>
-        <label>Email:</label>
-        <input {...emailRef} type="text" className='form-control' />
-        {errors.email && <div className="text-danger">Enter valid email</div>}
 
-        <label>Password:</label>
-        <input {...passwordRef} type="text" className='form-control' />
-        {errors.password && <div className="text-danger">Enter min 3 charts password</div>}
-        <button className='btn btn-dark mt-3'>Log in to system</button>
-      </form>
-    </div>
+      <div style={{ minHeight: "500px" }} className='align-items-center justify-content-center'>
+        <h2 style={{ marginBottom: "8px" }} className='m-0'>Log In</h2>
+        <p className='welcomeText'>Welcome back! Please enter your details.</p>
+
+
+
+        <form onSubmit={handleSubmit(onSubForm)}>
+          <div className='inputEmail '>
+            <InputLabel >Email</InputLabel>
+            <OutlinedInput sx={{ width: '380px' }} {...emailRef} label="Email" id="outlined-basic" variant="outlined" />
+            {errors.email && <div className="text-danger ">Enter valid email</div>}
+          </div>
+
+          <div className='inputPass'>
+
+            <InputLabel htmlFor="outlined-adornment-password">Password</InputLabel>
+            <OutlinedInput sx={{ width: '380px' }} {...passwordRef}
+              id="outlined-adornment-password"
+              type={values.showPassword ? 'text' : 'password'}
+              value={values.password}
+              onChange={handleChange('password')}
+              endAdornment={
+                <InputAdornment position="end">
+                  <IconButton
+                    aria-label="toggle password visibility"
+                    onClick={handleClickShowPassword}
+                    onMouseDown={handleMouseDownPassword}
+                    edge="end"
+                  >
+                    {values.showPassword ? <VisibilityOff /> : <Visibility />}
+                  </IconButton>
+                </InputAdornment>
+              }
+              label="Password"
+            />
+            {errors.password && <div className="text-danger">Enter min 3 charts password</div>}
+
+          </div>
+
+
+
+          <Link to="" style={{ textDecoration: "none" }}><p className='forgot1 purple'>Forgot password?</p></Link>
+
+          <button className='loginBtn'>Log In</button>
+
+          <div style={{ width: "379px", marginBottom: "6px" }} className='d-flex justify-content-center'>
+            <p style={{ fontSize: "18px", marginBottom: 0 }}>Don’t have an account?</p>
+            <Link to="" style={{ textDecoration: "none" }}><p style={{ fontSize: "18px", marginLeft: "6px", marginBottom: 0 }} className='purple'>sign up now!</p></Link>
+          </div>
+
+          <Link to="" style={{ textDecoration: "none" }}><p style={{ fontSize: "18px", width: "379px" }} className='purple text-center'>Forgot password?</p></Link>
+
+
+        </form >
+      </div>
+    </div >
   )
 }
