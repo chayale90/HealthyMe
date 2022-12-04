@@ -48,7 +48,7 @@ export default function Login() {
     let url = API_URL + "/users/login"
     try {
       let resp = await doApiMethod(url, "POST", bodyData);
-      // לשמור את הטוקן
+      // Save the token
       localStorage.setItem(TOKEN_NAME, resp.data.token);
       if (resp.data.role == "admin") {
         toast.info("Welcome admin!");
@@ -83,6 +83,7 @@ export default function Login() {
 
 
         <form onSubmit={handleSubmit(onSubForm)}>
+
           <div className='inputEmail '>
             <InputLabel >Email</InputLabel>
             <OutlinedInput sx={{ width: '380px' }} {...emailRef} label="Email" id="outlined-basic" variant="outlined" />
@@ -90,7 +91,6 @@ export default function Login() {
           </div>
 
           <div className='inputPass'>
-
             <InputLabel htmlFor="outlined-adornment-password">Password</InputLabel>
             <OutlinedInput sx={{ width: '380px' }} {...passwordRef}
               id="outlined-adornment-password"
@@ -114,8 +114,6 @@ export default function Login() {
             {errors.password && <div className="text-danger">Enter min 3 charts password</div>}
 
           </div>
-
-
 
           <Link to="" style={{ textDecoration: "none" }}><p className='forgot1 purple'>Forgot password?</p></Link>
 
