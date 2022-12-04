@@ -1,12 +1,11 @@
-
-
 h2 {
     font-size: 30px;
+    color:#2E2E2E;
 }
 
 .welcomeText {
     font-size: 18px;
-    color: #C12FFF;
+    color: rgba(106, 108, 111, 1);
 }
 
 .inputEmail {

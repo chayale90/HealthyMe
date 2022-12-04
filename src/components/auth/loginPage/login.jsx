@@ -61,7 +61,6 @@ export default function Login() {
     }
   }
 
-
   let emailRef = register("email", {
     required: true,
     pattern: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i
