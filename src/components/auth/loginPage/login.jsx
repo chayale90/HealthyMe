@@ -1,12 +1,9 @@
-import { Button, TextField } from '@mui/material';
+// import { Button, TextField } from '@mui/material';
 import React, { useState } from 'react'
 import { useForm } from 'react-hook-form';
 import { Link, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import IconButton from '@mui/material/IconButton';
-import OutlinedInput from '@mui/material/OutlinedInput';
-import InputLabel from '@mui/material/InputLabel';
-import InputAdornment from '@mui/material/InputAdornment';
+import {IconButton,OutlinedInput,InputLabel,InputAdornment} from '@mui/material';
 import FormControl from '@mui/material/FormControl';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
@@ -74,7 +71,7 @@ export default function Login() {
   let passwordRef = register("password", { required: true, minLength: 3 });
 
   return (
-    <div className='container'>
+    <div className='divInputs'>
 
       <div style={{ minHeight: "500px" }} className='align-items-center justify-content-center'>
         <h2 style={{ marginBottom: "8px" }} className='m-0'>Log In</h2>
