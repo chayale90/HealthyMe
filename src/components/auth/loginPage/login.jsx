@@ -70,7 +70,7 @@ export default function Login() {
   let passwordRef = register("password", { required: true, minLength: 3 });
 
   return (
-    <div className='divInputs'>
+    <div className='container col-md-7'>
 
       <div style={{ minHeight: "500px" }} className='align-items-center justify-content-center'>
         <h2 style={{ marginBottom: "8px" }} className='m-0'>Log In</h2>
