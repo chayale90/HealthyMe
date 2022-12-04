@@ -63,7 +63,7 @@ export default function FoodsListAdmin() {
       <h1 className='display-5'>List of foods</h1>
 
       <div className='col-md-6 d-flex text-center mx-auto'>
-        <input  onKeyDown={(e) => {
+        <input onKeyDown={(e) => {
           if(e.key=="Enter")
           nav('/admin/foods?search=' + inputRef.current.value)
         }} ref={inputRef} className='form-control' type={"text"} placeholder="Search food..." />

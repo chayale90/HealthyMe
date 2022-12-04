@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { API_URL, doApiGet } from '../../../services/apiService';
@@ -13,7 +13,7 @@ export default function UsersListAdmin() {
   const [ar, setAr] = useState([]);
   const [querys] = useSearchParams();
   const nav = useNavigate()
-  const inputRef = useRef();
+  const [search,setSearch] = useState("");
 
   useEffect(() => {
     doApi();
@@ -23,7 +23,7 @@ export default function UsersListAdmin() {
   useEffect(() => {
     if (querys.get('search'))
       doApiSearch()
-  }, [querys.get("search")])
+  }, [querys.get('search')])
 
 
   const doApi = async () => {
@@ -48,14 +48,12 @@ export default function UsersListAdmin() {
       let resp = await doApiGet(url);
       console.log(resp.data);
       setAr(resp.data);
-
     }
     catch (err) {
       console.log(err);
       alert("there problem ,try again later")
     }
   }
-
 
   return (
     <div className='container'>
@@ -64,17 +62,21 @@ export default function UsersListAdmin() {
       <div className='col-md-7 d-flex mx-auto'>
 
         <TextField 
+        onChange={(e)=>setSearch(e.target.value)}
         onKeyDown={(e) => {
           if (e.key == "Enter")
-            nav('/admin/users?search=' + e.target.value)
+            nav('/admin/users?search=' +search)
         }} 
-        ref={inputRef} color="success" focused sx={{width:"400px"}} id="outlined-basic" label="Search user" variant="outlined" />
+        color="success" sx={{width:"400px"}} id="outlined-basic" label="Search user" variant="outlined" />
 
         <Button onClick={() => {
-          nav('/admin/users?search=' + e.target.value)
+          nav('/admin/users?search=' + search)
         }} variant="contained" color="info">Search</Button>
 
-        <Button variant="contained" color='inherit' onClick={doApi}>reset</Button>
+        <Button variant="contained" color='inherit' onClick={()=>{
+          nav('/admin/users')
+          doApi()
+        }}>reset</Button>
       </div>
 
       <PageNav urlPageApi={API_URL + "/users/count"} perPage={5} navToDir="/admin/users?page=" cssClass="btn btn-info ms-2" />

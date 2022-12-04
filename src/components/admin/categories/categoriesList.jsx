@@ -18,6 +18,7 @@ export default function CategoriesList() {
     try {
       let resp = await doApiGet(url);
       setAr(resp.data)
+      console.log(resp.data);
     }
     catch (err) {
       console.log(err);
@@ -29,7 +30,7 @@ export default function CategoriesList() {
 
   return (
     <div className='container'>
-      <CheckAdminComp/>
+      <CheckAdminComp />
       <h1 className='display-5 text-center p-3'>List of Catgories in systems</h1>
       <Link to="/admin/addCategory" className='btn btn-success'>Add new Category</Link>
       <table className='table table-striped table-hover'>
@@ -45,8 +46,8 @@ export default function CategoriesList() {
           </tr>
         </thead>
         <tbody>
-          {ar.map((item, i) => {
-            return (
+          {ar?.map((item, i) => {
+              return (
               <CategoryItem key={item._id} doApi={doApi} index={i} item={item} />
             )
           })}

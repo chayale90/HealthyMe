@@ -36,18 +36,18 @@ export default function CategoryItem(props) {
     }
 
 
-
-
     return (
         <tr>
             <th>{props.index + 1}</th>
             <th>{item.name}</th>
             <th>{item.url_name}</th>
             <th>{item.info}</th>
-            <th> <img src={item.img_url} alt="categoryImg" width="100" /></th>
+            <th>
+                <img src={item.img_url} alt="categoryImg" width="100" />
+            </th>
+
             <td>
                 <Link className='btn btn-info me-2' to={"/admin/editCategory/" + item._id} >Edit</Link>
-
             </td>
             <td>
                 <button onClick={handleClickOpen} className='btn btn-danger me-2 my-0'>Del</button>
@@ -59,7 +59,7 @@ export default function CategoryItem(props) {
                 aria-describedby="alert-dialog-description"
             >
                 <DialogTitle id="alert-dialog-title">
-                    {"Are you sure you want delete category " + item.name+"?"}
+                    {"Are you sure you want delete category " + item.name + "?"}
                 </DialogTitle>
                 <DialogActions>
                     <Button onClick={handleClose}>Disagree</Button>

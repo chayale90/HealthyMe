@@ -28,11 +28,11 @@ export default function HeaderAdmin() {
   }
 
   return (
-    <header className='container-fluid admin-header bg-info'>
+    <header className='container-fluid admin-header bg-info py-2'>
       <div className="container ">
         <div className="row align-items-center">
           <div className="logo col-auto">
-            <h2>Admin panel</h2>
+            <h2 className='mb-0'>Admin panel</h2>
           </div>
           <nav className='d-flex col justify-content-between align-items-center'>
             {localStorage[TOKEN_NAME] ?

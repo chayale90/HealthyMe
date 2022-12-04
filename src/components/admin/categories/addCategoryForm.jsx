@@ -1,34 +1,37 @@
+
 import React, { useRef } from 'react'
 import { useForm } from 'react-hook-form';
 import { Link, useNavigate } from 'react-router-dom';
-import { API_URL, doApiMethod, TOKEN_NAME } from '../../../services/apiService';
-import CheckAdminComp from '../../auth/checkAdminComp';
 import { toast } from "react-toastify"
-import axios from 'axios';
+import { API_URL, doApiMethod } from '../../../services/apiService';
+import { doApiFileUpload } from '../../../services/fileUploadFun';
+import CheckAdminComp from '../../auth/checkAdminComp';
 
 
 export default function AddCategoryForm() {
     const { register, handleSubmit, formState: { errors } } = useForm();
+    
+
     const nav = useNavigate();
     const fileRef = useRef();
 
     const onSubForm = (bodyFormData) => {
         console.log(bodyFormData)
-        doApi(bodyFormData);
-        doApiFileUpload()
+        doApiPost(bodyFormData);
         console.log(fileRef.current.files);
     }
 
-    const doApi = async (bodyFormData) => {
+    const doApiPost = async (bodyFormData) => {
         let url = API_URL + "/categories";
         try {
             let resp = await doApiMethod(url, "POST", bodyFormData);
             if (resp.data._id) {
+                await doApiFileUpload(resp.data._id, fileRef)
                 toast.success("Category added succefuly")
                 nav("/admin/categories")
             }
             else {
-                toast.error("There problem , try again later")
+                toast.error("There problem, try again later")
             }
         }
         catch (err) {
@@ -37,35 +40,6 @@ export default function AddCategoryForm() {
         }
     }
 
-    const doApiFileUpload = async () => {
-        console.log(fileRef.current.files[0])
-        if (fileRef.current.files.length == 0) {
-            return alert("you need to choose file and then upload it")
-        }
-        let myFile = fileRef.current.files[0];
-        if (myFile.size > 2 * 1024 * 1024) {
-            return alert("file too big")
-        }
-        console.log(myFile);
-        // new FormData() -> know to use with files from client
-        const formData = new FormData();
-        formData.append("myFile22", myFile);
-        let url = API_URL + "/upload/uploadCategory";
-        try {
-            let resp = await axios.post(url, formData, {
-                headers: {
-                    'x-api-key': localStorage[TOKEN_NAME]
-                }
-            })
-            if (resp.data.status) {
-                alert("file uploaded")
-            }
-        }
-        catch (err) {
-            alert("there error, try again later")
-            console.log(err);
-        }
-    }
 
     return (
         <div className='container'>
@@ -85,7 +59,7 @@ export default function AddCategoryForm() {
                 {errors.info && <div className='text-danger'>Enter valid info  (min 2 chars) </div>}
 
                 <label>Img url:</label>
-                <input ref={fileRef} type="file" className='form-control' />
+                <input type="file" className='form-control' />
 
                 <div className='mt-3'>
                     <button className='btn btn-success me-3'>Add</button>

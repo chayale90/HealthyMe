@@ -1,15 +1,23 @@
-// import { Button, TextField } from '@mui/material';
 import React, { useState } from 'react'
 import { useForm } from 'react-hook-form';
 import { Link, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import {IconButton,OutlinedInput,InputLabel,InputAdornment} from '@mui/material';
+import { IconButton, OutlinedInput, InputLabel, InputAdornment, Button,TextField } from '@mui/material';
 import FormControl from '@mui/material/FormControl';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
-
+// import style from './logintest.module.css'
 import { API_URL, doApiMethod, TOKEN_NAME } from '../../../services/apiService';
 import "./login.css"
+
+const btnStyle = {
+   background: "#C12FFF",
+    color: "white" , 
+    borderRadius: "33px",
+    "&:hover":{
+      background: "rgba(182, 17, 253, 1)"
+    }
+}
 
 export default function Login() {
 
@@ -83,9 +91,10 @@ export default function Login() {
             {errors.email && <div className="text-danger ">Enter valid email</div>}
           </div>
 
-          <div className='inputPass'>
+          <div className="inputPass">
             <InputLabel htmlFor="outlined-adornment-password">Password</InputLabel>
-            <OutlinedInput sx={{ width: '380px' }} {...passwordRef}
+            <OutlinedInput sx={{
+              width: '380px'}} {...passwordRef}
               id="outlined-adornment-password"
               type={values.showPassword ? 'text' : 'password'}
               value={values.password}
@@ -110,7 +119,7 @@ export default function Login() {
 
           <Link to="" style={{ textDecoration: "none" }}><p className='forgot1 purple'>Forgot password?</p></Link>
 
-          <button className='loginBtn'>Log In</button>
+          <Button type='submit' sx={btnStyle} className='loginBtn'>Log In</Button>
 
           <div style={{ width: "379px", marginBottom: "6px" }} className='d-flex justify-content-center'>
             <p style={{ fontSize: "18px", marginBottom: 0 }}>Don’t have an account?</p>
