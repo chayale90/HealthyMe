@@ -8,7 +8,6 @@ import FormControl from '@mui/material/FormControl';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 
-
 import { API_URL, doApiMethod, TOKEN_NAME } from '../../../services/apiService';
 import "./login.css"
 
@@ -77,8 +76,6 @@ export default function Login() {
         <h2 style={{ marginBottom: "8px" }} className='m-0'>Log In</h2>
         <p className='welcomeText'>Welcome back! Please enter your details.</p>
 
-
-
         <form onSubmit={handleSubmit(onSubForm)}>
 
           <div className='inputEmail '>
@@ -122,7 +119,6 @@ export default function Login() {
           </div>
 
           <Link to="" style={{ textDecoration: "none" }}><p style={{ fontSize: "18px", width: "379px" }} className='purple text-center'>Forgot password?</p></Link>
-
 
         </form >
       </div>
