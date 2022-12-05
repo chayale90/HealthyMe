@@ -77,24 +77,24 @@ export default function Login() {
   let passwordRef = register("password", { required: true, minLength: 3 });
 
   return (
-    <div className='container col-md-7'>
+    <div className='container '>
 
-      <div style={{ minHeight: "500px" }} className='align-items-center justify-content-center'>
-        <h2 style={{ marginBottom: "8px" }} className='m-0'>Log In</h2>
+      <div style={{ width: "380px" }} className='align-items-center justify-content-center'>
+        <h2 className='m-0'>Log In</h2>
         <p className='welcomeText'>Welcome back! Please enter your details.</p>
 
-        <form onSubmit={handleSubmit(onSubForm)}>
+        <form onSubmit={handleSubmit(onSubForm)} >
 
-          <div className='inputEmail '>
+          <div className='inputEmail'>
             <InputLabel >Email</InputLabel>
-            <OutlinedInput sx={{ width: '380px' }} {...emailRef} label="Email" id="outlined-basic" variant="outlined" />
+            <OutlinedInput sx={{ width: '100%' }} {...emailRef} label="Email" id="outlined-basic" variant="outlined" />
             {errors.email && <div className="text-danger ">Enter valid email</div>}
           </div>
 
           <div className="inputPass">
             <InputLabel htmlFor="outlined-adornment-password">Password</InputLabel>
-            <OutlinedInput sx={{
-              width: '380px'}} {...passwordRef}
+            <OutlinedInput sx={{width: '100%'}} 
+              {...passwordRef}
               id="outlined-adornment-password"
               type={values.showPassword ? 'text' : 'password'}
               value={values.password}
@@ -120,8 +120,9 @@ export default function Login() {
           <Link to="" style={{ textDecoration: "none" }}><p className='forgot1 purple'>Forgot password?</p></Link>
 
           <Button type='submit' sx={btnStyle} className='loginBtn'>Log In</Button>
+          {/* <button className='loginBtn'>Log In</button> */}
 
-          <div style={{ width: "379px", marginBottom: "6px" }} className='d-flex justify-content-center'>
+          <div style={{  marginTop: "20px", marginBottom: "6px" }} className='d-flex justify-content-center'>
             <p style={{ fontSize: "18px", marginBottom: 0 }}>Don’t have an account?</p>
             <Link to="" style={{ textDecoration: "none" }}><p style={{ fontSize: "18px", marginLeft: "6px", marginBottom: 0 }} className='purple'>sign up now!</p></Link>
           </div>

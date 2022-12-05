@@ -1,6 +1,11 @@
 h2 {
     font-size: 30px;
     color: #2E2E2E;
+    margin-bottom: 8px;
+}
+
+p{
+    margin-bottom: 24px;
 }
 
 .welcomeText {
@@ -9,8 +14,8 @@ h2 {
 }
 
 .inputEmail {
-    margin-top: 30px;
-    margin-bottom: 38px;
+   
+    margin-bottom: 22px;
 }
 
 .inputPass {
@@ -29,7 +34,7 @@ h2 {
     border: none;
     transition: 400ms;
     box-shadow: 3px 3px 10px 0px rgba(0, 0, 0, 0.16);
-    margin-bottom: 20px;
+   
 }
 
 .loginBtn:hover {
