@@ -75,21 +75,27 @@ export default function Login() {
         <h2>Log In</h2>
         <h6 className='welcomeText s18'>Welcome back! Please enter your details.</h6>
 
-        <form onSubmit={handleSubmit(onSubForm)} >
+        <form>
           <div className='inputEmail'>
             <ThemeProvider theme={theme}>
               {/* <InputLabel >Email</InputLabel> */}
-              <TextField fullWidth {...emailRef} label="Email" id="outlined-basic" variant="outlined" type={"text"}/>
+              <TextField fullWidth {...emailRef} label="Email" id="outlined-basic" variant="outlined" type={"text"} />
             </ThemeProvider>
             {errors.email && <div className="text-danger ">Enter valid email</div>}
 
           </div>
 
           <div className="inputPass">
-            <FormControl sx={{ width: '100%' }} variant="outlined"> 
+            <FormControl sx={{ width: '100%' }} variant="outlined">
               <ThemeProvider theme={theme}>
                 <InputLabel htmlFor="outlined-adornment-password">Password</InputLabel>
-                <OutlinedInput  {...passwordRef} 
+                <OutlinedInput  {...passwordRef}
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter') {
+                      console.log('Enter key pressed');
+                      handleSubmit(onSubForm)
+                    }
+                  }}
                   id="outlined-adornment-password"
                   type={values.showPassword ? 'text' : 'password'}
                   value={values.password}
@@ -102,21 +108,20 @@ export default function Login() {
                         onMouseDown={handleMouseDownPassword}
                         edge="end"
                       >
-                        {values.showPassword ? <Visibility /> :<VisibilityOff /> }
+                        {values.showPassword ? <Visibility /> : <VisibilityOff />}
                       </IconButton>
                     </InputAdornment>
                   }
                   label="Password"
                 />
-            {errors.password && <div className="text-danger">Enter min 3 charts password</div>}
-             </ThemeProvider> 
-             </FormControl>
+                {errors.password && <div className="text-danger">Enter min 3 charts password</div>}
+              </ThemeProvider>
+            </FormControl>
           </div>
 
           <Link to="" style={{ textDecoration: "none" }}><p className='forgot1 purple'>Forgot password?</p></Link>
 
-          <Button type='submit' sx={btnStyle} className='loginBtn'>Log In</Button>
-          {/* <button className='loginBtn'>Log In</button> */}
+          <Button onClick={handleSubmit(onSubForm)} sx={btnStyle} className='loginBtn'>Log In</Button>
 
           <div style={{ marginTop: "17px", marginBottom: "9px" }} className='d-flex justify-content-center'>
             <p style={{ marginBottom: 0 }}>Don’t have an account?</p>
