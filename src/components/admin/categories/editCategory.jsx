@@ -17,6 +17,7 @@ export default function EditCategory() {
     doApiInit()
   }, [])
 
+
   const doApiInit = async () => {
     try {
       let url = API_URL + "/categories/byId/" + params["id"];
@@ -33,7 +34,7 @@ export default function EditCategory() {
   const onSubForm = async (bodyFormData) => {
     // data -> מכיל את כל המאפיינים שלה השמות של האינפוטים עם הערך שלהם
     console.log(bodyFormData);
-    doApiForm(bodyFormData);
+    await doApiForm(bodyFormData);
 
   }
 

@@ -10,6 +10,7 @@ export default function CategoriesList() {
   const [ar, setAr] = useState([])
 
   useEffect(() => {
+
     doApi()
   }, [])
 
@@ -25,7 +26,6 @@ export default function CategoriesList() {
       toast.error("there problem, try later")
     }
   }
-
 
 
   return (

@@ -90,10 +90,10 @@ export default function Login() {
               <ThemeProvider theme={theme}>
                 <InputLabel htmlFor="outlined-adornment-password">Password</InputLabel>
                 <OutlinedInput  {...passwordRef}
-                  onKeyDown={(e) => {
+                  onKeyPress={(e) => {
                     if (e.key === 'Enter') {
                       console.log('Enter key pressed');
-                      handleSubmit(onSubForm)
+                      {handleSubmit(onSubForm)}
                     }
                   }}
                   id="outlined-adornment-password"
