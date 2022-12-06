@@ -4,37 +4,30 @@ h2 {
     margin-bottom: 8px;
 }
 
-p{
-    margin-bottom: 24px;
-}
-
 .welcomeText {
-    font-size: 18px;
     color: rgba(106, 108, 111, 1);
+    margin-bottom: 36px;
 }
 
 .inputEmail {
-   
-    margin-bottom: 22px;
+    margin-bottom: 40px;
+    Height: 51px;
 }
 
 .inputPass {
-    margin-bottom: 25px;
+    margin-bottom: 36px;
 }
 
 .forgot1 {
-    font-size: 16px;
-    margin-bottom: 42px;
+    margin-bottom: 32px;
 }
 
 .loginBtn {
     height: 51px;
     width: 379px;
-   
     border: none;
     transition: 400ms;
     box-shadow: 3px 3px 10px 0px rgba(0, 0, 0, 0.16);
-   
 }
 
 .loginBtn:hover {

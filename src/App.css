@@ -1,8 +1,24 @@
-body{
+body {
     font-family: 'Rubik', sans-serif;
 }
 
-.purple{
+.purple {
     color: #C12FFF;
- }
- 
+}
+
+.dark {
+    color: #2E2E2E;
+}
+
+.gray{
+    color: rgba(106, 108, 111, 1);
+
+}
+.s30 {
+    font-size: 30px;
+}
+
+.s18 {
+    font-size: 18px;
+}
+

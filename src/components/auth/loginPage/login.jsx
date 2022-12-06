@@ -2,22 +2,17 @@ import React, { useState } from 'react'
 import { useForm } from 'react-hook-form';
 import { Link, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import { IconButton, OutlinedInput, InputLabel, InputAdornment, Button,TextField } from '@mui/material';
+import { IconButton, OutlinedInput, InputLabel, InputAdornment, Button, TextField } from '@mui/material';
 import FormControl from '@mui/material/FormControl';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
+import { ThemeProvider } from '@mui/material/styles';
+import { theme } from "../../../services/theme"
 // import style from './logintest.module.css'
 import { API_URL, doApiMethod, TOKEN_NAME } from '../../../services/apiService';
 import "./login.css"
+import { btnStyle } from '../../../services/btnStyle';
 
-const btnStyle = {
-   background: "#C12FFF",
-    color: "white" , 
-    borderRadius: "33px",
-    "&:hover":{
-      background: "rgba(182, 17, 253, 1)"
-    }
-}
 
 export default function Login() {
 
@@ -40,8 +35,6 @@ export default function Login() {
   const handleMouseDownPassword = (event) => {
     event.preventDefault();
   };
-
-
 
   const onSubForm = (bodyData) => {
     // data -> מכיל את כל המאפיינים שלה השמות של האינפוטים עם הערך שלהם
@@ -77,44 +70,47 @@ export default function Login() {
   let passwordRef = register("password", { required: true, minLength: 3 });
 
   return (
-    <div className='container '>
-
-      <div style={{ width: "380px" }} className='align-items-center justify-content-center'>
-        <h2 className='m-0'>Log In</h2>
-        <p className='welcomeText'>Welcome back! Please enter your details.</p>
+    <div className='container'>
+      <div style={{ width: "380px" }}  >
+        <h2>Log In</h2>
+        <h6 className='welcomeText s18'>Welcome back! Please enter your details.</h6>
 
         <form onSubmit={handleSubmit(onSubForm)} >
-
           <div className='inputEmail'>
-            <InputLabel >Email</InputLabel>
-            <OutlinedInput sx={{ width: '100%' }} {...emailRef} label="Email" id="outlined-basic" variant="outlined" />
+            <ThemeProvider theme={theme}>
+              {/* <InputLabel >Email</InputLabel> */}
+              <TextField fullWidth {...emailRef} label="Email" id="outlined-basic" variant="outlined" type={"text"}/>
+            </ThemeProvider>
             {errors.email && <div className="text-danger ">Enter valid email</div>}
+
           </div>
 
           <div className="inputPass">
-            <InputLabel htmlFor="outlined-adornment-password">Password</InputLabel>
-            <OutlinedInput sx={{width: '100%'}} 
-              {...passwordRef}
-              id="outlined-adornment-password"
-              type={values.showPassword ? 'text' : 'password'}
-              value={values.password}
-              onChange={handleChange('password')}
-              endAdornment={
-                <InputAdornment position="end">
-                  <IconButton
-                    aria-label="toggle password visibility"
-                    onClick={handleClickShowPassword}
-                    onMouseDown={handleMouseDownPassword}
-                    edge="end"
-                  >
-                    {values.showPassword ? <VisibilityOff /> : <Visibility />}
-                  </IconButton>
-                </InputAdornment>
-              }
-              label="Password"
-            />
+            <FormControl sx={{ width: '100%' }} variant="outlined"> 
+              <ThemeProvider theme={theme}>
+                <InputLabel htmlFor="outlined-adornment-password">Password</InputLabel>
+                <OutlinedInput  {...passwordRef} 
+                  id="outlined-adornment-password"
+                  type={values.showPassword ? 'text' : 'password'}
+                  value={values.password}
+                  onChange={handleChange('password')}
+                  endAdornment={
+                    <InputAdornment position="end">
+                      <IconButton
+                        aria-label="toggle password visibility"
+                        onClick={handleClickShowPassword}
+                        onMouseDown={handleMouseDownPassword}
+                        edge="end"
+                      >
+                        {values.showPassword ? <Visibility /> :<VisibilityOff /> }
+                      </IconButton>
+                    </InputAdornment>
+                  }
+                  label="Password"
+                />
             {errors.password && <div className="text-danger">Enter min 3 charts password</div>}
-
+             </ThemeProvider> 
+             </FormControl>
           </div>
 
           <Link to="" style={{ textDecoration: "none" }}><p className='forgot1 purple'>Forgot password?</p></Link>
@@ -122,12 +118,12 @@ export default function Login() {
           <Button type='submit' sx={btnStyle} className='loginBtn'>Log In</Button>
           {/* <button className='loginBtn'>Log In</button> */}
 
-          <div style={{  marginTop: "20px", marginBottom: "6px" }} className='d-flex justify-content-center'>
-            <p style={{ fontSize: "18px", marginBottom: 0 }}>Don’t have an account?</p>
-            <Link to="" style={{ textDecoration: "none" }}><p style={{ fontSize: "18px", marginLeft: "6px", marginBottom: 0 }} className='purple'>sign up now!</p></Link>
+          <div style={{ marginTop: "17px", marginBottom: "9px" }} className='d-flex justify-content-center'>
+            <p style={{ marginBottom: 0 }}>Don’t have an account?</p>
+            <Link to="/signUp" style={{ textDecoration: "none" }}><p style={{ marginLeft: "6px", marginBottom: 0 }} className='purple'>sign up now!</p></Link>
           </div>
 
-          <Link to="" style={{ textDecoration: "none" }}><p style={{ fontSize: "18px", width: "379px" }} className='purple text-center'>Forgot password?</p></Link>
+          <Link to="" style={{ textDecoration: "none" }}><p className='purple text-center m-0'>Forgot password?</p></Link>
 
         </form >
       </div>
