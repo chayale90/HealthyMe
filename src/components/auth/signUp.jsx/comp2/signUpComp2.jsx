@@ -9,7 +9,8 @@ export default function SignUpComp2() {
         <React.Fragment>
             <Logo />
             <div className='container'>
-                <div >
+                <div 
+                style={{width:"300px"}}>
                     <Progress2 />
                     <SignUpTitle />
                     <InputComp2 />

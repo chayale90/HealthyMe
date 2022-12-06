@@ -93,7 +93,7 @@ export default function Login() {
                   onKeyPress={(e) => {
                     if (e.key === 'Enter') {
                       console.log('Enter key pressed');
-                      {handleSubmit(onSubForm)}
+                      { handleSubmit(onSubForm) }
                     }
                   }}
                   id="outlined-adornment-password"

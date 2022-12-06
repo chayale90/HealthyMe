@@ -1,7 +1,7 @@
 h2 {
     font-size: 30px;
     color: #2E2E2E;
-    margin-bottom: 8px;
+    margin-bottom: 5px;
 }
 
 .welcomeText {
@@ -23,8 +23,8 @@ h2 {
 }
 
 .loginBtn {
-    height: 51px;
-    width: 379px;
+    height: 40px;
+    width: 100%;
     border: none;
     transition: 400ms;
     box-shadow: 3px 3px 10px 0px rgba(0, 0, 0, 0.16);
