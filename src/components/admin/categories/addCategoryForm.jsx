@@ -10,8 +10,6 @@ import CheckAdminComp from '../../auth/checkAdminComp';
 
 export default function AddCategoryForm() {
     const { register, handleSubmit, formState: { errors } } = useForm();
-    
-
     const nav = useNavigate();
     const fileRef = useRef();
 
@@ -26,7 +24,7 @@ export default function AddCategoryForm() {
         try {
             let resp = await doApiMethod(url, "POST", bodyFormData);
             if (resp.data._id) {
-                await doApiFileUpload(resp.data._id, fileRef)
+               await doApiFileUpload(resp.data._id, fileRef)
                 toast.success("Category added succefuly")
                 nav("/admin/categories")
             }
@@ -59,7 +57,7 @@ export default function AddCategoryForm() {
                 {errors.info && <div className='text-danger'>Enter valid info  (min 2 chars) </div>}
 
                 <label>Img url:</label>
-                <input type="file" className='form-control' />
+                <input ref={fileRef} type="file" className='form-control' />
 
                 <div className='mt-3'>
                     <button className='btn btn-success me-3'>Add</button>
