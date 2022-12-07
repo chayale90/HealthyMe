@@ -71,24 +71,24 @@ export default function Login() {
 
   return (
     <div className='container'>
-      <div style={{ width: "380px" }}  >
+      <div style={{ width: "300px" }}  >
         <h2>Log In</h2>
         <h6 className='welcomeText s18'>Welcome back! Please enter your details.</h6>
 
         <form>
           <div className='inputEmail'>
             <ThemeProvider theme={theme}>
-              {/* <InputLabel >Email</InputLabel> */}
-              <TextField fullWidth {...emailRef} label="Email" id="outlined-basic" variant="outlined" type={"text"} />
+              <InputLabel style={{ fontSize: "12px" }}>Email</InputLabel>
+              <OutlinedInput size="small" fullWidth {...emailRef} label="Email" id="outlined-basic" variant="outlined" type={"text"} />
             </ThemeProvider>
             {errors.email && <div className="text-danger ">Enter valid email</div>}
 
           </div>
 
           <div className="inputPass">
-            <FormControl  sx={{ width: '100%' }} variant="outlined">
+            <FormControl sx={{ width: '100%' }}>
               <ThemeProvider theme={theme}>
-                <InputLabel  htmlFor="outlined-adornment-password">Password</InputLabel>
+                <InputLabel style={{ fontSize: "12px" }}>Password</InputLabel>
                 <OutlinedInput  {...passwordRef}
                   onKeyPress={(e) => {
                     if (e.key === 'Enter') {
@@ -108,7 +108,7 @@ export default function Login() {
                         onMouseDown={handleMouseDownPassword}
                         edge="end"
                       >
-                        {values.showPassword ? <Visibility /> : <VisibilityOff />}
+                        {values.showPassword ? <VisibilityOff />:<Visibility /> }
                       </IconButton>
                     </InputAdornment>
                   }
