@@ -86,9 +86,9 @@ export default function Login() {
           </div>
 
           <div className="inputPass">
-            <FormControl sx={{ width: '100%' }} variant="outlined">
+            <FormControl  sx={{ width: '100%' }} variant="outlined">
               <ThemeProvider theme={theme}>
-                <InputLabel htmlFor="outlined-adornment-password">Password</InputLabel>
+                <InputLabel  htmlFor="outlined-adornment-password">Password</InputLabel>
                 <OutlinedInput  {...passwordRef}
                   onKeyPress={(e) => {
                     if (e.key === 'Enter') {
