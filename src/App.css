@@ -19,7 +19,17 @@ body {
 }
 
 .s18 {
+    font-size: 18px;
+}
+
+.s16{
+    font-size: 16px;
+}
+
+.s14{
     font-size: 14px;
 }
 
-
+.s12{
+    font-size: 12px;
+}

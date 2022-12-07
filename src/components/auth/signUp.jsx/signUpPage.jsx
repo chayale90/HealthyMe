@@ -7,10 +7,10 @@ import SignUpGeneral from './signUpGeneral'
 export default function SignUpPage() {
   return (
     <div >
-      <Logo />
       <div className='container'>
+          <Logo />
         {/* <SignUpGeneral/> */}
-        <SignUpComp1 />
+        <SignUpComp1/>
       </div>
     </div>
   )

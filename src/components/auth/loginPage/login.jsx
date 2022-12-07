@@ -71,64 +71,59 @@ export default function Login() {
 
   return (
     <div className='container'>
-      <div style={{ width: "300px" }}  >
+      <div style={{ width: "310px" }}  >
         <h2>Log In</h2>
-        <h6 className='welcomeText s18'>Welcome back! Please enter your details.</h6>
+        <h6 className='welcomeText s16'>Welcome back! Please enter your details.</h6>
 
         <form>
           <div className='inputEmail'>
             <ThemeProvider theme={theme}>
-              <InputLabel style={{ fontSize: "12px" }}>Email</InputLabel>
-              <OutlinedInput size="small" fullWidth {...emailRef} label="Email" id="outlined-basic" variant="outlined" type={"text"} />
+              <InputLabel style={{fontSize:"14px"}} >Email</InputLabel>
+              <OutlinedInput size="small" autoComplete="userName" fullWidth {...emailRef} label="Email" id="outlined-basic" variant="outlined" type={"text"} />
             </ThemeProvider>
-            {errors.email && <div className="text-danger ">Enter valid email</div>}
+            {errors.email && <div className="text-danger s12">Enter valid email</div>}
 
           </div>
 
-          <div className="inputPass">
-            <FormControl sx={{ width: '100%' }}>
-              <ThemeProvider theme={theme}>
-                <InputLabel style={{ fontSize: "12px" }}>Password</InputLabel>
-                <OutlinedInput  {...passwordRef}
-                  onKeyPress={(e) => {
-                    if (e.key === 'Enter') {
-                      console.log('Enter key pressed');
-                      { handleSubmit(onSubForm) }
-                    }
-                  }}
-                  id="outlined-adornment-password"
-                  type={values.showPassword ? 'text' : 'password'}
-                  value={values.password}
-                  onChange={handleChange('password')}
-                  endAdornment={
-                    <InputAdornment position="end">
-                      <IconButton
-                        aria-label="toggle password visibility"
-                        onClick={handleClickShowPassword}
-                        onMouseDown={handleMouseDownPassword}
-                        edge="end"
-                      >
-                        {values.showPassword ? <VisibilityOff />:<Visibility /> }
-                      </IconButton>
-                    </InputAdornment>
-                  }
-                  label="Password"
-                />
-                {errors.password && <div className="text-danger">Enter min 3 charts password</div>}
-              </ThemeProvider>
-            </FormControl>
+          <div className='inputPass'>
+            <ThemeProvider theme={theme}>
+
+              <InputLabel style={{fontSize:"14px"}} htmlFor="outlined-adornment-password">Password</InputLabel>
+              <OutlinedInput size="small" fullWidth {...passwordRef}
+                id="outlined-adornment-password"
+                autoComplete="password"
+                type={values.showPassword ? 'text' : 'password'}
+                value={values.password}
+                onChange={handleChange('password')}
+                endAdornment={
+                  <InputAdornment position="end">
+                    <IconButton
+                      aria-label="toggle password visibility"
+                      onClick={handleClickShowPassword}
+                      onMouseDown={handleMouseDownPassword}
+                      edge="end"
+                    >
+                      {values.showPassword ? <VisibilityOff /> : <Visibility />}
+                    </IconButton>
+                  </InputAdornment>
+                }
+                label="Password"
+              />
+            </ThemeProvider>
+            {errors.password && <div className="text-danger s12">Enter min 3 charts password</div>}
+
           </div>
 
-          <Link to="" style={{ textDecoration: "none" }}><p className='forgot1 purple'>Forgot password?</p></Link>
+          <Link to="" style={{ textDecoration: "none" }}><p className='forgot1 s14 purple'>Forgot password?</p></Link>
 
           <Button onClick={handleSubmit(onSubForm)} sx={btnStyle} className='loginBtn'>Log In</Button>
 
-          <div style={{ marginTop: "17px", marginBottom: "9px" }} className='d-flex justify-content-center'>
-            <p style={{ marginBottom: 0 }}>Don’t have an account?</p>
-            <Link to="/signUp" style={{ textDecoration: "none" }}><p style={{ marginLeft: "6px", marginBottom: 0 }} className='purple'>sign up now!</p></Link>
+          <div style={{ marginTop: "14px", marginBottom: "6px" }} className='d-flex justify-content-center'>
+            <p className='s14' style={{ marginBottom: 0 }}>Don’t have an account?</p>
+            <Link to="/signUp" style={{ textDecoration: "none" }}><p style={{ marginLeft: "6px", marginBottom: 0 }} className='purple s14'>sign up now!</p></Link>
           </div>
 
-          <Link to="" style={{ textDecoration: "none" }}><p className='purple text-center m-0'>Forgot password?</p></Link>
+          <Link to="" style={{ textDecoration: "none" }}><p className='purple text-center m-0 s14'>Forgot password?</p></Link>
 
         </form >
       </div>
