@@ -50,9 +50,9 @@ export default function InputComp2() {
 
                         <div className='d-flex mt-3'>
                             {/* <label>Date of birth</label> */}
-                            <OutlinedInput className='me-2' size='small' sx={{ marginBottom: "24px" }} type="date" variant="outlined" />
+                            <OutlinedInput className='me-3' size='small' sx={{ marginBottom: "24px" }} type="date" variant="outlined" />
 
-                            <TextField size='small' sx={{ marginBottom: "24px" }} id="outlined-basic" label="Location*" variant="outlined" />
+                            <TextField size='small' sx={{ marginBottom: "24px" }} id="outlined-basic" label="Location" variant="outlined" />
 
                         </div>
 
@@ -60,15 +60,13 @@ export default function InputComp2() {
                             <FormControl size='small' variant="outlined">
                                 <OutlinedInput
                                     id="outlined-adornment-weight"
-                                    // onChange={handleChange('weight')}
-                                    endAdornment={<InputAdornment position="end">kg</InputAdornment>}
+                                    endAdornment={<InputAdornment position="end">kg*</InputAdornment>}
                                     inputProps={{
                                         'aria-label': 'weight',
                                     }}
                                 />
                             </FormControl>
-
-                            <TextField className='ms-3' size='small' required sx={{ marginBottom: "24px" }} id="outlined-basic" label="Height" variant="outlined" />
+                            <TextField className='ms-3' size='small' sx={{ marginBottom: "24px" }} id="outlined-basic" label="Height*" variant="outlined" />
                         </div>
 
                         <div className='d-flex mt-2'>
