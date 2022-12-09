@@ -54,11 +54,9 @@ export default function InputComp2() {
                             <OutlinedInput className='me-3' size='small' sx={{ marginBottom: "24px" }} type="date" variant="outlined" />
 
                             <TextField size='small' sx={{ marginBottom: "24px" }} id="outlined-basic" label="Location" variant="outlined" />
-
                         </div>
 
-                      
-
+                    
                         <div className='d-flex '>
 
                             <FormControl size='small' variant="outlined">
@@ -92,7 +90,6 @@ export default function InputComp2() {
                             </Button>
 
                         </div>
-
                     </form>
                 </ThemeProvider>
             </div>
