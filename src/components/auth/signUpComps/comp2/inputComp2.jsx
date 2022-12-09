@@ -1,9 +1,10 @@
-import { Button, FormControl, FormControlLabel, Input, InputAdornment, OutlinedInput, Radio, RadioGroup, TextField, ThemeProvider } from '@mui/material'
+import { Button, FormControl, FormControlLabel, Icon, Input, InputAdornment, OutlinedInput, Radio, RadioGroup, TextField, ThemeProvider } from '@mui/material'
 import React, { useState } from 'react'
 import { useForm } from 'react-hook-form';
 import { theme } from '../../../../services/theme'
 import { useNavigate } from 'react-router-dom';
 import { btnStyle, btnStyle2 } from '../../../../services/btnStyle';
+import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft';
 
 
 export default function InputComp2() {
@@ -56,7 +57,10 @@ export default function InputComp2() {
 
                         </div>
 
+                      
+
                         <div className='d-flex '>
+
                             <FormControl size='small' variant="outlined">
                                 <OutlinedInput
                                     id="outlined-adornment-weight"
@@ -71,7 +75,8 @@ export default function InputComp2() {
 
                         <div className='d-flex mt-2'>
 
-                            <Button
+                            <Button  
+                             startIcon={<KeyboardArrowLeftIcon />}
                                 onClick={() => nav('/signUp')}
                                 sx={btnStyle2}
                                 className='loginBtn me-2'>
@@ -79,6 +84,7 @@ export default function InputComp2() {
                             </Button>
 
                             <Button type='submit'
+                   
                                 // onClick={() => nav('/signUp/comp2')}
                                 sx={btnStyle}
                                 className='loginBtn'>
@@ -86,8 +92,6 @@ export default function InputComp2() {
                             </Button>
 
                         </div>
-
-
 
                     </form>
                 </ThemeProvider>

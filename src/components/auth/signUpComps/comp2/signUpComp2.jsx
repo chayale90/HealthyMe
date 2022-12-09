@@ -14,6 +14,8 @@ export default function SignUpComp2() {
                     <SignUpTitle />
                     <InputComp2 />
                 </div>
+
+
             </div>
         </React.Fragment>
     )

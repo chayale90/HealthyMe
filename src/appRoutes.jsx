@@ -16,8 +16,8 @@ import {ToastContainer} from "react-toastify"
 import 'react-toastify/dist/ReactToastify.css';
 import UploadTest from './assets/uploadTest'
 import LoginPage from './components/auth/loginPage/loginPage'
-import SignUpPage from './components/auth/signUp.jsx/signUpPage'
-import SignUpComp2 from './components/auth/signUp.jsx/comp2/signUpComp2'
+import SignUpComp2 from './components/auth/signUpComps/comp2/signUpComp2'
+import SignUpPage from './components/auth/signUpComps/signUpPage'
 
 
 export default function AppRoutes() {
