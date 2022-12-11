@@ -1,31 +1,31 @@
 export const btnStyle = {
-    background: "#C12FFF",
+    background: "#A435F0",
     color: "white",
     borderRadius: "33px",
     "&:hover": {
-        background: "rgba(182, 17, 253, 1)",
+        background: "#912CD6",
         color: "white"
     }
 }
 
 export const btnStyle2 = {
-    // background: "#C12FFF",
-    color: "#C12FFF",
+    // background: "#A435F0",
+    color: "#A435F0",
     borderRadius: "33px",
-    border:"solid 2px #C12FFF",
+    border:"solid 2px #A435F0",
     "&:hover": {
-        background: "rgba(182, 17, 253, 1)",
+        background: "#912CD6",
         color: "white"
     }
 }
 
 export const btnStyle3 = {
-    background: "#C12FFF",
+    background: "#A435F0",
     color: "white",
     borderRadius: "33px",
     "&:hover": {
         background: "white",
-        color: "rgba(182, 17, 253, 1)",
-        border:"solid 2px #C12FFF"
+        color: "#912CD6",
+        border:"solid 2px #A435F0"
     }
 }
