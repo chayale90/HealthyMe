@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { useNavigate, useSearchParams } from 'react-router-dom'
 import { API_URL, doApiGet } from '../../../services/apiService'
-import CheckAdminComp from '../../auth/checkAdminComp'
+import CheckAdminComp from '../../auth/checkComps/checkAdminComp';
 import PageNav from '../../general_comps/pageNav'
 import FoodItemAdmin from './foodItemAdmin'
 import { toast } from "react-toastify"

@@ -27,13 +27,13 @@ export default function inputsComp1() {
                     <div className='mb-3'>
                         <TextField
                             {...register('name', { required: true, minLength: 2, maxLength: 99 })}
-                            autoComplete="userName"
+                            autoComplete="FullName"
                             size='small' fullWidth
                             type="text"
-                            label="Name*"
+                            label="Full Name*"
                             variant="outlined"
                         />
-                        {errors.name && <small className='text-danger '>Enter valid name </small>}
+                        {errors.name && <div className='text-danger s12'>Enter valid name </div>}
                     </div>
 
                     <div className='mb-3'>
@@ -45,7 +45,7 @@ export default function inputsComp1() {
                             label="Email*"
                             variant="outlined"
                         />
-                        {errors.email && <small className='text-danger mb'>Enter valid email</small>}
+                        {errors.email && <div className='text-danger s12'>Enter valid email</div>}
                     </div>
 
                     <div className='mb-3'>
@@ -57,7 +57,7 @@ export default function inputsComp1() {
                             // sx={{ marginBottom: "20px" }}
                             type="password" label="Password*"
                             variant="outlined" />
-                        {errors.password && <small className='text-danger'>Enter valid password </small>}
+                        {errors.password && <div className='text-danger s12'>Enter valid password </div>}
                     </div>
 
                     <div className='mb-3'>
@@ -68,7 +68,7 @@ export default function inputsComp1() {
                             type="password"
                             label="Confirm Password*"
                             variant="outlined" />
-                        {errors.password2 && <small className='text-danger '>Password not match</small>}
+                        {errors.password2 && <div className='text-danger s12'>Password not match</div>}
                     </div>
 
                     <Button type='submit'

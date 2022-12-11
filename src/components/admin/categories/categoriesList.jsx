@@ -2,15 +2,13 @@ import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import { API_URL, doApiGet } from '../../../services/apiService'
-import CheckAdminComp from '../../auth/checkAdminComp'
+import CheckAdminComp from '../../auth/checkComps/checkAdminComp';
 import CategoryItem from './categoryItem'
 
 export default function CategoriesList() {
-
   const [ar, setAr] = useState([])
 
   useEffect(() => {
-
     doApi()
   }, [])
 

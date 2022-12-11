@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { API_URL, doApiGet } from '../../../services/apiService';
-import CheckAdminComp from '../../auth/checkAdminComp';
+import CheckAdminComp from '../../auth/checkComps/checkAdminComp';
 import PageNav from '../../general_comps/pageNav';
 import UserItemAdmin from './userItemAdmin';
 import Button from '@mui/material/Button';

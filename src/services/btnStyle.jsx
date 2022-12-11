@@ -12,9 +12,9 @@ export const btnStyle2 = {
     // background: "#A435F0",
     color: "#A435F0",
     borderRadius: "33px",
-    border:"solid 2px #A435F0",
+    border: "solid 2px #A435F0",
     "&:hover": {
-        background: "#912CD6",
+        background: "#A435F0",
         color: "white"
     }
 }
@@ -26,6 +26,16 @@ export const btnStyle3 = {
     "&:hover": {
         background: "white",
         color: "#912CD6",
-        border:"solid 2px #A435F0"
+        border: "solid 2px #A435F0"
     }
+}
+
+export const labelBtnUpload = {
+    margin: "4px",
+    background: "#A435F0",
+    color: "white",
+    padding: "0.5rem",
+    borderRadius: "8px",
+    cursor: "pointer",
+
 }

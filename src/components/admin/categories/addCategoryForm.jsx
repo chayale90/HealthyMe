@@ -4,7 +4,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { toast } from "react-toastify"
 import { API_URL, doApiMethod } from '../../../services/apiService';
 import { doApiFileUpload } from '../../../services/fileUploadFun';
-import CheckAdminComp from '../../auth/checkAdminComp';
+import CheckAdminComp from '../../auth/checkComps/checkAdminComp';
 
 
 export default function AddCategoryForm() {

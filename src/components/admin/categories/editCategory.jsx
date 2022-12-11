@@ -4,7 +4,7 @@ import { Link, useNavigate, useParams } from 'react-router-dom'
 import { toast } from 'react-toastify';
 import { API_URL, doApiGet, doApiMethod } from '../../../services/apiService';
 import { doApiFileUpload } from '../../../services/fileUploadFun';
-import CheckAdminComp from '../../auth/checkAdminComp';
+import CheckAdminComp from '../../auth/checkComps/checkAdminComp';
 
 export default function EditCategory() {
   const [info, setInfo] = useState({});
