@@ -27,7 +27,7 @@ export default function AppRoutes() {
 
                 <Route index element={<LoginPage />} />
                 <Route path='/signUp' element={<SignUpPage />} />
-                <Route path='/signUp/comp2' element={<SignUpComp2 />} />
+                {/* <Route path='/signUp/comp2' element={<SignUpComp2 />} /> */}
 
                 {/* Client Layout */}
                 <Route path='/' element={<Layout />} >

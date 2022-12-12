@@ -39,3 +39,19 @@ export const doApiMethod = async(_url,_method,_body = {}) => {
     throw err;
   }
 }
+
+// For Post user-SignUp
+export const doApiMethodSignUp = async(_url,_method,_body = {}) => {
+  try{
+    console.log(_body)
+    let resp = await axios({
+      url:_url,
+      method:_method,
+      data:_body
+    })
+    return resp;
+  }
+  catch(err){
+    throw err;
+  }
+}

@@ -47,11 +47,7 @@ export const doApiFileUploadAvatars = async (_id,fileRef) => {
     formData.append("myFile22", myFile);
     let url = API_URL + "/upload/uploadAvatar/" + _id;
     try {
-        let resp = await axios.post(url, formData, {
-            headers: {
-                'x-api-key': localStorage[TOKEN_NAME]
-            }
-        })
+        let resp = await axios.post(url, formData)
         if (resp.data) {
             toast.success(resp.data.msg)
         }

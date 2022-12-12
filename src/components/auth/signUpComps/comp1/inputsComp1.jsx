@@ -8,7 +8,14 @@ import { useNavigate } from 'react-router-dom';
 
 
 
-export default function inputsComp1() {
+export default function InputsComp1({
+    showHideComp1,
+    setshowHideComp1,
+    showHideComp2,
+    setshowHideComp2,
+    form,
+    setForm
+}) {
     const { register, getValues, handleSubmit, formState: { errors } } = useForm();
     const nav = useNavigate()
     const regEmail = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i
@@ -16,8 +23,14 @@ export default function inputsComp1() {
     const onSubmit = (_dataBody) => {
         console.log(_dataBody)
         delete _dataBody.password2;
+
+        setForm({..._dataBody})
+
+        // setForm({...form,..._dataBody})
+
         //here need to send to grandFather by redux
-        nav('/signUp/comp2')
+        setshowHideComp1(!showHideComp1)
+        setshowHideComp2(!showHideComp2)
     }
 
     return (
@@ -72,7 +85,6 @@ export default function inputsComp1() {
                     </div>
 
                     <Button type='submit'
-                        // onClick={() => nav('/signUp/comp2')}
                         sx={btnStyle}
                         className='loginBtn mt-2'>
                         Next
