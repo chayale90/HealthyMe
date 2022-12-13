@@ -84,7 +84,7 @@ export default function InputComp2({ showHideComp1,
                             <div>
                                 <OutlinedInput 
                                     {...register('birth_date', { required: true, minLength: 2 })}
-                                    className='col-md-11' size='small' type="date" variant="outlined" />
+                                    className='col-11' size='small' type="date" variant="outlined" />
                                 {errors.birth_date && <div className='text-danger s12'>Enter valid Birth Date</div>}
                             </div>
                             <div >
@@ -99,7 +99,7 @@ export default function InputComp2({ showHideComp1,
                         <div className='d-flex mb-3'>
                             <div>
                                 <FormControl size='small' variant="outlined">
-                                    <OutlinedInput  className='col-md-11'
+                                    <OutlinedInput  className='col-11'
                                         {...register('weight', { required: true, minLength: 2, maxLength: 4 })}
                                         id="outlined-adornment-weight"
                                         endAdornment={<InputAdornment position="end">kg</InputAdornment>}
