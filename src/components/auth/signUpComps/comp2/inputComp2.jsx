@@ -50,7 +50,7 @@ export default function InputComp2({ showHideComp1,
         }
         catch (err) {
             console.log(err);
-            toast.error("There problem , try sign up later")
+            toast.error(err.response.data.msg)
         }
     }
 
