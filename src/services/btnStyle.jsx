@@ -31,11 +31,12 @@ export const btnStyle3 = {
 }
 
 export const labelBtnUpload = {
-    margin: "4px",
+   
     background: "#A435F0",
     color: "white",
-    padding: "0.5rem",
+    padding: "4px 11px",
     borderRadius: "8px",
     cursor: "pointer",
+ 
 
 }

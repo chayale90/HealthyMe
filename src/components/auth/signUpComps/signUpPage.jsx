@@ -16,12 +16,12 @@ export default function SignUpPage() {
   console.log(form)
 
   return (
-    <div >
+    <div>
       <div className='d-flex justify-content-between '>
-        <div className='col-lg-5 col-xl-4 col-md-6'>
+        <div className='col-lg-5 col-xl-4 col-md-6 ms-3 mt-1'>
           <Logo />
 
-          <div className='ms-5 pe-xl-3 mt-4 ps-5 align-items-center' >
+          <div className=' me-xl-3 ps-5 ms-5 align-items-center' >
             {showHideComp1 &&
               <SignUpComp1
                 showHideComp1={showHideComp1}

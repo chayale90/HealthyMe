@@ -7,14 +7,11 @@ import Login from './login'
 export default function LoginPage() {
     return (
         <React.Fragment>
-            <div className='d-flex justify-content-between'>
+            <div className='d-flex justify-content-around'>
                 <div className='col-lg-5 col-xl-4 col-md-6'>
                     <Logo />
                     <div className='ms-5 pe-xl-3 mt-4 ps-5 align-items-center' >
-
-
                         <Login />
-
                     </div>
                 </div>
 

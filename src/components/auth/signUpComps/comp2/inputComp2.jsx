@@ -60,9 +60,9 @@ export default function InputComp2({ showHideComp1,
             <div >
                 <ThemeProvider theme={theme}>
                     <form onSubmit={handleSubmit(onSubmit)}>
-                        {/* <p className="mb-2 s14"> What is your gender?*</p>
-                        <RadioGroup
-                            {...register('sex')}
+                        <p className="mb-2 s14"> What is your gender?*</p>
+                        <RadioGroup 
+                            // {...register('sex')}
                             onChange={(e) => {
                                (e.target.value)
                             }}
@@ -73,22 +73,22 @@ export default function InputComp2({ showHideComp1,
                             size="small"
                         >
                             <div className='d-flex' >
-                                <FormControlLabel value={sex.female} control={<Radio />} label="Female" />
-                                <FormControlLabel value={sex.male} control={<Radio />} label="Male" />
+                                <FormControlLabel  value={sex.female} control={<Radio />} label="Female" />
+                                <FormControlLabel value={sex.male} control={<Radio/>} label="Male" />
                             </div>
                         </RadioGroup>
-                        {errors.sex && <div className='text-danger s12'>Enter valid sex </div>} */}
+                        {/* {errors.sex && <div className='text-danger s12'>Enter valid sex </div>} */}
 
 
                         <div className='d-flex mt-3 mb-3'>
-                            <div >
-                                <OutlinedInput
+                            <div>
+                                <OutlinedInput 
                                     {...register('birth_date', { required: true, minLength: 2 })}
-                                    className='me-3' size='small' type="date" variant="outlined" />
+                                    className='col-md-11' size='small' type="date" variant="outlined" />
                                 {errors.birth_date && <div className='text-danger s12'>Enter valid Birth Date</div>}
                             </div>
                             <div >
-                                <TextField
+                                <TextField  className='col-auto'
                                     {...register('location', { required: true, minLength: 2, maxLength: 99 })}
                                     size='small' id="outlined-basic" label="Location" variant="outlined" />
                                 {errors.location && <div className='text-danger s12'>Enter valid location</div>}
@@ -96,10 +96,10 @@ export default function InputComp2({ showHideComp1,
                         </div>
 
 
-                        <div className='d-flex mb-4'>
+                        <div className='d-flex mb-3'>
                             <div>
                                 <FormControl size='small' variant="outlined">
-                                    <OutlinedInput
+                                    <OutlinedInput  className='col-md-11'
                                         {...register('weight', { required: true, minLength: 2, maxLength: 4 })}
                                         id="outlined-adornment-weight"
                                         endAdornment={<InputAdornment position="end">kg</InputAdornment>}
@@ -110,8 +110,8 @@ export default function InputComp2({ showHideComp1,
                                     {errors.weight && <div className='text-danger s12'>Enter valid weight</div>}
                                 </FormControl>
                             </div>
-                            <div className='ms-3'>
-                                <TextField
+                            <div >
+                                <TextField className='col-auto'
                                     {...register('height', { required: true, minLength: 2 })}
                                     size='small' id="outlined-basic" label="Height*" variant="outlined" />
                                 {errors.height && <div className='text-danger s12'>Enter valid weight</div>}
@@ -119,11 +119,9 @@ export default function InputComp2({ showHideComp1,
 
                         </div>
 
-                        <div className='mb-4 ms-2'>
-
-                            <input ref={fileRef} type="file" id="actual-btn" hidden onInput={() => { setfileChosen(fileRef.current.files[0].name) }} />
-                            <label className='me-3' style={labelBtnUpload} htmlFor="actual-btn" >   <CloudUploadIcon className='me-2' />Profile Image</label>
-                            {/* name of file chosen  */}
+                        <div className='mb-4'>
+                            <input  ref={fileRef} type="file" id="actual-btn" hidden onInput={() => { setfileChosen(fileRef.current.files[0].name) }} />
+                            <label className='me-3 my-1' style={labelBtnUpload} htmlFor="actual-btn" >   <CloudUploadIcon className='me-2' />Profile Image</label>
                             <span id="file-chosen">{fileChosen}</span>
                         </div>
 
