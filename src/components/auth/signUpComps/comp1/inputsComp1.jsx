@@ -1,10 +1,9 @@
 import { Button, OutlinedInput, TextField } from '@mui/material'
-import React from 'react'
+import React, { useEffect } from 'react'
 import { ThemeProvider } from '@mui/material/styles';
 import { theme } from '../../../../services/theme';
 import { useForm } from 'react-hook-form';
 import { btnStyle } from '../../../../services/btnStyle'
-import { useNavigate } from 'react-router-dom';
 
 export default function InputsComp1({
     showHideComp1,
@@ -15,14 +14,13 @@ export default function InputsComp1({
     setForm
 }) {
     const { register, getValues, handleSubmit, formState: { errors } } = useForm();
-    const nav = useNavigate()
     const regEmail = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i
 
     const onSubmit = (_dataBody) => {
         console.log(_dataBody)
         delete _dataBody.password2;
 
-        setForm({..._dataBody})
+        setForm({ ..._dataBody })
 
         // setForm({...form,..._dataBody})
 
