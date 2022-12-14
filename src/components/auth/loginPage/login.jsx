@@ -79,7 +79,13 @@ export default function Login() {
         <div className='inputEmail'>
           <ThemeProvider theme={theme}>
             <InputLabel style={{ fontSize: "14px" }} >Email</InputLabel>
-            <OutlinedInput size="small" autoComplete="userName" fullWidth {...emailRef} label="Email" id="outlined-basic" variant="outlined" type={"text"} />
+            <OutlinedInput size="small"
+              autoComplete="userName"
+              fullWidth {...emailRef}
+              label="Email"
+              id="outlined-basic"
+              variant="outlined"
+              type={"text"} />
           </ThemeProvider>
           {errors.email && <div className="text-danger s12">Enter valid email</div>}
 

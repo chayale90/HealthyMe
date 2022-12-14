@@ -33,7 +33,6 @@ import { API_URL, TOKEN_NAME } from "./apiService";
 }
 
 export const doApiFileUploadAvatars = async (_id,fileRef) => {
-    console.log(fileRef.current.files[0])
     if (fileRef.current.files.length == 0) {
         return toast.info("You need to choose image and then upload it")
     }
@@ -45,7 +44,7 @@ export const doApiFileUploadAvatars = async (_id,fileRef) => {
     // new FormData() -> know to use with files from client
     const formData = new FormData();
     formData.append("myFile22", myFile);
-    let url = API_URL + "/upload/uploadAvatar/" + _id;
+    let url = API_URL + "/upload/uploadAvatarSignUp/" + _id;
     try {
         let resp = await axios.post(url, formData)
         if (resp.data) {
