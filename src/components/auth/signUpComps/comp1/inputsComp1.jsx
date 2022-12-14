@@ -6,8 +6,6 @@ import { useForm } from 'react-hook-form';
 import { btnStyle } from '../../../../services/btnStyle'
 import { useNavigate } from 'react-router-dom';
 
-
-
 export default function InputsComp1({
     showHideComp1,
     setshowHideComp1,

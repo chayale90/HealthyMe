@@ -3,7 +3,6 @@ import Logo from '../../general_comps/logo'
 import SignUpComp1 from './comp1/signUpComp1'
 import SignUpComp2 from './comp2/signUpComp2'
 import ImagesPosts from './imagesPosts'
-// import SignUpGeneral from './signUpGeneral'
 
 
 export default function SignUpPage() {

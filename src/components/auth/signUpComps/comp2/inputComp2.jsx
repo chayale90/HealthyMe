@@ -1,12 +1,12 @@
-import { Button, FormControl, FormControlLabel, InputAdornment, OutlinedInput, Radio, RadioGroup, TextField, ThemeProvider } from '@mui/material'
 import React, { useRef, useState } from 'react'
+import { Button, FormControl, FormControlLabel, FormLabel, InputAdornment, OutlinedInput, Radio, RadioGroup, TextField, ThemeProvider } from '@mui/material'
 import { useForm } from 'react-hook-form';
 import { theme } from '../../../../services/theme'
 import { useNavigate } from 'react-router-dom';
 import { btnStyle, btnStyle2, labelBtnUpload } from '../../../../services/btnStyle';
 import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft';
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
-import { API_URL, doApiMethod } from '../../../../services/apiService';
+import { API_URL, doApiMethod, doApiMethodSignUp } from '../../../../services/apiService';
 import { doApiFileUploadAvatars } from '../../../../services/fileUploadFun';
 import { toast } from 'react-toastify';
 
@@ -20,27 +20,31 @@ export default function InputComp2({ showHideComp1,
     const nav = useNavigate();
     const fileRef = useRef();
     const [fileChosen, setfileChosen] = useState("No Img chosen");
+    const [value, setValue] = useState("female");
+
+    console.log({ value });
+
+    const handleChange = (e) => {
+        setValue(e.target.value)
+    };
 
     const onSubmit =  (_bodyFormData) => {
         console.log(_bodyFormData)
-        setForm({ ...form, ..._bodyFormData })
+         setForm({ ...form, ..._bodyFormData })
         if (_bodyFormData) {
-             doApiSignUp()
+            doApiSignUp()
         }
         //here need to send to grandFather by redux
-
         // nav('/')
-    }
-
-
+    };
 
     const doApiSignUp = async () => {
         let url = API_URL + "/users";
         try {
-            let resp = await doApiMethod(url, "POST", form);
+            let resp = await doApiMethodSignUp(url, "POST", form);
             if (resp.data._id) {
                 console.log(resp.data);
-                // await doApiFileUploadAvatars(resp.data._id, fileRef)
+                await doApiFileUploadAvatars(resp.data._id, fileRef)
                 toast.success("You signed up succefuly")
                 nav("/")
             }
@@ -52,7 +56,7 @@ export default function InputComp2({ showHideComp1,
             console.log(err);
             toast.error(err.response.data.msg)
         }
-    }
+    };
 
 
     return (
@@ -60,25 +64,27 @@ export default function InputComp2({ showHideComp1,
             <div>
                 <form onSubmit={handleSubmit(onSubmit)}>
                     <ThemeProvider theme={theme}>
-                        <p className="mb-2 s14"> What is your gender?*</p>
-                        <RadioGroup
-                            {...register('sex')}
-                            onChange={(e) => {
-                                (e.target.value)
-                                console.log(e.target.value);
-                            }}
 
-                            aria-labelledby="demo-radio-buttons-group-label"
-                            defaultValue="female"
-                            name="radio-buttons-group"
-                            size="small"
-                        >
-                            <div className='d-flex' >
-                                <FormControlLabel value={"female"} control={<Radio />} label="Female" />
-                                <FormControlLabel value={"male"} control={<Radio />} label="Male" />
-                            </div>
-                        </RadioGroup>
-                        {errors.sex && <div className='text-danger s12'>Enter valid sex </div>}
+                        <div>
+                            <FormControl  >
+                                <p className="mb-2 s14"> What is your gender?*</p>
+                                <FormLabel id="demo-row-radio-buttons-group-label">What is your gender?*</FormLabel>
+                                <RadioGroup
+                                    row
+                                    aria-labelledby="demo-row-radio-buttons-group-label"
+                                    name="row-radio-buttons-group"
+                                    value={value}
+                                    onChange={handleChange}
+                                >
+                                    <FormControlLabel control={<Radio size="small" />} {...register('sex', { require: true })} value="female" label="Female" />
+                                    <FormControlLabel control={<Radio size="small" />} {...register('sex', { require: true })} value="male" label="Male" />
+
+                                </RadioGroup>
+                            </FormControl>
+                            {/* {errors.sex && <div className='text-danger s12'>Enter valid sex </div>} */}
+                        </div>
+
+
 
 
                         <div className='d-flex mt-3 mb-3'>
@@ -99,9 +105,9 @@ export default function InputComp2({ showHideComp1,
                                     {...register('location', { required: false, minLength: 2, maxLength: 99 })}
                                     className='col-auto'
                                     size='small' id="outlined-basic"
-                                     label="Location"
-                                      variant="outlined" 
-                                      />
+                                    label="Location"
+                                    variant="outlined"
+                                />
                                 {errors.location && <div className='text-danger s12'>Enter valid location</div>}
 
                             </div>
@@ -112,27 +118,26 @@ export default function InputComp2({ showHideComp1,
                             <div>
                                 <FormControl size='small' variant="outlined">
                                     <OutlinedInput
-                                        {...register('weight', { required: true, minLength: 2, maxLength: 4 })}
+                                        {...register('weight', { required: true, pattern: '[0-9]*', min: 25, minLength: 2, maxLength: 3 })}
                                         className='col-11' type={"number"}
                                         id="outlined-adornment-weight"
                                         endAdornment={<InputAdornment position="end">kg*</InputAdornment>}
                                         inputProps={{
                                             'aria-label': 'weight',
                                         }}
-                                 
+
                                     />
                                     {errors.weight && <div className='text-danger s12'>Enter valid weight</div>}
                                 </FormControl>
                             </div>
                             <div>
                                 <TextField className='col-auto' type={"number"}
-                                    inputProps={{ inputMode: 'numeric', pattern: '[0-9]*' }}
-                                    {...register('height', { required: true, minLength: 2, maxLength: 4 })}
-                                    size='small' 
-                                    id="outlined-basic" 
-                                    label="Height*" 
-                                    variant="outlined"  
-                                    />
+                                    {...register('height', { required: true, pattern: '[0-9]*', min: 100, minLength: 2, maxLength: 3 })}
+                                    size='small'
+                                    id="outlined-basic"
+                                    label="Height*"
+                                    variant="outlined"
+                                />
                                 {errors.height && <div className='text-danger s12'>Enter valid height</div>}
                             </div>
 
