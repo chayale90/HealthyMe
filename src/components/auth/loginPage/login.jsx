@@ -72,8 +72,8 @@ export default function Login() {
   return (
 
     <div>
-      <h2>Log In</h2>
-      <h6 className='welcomeText s16'>Welcome back! Please enter your details.</h6>
+      <h2 className='s20'>Log In</h2>
+      <h6 className='welcomeText'>Welcome back! Please enter your details.</h6>
 
       <form >
         <div className='inputEmail'>
