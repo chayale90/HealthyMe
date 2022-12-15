@@ -1,14 +1,20 @@
 import './App.css'
 import AppRoutes from './appRoutes'
+import { configureStore } from "@reduxjs/toolkit";
+import { Provider } from "react-redux";
+import signUpSlice from "./features/signUpSlice"
+
+export const myStore = configureStore({
+  reducer: {
+    signUpSlice
+  }
+})
 
 function App() {
-
   return (
-    <div className='App'>
+    <Provider store={myStore}>
       <AppRoutes />
-      
-    </div>
-
+    </Provider>
   )
 }
 

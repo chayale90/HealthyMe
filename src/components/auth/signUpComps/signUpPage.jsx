@@ -3,15 +3,13 @@ import Logo from '../../general_comps/logo'
 import SignUpComp1 from './comp1/signUpComp1'
 import SignUpComp2 from './comp2/signUpComp2'
 import ImagesPosts from './imagesPosts'
+import { useSelector } from "react-redux";
+
 
 
 export default function SignUpPage() {
-  const [showHideComp1, setshowHideComp1] = useState(true);
-  const [showHideComp2, setshowHideComp2] = useState(false);
-  const [form,setForm] = useState({})
-
-
-
+  const { showHideComp1,showHideComp2,form } = useSelector(myStore => myStore.signUpSlice)
+  
   console.log(form)
 
   return (
@@ -22,25 +20,11 @@ export default function SignUpPage() {
 
           <div className=' me-xl-3 ps-5 ms-5 align-items-center' >
             {showHideComp1 &&
-              <SignUpComp1
-                showHideComp1={showHideComp1}
-                setshowHideComp1={setshowHideComp1}
-                showHideComp2={showHideComp2}
-                setshowHideComp2={setshowHideComp2}
-                form={form}
-                setForm={setForm}
-              />
+              <SignUpComp1/>
             }
 
             {showHideComp2 &&
-              <SignUpComp2
-                showHideComp1={showHideComp1}
-                setshowHideComp1={setshowHideComp1}
-                showHideComp2={showHideComp2}
-                setshowHideComp2={setshowHideComp2}
-                form={form}
-                setForm={setForm}
-              />
+              <SignUpComp2/>
             }
           </div>
 

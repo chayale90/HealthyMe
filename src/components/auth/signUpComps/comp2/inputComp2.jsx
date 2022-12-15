@@ -9,13 +9,14 @@ import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 import { API_URL, doApiMethod, doApiMethodSignUp } from '../../../../services/apiService';
 import { doApiFileUploadAvatars } from '../../../../services/fileUploadFun';
 import { toast } from 'react-toastify';
+import { useDispatch, useSelector } from 'react-redux';
+import { setShowHideComp1, setShowHideComp2, addForm, resetForm, add1 } from "../../../../features/signUpSlice"
 
-export default function InputComp2({ showHideComp1,
-    setshowHideComp1,
-    showHideComp2,
-    setshowHideComp2,
-    form,
-    setForm }) {
+
+
+export default function InputComp2() {
+    const dispatch = useDispatch();
+    const { form } = useSelector(myStore => myStore.signUpSlice)
     const { register, getValues, handleSubmit, formState: { errors } } = useForm();
     const nav = useNavigate();
     const fileRef = useRef();
@@ -28,25 +29,25 @@ export default function InputComp2({ showHideComp1,
         setValue(e.target.value)
     };
 
-    const onSubmit =  (_bodyFormData) => {
+    const onSubmit = (_bodyFormData) => {
         console.log(_bodyFormData)
-         setForm({ ...form, ..._bodyFormData })
-        if (_bodyFormData) {
-            doApiSignUp()
-        }
-        //here need to send to grandFather by redux
-        // nav('/')
+        dispatch(addForm({ val: _bodyFormData }))
+        doApiSignUp()
+        
     };
 
     const doApiSignUp = async () => {
         let url = API_URL + "/users";
         try {
-            let resp = await doApiMethodSignUp(url, "POST", form);
+            let resp = await doApiMethod(url, "POST", form);
             if (resp.data._id) {
                 console.log(resp.data);
-                await doApiFileUploadAvatars(resp.data._id, fileRef)
-                toast.success("You signed up succefuly")
-                nav("/")
+                await doApiFileUploadAvatars(resp.data._id, fileRef);
+                toast.success("You signed up succefuly");
+                nav("/");
+                dispatch(setShowHideComp1());
+                dispatch(setShowHideComp2());
+                dispatch(resetForm())
             }
             else {
                 toast.error("There problem, try again later")
@@ -67,8 +68,8 @@ export default function InputComp2({ showHideComp1,
 
                         <div>
                             <FormControl  >
-                                <p className="mb-2 s14"> What is your gender?*</p>
-                                <FormLabel id="demo-row-radio-buttons-group-label">What is your gender?*</FormLabel>
+                                {/* <p className="mb-2 s14"> What is your gender?*</p> */}
+                                <FormLabel className="mb-2 s14" id="demo-row-radio-buttons-group-label">What is your gender?*</FormLabel>
                                 <RadioGroup
                                     row
                                     aria-labelledby="demo-row-radio-buttons-group-label"
@@ -154,9 +155,9 @@ export default function InputComp2({ showHideComp1,
                             <Button
                                 startIcon={<KeyboardArrowLeftIcon />}
                                 onClick={() => {
-                                    setshowHideComp1(!showHideComp1)
-                                    setshowHideComp2(!showHideComp2)
-                                    setForm({})
+                                    dispatch(setShowHideComp1())
+                                    dispatch(setShowHideComp2())
+                                    dispatch(resetForm())
                                 }
                                 }
                                 sx={btnStyle2}

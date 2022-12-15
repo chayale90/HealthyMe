@@ -20,11 +20,11 @@ import SignUpPage from './components/auth/signUpComps/signUpPage'
 import SignUpGeneral from './components/auth/signUpComps/signUpGeneral'
 
 
+
 export default function AppRoutes() {
     return (
         <Router>
             <Routes>
-
                 <Route index element={<LoginPage />} />
                 <Route path='/signUp' element={<SignUpPage />} />
                 <Route path='/signUpGeneral' element={<SignUpGeneral />} />
@@ -57,7 +57,6 @@ export default function AppRoutes() {
                 <Route path='*' element={<NotFound />} />
 
              
-
             </Routes>  
              <ToastContainer position="top-left" theme="colored" />
         </Router>
