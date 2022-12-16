@@ -7,16 +7,22 @@ import Login from './login'
 export default function LoginPage() {
     return (
         <React.Fragment>
-            <div className='d-flex justify-content-between'>
-                <div className='col-lg-5 col-xl-4 col-md-6'>
-                    <Logo />
-                    <div className='ms-5 pe-xl-3 mt-4 ps-5 ' >
-                        <Login />
+            <div className='d-flex justify-content-lg-between justify-content-center'>
+                <div className='col-9 col-sm-8 col-md-6 col-lg-5 col-xl-4'>
+                    <div className='me-lg-3 ps-lg-5 ms-lg-5'>
+                        <div className='d-flex justify-content-between'>
+                            <Logo/>
+                            <div className='d-lg-none d-block col-4'>
+                                <ImagesPosts width={"100%"}/>
+                            </div>
+                        </div>
+
+                        <Login/>
                     </div>
                 </div>
 
                 <div className='col-6 text-end d-lg-block d-none'>
-                    <ImagesPosts />
+                    <ImagesPosts width={"97%"} />
                 </div>
 
             </div>
