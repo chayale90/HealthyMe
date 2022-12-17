@@ -1,0 +1,35 @@
+h2 {
+    font-size: 30px;
+    color: #2E2E2E;
+    margin-bottom: 5px;
+}
+
+.welcomeText {
+    color: rgba(106, 108, 111, 1);
+    margin-bottom: 22px;
+}
+
+.inputEmail {
+    margin-bottom: 36px;
+    Height: 51px;
+}
+
+.inputPass {
+    margin-bottom: 22px;
+}
+
+.forgot1 {
+    margin-bottom: 20px;
+}
+
+.loginBtn {
+    height: 40px;
+    width: 100%;
+    border: none;
+    transition: 400ms;
+    box-shadow: 3px 3px 10px 0px rgba(0, 0, 0, 0.16);
+}
+
+.loginBtn:hover {
+    background: rgba(182, 17, 253, 1);
+}

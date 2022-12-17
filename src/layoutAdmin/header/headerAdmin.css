@@ -1,0 +1,9 @@
+.admin-header nav li a{
+ color:white;
+ text-decoration: none;
+ padding:0 8px;
+}
+
+.admin-header nav li a:hover{
+  color:rgb(101, 19, 90);
+}
