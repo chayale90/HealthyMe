@@ -17,8 +17,6 @@ import 'react-toastify/dist/ReactToastify.css';
 import UploadTest from './assets/uploadTest'
 import LoginPage from './components/auth/loginPage/loginPage'
 import SignUpPage from './components/auth/signUpComps/signUpPage'
-import SignUpGeneral from './components/auth/signUpComps/signUpGeneral'
-
 
 
 export default function AppRoutes() {
@@ -27,7 +25,6 @@ export default function AppRoutes() {
             <Routes>
                 <Route index element={<LoginPage />} />
                 <Route path='/signUp' element={<SignUpPage />} />
-                <Route path='/signUpGeneral' element={<SignUpGeneral />} />
 
                 {/* Client Layout */}
                 <Route path='/' element={<Layout />} >
