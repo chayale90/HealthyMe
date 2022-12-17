@@ -27,6 +27,7 @@ export default function InputComp2() {
     console.log({ value });
     console.log(form);
 
+    
     useEffect(() => {
         if (loading == "waiting")
             doApiSignUp();
