@@ -57,7 +57,7 @@ export default function Login() {
       console.log(resp.data);
     }
     catch (err) {
-      console.log(err.response);
+      console.log(err);
       toast.error("User or password worng, or service down");
     }
   }
