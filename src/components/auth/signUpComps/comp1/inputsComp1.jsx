@@ -5,25 +5,24 @@ import { theme } from '../../../../services/theme';
 import { useForm } from 'react-hook-form';
 import { btnStyle } from '../../../../services/btnStyle'
 import { useDispatch, useSelector } from 'react-redux';
-import {setShowHideComp1,setShowHideComp2,addForm,add1} from "../../../../features/signUpSlice"
+import { setShowHideComp1, setShowHideComp2, addForm, add1 } from "../../../../features/signUpSlice"
 
 export default function InputsComp1() {
 
     const dispatch = useDispatch();
     // const { counter,showHideComp1,showHideComp2,form } = useSelector(myStore => myStore.signUpSlice)
-  
+
     const { register, getValues, handleSubmit, formState: { errors } } = useForm();
     const regEmail = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i
 
     const onSubmit = (_dataBody) => {
         console.log(_dataBody)
         delete _dataBody.password2;
-        //here need to send to grandFather by redux
+        //here need to send to grandFather by redux:
 
-     // setForm({...form,..._dataBody})
-        dispatch(addForm({ val:_dataBody })) 
-        dispatch(setShowHideComp1()) 
-        dispatch(setShowHideComp2()) 
+        dispatch(addForm({ val: _dataBody }))
+        dispatch(setShowHideComp1())
+        dispatch(setShowHideComp2())
     }
 
     return (

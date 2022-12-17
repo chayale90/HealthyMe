@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { Button, FormControl, FormControlLabel, FormLabel, InputAdornment, OutlinedInput, Radio, RadioGroup, TextField, ThemeProvider } from '@mui/material'
 import { useForm } from 'react-hook-form';
 import { theme } from '../../../../services/theme'
@@ -10,13 +10,14 @@ import { API_URL, doApiMethod, doApiMethodSignUp } from '../../../../services/ap
 import { doApiFileUploadAvatars } from '../../../../services/fileUploadFun';
 import { toast } from 'react-toastify';
 import { useDispatch, useSelector } from 'react-redux';
-import { setShowHideComp1, setShowHideComp2, addForm, resetForm, add1 } from "../../../../features/signUpSlice"
+import { setShowHideComp1, setShowHideComp2, addForm2, resetForm, add1, changeLoading } from "../../../../features/signUpSlice"
 
 
 
 export default function InputComp2() {
     const dispatch = useDispatch();
-    const { form } = useSelector(myStore => myStore.signUpSlice)
+    const { form, loading } = useSelector(myStore => myStore.signUpSlice)
+
     const { register, getValues, handleSubmit, formState: { errors } } = useForm();
     const nav = useNavigate();
     const fileRef = useRef();
@@ -24,16 +25,16 @@ export default function InputComp2() {
     const [value, setValue] = useState("female");
 
     console.log({ value });
+    console.log(form);
 
-    const handleChange = (e) => {
-        setValue(e.target.value)
-    };
+    useEffect(() => {
+        if (loading == "waiting")
+            doApiSignUp();
+    }, [loading]);
 
-    const onSubmit = (_bodyFormData) => {
-        console.log(_bodyFormData)
-        dispatch(addForm({ val: _bodyFormData }))
-        doApiSignUp()
-        
+    const onSubmit = async (_bodyFormData) => {
+        dispatch(addForm2({ val: _bodyFormData }))
+        console.log(_bodyFormData);
     };
 
     const doApiSignUp = async () => {
@@ -48,6 +49,7 @@ export default function InputComp2() {
                 dispatch(setShowHideComp1());
                 dispatch(setShowHideComp2());
                 dispatch(resetForm())
+                dispatch(changeLoading({ val: null }))
             }
             else {
                 toast.error("There problem, try again later")
@@ -75,7 +77,9 @@ export default function InputComp2() {
                                     aria-labelledby="demo-row-radio-buttons-group-label"
                                     name="row-radio-buttons-group"
                                     value={value}
-                                    onChange={handleChange}
+                                    onChange={(e) => {
+                                        setValue(e.target.value)
+                                    }}
                                 >
                                     <FormControlLabel control={<Radio size="small" />} {...register('sex', { require: true })} value="female" label="Female" />
                                     <FormControlLabel control={<Radio size="small" />} {...register('sex', { require: true })} value="male" label="Male" />
@@ -103,7 +107,7 @@ export default function InputComp2() {
                             <div>
 
                                 <TextField
-                                    {...register('location', { required: false, minLength: 2, maxLength: 99 })}
+                                    {...register('location', { required: false, minLength: 3, maxLength: 99 })}
                                     className='col-auto'
                                     size='small' id="outlined-basic"
                                     label="Location"
@@ -119,7 +123,7 @@ export default function InputComp2() {
                             <div>
                                 <FormControl size='small' variant="outlined">
                                     <OutlinedInput
-                                        {...register('weight', { required: true, pattern: '[0-9]*', min: 25, minLength: 2, maxLength: 3 })}
+                                        {...register('weight', { required: true, pattern: '[0-9]*', min: 25, max: 300, minLength: 2, maxLength: 3 })}
                                         className='col-11' type={"number"}
                                         id="outlined-adornment-weight"
                                         endAdornment={<InputAdornment position="end">kg*</InputAdornment>}
@@ -133,7 +137,7 @@ export default function InputComp2() {
                             </div>
                             <div>
                                 <TextField className='col-auto' type={"number"}
-                                    {...register('height', { required: true, pattern: '[0-9]*', min: 100, minLength: 2, maxLength: 3 })}
+                                    {...register('height', { required: true, pattern: '[0-9]*', min: 100, max: 300, minLength: 2, maxLength: 3 })}
                                     size='small'
                                     id="outlined-basic"
                                     label="Height*"
@@ -168,7 +172,7 @@ export default function InputComp2() {
                             <Button type='submit'
                                 sx={btnStyle}
                                 className='loginBtn'>
-                                Finish
+                                submit
                             </Button>
 
                         </div>
