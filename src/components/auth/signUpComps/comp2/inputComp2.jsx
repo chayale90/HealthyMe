@@ -17,7 +17,6 @@ import { setShowHideComp1, setShowHideComp2, addForm2, resetForm, add1, changeLo
 export default function InputComp2() {
     const dispatch = useDispatch();
     const { form, loading } = useSelector(myStore => myStore.signUpSlice)
-
     const { register, getValues, handleSubmit, formState: { errors } } = useForm();
     const nav = useNavigate();
     const fileRef = useRef();

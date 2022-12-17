@@ -22,7 +22,6 @@ const signUpSlice = createSlice({
         },
         setShowHideComp2: (state, action) => {
             state.showHideComp2 = (!state.showHideComp2);
-
         },
         // actions -> משמש כדי לאסוף פרמטרים מהאקשן
         // ששיגרנו , ותמיד המאפיין של האובייקט יהיה בתוך מאפיין
