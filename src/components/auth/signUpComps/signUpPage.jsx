@@ -16,11 +16,11 @@ export default function SignUpPage() {
     <div>
       <div className='d-flex justify-content-lg-between justify-content-center'>
         <div className='col-9 col-sm-8 col-md-6 col-lg-5 col-xl-4'>
-          <div className='me-lg-3 ps-lg-5 ms-lg-5'>
+          <div className='ps-lg-5 ms-lg-5 me-lg-1'>
 
             <div className='d-flex justify-content-between'>
               <Logo />
-              <div className='d-lg-none d-block col-4'>
+              <div className='d-lg-none d-block col-5 mt-5 mb-3 '>
                 <ImagesPosts width={"100%"} />
               </div>
             </div>
