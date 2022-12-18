@@ -13,7 +13,7 @@ export const theme = createTheme({
             main: purple[300],
         },
         success: {
-            main: "rgba(255, 255, 255, 1)"
+            main: "#FFFFFF"
         }
     }
 });
