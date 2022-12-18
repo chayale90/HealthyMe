@@ -5,13 +5,16 @@ export const theme = createTheme({
     palette: {
         primary: {
             main: "#A435F0",
-           
         },
         secondary: {
             main: "#C12FFF",
         },
         danger: {
             main: purple[300],
+        },
+        success: {
+            main: "rgba(255, 255, 255, 1)"
         }
     }
 });
+
