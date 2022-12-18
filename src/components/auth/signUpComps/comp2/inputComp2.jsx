@@ -12,8 +12,6 @@ import { toast } from 'react-toastify';
 import { useDispatch, useSelector } from 'react-redux';
 import { setShowHideComp1, setShowHideComp2, addForm2, resetForm, add1, changeLoading } from "../../../../features/signUpSlice"
 
-
-
 export default function InputComp2() {
     const dispatch = useDispatch();
     const { form, loading } = useSelector(myStore => myStore.signUpSlice)
@@ -70,7 +68,7 @@ export default function InputComp2() {
                         <div>
                             <FormControl  >
                                 {/* <p className="mb-2 s14"> What is your gender?*</p> */}
-                                <FormLabel className="mb-2 s14" id="demo-row-radio-buttons-group-label">What is your gender?*</FormLabel>
+                                <FormLabel className="mb-2 s14 " id="demo-row-radio-buttons-group-label">What is your gender?*</FormLabel>
                                 <RadioGroup
                                     row
                                     aria-labelledby="demo-row-radio-buttons-group-label"
