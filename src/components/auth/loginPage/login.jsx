@@ -93,7 +93,6 @@ export default function Login() {
 
         <div className='inputPass'>
           <ThemeProvider theme={theme}>
-
             <InputLabel style={{ fontSize: "14px" }} htmlFor="outlined-adornment-password">Password</InputLabel>
             <OutlinedInput size="small" fullWidth {...passwordRef}
               id="outlined-adornment-password"

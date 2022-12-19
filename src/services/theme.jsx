@@ -10,11 +10,12 @@ export const theme = createTheme({
             main: "#C12FFF",
         },
         danger: {
-            main: purple[300],
+            main: "purple[300]",
         },
         success: {
             main: "#FFFFFF"
-        }
+        },
+
     }
 });
 
