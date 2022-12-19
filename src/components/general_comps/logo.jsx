@@ -12,11 +12,7 @@ export default function Logo({ margin, width }) {
 
 
    
-        <img style={{ cursor: "pointer" }}
-          onClick={() => {
-            nav("/")
-          }}
-          src="/images/logo5.png" alt="Logo" width={"100"} />
+        <img style={{ cursor: "pointer" }} src="/images/logo5.png" alt="Logo" width={"100"} />
    
 
     </div>
