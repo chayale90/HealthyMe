@@ -59,9 +59,9 @@ export default function Header() {
         <Container maxWidth="lg">
           <div className='d-flex justify-content-between align-items-center' >
             <div className='d-none d-md-flex'>
-              {/* <Link to="/"> */}
+              <Link to="/foods">
                 <Logo margin={"mb-1"} />
-              {/* </Link> */}
+              </Link>
             </div>
 
             <div className='d-flex d-md-none '>
@@ -104,9 +104,10 @@ export default function Header() {
             </div>
 
             <div className='d-flex d-md-none mx-auto'>
+              <Link to="/foods">
                 <Logo margin={"mb-1"} />
+              </Link>
             </div>
-
 
             <div className='d-none d-md-flex' >
               <div>
@@ -150,7 +151,7 @@ export default function Header() {
 
             <div className='d-flex align-items-center justify-content-md-end'>
               <Tooltip title="Open settings" >
-                <IconButton  onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                   <Avatar alt="personal profile" src="/images/avatar/2.jpg" />
                 </IconButton>
               </Tooltip>
