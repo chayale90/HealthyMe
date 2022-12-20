@@ -6,14 +6,12 @@ import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogTitle from '@mui/material/DialogTitle';
 import { TOKEN_NAME } from '../../services/apiService';
-import { useDispatch, useSelector } from 'react-redux';
 import "./headerAdmin.css";
 import CheckAdminComp from "../../components/auth/checkComps/checkAdminComp"
 export default function HeaderAdmin() {
 
   const nav = useNavigate();
   const [open, setOpen] = useState(false);
-  const dispatch = useDispatch();
 
   const handleClickOpen = () => {
     setOpen(true);
