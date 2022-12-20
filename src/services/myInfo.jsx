@@ -4,7 +4,7 @@ import { toast } from 'react-toastify';
 import { addUser } from "../features/userSlice"
 import { API_URL, doApiGet } from './apiService';
 
-export default function UserInfo() {
+export default function MyInfo() {
     const { user } = useSelector(myStore => myStore.userSlice)
     const dispatch = useDispatch();
     console.log(user);

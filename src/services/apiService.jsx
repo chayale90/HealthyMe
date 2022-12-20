@@ -2,8 +2,10 @@ import axios from "axios";
 
 export const API_URL = "http://localhost:3003"
 // export const API_URL = "https://monkeys.co.il"
+
 export const TOKEN_NAME = "FOODS_TOKEN"
-export const USER_ROLE = "USER_ROLE"
+
+// export const USER_ROLE = "USER_ROLE"
 
 
 export const doApiGet = async(_url) => {

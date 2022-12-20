@@ -15,14 +15,16 @@ import MenuItem from '@mui/material/MenuItem';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogTitle from '@mui/material/DialogTitle';
-
-import Logo from '../../components/general_comps/logo'
 import { ThemeProvider } from '@mui/material/styles';
 import { theme } from "../../services/theme"
-// import "./header.css"
 import { Link, useNavigate } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
+import Logo from '../../components/general_comps/logo'
+import MyInfo from '../../services/myInfo';
+import { TOKEN_NAME } from '../../services/apiService';
+// import "./header.css"
+import { resetUser } from "../../features/userSlice"
 
 const pages = ['Home', 'Favorites'];
 
@@ -30,6 +32,7 @@ export default function Header() {
   const { user } = useSelector(myStore => myStore.userSlice);
   console.log(user);
   const nav = useNavigate();
+  const dispatch = useDispatch();
 
   //navbar states
   const [anchorElNav, setAnchorElNav] = useState(null);
@@ -38,7 +41,7 @@ export default function Header() {
   const [displayBurger, setDisplayBurger] = useState("block");
   const [displayButtonX, setDisplayButtonX] = useState("none");
 
-  //dialog states
+  //dialog open-close
   const [open, setOpen] = useState(false);
 
   //nanbar functions
@@ -67,12 +70,14 @@ export default function Header() {
   const handleClose = () => {
     setOpen(false);
   };
-  const handleClickOpen = () => {
+  const handleClickLogout = () => {
     setOpen(true);
   };
   const onLogOut = () => {
     //delete token
-    // localStorage.removeItem(TOKEN_NAME);
+    localStorage.removeItem(TOKEN_NAME);
+    //delete user from redux
+    dispatch(resetUser())
     toast.success("You log Out")
     nav("/")
   }
@@ -90,6 +95,10 @@ export default function Header() {
 
   return (
     <ThemeProvider theme={theme}>
+
+      {/* provide details of user (that login) to all comps with redux */}
+      <MyInfo />
+
       <AppBar position="static" sx={{ background: "rgba(255, 255, 255, 1)" }}>
         <Container maxWidth="lg">
           <div className='d-flex justify-content-between align-items-center' >
@@ -208,7 +217,7 @@ export default function Header() {
                 <MenuItem onClick={handleCloseUserMenu}>Profile</MenuItem>
                 <MenuItem onClick={handleCloseUserMenu}>followers</MenuItem>
                 <MenuItem onClick={handleCloseUserMenu}>followings</MenuItem>
-                <MenuItem onClick={handleClickOpen}>Logout</MenuItem>
+                <MenuItem onClick={handleClickLogout}>Logout</MenuItem>
 
 
                 <Dialog
@@ -219,7 +228,7 @@ export default function Header() {
                 >
                   <div className='p-3'>
                     <DialogTitle
-                     sx={{ mb: 2 }}
+                      sx={{ mb: 2 }}
                       id="alert-dialog-title">
                       {"Are you sure you want to logout?"}
                     </DialogTitle>

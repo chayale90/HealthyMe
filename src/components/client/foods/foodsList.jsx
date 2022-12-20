@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { toast } from 'react-toastify';
 import { API_URL, doApiGet } from '../../../services/apiService';
-import UserInfo from '../../../services/userInfo';
+import CheckUserComp from '../../auth/checkComps/checkUserComp';
 import FoodItem from './foodItem'
 
 export default function FoodsList() {
@@ -29,19 +29,18 @@ export default function FoodsList() {
 
 
   return (
-    <div className='container-fluid'>
-      <UserInfo />
-      <div className='container'>
-        <div className='row p-2 border'>
 
-          {ar.map((item, i) => {
-            return (
-              <FoodItem key={item._id} index={i} item={item} />
-            )
-          })}
+    <div className='container'>
+      <CheckUserComp />
+      <div className='row p-2 border'>
+        {ar.map((item, i) => {
+          return (
+            <FoodItem key={item._id} index={i} item={item} />
+          )
+        })}
 
-        </div>
       </div>
     </div>
+
   )
 }

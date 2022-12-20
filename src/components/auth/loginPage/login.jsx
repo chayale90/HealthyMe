@@ -37,7 +37,7 @@ export default function Login() {
   };
 
   const onSubForm = (bodyData) => {
-    // data -> מכיל את כל המאפיינים שלה השמות של האינפוטים עם הערך שלהם
+    // bodyData -> contain all values of inputs 
     doApiForm(bodyData);
   }
 
@@ -54,7 +54,7 @@ export default function Login() {
       }
       else if (resp.data.role == "user")
         nav("/foods")
-      console.log(resp.data);
+      // console.log(resp.data);
     }
     catch (err) {
       console.log(err);
