@@ -12,30 +12,42 @@ import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogTitle from '@mui/material/DialogTitle';
+
 import Logo from '../../components/general_comps/logo'
 import { ThemeProvider } from '@mui/material/styles';
 import { theme } from "../../services/theme"
 // import "./header.css"
-
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import { toast } from 'react-toastify';
 
 const pages = ['Home', 'Favorites'];
-const settings = ['Profile', 'followers', 'followings', 'Logout'];
 
 export default function Header() {
-  const [anchorElNav, setAnchorElNav] = React.useState(null);
-  const [anchorElUser, setAnchorElUser] = React.useState(null);
+  const { user } = useSelector(myStore => myStore.userSlice);
+  console.log(user);
+  const nav = useNavigate();
 
+  //navbar states
+  const [anchorElNav, setAnchorElNav] = useState(null);
+  const [anchorElUser, setAnchorElUser] = useState(null);
   const [values, setValues] = useState({ button1: 'block', button2: 'none', button3: 'none' });
   const [displayBurger, setDisplayBurger] = useState("block");
   const [displayButtonX, setDisplayButtonX] = useState("none");
 
+  //dialog states
+  const [open, setOpen] = useState(false);
 
+  //nanbar functions
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
     setDisplayBurger("none")
     setDisplayButtonX("block")
   };
+
   const handleOpenUserMenu = (event) => {
     setAnchorElUser(event.currentTarget);
   };
@@ -51,6 +63,30 @@ export default function Header() {
   };
 
 
+  // dialog functions
+  const handleClose = () => {
+    setOpen(false);
+  };
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+  const onLogOut = () => {
+    //delete token
+    // localStorage.removeItem(TOKEN_NAME);
+    toast.success("You log Out")
+    nav("/")
+  }
+
+
+  //if for the avatar image
+  let srcImg;
+  if (user.img_url == "" && user.sex == "male") {
+    srcImg = "public/images/man.png"
+  } else if (user.img_url == "" && user.sex == "female") {
+    srcImg = "public/images/woman.png"
+  } else {
+    srcImg = user.img_url
+  }
 
   return (
     <ThemeProvider theme={theme}>
@@ -146,12 +182,10 @@ export default function Header() {
             </div>
 
 
-
-
             <div className='d-flex align-items-center justify-content-md-end'>
-              <Tooltip title="Open settings" >
+              <Tooltip title={user.name} >
                 <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                  <Avatar alt="personal profile" src="/images/avatar/2.jpg" />
+                  <Avatar alt="Avatar" src={srcImg} />
                 </IconButton>
               </Tooltip>
               <Menu
@@ -170,11 +204,32 @@ export default function Header() {
                 open={Boolean(anchorElUser)}
                 onClose={handleCloseUserMenu}
               >
-                {settings.map((setting) => (
-                  <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                    <Typography textAlign="center">{setting}</Typography>
-                  </MenuItem>
-                ))}
+
+                <MenuItem onClick={handleCloseUserMenu}>Profile</MenuItem>
+                <MenuItem onClick={handleCloseUserMenu}>followers</MenuItem>
+                <MenuItem onClick={handleCloseUserMenu}>followings</MenuItem>
+                <MenuItem onClick={handleClickOpen}>Logout</MenuItem>
+
+
+                <Dialog
+                  open={open}
+                  onClose={handleClose}
+                  aria-labelledby="alert-dialog-title"
+                  aria-describedby="alert-dialog-description"
+                >
+                  <div className='p-3'>
+                    <DialogTitle
+                     sx={{ mb: 2 }}
+                      id="alert-dialog-title">
+                      {"Are you sure you want to logout?"}
+                    </DialogTitle>
+                    <DialogActions>
+                      <Button onClick={handleClose}>Disagree</Button>
+                      <Button onClick={onLogOut} autoFocus>Agree</Button>
+                    </DialogActions>
+                  </div>
+                </Dialog>
+
               </Menu>
             </div>
           </div>

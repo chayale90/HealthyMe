@@ -11,7 +11,6 @@ export default function Logo({ margin, width }) {
       <img src="/images/logo4.png" alt="Logo" width={"150"} /> */}
 
 
-   
         <img style={{ cursor: "pointer" }} src="/images/logo5.png" alt="Logo" width={"100"} />
    
 
