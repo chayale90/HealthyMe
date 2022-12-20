@@ -7,7 +7,7 @@ import { API_URL, doApiGet } from './apiService';
 export default function MyInfo() {
     const { user } = useSelector(myStore => myStore.userSlice)
     const dispatch = useDispatch();
-    console.log(user);
+    // console.log(user);
 
     useEffect(() => {
         doApiInfoUser()
@@ -18,7 +18,7 @@ export default function MyInfo() {
         const url = API_URL + "/users/myInfo"
         try {
             let { data } = await doApiGet(url);
-            console.log(data);
+            // console.log(data);
             dispatch(addUser({ val: data }))
         }
         catch (err) {

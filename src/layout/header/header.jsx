@@ -28,6 +28,7 @@ const pages = ['Home', 'Favorites'];
 export default function Header() {
   const { user } = useSelector(myStore => myStore.userSlice);
   console.log(user);
+
   const nav = useNavigate();
   const dispatch = useDispatch();
 
@@ -67,7 +68,7 @@ export default function Header() {
   const handleClose = () => {
     setOpen(false);
   };
-  const handleClickLogout = () => {
+  const ClickLogout = () => {
     setOpen(true);
   };
   const onLogOut = () => {
@@ -214,7 +215,7 @@ export default function Header() {
                 <MenuItem onClick={handleCloseUserMenu}>Profile</MenuItem>
                 <MenuItem onClick={handleCloseUserMenu}>followers</MenuItem>
                 <MenuItem onClick={handleCloseUserMenu}>followings</MenuItem>
-                <MenuItem onClick={handleClickLogout}>Logout</MenuItem>
+                <MenuItem onClick={ClickLogout}>Logout</MenuItem>
 
 
                 <Dialog

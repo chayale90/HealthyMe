@@ -6,14 +6,23 @@ body {
     color: #A435F0;
 }
 
+/* .purplegsd {
+    color: #8129bc;
+}
+
+.purpleggfdsd {
+    color: #912CD6
+} */
+
 .dark {
     color: #2E2E2E;
 }
 
-.gray{
+.gray {
     color: rgba(106, 108, 111, 1);
 
 }
+
 .s30 {
     font-size: 26px;
 }
@@ -22,14 +31,14 @@ body {
     font-size: 18px;
 }
 
-.s16{
+.s16 {
     font-size: 16px;
 }
 
-.s14{
+.s14 {
     font-size: 14px;
 }
 
-.s12{
+.s12 {
     font-size: 12px;
 }

@@ -1,8 +1,10 @@
+import { Fab } from '@mui/material';
 import React, { useEffect, useState } from 'react'
 import { toast } from 'react-toastify';
 import { API_URL, doApiGet } from '../../../services/apiService';
 import CheckUserComp from '../../auth/checkComps/checkUserComp';
 import FoodItem from './foodItem'
+import AddIcon from '@mui/icons-material/Add';
 
 export default function FoodsList() {
   const [ar, setAr] = useState([]);
@@ -29,16 +31,22 @@ export default function FoodsList() {
 
 
   return (
-    <div className='container'>
+    <div className='container mt-4 '>
       <CheckUserComp />
-      <div className='row p-2 border'>
+      <div className='row justify-content-center'>
         {ar.map((item, i) => {
           return (
             <FoodItem key={item._id} index={i} item={item} />
           )
         })}
+        {ar.length < 1 && <h2 className='display-6 text-center'>Loading...</h2>}
 
       </div>
+      <Fab
+        sx={{background:"#A435F0", color:"white","&:hover":{color:"white",background:"#912CD6"}, position: 'absolute', bottom: 20, right: 50 }}
+        aria-label="add">
+        <AddIcon />
+      </Fab>
     </div>
 
   )
