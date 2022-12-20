@@ -6,11 +6,14 @@ import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogTitle from '@mui/material/DialogTitle';
 import { TOKEN_NAME } from '../../services/apiService';
+import { useDispatch, useSelector } from 'react-redux';
 import "./headerAdmin.css";
-
+import CheckAdminComp from "../../components/auth/checkComps/checkAdminComp"
 export default function HeaderAdmin() {
+
   const nav = useNavigate();
   const [open, setOpen] = useState(false);
+  const dispatch = useDispatch();
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -27,7 +30,8 @@ export default function HeaderAdmin() {
     nav("/")
   }
 
-  return (
+  return (<div>
+    <CheckAdminComp />
     <header className='container-fluid admin-header bg-info py-2'>
       <div className="container ">
         <div className="row align-items-center">
@@ -35,23 +39,22 @@ export default function HeaderAdmin() {
             <h2 className='mb-0'>Admin panel</h2>
           </div>
           <nav className='d-flex col justify-content-between align-items-center'>
-            {localStorage[TOKEN_NAME] ?
-              <ul className='nav'>
-                <li>
-                  <Link to="/admin/users">Users</Link>
-                </li>
-                <li>
-                  <Link to="/admin/categories">Categories</Link>
-                </li>
-                <li>
-                  <Link to="/admin/foods">Foods</Link>
-                </li>
-                <li>
-                  <Link to="/admin/upload">upload</Link>
-                </li>
-              </ul> : <ul></ul>}
+            <ul className='nav'>
+              <li>
+                <Link to="/admin/users">Users</Link>
+              </li>
+              <li>
+                <Link to="/admin/categories">Categories</Link>
+              </li>
+              <li>
+                <Link to="/admin/foods">Foods</Link>
+              </li>
+              <li>
+                <Link to="/admin/upload">upload</Link>
+              </li>
+            </ul>
             <div>
-              {localStorage[TOKEN_NAME] ? <Button variant='contained' color='inherit' onClick={handleClickOpen}>Log out</Button> : <span></span>}
+              <Button variant='contained' color='inherit' onClick={handleClickOpen}>Log out</Button>
             </div>
             <Dialog
               open={open}
@@ -71,5 +74,6 @@ export default function HeaderAdmin() {
         </div>
       </div>
     </header>
+  </div>
   )
 }

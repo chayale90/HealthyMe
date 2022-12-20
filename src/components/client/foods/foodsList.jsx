@@ -29,7 +29,6 @@ export default function FoodsList() {
 
 
   return (
-
     <div className='container'>
       <CheckUserComp />
       <div className='row p-2 border'>
