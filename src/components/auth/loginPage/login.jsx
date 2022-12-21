@@ -37,7 +37,7 @@ export default function Login() {
   };
 
   const onSubForm = (bodyData) => {
-    // data -> מכיל את כל המאפיינים שלה השמות של האינפוטים עם הערך שלהם
+    // bodyData -> contain all values of inputs 
     doApiForm(bodyData);
   }
 
@@ -54,7 +54,7 @@ export default function Login() {
       }
       else if (resp.data.role == "user")
         nav("/foods")
-      console.log(resp.data);
+      // console.log(resp.data);
     }
     catch (err) {
       console.log(err);
@@ -93,7 +93,6 @@ export default function Login() {
 
         <div className='inputPass'>
           <ThemeProvider theme={theme}>
-
             <InputLabel style={{ fontSize: "14px" }} htmlFor="outlined-adornment-password">Password</InputLabel>
             <OutlinedInput size="small" fullWidth {...passwordRef}
               id="outlined-adornment-password"
@@ -122,7 +121,7 @@ export default function Login() {
 
         <Link to="" style={{ textDecoration: "none" }}><p className='forgot1 s14 purple'>Forgot password?</p></Link>
 
-        <Button onClick={handleSubmit(onSubForm)} sx={btnStyle} className='loginBtn'>Log In</Button>
+        <Button  onClick={handleSubmit(onSubForm)} sx={btnStyle} className='loginBtn'>Log In</Button>
 
         <div style={{ marginTop: "14px", marginBottom: "6px" }} className='d-flex justify-content-center'>
           <p className='s14' style={{ marginBottom: 0 }}>Don’t have an account?</p>

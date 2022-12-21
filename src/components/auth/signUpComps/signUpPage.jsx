@@ -4,6 +4,7 @@ import SignUpComp1 from './comp1/signUpComp1'
 import SignUpComp2 from './comp2/signUpComp2'
 import ImagesPosts from './imagesPosts'
 import { useSelector } from "react-redux";
+import { Link } from 'react-router-dom'
 
 
 
@@ -18,8 +19,8 @@ export default function SignUpPage() {
         <div className='col-9 col-sm-8 col-md-6 col-lg-5 col-xl-4'>
           <div className='ps-lg-5 ms-lg-5 me-lg-1'>
 
-            <div className='d-flex justify-content-between'>
-              <Logo />
+            <div className='d-flex justify-content-between '>
+              <Link to="/"> <Logo margin="mb-5" /></Link>
               <div className='d-lg-none d-block col-5 mt-5 mb-3 '>
                 <ImagesPosts width={"100%"} />
               </div>
@@ -32,7 +33,7 @@ export default function SignUpPage() {
             {showHideComp2 &&
               <SignUpComp2 />
             }
-            
+
           </div>
         </div>
 

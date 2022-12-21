@@ -5,13 +5,17 @@ export const theme = createTheme({
     palette: {
         primary: {
             main: "#A435F0",
-           
         },
         secondary: {
             main: "#C12FFF",
         },
         danger: {
-            main: purple[300],
-        }
+            main: "purple[300]",
+        },
+        success: {
+            main: "#FFFFFF"
+        },
+
     }
 });
+

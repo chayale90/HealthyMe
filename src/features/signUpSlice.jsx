@@ -6,7 +6,6 @@ const initValue = {
     form: {},
     showHideComp1: true,
     showHideComp2: false,
-    counter: 88,
     loading: null
 }
 

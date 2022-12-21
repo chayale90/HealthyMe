@@ -9,8 +9,6 @@ export default function CheckAdminComp() {
     useEffect(() => {
         doApi();
     }, []);
-
-
   
     const doApi = async () => {
         try {

@@ -7,6 +7,7 @@ import { btnStyle } from '../../../../services/btnStyle'
 import { useDispatch, useSelector } from 'react-redux';
 import { setShowHideComp1, setShowHideComp2, addForm, add1 } from "../../../../features/signUpSlice"
 
+
 export default function InputsComp1() {
 
     const dispatch = useDispatch();
@@ -14,7 +15,7 @@ export default function InputsComp1() {
 
     const { register, getValues, handleSubmit, formState: { errors } } = useForm();
     const regEmail = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i
-
+    const regWordWithoutDigits = /\b[^\d\W]+\b/g
     const onSubmit = (_dataBody) => {
         console.log(_dataBody)
         delete _dataBody.password2;
@@ -31,10 +32,10 @@ export default function InputsComp1() {
                 <form onSubmit={handleSubmit(onSubmit)}>
                     <div className='mb-3'>
                         <TextField
-                            {...register('name', { required: true, minLength: 2, maxLength: 99 })}
+                            {...register('name', { required: true, pattern: regWordWithoutDigits, minLength: 2, maxLength: 99 })}
                             autoComplete="FullName"
                             size='small' fullWidth
-                            type="text"
+
                             label="Full Name*"
                             variant="outlined"
                         />
