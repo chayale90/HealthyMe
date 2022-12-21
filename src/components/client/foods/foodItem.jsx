@@ -46,7 +46,7 @@ export default function FoodItem({ item }) {
                 alt="AvatarOfFood" src={userImg}
               />
               <Link style={{
-                textDecoration: "none", color: 'rgba(46, 46, 46, 1)',fontWeight: 500}} className='s16 ms-2'>{userName}</Link>
+                textDecoration: "none",fontWeight: 500}} className='s16 ms-2'>{userName}</Link>
           </div>
 
           <div>
