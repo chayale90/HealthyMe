@@ -121,7 +121,7 @@ export default function Login() {
 
         <Link to="" style={{ textDecoration: "none" }}><p className='forgot1 s14 purple'>Forgot password?</p></Link>
 
-        <Button onClick={handleSubmit(onSubForm)} sx={btnStyle} className='loginBtn'>Log In</Button>
+        <Button  onClick={handleSubmit(onSubForm)} sx={btnStyle} className='loginBtn'>Log In</Button>
 
         <div style={{ marginTop: "14px", marginBottom: "6px" }} className='d-flex justify-content-center'>
           <p className='s14' style={{ marginBottom: 0 }}>Don’t have an account?</p>

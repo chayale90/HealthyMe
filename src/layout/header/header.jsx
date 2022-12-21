@@ -13,11 +13,11 @@ import MenuItem from '@mui/material/MenuItem';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogTitle from '@mui/material/DialogTitle';
-import { ThemeProvider } from '@mui/material/styles';
-import { theme } from "../../services/theme"
 import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
+import { ThemeProvider } from '@mui/material/styles';
+import { theme } from "../../services/theme"
 import Logo from '../../components/general_comps/logo'
 import MyInfo from '../../services/myInfo';
 import { TOKEN_NAME } from '../../services/apiService';
@@ -213,8 +213,8 @@ export default function Header() {
               >
 
                 <MenuItem onClick={handleCloseUserMenu}>Profile</MenuItem>
-                <MenuItem onClick={handleCloseUserMenu}>followers</MenuItem>
-                <MenuItem onClick={handleCloseUserMenu}>followings</MenuItem>
+                <MenuItem onClick={handleCloseUserMenu}>Followers</MenuItem>
+                <MenuItem onClick={handleCloseUserMenu}>Followings</MenuItem>
                 <MenuItem onClick={ClickLogout}>Logout</MenuItem>
 
 
