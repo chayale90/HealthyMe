@@ -4,19 +4,36 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import "./foodItem.css"
 import { useState } from 'react';
-import { API_URL, doApiGet } from '../../../services/apiService';
+import { API_URL, doApiGet, doApiMethod } from '../../../services/apiService';
 import { toast } from 'react-toastify';
 import { Link, useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+// import { resetUser } from "../../../features/userSlice"
 
-export default function FoodItem({ item }) {
-  const [showIcon, setShowIcon] = useState(<FavoriteBorderIcon />);
+
+export default function FoodItem({ item, doApi }) {
+  const nav = useNavigate();
+  const [icon, setIcon] = useState(<FavoriteBorderIcon />);
   const [userName, setUserName] = useState("");
   const [userImg, setUserImg] = useState("");
-  const nav = useNavigate();
+  const { user } = useSelector(myStore => myStore.userSlice);
 
   useEffect(() => {
     doApiGetInfoUser();
   }, [])
+
+  useEffect(() => {
+    changeLikeIcon()
+  }, [doApi])
+
+  const changeLikeIcon = () => {
+    if (!item.likes.includes(user._id)) {
+      setIcon(<FavoriteBorderIcon />)
+    }
+    else {
+      setIcon(<FavoriteIcon sx={{ color: "red" }} />)
+    }
+  }
 
   const doApiGetInfoUser = async () => {
     try {
@@ -34,20 +51,12 @@ export default function FoodItem({ item }) {
 
 
   const onLikeClick = async () => {
-    setShowIcon(<FavoriteIcon sx={{ color: "red" }} />)
-    let bodyData;
-    if (item.role == "user") {
-      bodyData = { role: "admin" }
-    }
-    else {
-      bodyData = { role: "user" }
-    }
-    let url = API_URL + "/users/changeRole/" + item._id
+    let url = API_URL + "/foods/changeLike/" + item._id
     try {
-      let resp = await doApiMethod(url, "PATCH", bodyData)
-      console.log(resp.data);
+      let resp = await doApiMethod(url, "PATCH")
+      // console.log(resp.data);
       if (resp.data) {
-        props.doApi();
+        doApi();
       }
     }
     catch (err) {
@@ -56,9 +65,10 @@ export default function FoodItem({ item }) {
     }
   }
 
+
   return (
     <React.Fragment>
-      <div className='col-lg-4 mainDiv p-0 '>
+      <div className='mainDiv p-0'>
         <div className='p-2 overflow-hidden h-100 '>
           <img className='imgFood w-100' height={"200px"} src={item.img_url} />
 
@@ -78,7 +88,7 @@ export default function FoodItem({ item }) {
               />
               <div style={{
                 fontWeight: 500
-              }} className='s16 ms-2'>{userName}</div>
+              }} className='s16 ms-2 dark'>{userName}</div>
             </div>
 
             <div>
@@ -87,13 +97,13 @@ export default function FoodItem({ item }) {
                 sx={{ width: 33, height: 33 }}
                 aria-label="add to favorites"
               >
-                {showIcon}
+                {icon}
               </IconButton>
             </div>
 
           </div>
-          <div className='s14 mt-2 ms-1'>{item.name}</div>
-          <div className='s14 ms-1'>{item.likes.length} likes</div>
+          <div className='s14 mt-2 ms-1 gray'>{item.name}</div>
+          <div className='s14 ms-1 dark'>{item.likes.length} likes</div>
         </div>
       </div>
     </React.Fragment >

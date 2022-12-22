@@ -20,7 +20,6 @@ export default function FoodsList() {
     // let page = querys.get("page") || 1;
 
     let url = API_URL + "/foods/";
-
     try {
       let { data } = await doApiGet(url);
       setAr(data);
@@ -34,24 +33,26 @@ export default function FoodsList() {
 
   
   return (
-    <div className='container mt-4 '>
+    <div className='container mt-4'>
       <CheckUserComp />
       <div className='row justify-content-center'>
 
         {ar.map((item, i) => {
           return (
-            <FoodItem key={item._id} index={i} item={item} />
+            <FoodItem key={item._id} index={i} item={item} doApi={doApi}/>
           )
         })}
         {ar.length < 1 && <h2 className='display-6 text-center'>Loading...</h2>}
 
       </div>
 
+
       <Fab
-        sx={{ background: "#A435F0", color: "white", "&:hover": { color: "white", background: "#912CD6" }, position: 'absolute', bottom: 20, right: 50 }}
+        sx={{ background: "#A435F0", color: "white", "&:hover": { color: "white", background: "#912CD6" }, position: 'sticky', bottom: 70 ,left:1900}}
         aria-label="add">
         <AddIcon />
       </Fab>
+
 
     </div>
 

@@ -72,7 +72,7 @@ export default function Login() {
   return (
 
     <div>
-      <h2 className='s20'>Log In</h2>
+      <h2 className='s20 '>Log In</h2>
       <h6 className='welcomeText'>Welcome back! Please enter your details.</h6>
 
       <form >
@@ -124,7 +124,7 @@ export default function Login() {
         <Button  onClick={handleSubmit(onSubForm)} sx={btnStyle} className='loginBtn'>Log In</Button>
 
         <div style={{ marginTop: "14px", marginBottom: "6px" }} className='d-flex justify-content-center'>
-          <p className='s14' style={{ marginBottom: 0 }}>Don’t have an account?</p>
+          <p className='s14 ' style={{ marginBottom: 0 }}>Don’t have an account?</p>
           <Link to="/signUp" style={{ textDecoration: "none" }}><p style={{ marginLeft: "6px", marginBottom: 0 }} className='purple s14'>sign up now!</p></Link>
         </div>
 
