@@ -9,16 +9,15 @@ import { useSearchParams } from 'react-router-dom';
 
 export default function FoodsList() {
   const [ar, setAr] = useState([]);
-  // const [querys] = useSearchParams();
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState();
+  const [response, setResponse] = useState();
 
   useEffect(() => {
     doApi()
   }, [])
 
   const doApi = async () => {
-    //?page= 
-    // let page = querys.get("page") || 1;
-
     let url = API_URL + "/foods/";
     try {
       let { data } = await doApiGet(url);
@@ -31,15 +30,15 @@ export default function FoodsList() {
     }
   }
 
-  
+
   return (
-    <div className='container mt-4'>
+    <div className='container mt-5'>
       <CheckUserComp />
       <div className='row justify-content-center'>
 
         {ar.map((item, i) => {
           return (
-            <FoodItem key={item._id} index={i} item={item} doApi={doApi}/>
+            <FoodItem key={item._id} index={i} item={item} doApi={doApi} />
           )
         })}
         {ar.length < 1 && <h2 className='display-6 text-center'>Loading...</h2>}
@@ -48,7 +47,7 @@ export default function FoodsList() {
 
 
       <Fab
-        sx={{ background: "#A435F0", color: "white", "&:hover": { color: "white", background: "#912CD6" }, position: 'sticky', bottom: 70 ,left:1900}}
+        sx={{ background: "#A435F0", color: "white", "&:hover": { color: "white", background: "#912CD6" }, position: 'sticky', bottom: 70, left: 1900 }}
         aria-label="add">
         <AddIcon />
       </Fab>

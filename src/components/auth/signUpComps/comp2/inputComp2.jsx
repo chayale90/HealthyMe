@@ -21,8 +21,8 @@ export default function InputComp2() {
     const [fileChosen, setfileChosen] = useState("No Img chosen");
     const [value, setValue] = useState("female");
 
-    console.log({ value });
-    console.log(form);
+    // console.log({ value });
+    // console.log(form);
 
     useEffect(() => {
         if (loading == "waiting")
@@ -31,7 +31,7 @@ export default function InputComp2() {
 
     const onSubmit = async (_bodyFormData) => {
         dispatch(addForm2({ val: _bodyFormData }))
-        console.log(_bodyFormData);
+        // console.log(_bodyFormData);
     };
 
     const doApiSignUp = async () => {

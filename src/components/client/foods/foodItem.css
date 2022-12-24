@@ -1,8 +1,8 @@
-.mainDiv{
+.mainDiv {
     min-height: 300px;
     width: 300px;
     box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.16);
-    background-color:rgba(255, 255, 255, 1);
+    background-color: rgba(255, 255, 255, 1);
     border-radius: 9.0524px;
     margin-bottom: 32px;
     margin-right: 10px;
@@ -10,6 +10,11 @@
 
 }
 
-.imgFood{
+.imgFood {
     border-radius: 9.0524px 9.0524px 0px 0px;
+}
+
+.userName:hover {
+    color: #A435F0;
+    /* text-decoration: underline; */
 }
