@@ -35,14 +35,11 @@ const signUpSlice = createSlice({
         resetForm: (state, actions) => {
             state.form = {};
         },
-        add1: (state, actions) => {
-            state.counter++;
-        },
         changeLoading: (state, action) => {
             state.loading = action.payload.val
         }
     }
 })
 
-export const { setShowHideComp1, setShowHideComp2, addForm,addForm2, resetForm, add1, changeLoading } = signUpSlice.actions;
+export const { setShowHideComp1, setShowHideComp2, addForm,addForm2, resetForm, changeLoading } = signUpSlice.actions;
 export default signUpSlice.reducer;

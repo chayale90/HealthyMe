@@ -10,7 +10,7 @@ import { API_URL, doApiMethod, doApiMethodSignUp } from '../../../../services/ap
 import { doApiFileUploadAvatars } from '../../../../services/fileUploadFun';
 import { toast } from 'react-toastify';
 import { useDispatch, useSelector } from 'react-redux';
-import { setShowHideComp1, setShowHideComp2, addForm2, resetForm, add1, changeLoading } from "../../../../features/signUpSlice"
+import { setShowHideComp1, setShowHideComp2, addForm2, resetForm, changeLoading } from "../../../../features/signUpSlice"
 
 export default function InputComp2() {
     const dispatch = useDispatch();
