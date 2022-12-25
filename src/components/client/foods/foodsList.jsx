@@ -5,13 +5,11 @@ import { API_URL, doApiGet } from '../../../services/apiService';
 import CheckUserComp from '../../auth/checkComps/checkUserComp';
 import FoodItem from './foodItem'
 import AddIcon from '@mui/icons-material/Add';
-import { useSearchParams } from 'react-router-dom';
+import useScroll from '../../hooks/useScroll';
 
 export default function FoodsList() {
   const [ar, setAr] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState();
-  const [response, setResponse] = useState();
+const [endScreen,endScreenEnd]=useScroll()
 
   useEffect(() => {
     doApi()
