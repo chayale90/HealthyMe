@@ -5,6 +5,9 @@ body {
 .purple {
     color: #A435F0;
 }
+.darkPurple {
+    color: #912CD6;
+}
 
 /* .purplegsd {
     color: #8129bc;
@@ -18,9 +21,12 @@ body {
     color: #2E2E2E;
 }
 
-.gray {
-    color: rgba(106, 108, 111, 1);
+/* ..notGray{ */
+   /* color: #6A6C6F;
+} */
 
+.gray {
+    color: #494949;
 }
 
 .s30 {

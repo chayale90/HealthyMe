@@ -10,7 +10,7 @@ import { API_URL, doApiMethod, doApiMethodSignUp } from '../../../../services/ap
 import { doApiFileUploadAvatars } from '../../../../services/fileUploadFun';
 import { toast } from 'react-toastify';
 import { useDispatch, useSelector } from 'react-redux';
-import { setShowHideComp1, setShowHideComp2, addForm2, resetForm, add1, changeLoading } from "../../../../features/signUpSlice"
+import { setShowHideComp1, setShowHideComp2, addForm2, resetForm, changeLoading } from "../../../../features/signUpSlice"
 
 export default function InputComp2() {
     const dispatch = useDispatch();
@@ -21,8 +21,8 @@ export default function InputComp2() {
     const [fileChosen, setfileChosen] = useState("No Img chosen");
     const [value, setValue] = useState("female");
 
-    console.log({ value });
-    console.log(form);
+    // console.log({ value });
+    // console.log(form);
 
     useEffect(() => {
         if (loading == "waiting")
@@ -31,7 +31,7 @@ export default function InputComp2() {
 
     const onSubmit = async (_bodyFormData) => {
         dispatch(addForm2({ val: _bodyFormData }))
-        console.log(_bodyFormData);
+        // console.log(_bodyFormData);
     };
 
     const doApiSignUp = async () => {

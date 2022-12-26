@@ -11,7 +11,7 @@ import { Link } from 'react-router-dom'
 export default function SignUpPage() {
   const { showHideComp1, showHideComp2, form } = useSelector(myStore => myStore.signUpSlice)
 
-  console.log(form)
+  // console.log(form)
 
   return (
     <div>
