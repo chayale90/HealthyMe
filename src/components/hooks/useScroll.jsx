@@ -1,9 +1,7 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 
-export default function useScroll() {
-
+export default function useScroll(offsetY) {
     const [endScreen, setEndScreen] = useState(false);
-
     useEffect(() => {
         window.addEventListener("scroll", onScroll);
         // כמו מחזור componentwillunmount
@@ -34,7 +32,5 @@ export default function useScroll() {
     const endScreenFalse = () => {
         setEndScreen(false)
     }
-
-
     return [endScreen, endScreenFalse];
 }
