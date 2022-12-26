@@ -1,4 +1,4 @@
-import { Avatar, IconButton } from '@mui/material'
+import { Avatar, IconButton, Zoom } from '@mui/material'
 import React, { useEffect } from 'react'
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
@@ -17,6 +17,7 @@ export default function FoodItem({ item, doApi }) {
   const [userName, setUserName] = useState("");
   const [userImg, setUserImg] = useState("");
   const { user } = useSelector(myStore => myStore.userSlice);
+  const [checked, setChecked] = useState(true);
 
   useEffect(() => {
     doApiGetInfoUser();
@@ -28,9 +29,11 @@ export default function FoodItem({ item, doApi }) {
 
   const changeLikeIcon = () => {
     if (!item.likes.includes(user._id)) {
+      setChecked(true);
       setIcon(<FavoriteBorderIcon />)
     }
     else {
+      setChecked(true);
       setIcon(<FavoriteIcon sx={{ color: "red" }} />)
     }
   }
@@ -57,6 +60,7 @@ export default function FoodItem({ item, doApi }) {
       // console.log(resp.data);
       if (resp.data) {
         doApi();
+        setChecked((prev) => !prev);
       }
     }
     catch (err) {
@@ -92,13 +96,16 @@ export default function FoodItem({ item, doApi }) {
             </div>
 
             <div>
-              <IconButton
-                onClick={onLikeClick}
-                sx={{ width: 33, height: 33 }}
-                aria-label="add to favorites"
-              >
-                {icon}
-              </IconButton>
+              <Zoom in={checked}
+              style={{ transition: '500ms' }}>
+                <IconButton
+                  onClick={onLikeClick}
+                  sx={{ width: 33, height: 33 }}
+                  aria-label="add to favorites"
+                >
+                  {icon}
+                </IconButton>
+              </Zoom>
             </div>
 
           </div>
