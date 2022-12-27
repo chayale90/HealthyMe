@@ -110,8 +110,8 @@ export default function FoodItem({ item, doApi }) {
 
             </div>
 
-            <div className='s14 mt-2 ms-1 gray'>{item?.name}</div>
-            <div className='s14 ms-1 dark'>{item?.likes.length} likes</div>
+            <div className='s14 mt-2 ms-1 gray'>{item.name}</div>
+            <div className='s14 ms-1 dark'>{item.likes.length} likes</div>
           </div>
         </div>
       }
