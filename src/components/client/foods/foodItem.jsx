@@ -73,9 +73,9 @@ export default function FoodItem({ item, doApi }) {
   return (
     <React.Fragment>
       {item.active == true &&
-        <div className='mainDiv p-0'>
+        <div className='mainDiv col-10 col-sm-8 col-md-5 col-lg-3  p-0'>
           <div className='p-2 overflow-hidden h-100 '>
-            <img className='imgFood w-100' height={"200px"} src={item.img_url} />
+            <img className='imgFood w-100' minheight={"200px"} src={item.img_url} />
 
             <div className='mt-3 d-flex align-items-center justify-content-between w-100'>
 
