@@ -13,7 +13,7 @@ import { useSelector } from 'react-redux';
 
 export default function FoodItem({ item, doApi }) {
   const nav = useNavigate();
-  const [icon, setIcon] = useState(<FavoriteBorderIcon />);
+  const [icon, setIcon] = useState(<FavoriteBorderIcon/>);
   const [userName, setUserName] = useState("");
   const [userImg, setUserImg] = useState("");
   const { user } = useSelector(myStore => myStore.userSlice);
@@ -73,46 +73,47 @@ export default function FoodItem({ item, doApi }) {
   return (
     <React.Fragment>
       {item.active == true &&
-        <div className='mainDiv col-10 col-sm-8 col-md-5 col-lg-3  p-0'>
+        <div className='mainDiv col-10 col-xs-10 col-sm-10 col-md-5 col-lg-4 col-xl-3 p-0'>
           <div className='p-2 overflow-hidden h-100 '>
-            <img className='imgFood w-100' minheight={"200px"} src={item.img_url} />
 
-            <div className='mt-3 d-flex align-items-center justify-content-between w-100'>
+            <img className='imgFood w-100 img-fluid img' src={item.img_url} />
 
-              <div className='d-flex align-items-center'
-                style={{
-                  cursor: "pointer"
-                }}
-                onClick={() => {
-                  //go to details of user
-                  nav("/")
-                }}>
-                <Avatar
-                  sx={{ float: 'start', width: 33, height: 33 }}
-                  src={userImg} alt="AvatarOfFood"
-                />
-                <div style={{
-                  fontWeight: 500
-                }} className='s16 ms-2 dark userName'>{userName}</div>
-              </div>
+          <div className='mt-3 d-flex align-items-center justify-content-between w-100'>
 
-              <div>
-                <Zoom in={checked}>
-                  <IconButton
-                    onClick={onLikeClick}
-                    sx={{ width: 33, height: 33 }}
-                    aria-label="add to favorites"
-                  >
-                    {icon}
-                  </IconButton>
-                </Zoom>
-              </div>
-
+            <div className='d-flex align-items-center'
+              style={{
+                cursor: "pointer"
+              }}
+              onClick={() => {
+                //go to details of user
+                nav("/")
+              }}>
+              <Avatar
+                sx={{ float: 'start', width: 33, height: 33 }}
+                src={userImg} alt="AvatarOfFood"
+              />
+              <div style={{
+                fontWeight: 500
+              }} className='s16 ms-2 dark userName'>{userName}</div>
             </div>
 
-            <div className='s14 mt-2 ms-1 gray'>{item.name}</div>
-            <div className='s14 ms-1 dark'>{item.likes.length} likes</div>
+            <div>
+              <Zoom in={checked}>
+                <IconButton
+                  onClick={onLikeClick}
+                  sx={{ width: 33, height: 33 }}
+                  aria-label="add to favorites"
+                >
+                  {icon}
+                </IconButton>
+              </Zoom>
+            </div>
+
           </div>
+
+          <div className='s14 mt-2 ms-1 gray'>{item.name}</div>
+          <div className='s14 ms-1 dark'>{item.likes.length} likes</div>
+        </div>
         </div>
       }
     </React.Fragment >

@@ -1,7 +1,6 @@
 import { CircularProgress, ThemeProvider } from '@mui/material';
 import React, { useEffect, useState } from 'react'
 import { toast } from 'react-toastify';
-import { Box } from '@mui/system';
 import { theme } from '../../../services/theme';
 import { API_URL, doApiGet } from '../../../services/apiService';
 import CheckUserComp from '../../auth/checkComps/checkUserComp';
@@ -68,7 +67,7 @@ export default function FoodsList(props) {
 
       //return the toggle (that check if we in the end of scroll) to false
       endScreenEnd
-
+      setShow("none")
     }
     catch (err) {
       console.log(err);
@@ -76,7 +75,7 @@ export default function FoodsList(props) {
     }
   }
 
-  
+
   return (
     <div className='container '>
       <CheckUserComp />
@@ -89,12 +88,9 @@ export default function FoodsList(props) {
         })}
 
         <ThemeProvider theme={theme}>
-          {/* {endScreen && */}
-
-          <div style={{ display: "flex" }} className='justify-content-center'><CircularProgress /></div>
-
-          {/* // <h2 className='display-6 text-center'>Loading...</h2> */}
-          {/* } */}
+          <div style={{ display: show, alignItems: 'center' }}>
+            <div style={{ margin:"0 auto" }} ><CircularProgress /></div>
+          </div>
         </ThemeProvider>
 
       </div>

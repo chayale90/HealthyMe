@@ -5,9 +5,8 @@ import { toast } from 'react-toastify';
 import { API_URL, doApiGet } from '../../../services/apiService';
 import FoodsList from './foodsList'
 import AddIcon from '@mui/icons-material/Add';
-import { Fab, IconButton, InputBase, Paper, ThemeProvider } from '@mui/material';
+import { Fab, IconButton, InputBase, Paper } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
-import { theme } from '../../../services/theme';
 
 export default function FoodsPage() {
   const [category, setCategory] = useState({});
@@ -43,7 +42,7 @@ export default function FoodsPage() {
   return (
     <div className='container '>
       <div className='row justify-content-center'>
-        <div className='mx-auto col-9 col-md-8 col-lg-5 col-xl-4 mb-5 pb-sm-4 mt-4'>
+        <div className='mx-auto col-10 col-md-8 col-lg-5  mb-5 pb-sm-4 mt-4'>
           <Paper
             component="form"
             sx={{ p: '2px 4px', display: 'flex', alignItems: 'center', borderRadius: 100 }}
