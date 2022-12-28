@@ -54,7 +54,7 @@ export default function InputComp2() {
         }
         catch (err) {
             console.log(err);
-            toast.error(err.response.data.msg)
+            toast.error("There problem, try again later")
         }
     };
 
