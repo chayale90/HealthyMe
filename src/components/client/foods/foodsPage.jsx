@@ -1,12 +1,12 @@
-import React, { useState } from 'react'
+import React, { useState, useRef } from 'react'
 import { useEffect } from 'react';
 import Select from 'react-select';
 import { toast } from 'react-toastify';
 import { API_URL, doApiGet } from '../../../services/apiService';
 import FoodsList from './foodsList'
 import AddIcon from '@mui/icons-material/Add';
-import { Fab, IconButton, InputBase, Paper } from '@mui/material';
-import SearchIcon from '@mui/icons-material/Search';
+import { Fab } from '@mui/material';
+import SearchInput from './searchInput';
 
 export default function FoodsPage() {
   const [category, setCategory] = useState({});
@@ -41,25 +41,8 @@ export default function FoodsPage() {
 
   return (
     <div className='container '>
-      <div className='row justify-content-center'>
-        <div className='mx-auto col-10 col-md-8 col-lg-5  mb-5 pb-sm-4 mt-4'>
-          <Paper
-            component="form"
-            sx={{ p: '2px 4px', display: 'flex', alignItems: 'center', borderRadius: 100 }}
-          >
-            <InputBase
-              sx={{ ml: 2, flex: 1 }}
-              placeholder="Search..."
-              inputProps={{ 'aria-label': 'Search my food' }}
-            />
-            <IconButton type="button" sx={{ p: '10px' }} aria-label="search">
-              <SearchIcon />
-            </IconButton>
-          </Paper>
 
-        </div>
-      </div>
-
+      <SearchInput />
 
       <div className='row justify-content-center justify-content-md-between mx-sm-3 mx-xs-5 px-md-3 mx-lg-5 px-lg-5 mb-5'>
         <div className='col-7 col-md-6 col-lg-5 col-xl-4'>
@@ -102,10 +85,6 @@ export default function FoodsPage() {
           />
         </div>
       </div>
-
-
-
-
 
       <FoodsList dataCat={data} />
 

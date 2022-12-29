@@ -7,7 +7,6 @@ import CheckUserComp from '../../auth/checkComps/checkUserComp';
 import FoodItem from './foodItem'
 import useScroll from '../../../hooks/useScroll';
 
-
 export default function FoodsList(props) {
   const dataCat = props.dataCat;
 
