@@ -16,7 +16,7 @@ export default function SignUpPage() {
   return (
     <div>
       <div className='d-flex justify-content-lg-between justify-content-center'>
-        <div className='col-9 col-sm-8 col-md-6 col-lg-5 col-xl-4'>
+        <div className='col-11 col-sm-8 col-md-6 col-lg-5 col-xl-4'>
           <div className='ps-lg-5 ms-lg-5 me-lg-1'>
 
             <div className='d-flex justify-content-between '>

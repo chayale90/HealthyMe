@@ -5,7 +5,7 @@ import Progress2 from './progress2'
 
 export default function SignUpComp2() {
     return (
-            <div style={{ width: "310px" }}>
+            <div>
                 <Progress2 />
                 <SignUpTitle />
                 <InputComp2 />

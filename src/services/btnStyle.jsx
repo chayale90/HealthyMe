@@ -35,5 +35,5 @@ export const labelBtnUpload = {
     color: "white",
     padding: "4px 11px",
     borderRadius: "8px",
-    cursor: "pointer",
+    cursor: "pointer"
 }
