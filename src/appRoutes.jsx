@@ -8,7 +8,6 @@ import NotFound from './components/general_comps/notFound'
 import LayoutAdmin from './layoutAdmin/layoutAdmin'
 import UsersListAdmin from './components/admin/users/usersListAdmin'
 import FoodsListAdmin from './components/admin/foods/foodsListAdmin'
-import FoodsList from './components/client/foods/foodsList'
 
 // בשביל הודעות טוסט צריך קונטיינר שיהיה באפ ואת
 // הסי אס אס שלו
@@ -18,6 +17,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import UploadTest from './assets/uploadTest'
 import LoginPage from './components/auth/loginPage/loginPage'
 import SignUpPage from './components/auth/signUpComps/signUpPage'
+import FoodsPage from './components/client/foods/foodsPage'
 
 
 export default function AppRoutes() {
@@ -30,7 +30,7 @@ export default function AppRoutes() {
                 {/* Client Layout */}
                 <Route path='/' element={<Layout />} >
                     {/* Outlet */}
-                    <Route path='/foods' element={<FoodsList />} />
+                    <Route path='/foods' element={<FoodsPage />} />
 
 
                     {/* ******** */}

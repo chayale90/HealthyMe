@@ -1,18 +1,24 @@
-import {  CircularProgress, Fab, ThemeProvider } from '@mui/material';
+import { CircularProgress, ThemeProvider } from '@mui/material';
 import React, { useEffect, useState } from 'react'
 import { toast } from 'react-toastify';
-import { Box } from '@mui/system';
 import { theme } from '../../../services/theme';
 import { API_URL, doApiGet } from '../../../services/apiService';
 import CheckUserComp from '../../auth/checkComps/checkUserComp';
 import FoodItem from './foodItem'
-import useScroll from '../../hooks/useScroll';
+import useScroll from '../../../hooks/useScroll';
 
-export default function FoodsList() {
+
+export default function FoodsList(props) {
+  const dataCat = props.dataCat;
+
   const [ar, setAr] = useState([]);
+  // const [arCats, setArCats] = useState([]);
   const [endScreen, endScreenEnd] = useScroll(900)
   const [page, setPage] = useState(1)
   const [firstLoad, setFirstLoad] = useState(true)
+  const [show, setShow] = useState("flex")
+
+  console.log(dataCat);
 
   useEffect(() => {
     doApiPage()
@@ -20,7 +26,7 @@ export default function FoodsList() {
 
   useEffect(() => {
     doApi()
-  }, [])
+  }, [dataCat])
 
   useEffect(() => {
     //check if the page loading in the first time-its not do the action
@@ -33,11 +39,16 @@ export default function FoodsList() {
 
   const doApi = async () => {
     // let page = querys.get("page") || 1;
-    let url = API_URL + "/foods/?page=" + page;
+    let url = API_URL + "/foods"
     try {
       let resp = await doApiGet(url);
       console.log(resp.data);
-      setAr(resp.data);
+
+      setAr([...resp.data]);
+
+      if (dataCat.length > 0) {
+        setAr([...dataCat])
+      }
       //return the toggle (that check if we in the end of scroll) to false
       // endScreenEnd
     }
@@ -53,8 +64,10 @@ export default function FoodsList() {
       let resp = await doApiGet(url);
       console.log(resp.data);
       setAr([...ar, ...resp.data]);
+
       //return the toggle (that check if we in the end of scroll) to false
       endScreenEnd
+      setShow("none")
     }
     catch (err) {
       console.log(err);
@@ -62,10 +75,11 @@ export default function FoodsList() {
     }
   }
 
+
   return (
-    <div className='container mt-5'>
+    <div className='container '>
       <CheckUserComp />
-      <div className='row justify-content-center'>
+      <div className='row justify-content-center '>
 
         {ar.map((item, i) => {
           return (
@@ -74,12 +88,10 @@ export default function FoodsList() {
         })}
 
         <ThemeProvider theme={theme}>
-          {endScreen &&
-            <Box sx={{ display: "flex", minHeight: "100px", justifyContent: "center" }}><CircularProgress /></Box>
-            // <h2 className='display-6 text-center'>Loading...</h2>
-          }
+          <div style={{ display: show, alignItems: 'center' }}>
+            <div style={{ margin:"0 auto" }} ><CircularProgress /></div>
+          </div>
         </ThemeProvider>
-
 
       </div>
     </div>

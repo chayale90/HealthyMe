@@ -72,47 +72,50 @@ export default function FoodItem({ item, doApi }) {
 
   return (
     <React.Fragment>
-      <div className='mainDiv p-0'>
-        <div className='p-2 overflow-hidden h-100 '>
-          <img className='imgFood w-100' height={"200px"} src={item.img_url} />
+      {item.active == true &&
+        <div className='mainDiv col-10 col-xs-10 col-sm-10 col-md-5 col-lg-4 col-xl-3 p-0'>
+          <div className='p-2 overflow-hidden h-100 '>
 
-          <div className='mt-3 d-flex align-items-center justify-content-between w-100'>
+            <img className='imgFood w-100 img-fluid img' src={item.img_url} />
 
-            <div className='d-flex align-items-center'
-              style={{
-                cursor: "pointer"
-              }}
-              onClick={() => {
-                //go to details of user
-                nav("/")
-              }}>
-              <Avatar
-                sx={{ float: 'start', width: 33, height: 33 }}
-                src={userImg} alt="AvatarOfFood"
-              />
-              <div style={{
-                fontWeight: 500
-              }} className='s16 ms-2 dark userName'>{userName}</div>
+            <div className='mt-3 d-flex align-items-center justify-content-between w-100'>
+
+              <div className='d-flex align-items-center'
+                style={{
+                  cursor: "pointer"
+                }}
+                onClick={() => {
+                  //go to details of user
+                  nav("/")
+                }}>
+                <Avatar
+                  sx={{ float: 'start', width: 33, height: 33 }}
+                  src={userImg} alt="AvatarOfFood"
+                />
+                <div style={{
+                  fontWeight: 500
+                }} className='s16 ms-2 dark userName'>{userName}</div>
+              </div>
+
+              <div>
+                <Zoom in={checked}>
+                  <IconButton
+                    onClick={onLikeClick}
+                    sx={{ width: 33, height: 33 }}
+                    aria-label="add to favorites"
+                  >
+                    {icon}
+                  </IconButton>
+                </Zoom>
+              </div>
+
             </div>
 
-            <div>
-              <Zoom in={checked}
-              style={{ transition: '500ms' }}>
-                <IconButton
-                  onClick={onLikeClick}
-                  sx={{ width: 33, height: 33 }}
-                  aria-label="add to favorites"
-                >
-                  {icon}
-                </IconButton>
-              </Zoom>
-            </div>
-
+            <div className='s14 mt-2 ms-1 gray'>{item.name}</div>
+            <div className='s14 ms-1 dark'>{item.likes.length} likes</div>
           </div>
-          <div className='s14 mt-2 ms-1 gray'>{item?.name}</div>
-          <div className='s14 ms-1 dark'>{item?.likes.length} likes</div>
         </div>
-      </div>
+      }
     </React.Fragment >
   )
 }

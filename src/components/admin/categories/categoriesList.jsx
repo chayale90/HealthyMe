@@ -44,7 +44,7 @@ export default function CategoriesList() {
           </tr>
         </thead>
         <tbody>
-          {ar?.map((item, i) => {
+          {ar.map((item, i) => {
               return (
               <CategoryItem key={item._id} doApi={doApi} index={i} item={item} />
             )
