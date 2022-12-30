@@ -8,16 +8,16 @@ import FoodItem from './foodItem'
 import useScroll from '../../../hooks/useScroll';
 
 export default function FoodsList(props) {
-  const dataCat = props.dataCat;
+  const dataCategories = props.dataCategories;
 
   const [ar, setAr] = useState([]);
   // const [arCats, setArCats] = useState([]);
   const [endScreen, endScreenEnd] = useScroll(900)
   const [page, setPage] = useState(1)
   const [firstLoad, setFirstLoad] = useState(true)
-  const [show, setShow] = useState("flex")
+  const [showLoading, setShowLoading] = useState("flex")
 
-  console.log(dataCat);
+  console.log(dataCategories);
 
   useEffect(() => {
     doApiPage()
@@ -25,7 +25,7 @@ export default function FoodsList(props) {
 
   useEffect(() => {
     doApi()
-  }, [dataCat])
+  }, [dataCategories])
 
   useEffect(() => {
     //check if the page loading in the first time-its not do the action
@@ -45,8 +45,8 @@ export default function FoodsList(props) {
 
       setAr([...resp.data]);
 
-      if (dataCat.length > 0) {
-        setAr([...dataCat])
+      if (dataCategories.length > 0) {
+        setAr([...dataCategories])
       }
       //return the toggle (that check if we in the end of scroll) to false
       // endScreenEnd
@@ -66,7 +66,7 @@ export default function FoodsList(props) {
 
       //return the toggle (that check if we in the end of scroll) to false
       endScreenEnd
-      setShow("none")
+      setShowLoading("none")
     }
     catch (err) {
       console.log(err);
@@ -87,7 +87,7 @@ export default function FoodsList(props) {
         })}
 
         <ThemeProvider theme={theme}>
-          <div style={{ display: show, alignItems: 'center' }}>
+          <div style={{ display: showLoading, alignItems: 'center' }}>
             <div style={{ margin:"0 auto" }} ><CircularProgress /></div>
           </div>
         </ThemeProvider>

@@ -10,7 +10,7 @@ import SearchInput from './searchInput';
 
 export default function FoodsPage() {
   const [category, setCategory] = useState({});
-  const [data, setData] = useState([])
+  const [dataCategories, setDataCategories] = useState([])
 
   const options = [
     { value: 'salads', label: 'Salads' },
@@ -30,7 +30,7 @@ export default function FoodsPage() {
     try {
       const resp = await doApiGet(url);
       console.log(resp.data);
-      setData([...resp.data])
+      setDataCategories([...resp.data])
       console.log(category);
     }
     catch (err) {
@@ -86,7 +86,7 @@ export default function FoodsPage() {
         </div>
       </div>
 
-      <FoodsList dataCat={data} />
+      <FoodsList dataCategories={dataCategories} />
 
       <Fab
         sx={{ background: "#A435F0", color: "white", "&:hover": { color: "white", background: "#912CD6" }, position: 'sticky', bottom: 70, left: 1900 }}
