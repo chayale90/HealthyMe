@@ -10,7 +10,7 @@ import useScroll from '../../../hooks/useScroll';
 export default function FoodsList(props) {
   const dataCategories = props.dataCategories;
 
-  const [ar, setAr] = useState([]);
+  const [items, setItems] = useState([]);
   // const [arCats, setArCats] = useState([]);
   const [endScreen, endScreenEnd] = useScroll(900)
   const [page, setPage] = useState(1)
@@ -19,9 +19,7 @@ export default function FoodsList(props) {
 
   console.log(dataCategories);
 
-  useEffect(() => {
-    doApiPage()
-  }, [page])
+
 
   useEffect(() => {
     doApi()
@@ -36,34 +34,17 @@ export default function FoodsList(props) {
     setFirstLoad(false)
   }, [endScreen])
 
+
   const doApi = async () => {
-    // let page = querys.get("page") || 1;
-    let url = API_URL + "/foods"
-    try {
-      let resp = await doApiGet(url);
-      console.log(resp.data);
-
-      setAr([...resp.data]);
-
-      if (dataCategories.length > 0) {
-        setAr([...dataCategories])
-      }
-      //return the toggle (that check if we in the end of scroll) to false
-      // endScreenEnd
-    }
-    catch (err) {
-      console.log(err);
-      toast.error("there problem ,try again later")
-    }
-  }
-
-  const doApiPage = async () => {
     let url = API_URL + "/foods/?page=" + page;
     try {
       let resp = await doApiGet(url);
       console.log(resp.data);
-      setAr([...ar, ...resp.data]);
+      setItems([...items, ...resp.data]);
 
+      if (dataCategories.length > 0) {
+        setItems([...dataCategories])
+      }
       //return the toggle (that check if we in the end of scroll) to false
       endScreenEnd
       setShowLoading("none")
@@ -80,9 +61,9 @@ export default function FoodsList(props) {
       <CheckUserComp />
       <div className='row justify-content-center '>
 
-        {ar.map((item, i) => {
+        {items.map((item, i) => {
           return (
-            <FoodItem page={page} key={item._id} index={i} item={item} doApiPage={doApiPage} doApi={doApi} />
+            <FoodItem page={page} key={item._id} index={i} item={item} />
           )
         })}
 
