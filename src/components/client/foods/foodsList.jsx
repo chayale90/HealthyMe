@@ -5,94 +5,87 @@ import { theme } from '../../../services/theme';
 import { API_URL, doApiGet } from '../../../services/apiService';
 import CheckUserComp from '../../auth/checkComps/checkUserComp';
 import FoodItem from './foodItem'
-import useScroll from '../../../hooks/useScroll';
+import InfiniteScroll from 'react-infinite-scroller';
 
-export default function FoodsList(props) {
-  const dataCategories = props.dataCategories;
+export default function FoodsList() {
 
-  const [ar, setAr] = useState([]);
-  // const [arCats, setArCats] = useState([]);
-  const [endScreen, endScreenEnd] = useScroll(900)
-  const [page, setPage] = useState(1)
-  const [firstLoad, setFirstLoad] = useState(true)
-  const [showLoading, setShowLoading] = useState("flex")
+  const [items, setItems] = useState([]);
+  const [hasMore, setHasMore] = useState(true);
+  const [page, setPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
+  const [totalItems, setTotalItems] = useState(0);
 
-  console.log(dataCategories);
+
 
   useEffect(() => {
-    doApiPage()
-  }, [page])
+    loadMore()
+  }, [])
 
-  useEffect(() => {
-    doApi()
-  }, [dataCategories])
 
-  useEffect(() => {
-    //check if the page loading in the first time-its not do the action
-    if (!firstLoad && endScreen) {
-      console.log("end screen");
-      setPage(page + 1)
-    }
-    setFirstLoad(false)
-  }, [endScreen])
+  const loadMore = async () => {
+    // Load additional items here and add them to the items array
+    await doApi()
+    setPage(page + 1);
+
+  }
 
   const doApi = async () => {
-    // let page = querys.get("page") || 1;
-    let url = API_URL + "/foods"
+    let url = API_URL + "/foods/?page=" + page
     try {
-      let resp = await doApiGet(url);
-      console.log(resp.data);
+      let { data } = await doApiGet(url);
+      console.log(data);
 
-      setAr([...resp.data]);
+      // Add the items to the list
+      setItems([...items, ...data]);
 
-      if (dataCategories.length > 0) {
-        setAr([...dataCategories])
+      // Update the page and total pages variables
+      setTotalItems(totalItems + data.length);
+      console.log(totalItems);
+
+
+      // setHasMore(false) if there are no more items to load
+      if (totalItems > data.length) {
+        setHasMore(false);
       }
-      //return the toggle (that check if we in the end of scroll) to false
-      // endScreenEnd
+
+      setTotalPages(Math.floor(totalItems / page));
+      console.log(totalItems);
+      console.log(totalPages);
+
     }
+
     catch (err) {
       console.log(err);
       toast.error("there problem ,try again later")
     }
   }
+  const load = async () => {
+    // Load additional items here and add them to the items array
+    await doApi()
+    setPage(1);
+    setHasMore(true);
 
-  const doApiPage = async () => {
-    let url = API_URL + "/foods/?page=" + page;
-    try {
-      let resp = await doApiGet(url);
-      console.log(resp.data);
-      setAr([...ar, ...resp.data]);
-
-      //return the toggle (that check if we in the end of scroll) to false
-      endScreenEnd
-      setShowLoading("none")
-    }
-    catch (err) {
-      console.log(err);
-      toast.error("there problem ,try again later")
-    }
   }
-
 
   return (
     <div className='container '>
       <CheckUserComp />
-      <div className='row justify-content-center '>
+      <InfiniteScroll
+        pageStart={1}
+        loadMore={loadMore}
+        hasMore={hasMore}
+        loader={<div className="loader" key={0}>Loading ...</div>}
+      >
+        <div className='row justify-content-center'>
+          {items.map((item, i) => {
+            return (
+              <FoodItem key={item._id} index={i} item={item} load={load} loadMore={loadMore} doApiPage={""} doApi={doApi} />
+            )
+          })}
+        </div>
+      </InfiniteScroll>
 
-        {ar.map((item, i) => {
-          return (
-            <FoodItem page={page} key={item._id} index={i} item={item} doApiPage={doApiPage} doApi={doApi} />
-          )
-        })}
 
-        <ThemeProvider theme={theme}>
-          <div style={{ display: showLoading, alignItems: 'center' }}>
-            <div style={{ margin:"0 auto" }} ><CircularProgress /></div>
-          </div>
-        </ThemeProvider>
-
-      </div>
     </div>
 
   )

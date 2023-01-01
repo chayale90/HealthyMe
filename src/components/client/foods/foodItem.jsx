@@ -11,7 +11,7 @@ import { useSelector } from 'react-redux';
 // import { resetUser } from "../../../features/userSlice"
 
 
-export default function FoodItem({ item, doApi }) {
+export default function FoodItem({ item, doApi ,load,loadMore}) {
   const nav = useNavigate();
   const [icon, setIcon] = useState(<FavoriteBorderIcon />);
   const [userName, setUserName] = useState("");
@@ -25,7 +25,7 @@ export default function FoodItem({ item, doApi }) {
 
   useEffect(() => {
     changeLikeIcon()
-  }, [doApi])
+  }, [loadMore])
 
   const changeLikeIcon = () => {
     if (!item.likes.includes(user._id)) {
@@ -59,8 +59,11 @@ export default function FoodItem({ item, doApi }) {
       let resp = await doApiMethod(url, "PATCH")
       // console.log(resp.data);
       if (resp.data) {
-        doApi();
+        console.log(resp);
         setChecked((prev) => !prev);
+        // setTimeout(loadMore, 5000);
+        loadMore();
+        // window.location.reload();
       }
     }
     catch (err) {
