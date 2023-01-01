@@ -15,8 +15,6 @@ export default function FoodsList() {
   const [totalPages, setTotalPages] = useState(1);
   const [totalItems, setTotalItems] = useState(0);
 
-
-
   useEffect(() => {
     loadMore()
   }, [])
@@ -32,19 +30,19 @@ export default function FoodsList() {
   const doApi = async () => {
     let url = API_URL + "/foods/?page=" + page
     try {
-      let { data } = await doApiGet(url);
-      console.log(data);
+      let resp = await doApiGet(url);
+      console.log(resp);
 
       // Add the items to the list
-      setItems([...items, ...data]);
+      setItems([...items, ...resp.data]);
 
       // Update the page and total pages variables
-      setTotalItems(totalItems + data.length);
+      setTotalItems(totalItems + resp.data.length);
       console.log(totalItems);
 
 
       // setHasMore(false) if there are no more items to load
-      if (totalItems > data.length) {
+      if (totalItems > resp.data.length) {
         setHasMore(false);
       }
 
@@ -64,7 +62,6 @@ export default function FoodsList() {
     await doApi()
     setPage(1);
     setHasMore(true);
-
   }
 
   return (
@@ -79,7 +76,7 @@ export default function FoodsList() {
         <div className='row justify-content-center'>
           {items.map((item, i) => {
             return (
-              <FoodItem key={item._id} index={i} item={item} load={load} loadMore={loadMore} doApiPage={""} doApi={doApi} />
+              <FoodItem key={item._id} index={i} item={item} setItems={setItems} items={items} load={load} loadMore={loadMore} doApiPage={""} doApi={doApi} />
             )
           })}
         </div>

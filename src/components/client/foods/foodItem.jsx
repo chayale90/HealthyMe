@@ -1,17 +1,15 @@
 import { Avatar, IconButton, Zoom } from '@mui/material'
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import "./foodItem.css"
-import { useState } from 'react';
-import { API_URL, doApiGet, doApiMethod } from '../../../services/apiService';
 import { toast } from 'react-toastify';
 import { Link, useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-// import { resetUser } from "../../../features/userSlice"
+import { API_URL, doApiGet, doApiMethod } from '../../../services/apiService';
 
+export default function FoodItem({item,setItems,items}) {
 
-export default function FoodItem({ item, doApi ,load,loadMore}) {
   const nav = useNavigate();
   const [icon, setIcon] = useState(<FavoriteBorderIcon />);
   const [userName, setUserName] = useState("");
@@ -25,7 +23,8 @@ export default function FoodItem({ item, doApi ,load,loadMore}) {
 
   useEffect(() => {
     changeLikeIcon()
-  }, [loadMore])
+  }, [items])
+
 
   const changeLikeIcon = () => {
     if (!item.likes.includes(user._id)) {
@@ -40,7 +39,7 @@ export default function FoodItem({ item, doApi ,load,loadMore}) {
 
   const doApiGetInfoUser = async () => {
     try {
-      let url = API_URL + "/users/userInfo/" + item.user_id;
+      const url = API_URL + "/users/userInfo/" + item.user_id;
       const resp = await doApiGet(url);
       // console.log(resp.data);
       setUserName(resp.data.name);
@@ -56,14 +55,20 @@ export default function FoodItem({ item, doApi ,load,loadMore}) {
   const onLikeClick = async () => {
     let url = API_URL + "/foods/changeLike/" + item._id
     try {
-      let resp = await doApiMethod(url, "PATCH")
-      // console.log(resp.data);
+      const resp = await doApiMethod(url, "PATCH")
+      console.log(resp.data);
       if (resp.data) {
-        console.log(resp);
         setChecked((prev) => !prev);
-        // setTimeout(loadMore, 5000);
-        loadMore();
+        // console.log(loadMore());
+        loadMore()
+        setItems([...items])
+        console.log(items);
         // window.location.reload();
+        // buttons: [
+        //   ...state.items.map(item => {
+        //    return (item.id === parseInt(action.id)) ?
+        //        {...state.items, like: !item.like} : item
+        //  })         ]
       }
     }
     catch (err) {
