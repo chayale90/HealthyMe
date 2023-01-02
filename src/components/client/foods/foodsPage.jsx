@@ -1,16 +1,18 @@
-import React, { useState } from 'react'
+import React, { useState, useRef } from 'react'
 import { useEffect } from 'react';
 import Select from 'react-select';
 import { toast } from 'react-toastify';
 import { API_URL, doApiGet } from '../../../services/apiService';
 import FoodsList from './foodsList'
 import AddIcon from '@mui/icons-material/Add';
-import { Fab, IconButton, InputBase, Paper } from '@mui/material';
-import SearchIcon from '@mui/icons-material/Search';
+import { Fab } from '@mui/material';
+import SearchInput from './searchInput';
 
 export default function FoodsPage() {
+  const [page, setPage] = useState(1);
   const [category, setCategory] = useState({});
-  const [data, setData] = useState([])
+  const [sort, setSort] = useState({});
+  const [arCats, setArCats] = useState([])
 
   const options = [
     { value: 'salads', label: 'Salads' },
@@ -20,17 +22,27 @@ export default function FoodsPage() {
     { value: 'quickMeal', label: 'QuickMeal' },
     { value: 'All', label: 'All' }
   ];
+  const optionsSort = [
+    { value: 'calories', label: 'Calories' },
+    { value: 'dishes', label: 'Dishes' },
+    { value: 'likes', label: 'Likes' }
+  ];
 
   useEffect(() => {
     doApi()
   }, [category])
 
   const doApi = async () => {
-    let url = API_URL + "/foods/category/" + category;
+    let url = API_URL + `/foods/category/${category}?page=${page}`;
     try {
       const resp = await doApiGet(url);
       console.log(resp.data);
-      setData([...resp.data])
+
+      // if(resp.data==null){
+      //   setDataCategories([])
+      // }
+
+      setArCats([...resp.data])
       console.log(category);
     }
     catch (err) {
@@ -41,25 +53,8 @@ export default function FoodsPage() {
 
   return (
     <div className='container '>
-      <div className='row justify-content-center'>
-        <div className='mx-auto col-10 col-md-8 col-lg-5  mb-5 pb-sm-4 mt-4'>
-          <Paper
-            component="form"
-            sx={{ p: '2px 4px', display: 'flex', alignItems: 'center', borderRadius: 100 }}
-          >
-            <InputBase
-              sx={{ ml: 2, flex: 1 }}
-              placeholder="Search..."
-              inputProps={{ 'aria-label': 'Search my food' }}
-            />
-            <IconButton type="button" sx={{ p: '10px' }} aria-label="search">
-              <SearchIcon />
-            </IconButton>
-          </Paper>
 
-        </div>
-      </div>
-
+      <SearchInput />
 
       <div className='row justify-content-center justify-content-md-between mx-sm-3 mx-xs-5 px-md-3 mx-lg-5 px-lg-5 mb-5'>
         <div className='col-7 col-md-6 col-lg-5 col-xl-4'>
@@ -95,19 +90,15 @@ export default function FoodsPage() {
             })}
             className="basic-single"
             classNamePrefix="select"
-            defaultValue={options[6]}
+            defaultValue={optionsSort[2]}
             placeholder="Sort By"
-            options={options}
-            onChange={(e) => setCategory(e.value)}
+            options={optionsSort}
+            onChange={(e) => setSort(e.value)}
           />
         </div>
       </div>
 
-
-
-
-
-      <FoodsList dataCat={data} />
+      <FoodsList arCats={arCats} sort={sort} />
 
       <Fab
         sx={{ background: "#A435F0", color: "white", "&:hover": { color: "white", background: "#912CD6" }, position: 'sticky', bottom: 70, left: 1900 }}
