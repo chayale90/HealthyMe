@@ -45,13 +45,14 @@ export default function FoodItem({ item, setItems, items }) {
           if (foodItem._id === item._id) {
             const isUserLikeFood = foodItem.likes.includes(user._id);
             const tempLikes = isUserLikeFood
-              ? foodItem.likes.filter((userId) => userId != user._id)
+              ? foodItem.likes.filter((userId) => userId !== user._id)
               : [...foodItem.likes, user._id];
 
             return { ...foodItem, likes: tempLikes };
           }
           return foodItem;
         });
+
         console.log(updatedFoodItems);
         setItems([...updatedFoodItems]);
         setChecked(prev=>!prev)

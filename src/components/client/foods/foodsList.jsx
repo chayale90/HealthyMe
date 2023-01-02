@@ -7,7 +7,7 @@ import CheckUserComp from '../../auth/checkComps/checkUserComp';
 import FoodItem from './foodItem'
 import InfiniteScroll from 'react-infinite-scroller';
 
-export default function FoodsList({ dataCategories }) {
+export default function FoodsList({ arCats }) {
 
   const [items, setItems] = useState([]);
   const [hasMore, setHasMore] = useState(true);
@@ -17,7 +17,7 @@ export default function FoodsList({ dataCategories }) {
 
   useEffect(() => {
     loadMore()
-  }, [dataCategories])
+  }, [arCats])
 
 
   const loadMore = async () => {
@@ -27,53 +27,47 @@ export default function FoodsList({ dataCategories }) {
   }
 
   const doApi = async () => {
-    let url = API_URL + "/foods/?page=" + page
+    let url = API_URL + `/foods/?page=${page}` 
     try {
       let resp = await doApiGet(url);
       console.log(resp);
 
-      // Add the items to the list
-      setItems([...items, ...resp.data]);
-      
-      if (dataCategories.length > 0) {
-        setItems([...dataCategories])
+      //if I want search by category
+      if (arCats.length > 0) {
+        setItems([...arCats])
+        console.log(arCats);
+      }
+      else {
+        // push all items to ar
+        setItems([...items, ...resp.data]);
       }
 
       // Update the page and total pages variables
       setTotalItems(totalItems + resp.data.length);
       console.log(totalItems);
 
-
       // setHasMore(false) if there are no more items to load
       if (totalItems > resp.data.length) {
         setHasMore(false);
-        setPage(1);
       }
 
       setTotalPages(Math.floor(totalItems / page));
       console.log(totalItems);
       console.log(totalPages);
 
-
     }
-
     catch (err) {
       console.log(err);
       toast.error("there problem ,try again later")
     }
   }
-  const load = async () => {
-    // Load additional items here and add them to the items array
-    await doApi()
-    setPage(1);
-    setHasMore(true);
-  }
+
 
   return (
     <div className='container '>
       <CheckUserComp />
       <InfiniteScroll
-        pageStart={1}
+        pageStart={page}
         loadMore={loadMore}
         hasMore={hasMore}
         loader={

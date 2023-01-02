@@ -9,8 +9,10 @@ import { Fab } from '@mui/material';
 import SearchInput from './searchInput';
 
 export default function FoodsPage() {
+  const [page, setPage] = useState(1);
   const [category, setCategory] = useState({});
-  const [dataCategories, setDataCategories] = useState([])
+  const [sort, setSort] = useState({});
+  const [arCats, setArCats] = useState([])
 
   const options = [
     { value: 'salads', label: 'Salads' },
@@ -20,13 +22,18 @@ export default function FoodsPage() {
     { value: 'quickMeal', label: 'QuickMeal' },
     { value: 'All', label: 'All' }
   ];
+  const optionsSort = [
+    { value: 'calories', label: 'Calories' },
+    { value: 'dishes', label: 'Dishes' },
+    { value: 'likes', label: 'Likes' }
+  ];
 
   useEffect(() => {
     doApi()
   }, [category])
 
   const doApi = async () => {
-    let url = API_URL + "/foods/category/" + category;
+    let url = API_URL + `/foods/category/${category}?page=${page}`;
     try {
       const resp = await doApiGet(url);
       console.log(resp.data);
@@ -35,7 +42,7 @@ export default function FoodsPage() {
       //   setDataCategories([])
       // }
 
-      setDataCategories([...resp.data])
+      setArCats([...resp.data])
       console.log(category);
     }
     catch (err) {
@@ -83,15 +90,15 @@ export default function FoodsPage() {
             })}
             className="basic-single"
             classNamePrefix="select"
-            defaultValue={options[6]}
+            defaultValue={optionsSort[2]}
             placeholder="Sort By"
-            options={options}
-            onChange={(e) => setCategory(e.value)}
+            options={optionsSort}
+            onChange={(e) => setSort(e.value)}
           />
         </div>
       </div>
 
-      <FoodsList dataCategories={dataCategories} />
+      <FoodsList arCats={arCats} sort={sort} />
 
       <Fab
         sx={{ background: "#A435F0", color: "white", "&:hover": { color: "white", background: "#912CD6" }, position: 'sticky', bottom: 70, left: 1900 }}
