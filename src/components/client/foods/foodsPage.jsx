@@ -30,6 +30,11 @@ export default function FoodsPage() {
     try {
       const resp = await doApiGet(url);
       console.log(resp.data);
+
+      // if(resp.data==null){
+      //   setDataCategories([])
+      // }
+
       setDataCategories([...resp.data])
       console.log(category);
     }

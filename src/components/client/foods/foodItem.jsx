@@ -19,14 +19,6 @@ export default function FoodItem({ item, setItems, items }) {
     doApiGetInfoUser();
   }, []);
 
-//somthing
-
-// if (dataCategories.length > 0) {
-//   setAr([...dataCategories])
-// }
-
-
-
 
   const doApiGetInfoUser = async () => {
     try {
