@@ -13,7 +13,7 @@ export default function FoodsPage() {
   const [sort, setSort] = useState({});
   const [category, setCategory] = useState({});
   const [arCats, setArCats] = useState([])
-console.log(sort);
+  console.log(sort);
 
   const options = [
     { value: 'salads', label: 'Salads' },
@@ -86,7 +86,7 @@ console.log(sort);
             })}
             className="basic-single"
             classNamePrefix="select"
-            defaultValue={optionsSort[2]}
+            // defaultValue={optionsSort[2]}
             placeholder="Sort By"
             options={optionsSort}
             onChange={(e) => setSort(e.value)}

@@ -40,7 +40,6 @@ export default function FoodItem({ item, setItems, items }) {
       const resp = await doApiMethod(url, "PATCH");
       console.log(resp.data);
       if (resp.data) {
-
         const updatedFoodItems = items.map((foodItem) => {
           if (foodItem._id === item._id) {
             const isUserLikeFood = foodItem.likes.includes(user._id);
