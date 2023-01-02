@@ -20,18 +20,13 @@ export default function FoodItem({ item, setItems, items }) {
   }, []);
 
 //somthing
-// const [showLoading, setShowLoading] = useState("flex")
 
 // if (dataCategories.length > 0) {
 //   setAr([...dataCategories])
 // }
 
 
-{/* <ThemeProvider theme={theme}>
-<div style={{ display: showLoading, alignItems: 'center' }}>
-  <div style={{ margin:"0 auto" }} ><CircularProgress /></div>
-</div>
-</ThemeProvider> */}
+
 
   const doApiGetInfoUser = async () => {
     try {
