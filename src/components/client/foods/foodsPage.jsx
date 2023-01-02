@@ -10,9 +10,10 @@ import SearchInput from './searchInput';
 
 export default function FoodsPage() {
   const [page, setPage] = useState(1);
-  const [category, setCategory] = useState({});
   const [sort, setSort] = useState({});
+  const [category, setCategory] = useState({});
   const [arCats, setArCats] = useState([])
+console.log(sort);
 
   const options = [
     { value: 'salads', label: 'Salads' },
@@ -29,19 +30,14 @@ export default function FoodsPage() {
   ];
 
   useEffect(() => {
-    doApi()
+    doApiCats()
   }, [category])
 
-  const doApi = async () => {
+  const doApiCats = async () => {
     let url = API_URL + `/foods/category/${category}?page=${page}`;
     try {
       const resp = await doApiGet(url);
       console.log(resp.data);
-
-      // if(resp.data==null){
-      //   setDataCategories([])
-      // }
-
       setArCats([...resp.data])
       console.log(category);
     }

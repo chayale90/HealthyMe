@@ -1,10 +1,18 @@
-import React from 'react'
+import React, { useState,useRef,useEffect } from 'react'
 import { IconButton, InputBase, Paper } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
-import { useRef } from 'react';
+import { toast } from 'react-toastify';
+import { API_URL, doApiGet } from '../../../services/apiService';
+
 export default function SearchInput() {
     const inputRef = useRef();
     const paperRef = useRef();
+    const [search, setSearch] = useState("");
+    const [arSearch, setArSearch] = useState([]);
+
+    useEffect(() => {
+        doApiSearch()
+    }, [search])
 
     const handleFocus = () => {
         paperRef.current.style.borderColor = '#A435F0';
@@ -13,14 +21,28 @@ export default function SearchInput() {
         paperRef.current.style.borderColor = '#DCDCDC';
     };
     const handleSubmit = () => {
-        console.log(inputRef.current?.value)
+       setSearch(inputRef.current?.value)
     };
     const handleChange = (e) => {
-        console.log(e.target.value)
+       setSearch(e.target.value)
     };
     const handleKeyDown = (e) => {
-        console.log(e.target.value)
+       setSearch(e.target.value)
     };
+
+
+    const doApiSearch = async () => {
+        let url = API_URL + `/foods/search?s=`+search;
+        try {
+            const resp = await doApiGet(url);
+            console.log(resp.data);
+            setArSearch([...resp.data])
+        }
+        catch (err) {
+            console.log(err);
+            toast.error("there problem ,try again later")
+        }
+    }
 
     return (
         <div className='row justify-content-center'>

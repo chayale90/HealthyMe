@@ -7,7 +7,7 @@ import CheckUserComp from '../../auth/checkComps/checkUserComp';
 import FoodItem from './foodItem'
 import InfiniteScroll from 'react-infinite-scroller';
 
-export default function FoodsList({ arCats }) {
+export default function FoodsList({ arCats,sort }) {
 
   const [items, setItems] = useState([]);
   const [hasMore, setHasMore] = useState(true);
@@ -27,10 +27,10 @@ export default function FoodsList({ arCats }) {
   }
 
   const doApi = async () => {
-    let url = API_URL + `/foods/?page=${page}` 
+    let url = API_URL + `/foods/?page=${page}&?sort=${sort}` 
     try {
       let resp = await doApiGet(url);
-      console.log(resp);
+      console.log(resp.data);
 
       //if I want search by category
       if (arCats.length > 0) {
