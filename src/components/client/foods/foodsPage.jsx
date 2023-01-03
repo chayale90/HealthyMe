@@ -9,7 +9,6 @@ import { Fab } from '@mui/material';
 import SearchInput from './searchInput';
 
 export default function FoodsPage() {
-  const [page, setPage] = useState(1);
   const [sort, setSort] = useState({});
   const [category, setCategory] = useState({});
   const [arCats, setArCats] = useState([])
@@ -30,11 +29,13 @@ export default function FoodsPage() {
   ];
 
   useEffect(() => {
-    doApiCats()
+    if(arCats>0){
+      doApiCats()
+    }
   }, [category])
 
   const doApiCats = async () => {
-    let url = API_URL + `/foods/category/${category}?page=${page}`;
+    let url = API_URL + `/foods/category/${category}`;
     try {
       const resp = await doApiGet(url);
       console.log(resp.data);
@@ -86,7 +87,7 @@ export default function FoodsPage() {
             })}
             className="basic-single"
             classNamePrefix="select"
-            defaultValue={optionsSort[2]}
+            // defaultValue={optionsSort[2]}
             placeholder="Sort By"
             options={optionsSort}
             onChange={(e) => setSort(e.value)}
