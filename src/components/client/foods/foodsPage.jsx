@@ -9,10 +9,11 @@ import { Fab } from '@mui/material';
 import SearchInput from './searchInput';
 
 export default function FoodsPage() {
-  const [page, setPage] = useState(1);
-  const [category, setCategory] = useState({});
-  const [sort, setSort] = useState({});
+  const [sort, setSort] = useState("");
+  const [category, setCategory] = useState("");
   const [arCats, setArCats] = useState([])
+  console.log(sort);
+
 
   const options = [
     { value: 'salads', label: 'Salads' },
@@ -29,19 +30,14 @@ export default function FoodsPage() {
   ];
 
   useEffect(() => {
-    doApi()
+      doApiCats()
   }, [category])
 
-  const doApi = async () => {
-    let url = API_URL + `/foods/category/${category}?page=${page}`;
+  const doApiCats = async () => {
+    let url = API_URL + `/foods/category/${category}`;
     try {
       const resp = await doApiGet(url);
       console.log(resp.data);
-
-      // if(resp.data==null){
-      //   setDataCategories([])
-      // }
-
       setArCats([...resp.data])
       console.log(category);
     }
@@ -90,7 +86,7 @@ export default function FoodsPage() {
             })}
             className="basic-single"
             classNamePrefix="select"
-            defaultValue={optionsSort[2]}
+            // defaultValue={optionsSort[2]}
             placeholder="Sort By"
             options={optionsSort}
             onChange={(e) => setSort(e.value)}

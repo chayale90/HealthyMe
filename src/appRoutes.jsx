@@ -18,6 +18,7 @@ import UploadTest from './assets/uploadTest'
 import LoginPage from './components/auth/loginPage/loginPage'
 import SignUpPage from './components/auth/signUpComps/signUpPage'
 import FoodsPage from './components/client/foods/foodsPage'
+import MyProfile from './components/client/profilePage/myProfile'
 
 
 export default function AppRoutes() {
@@ -31,6 +32,7 @@ export default function AppRoutes() {
                 <Route path='/' element={<Layout />} >
                     {/* Outlet */}
                     <Route path='/foods' element={<FoodsPage />} />
+                    <Route path='/myProfile' element={<MyProfile />} />
 
 
                     {/* ******** */}

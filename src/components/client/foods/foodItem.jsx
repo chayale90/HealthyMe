@@ -40,7 +40,6 @@ export default function FoodItem({ item, setItems, items }) {
       const resp = await doApiMethod(url, "PATCH");
       console.log(resp.data);
       if (resp.data) {
-
         const updatedFoodItems = items.map((foodItem) => {
           if (foodItem._id === item._id) {
             const isUserLikeFood = foodItem.likes.includes(user._id);
@@ -91,9 +90,9 @@ export default function FoodItem({ item, setItems, items }) {
                   style={{
                     fontWeight: 500,
                   }}
-                  className="s16 ms-2 dark userName"
+                  className="s16 ms-2 dark underLine"
                 >
-                  {userName}
+               <div><Link style={{ textDecoration: 'none', color: 'black'}}> {userName}</Link></div>  
                 </div>
               </div>
 

@@ -6,17 +6,34 @@ import { API_URL, doApiGet } from '../../../services/apiService';
 import CheckUserComp from '../../auth/checkComps/checkUserComp';
 import FoodItem from './foodItem'
 import InfiniteScroll from 'react-infinite-scroller';
+import { useDispatch, useSelector } from 'react-redux';
+import { resetArSearch } from "../../../features/foodsSlice"
 
-export default function FoodsList({ arCats }) {
+
+export default function FoodsList({ arCats, sort }) {
 
   const [items, setItems] = useState([]);
   const [hasMore, setHasMore] = useState(true);
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const [totalItems, setTotalItems] = useState(0);
+  const { arSearch } = useSelector(myStore => myStore.foodsSlice)
+  const dispatch = useDispatch()
+
+ useEffect(() => {
+      loadMore()
+  }, [])
+  
+  // useEffect(() => {
+  //   if (arSearch.length > 0) {
+  //     loadMore()
+  //   }
+  // }, [arSearch])
 
   useEffect(() => {
-    loadMore()
+    if (arCats.length > 0) {
+      loadMore()
+    }
   }, [arCats])
 
 
@@ -27,18 +44,22 @@ export default function FoodsList({ arCats }) {
   }
 
   const doApi = async () => {
-    let url = API_URL + `/foods/?page=${page}` 
+    let url = API_URL + `/foods/?page=${page}&sort=${sort}`
     try {
       let resp = await doApiGet(url);
-      console.log(resp);
+      console.log(resp.data);
 
       //if I want search by category
       if (arCats.length > 0) {
         setItems([...arCats])
         console.log(arCats);
       }
+      // else if (arSearch.length > 0) {
+      //   setItems([...arSearch])
+      //   console.log(arSearch);
+      // }
       else {
-        // push all items to ar
+        // push all items to a"
         setItems([...items, ...resp.data]);
       }
 
@@ -46,15 +67,14 @@ export default function FoodsList({ arCats }) {
       setTotalItems(totalItems + resp.data.length);
       console.log(totalItems);
 
+      
       // setHasMore(false) if there are no more items to load
       if (totalItems > resp.data.length) {
         setHasMore(false);
       }
-
       setTotalPages(Math.floor(totalItems / page));
       console.log(totalItems);
       console.log(totalPages);
-
     }
     catch (err) {
       console.log(err);
