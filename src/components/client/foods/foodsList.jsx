@@ -49,18 +49,6 @@ export default function FoodsList({ arCats, sort }) {
       let resp = await doApiGet(url);
       console.log(resp.data);
 
-      // const updatedFoodItems = items.map((foodItem) => {
-      //   if (foodItem.categories_url == category) {
-      //     const isUserLikeFood = foodItem.likes.includes(user._id);
-      //     const tempLikes = isUserLikeFood
-      //       ? foodItem.likes.filter((userId) => userId !== user._id)
-      //       : [...foodItem.likes, user._id];
-
-      //     return { ...foodItem, likes: tempLikes };
-      //   }
-      //   return foodItem;
-      // });
-
       //if I want search by category
       if (arCats.length > 0) {
         setItems([...arCats])
