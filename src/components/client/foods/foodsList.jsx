@@ -20,7 +20,10 @@ export default function FoodsList({ arCats, sort }) {
   const { arSearch } = useSelector(myStore => myStore.foodsSlice)
   const dispatch = useDispatch()
 
-
+ useEffect(() => {
+      loadMore()
+  }, [sort])
+  
   useEffect(() => {
     if (arSearch.length > 0) {
       loadMore()
@@ -33,9 +36,7 @@ export default function FoodsList({ arCats, sort }) {
     }
   }, [arCats])
   
-  useEffect(() => {
-      loadMore()
-  }, [])
+ 
 
   const loadMore = async () => {
     // Load additional items here and add them to the items array
