@@ -14,6 +14,7 @@ export default function FoodsPage() {
   const [arCats, setArCats] = useState([])
   console.log(sort);
 
+
   const options = [
     { value: 'salads', label: 'Salads' },
     { value: 'shakes', label: 'Shakes' },

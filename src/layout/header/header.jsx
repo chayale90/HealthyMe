@@ -71,6 +71,11 @@ export default function Header() {
   const ClickLogout = () => {
     setOpen(true);
   };
+
+  const goToMyProfile = () => {
+    nav("/myProfile")
+  }
+  
   const onLogOut = () => {
     //delete token
     localStorage.removeItem(TOKEN_NAME);
@@ -79,7 +84,7 @@ export default function Header() {
     toast.success("You log Out")
     nav("/")
   }
-
+  
 
   //if for the avatar image
   let srcImg;
@@ -212,7 +217,7 @@ export default function Header() {
                 onClose={handleCloseUserMenu}
               >
 
-                <MenuItem onClick={handleCloseUserMenu}>Profile</MenuItem>
+                <MenuItem onClick={goToMyProfile}>Profile</MenuItem>
                 <MenuItem onClick={handleCloseUserMenu}>Followers</MenuItem>
                 <MenuItem onClick={handleCloseUserMenu}>Followings</MenuItem>
                 <MenuItem onClick={ClickLogout}>Logout</MenuItem>
