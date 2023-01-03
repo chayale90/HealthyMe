@@ -30,11 +30,11 @@ export default function FoodsList({ arCats, sort }) {
   //   }
   // }, [arSearch])
 
-  // useEffect(() => {
-  //   if (arCats.length > 0) {
-  //     loadMore()
-  //   }
-  // }, [arCats])
+  useEffect(() => {
+    if (arCats.length > 0) {
+      loadMore()
+    }
+  }, [arCats])
 
 
   const loadMore = async () => {
@@ -50,18 +50,18 @@ export default function FoodsList({ arCats, sort }) {
       console.log(resp.data);
 
       //if I want search by category
-      // if (arCats.length > 0) {
-      //   setItems([...arCats])
-      //   console.log(arCats);
-      // }
+      if (arCats.length > 0) {
+        setItems([...arCats])
+        console.log(arCats);
+      }
       // else if (arSearch.length > 0) {
       //   setItems([...arSearch])
       //   console.log(arSearch);
       // }
-      // else {
-        // push all items to ar
+      else {
+        // push all items to a"
         setItems([...items, ...resp.data]);
-      // }
+      }
 
       // Update the page and total pages variables
       setTotalItems(totalItems + resp.data.length);

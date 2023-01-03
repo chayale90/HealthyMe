@@ -9,8 +9,8 @@ import { Fab } from '@mui/material';
 import SearchInput from './searchInput';
 
 export default function FoodsPage() {
-  const [sort, setSort] = useState({});
-  const [category, setCategory] = useState({});
+  const [sort, setSort] = useState("");
+  const [category, setCategory] = useState("");
   const [arCats, setArCats] = useState([])
   console.log(sort);
 
@@ -29,9 +29,7 @@ export default function FoodsPage() {
   ];
 
   useEffect(() => {
-    if(arCats>0){
       doApiCats()
-    }
   }, [category])
 
   const doApiCats = async () => {
