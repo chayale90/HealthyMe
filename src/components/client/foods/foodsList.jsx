@@ -22,7 +22,7 @@ export default function FoodsList({ arCats, sort }) {
 
  useEffect(() => {
       loadMore()
-  }, [sort])
+  }, [])
   
   useEffect(() => {
     if (arSearch.length > 0) {
@@ -35,8 +35,7 @@ export default function FoodsList({ arCats, sort }) {
       loadMore()
     }
   }, [arCats])
-  
- 
+
 
   const loadMore = async () => {
     // Load additional items here and add them to the items array
@@ -49,6 +48,19 @@ export default function FoodsList({ arCats, sort }) {
     try {
       let resp = await doApiGet(url);
       console.log(resp.data);
+
+      // const updatedFoodItems = items.map((foodItem) => {
+      //   if (foodItem.categories_url == category) {
+      //     const isUserLikeFood = foodItem.likes.includes(user._id);
+      //     const tempLikes = isUserLikeFood
+      //       ? foodItem.likes.filter((userId) => userId !== user._id)
+      //       : [...foodItem.likes, user._id];
+
+      //     return { ...foodItem, likes: tempLikes };
+      //   }
+      //   return foodItem;
+      // });
+
       //if I want search by category
       if (arCats.length > 0) {
         setItems([...arCats])

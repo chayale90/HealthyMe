@@ -18,7 +18,7 @@ export default function SearchInput() {
     const [showDiv, setShowDiv] = useState("none");
 
     useEffect(() => {
-            doApiSearch()
+        doApiSearch()
     }, [search])
 
     console.log(search);
@@ -39,15 +39,16 @@ export default function SearchInput() {
         // setSearch(e.target.value)
     };
     const handleKeyDown = (e) => {
-        if(e.key=="Enter")
-        setSearch(e.target.value)
+        if (e.key == "Enter") {
+            setSearch(e.target.value)
+        }
         // nav('/foods?search' + e.target.value)
     };
 
 
     const doApiSearch = async () => {
-     // /foods/search?s=
-    // let search = querys.get("search");
+        // /foods/search?s=
+        // let search = querys.get("search");
         let url = API_URL + `/foods/search?s=` + search;
         try {
             const resp = await doApiGet(url);
