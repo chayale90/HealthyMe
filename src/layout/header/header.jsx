@@ -23,7 +23,6 @@ import MyInfo from '../../services/myInfo';
 import { TOKEN_NAME } from '../../services/apiService';
 import { resetUser } from "../../features/userSlice"
 
-const pages = ['Home', 'Favorites'];
 
 export default function Header() {
   const { user } = useSelector(myStore => myStore.userSlice);
@@ -70,12 +69,14 @@ export default function Header() {
   };
   const ClickLogout = () => {
     setOpen(true);
+    handleCloseUserMenu()
   };
 
   const goToMyProfile = () => {
     nav("/myProfile")
+    handleCloseUserMenu()
   }
-  
+
   const onLogOut = () => {
     //delete token
     localStorage.removeItem(TOKEN_NAME);
@@ -84,7 +85,7 @@ export default function Header() {
     toast.success("You log Out")
     nav("/")
   }
-  
+
 
   //if for the avatar image
   let srcImg;
@@ -142,11 +143,14 @@ export default function Header() {
 
                 }}
               >
-                {pages.map((page) => (
-                  <MenuItem key={page} onClick={handleCloseNavMenu}>
-                    <Typography textAlign="center">{page}</Typography>
-                  </MenuItem>
-                ))}
+                <MenuItem onClick={() => {
+                  nav("/foods")
+                  handleCloseNavMenu()
+                }}>
+                  Home</MenuItem>
+                <MenuItem onClick={()=>{
+                    handleCloseNavMenu()
+                }}>Favorite</MenuItem>
               </Menu>
             </div>
 
@@ -165,7 +169,7 @@ export default function Header() {
                       button1: "block",
                       button2: "none",
                     });
-                  nav("/foods")
+                    nav("/foods")
                   }}
                   sx={{
                     px: 3, paddingTop: "24px", paddingBottom: "21px"

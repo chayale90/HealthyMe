@@ -40,8 +40,9 @@ export default function MyProfile() {
         </div >
 
         <div className='row mt-5  '>
-          <div className='col-6 p-0'>
-            <div  style={{ position: 'absolute', background: values.button1, minHeight: '2px', width: "50%" }} ></div>
+          <div className='col-6 p-0 '>
+            <div className='w-50' style={{ position: 'absolute', background: values.button1, height: '2px'}} ></div>
+            <div>
             <Link
               // onClick={handleCloseNavMenu}
               onClick={() => {
@@ -50,15 +51,16 @@ export default function MyProfile() {
                   button2: "#CCCCCC",
                 });
               }}
-              style={{color: values.button1, display: 'flex', justifyContent: "center", paddingTop: "21px", textDecoration: "none" }}>
+              style={{color: values.button1, display: 'flex', justifyContent: "center",paddingTop:"21px", textDecoration: "none" }}>
               Posts
             </Link>
+            </div>
           </div>
 
-          <div className='col-6 p-0 justify-content-center'>
-            <div className="" style={{ position: 'absolute', background: values.button2, minHeight: '2px', width: "50%" }} ></div>
+          <div className='col-6 p-0'>
+            <div className="w-50" style={{ position: 'absolute', background: values.button2, height: '2px' }} ></div>
+            <div>
             <Link
-
               // onClick={handleCloseNavMenu}
               onClick={() => {
                 setValues({
@@ -66,9 +68,10 @@ export default function MyProfile() {
                   button1: "#CCCCCC",
                 });
               }}
-              style={{color: values.button2, display: 'flex', justifyContent: "center", paddingTop: "21px", textDecoration: "none" }}>
+              style={{color: values.button2, display: 'flex', justifyContent: "center",paddingTop:"21px",  textDecoration: "none" }}>
               My Personal info
             </Link>
+            </div>
           </div>
         </div>
       </div>
