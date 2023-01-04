@@ -39,7 +39,7 @@ export default function MyProfile() {
   
       </div >
 
-        <div className='row '>
+        <div className='row mt-5 '>
           <div className='col-6'>
             <div style={{ position: 'absolute', display: values.button1, minHeight: '2px', background: "#A435F0", width: "45%" }} ></div>
             <Link
