@@ -9,70 +9,71 @@ import { Link } from 'react-router-dom';
 
 export default function MyProfile() {
   const { user } = useSelector(myStore => myStore.userSlice);
-  const [values, setValues] = useState({ button1: 'block', button2: 'none' });
+  const [values, setValues] = useState({ button1: '#CCCCCC', button2: '#A435F0' });
 
   console.log(user);
 
   return (
-<>
-    <div className='container'>
-      <div className='row'>
-        <div className='d-flex my-4'>
-          <Avatar
-            alt="myAvater"
-            src={user.img_url}
-            sx={{ width: 160, height: 160 }}
-          />
-          <div className='ms-5 mt-3'>
-            <h2 className='mb-4'> {user?.name}</h2>
+    <>
+      <div className='container'>
+        <div className='row'>
+          <div className='d-flex my-4'>
+            <Avatar
+              alt="myAvater"
+              src={user.img_url}
+              sx={{ width: 160, height: 160 }}
+            />
+            <div className='ms-5 mt-3'>
+              <h2 className='mb-4'> {user?.name}</h2>
 
-            <div className='d-flex mb-3'>
-              <div className='me-3 '><Link className='underLine'> {"4"} <span className='weight500'>Post</span></Link> </div>
-              <div className='me-3 '><Link className='underLine'> {user?.followings?.length} <span className='weight500'>Followings</span></Link></div>
-              <div><Link className='underLine'>{user?.followers?.length} <span className='weight500'>Followers</span></Link></div>
+              <div className='d-flex mb-3'>
+                <div className='me-3 '><Link className='underLine'> {"4"} <span className='weight500'>Post</span></Link> </div>
+                <div className='me-3 '><Link className='underLine'> {user?.followings?.length} <span className='weight500'>Followings</span></Link></div>
+                <div><Link className='underLine'>{user?.followers?.length} <span className='weight500'>Followers</span></Link></div>
+              </div>
+
+              <div>{user?.info}</div>
             </div>
-
-            <div>{user?.info}</div>
+            <div className='col text-end'> <IconButton sx={{ border: "gray 1px solid" }}><SettingsIcon /></IconButton></div>
           </div>
-          <div className='col text-end'> <IconButton sx={{ border: "gray 1px solid" }}><SettingsIcon /></IconButton></div>
-        </div>
-  
-      </div >
 
-        <div className='row mt-5 '>
-          <div className='col-6'>
-            <div style={{ position: 'absolute', display: values.button1, minHeight: '2px', background: "#A435F0", width: "45%" }} ></div>
+        </div >
+
+        <div className='row mt-5  '>
+          <div className='col-6 p-0'>
+            <div  style={{ position: 'absolute', background: values.button1, minHeight: '2px', width: "50%" }} ></div>
             <Link
               // onClick={handleCloseNavMenu}
               onClick={() => {
                 setValues({
-                  button1: "block",
-                  button2: "none",
+                  button1: "#A435F0",
+                  button2: "#CCCCCC",
                 });
               }}
-              style={{ display: 'flex', justifyContent: "center",  paddingTop: "21px" }}>
-              Home
+              style={{color: values.button1, display: 'flex', justifyContent: "center", paddingTop: "21px", textDecoration: "none" }}>
+              Posts
             </Link>
           </div>
 
-          <div className='col-6 justify-content-center'>
-            <div className="" style={{ position: 'absolute', display: values.button2, minHeight: '2px', background: "#A435F0", width: "45%" }} ></div>
+          <div className='col-6 p-0 justify-content-center'>
+            <div className="" style={{ position: 'absolute', background: values.button2, minHeight: '2px', width: "50%" }} ></div>
             <Link
+
               // onClick={handleCloseNavMenu}
               onClick={() => {
                 setValues({
-                  button2: "block",
-                  button1: "none",
+                  button2: "#A435F0",
+                  button1: "#CCCCCC",
                 });
               }}
-              style={{ display: 'flex', justifyContent: "center",  paddingTop: "21px" }}>
-              Favorites
+              style={{color: values.button2, display: 'flex', justifyContent: "center", paddingTop: "21px", textDecoration: "none" }}>
+              My Personal info
             </Link>
           </div>
         </div>
-        </div>
+      </div>
 
-      </>
-   
+    </>
+
   )
 }
