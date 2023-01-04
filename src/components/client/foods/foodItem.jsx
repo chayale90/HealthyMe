@@ -90,9 +90,9 @@ export default function FoodItem({ item, setItems, items }) {
                   style={{
                     fontWeight: 500,
                   }}
-                  className="s16 ms-2 dark underLine"
+                  className="s16 ms-2 dark "
                 >
-               <div><Link style={{ textDecoration: 'none', color: 'black'}}> {userName}</Link></div>  
+               <div><Link className="dark underLine"> {userName}</Link></div>  
                 </div>
               </div>
 

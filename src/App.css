@@ -45,11 +45,15 @@ body {
     font-weight: 400
 }
 
+.underLine {
+    color: #2E2E2E; 
+       text-decoration: none;
+}
+
 .underLine:hover {
     color: #A435F0;
     text-decoration: underline;
 }
-
 
 /* width */
 ::-webkit-scrollbar {

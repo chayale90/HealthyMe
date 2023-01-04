@@ -35,7 +35,7 @@ export default function Header() {
   //navbar states
   const [anchorElNav, setAnchorElNav] = useState(null);
   const [anchorElUser, setAnchorElUser] = useState(null);
-  const [values, setValues] = useState({ button1: 'block', button2: 'none', button3: 'none' });
+  const [values, setValues] = useState({ button1: 'block', button2: 'none' });
   const [displayBurger, setDisplayBurger] = useState("block");
   const [displayButtonX, setDisplayButtonX] = useState("none");
 
@@ -165,6 +165,7 @@ export default function Header() {
                       button1: "block",
                       button2: "none",
                     });
+                  nav("/foods")
                   }}
                   sx={{
                     px: 3, paddingTop: "24px", paddingBottom: "21px"
@@ -182,6 +183,8 @@ export default function Header() {
                       button2: "block",
                       button1: "none",
                     });
+                    nav("/myFavoriteFoods")
+
                   }}
                   sx={{
                     px: 3, paddingTop: "24px", paddingBottom: "21px"
