@@ -9,8 +9,9 @@ import CheckUserComp from '../../auth/checkComps/checkUserComp';
 
 export default function MyProfilePage() {
   const { user } = useSelector(myStore => myStore.userSlice);
+
   const nav = useNavigate()
-  console.log(user);
+  // console.log(user);
 
   return (
     <div>
@@ -37,7 +38,7 @@ export default function MyProfilePage() {
             <h2 className='mb-4'> {user?.name}</h2>
 
             <div className='d-flex mb-3 text-center'>
-              <div className='me-3 '><Link className='underLine'> {"4"} <span className='weight500'>Post</span></Link> </div>
+              <div className='me-3 '><Link className='underLine'> {user?.posts?.length} <span className='weight500'>Post</span></Link> </div>
               <div className='me-3 '><Link className='underLine'> {user?.followings?.length} <span className='weight500'>Followings</span></Link></div>
               <div><Link className='underLine'>{user?.followers?.length} <span className='weight500'>Followers</span></Link></div>
             </div>
@@ -55,12 +56,9 @@ export default function MyProfilePage() {
           </div>
         </div>
       </div>
+
       <NavBarMyProfile />
 
-
-
     </div>
-
-
   )
 }

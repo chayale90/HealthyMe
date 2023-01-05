@@ -7,8 +7,10 @@ import FoodsList from './foodsList'
 import AddIcon from '@mui/icons-material/Add';
 import { Fab } from '@mui/material';
 import SearchInput from './searchInput';
+import { useNavigate } from 'react-router-dom';
 
 export default function FoodsPage() {
+  const nav = useNavigate()
   const [sort, setSort] = useState("");
   const [category, setCategory] = useState("");
   const [arCats, setArCats] = useState([])
@@ -30,7 +32,7 @@ export default function FoodsPage() {
   ];
 
   useEffect(() => {
-      doApiCats()
+    doApiCats()
   }, [category])
 
   const doApiCats = async () => {

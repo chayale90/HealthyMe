@@ -19,9 +19,12 @@
 .divCount {
     min-height: 100px;
     width: 100px;
-    background: rgba(237, 237, 237, 1);
+    background :#a535f01d;
+    /* background: rgba(237, 237, 237, 1); */
     border-radius: 11.0576px;
 }
+
+
 
 @media (max-width:768px) {
     .img {
