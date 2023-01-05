@@ -40,7 +40,7 @@ export default function MyInfo() {
       </div>
       {/* <div className='text-center mt-4'>Your BMI is {user?.BMI}</div> */}
       <div className='text-center mt-4'>{scale}</div>
-      <div className='text-center my-3'>{descreption}</div>
+      <div className='text-center mt-3 mb-4'>{descreption}</div>
 
     </div>
   )
