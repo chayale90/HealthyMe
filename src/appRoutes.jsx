@@ -18,7 +18,7 @@ import UploadTest from './assets/uploadTest'
 import LoginPage from './components/auth/loginPage/loginPage'
 import SignUpPage from './components/auth/signUpComps/signUpPage'
 import FoodsPage from './components/client/foods/foodsPage'
-import MyProfile from './components/client/profilePage/myProfile'
+import MyProfile from './components/client/profilePage/myProfilePage'
 
 
 export default function AppRoutes() {

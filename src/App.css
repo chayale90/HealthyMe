@@ -1,10 +1,13 @@
 body {
     font-family: 'Rubik', sans-serif;
+    /* overflow-x: hidden; */
 }
+
 
 .purple {
     color: #A435F0;
 }
+
 .darkPurple {
     color: #912CD6;
 }
@@ -37,17 +40,17 @@ body {
     font-size: 12px;
 }
 
-.weight500{
+.weight500 {
     font-weight: 500
 }
 
-.weight400{
+.weight400 {
     font-weight: 400
 }
 
 .underLine {
-    color: #2E2E2E; 
-       text-decoration: none;
+    color: #2E2E2E;
+    text-decoration: none;
 }
 
 .underLine:hover {
@@ -58,24 +61,23 @@ body {
 /* width */
 ::-webkit-scrollbar {
     width: 15px;
-    background: rgb(255, 255, 255); 
-  }
-  
-  /* Track */
-  ::-webkit-scrollbar-track {
+    background: rgb(255, 255, 255);
+}
+
+/* Track */
+::-webkit-scrollbar-track {
     border-radius: 10px;
     /* border: solid 1px rgb(255, 255, 255); */
-  }
-  
-  /* Handle */
-  ::-webkit-scrollbar-thumb {
-    background: #A435F0; 
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: #A435F0;
     border-radius: 10px;
     border: solid 1px rgb(246, 231, 216);
-  }
-  
-  /* Handle on hover */
-  ::-webkit-scrollbar-thumb:hover {
-    background:#912CD6; 
-  }
-  
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: #912CD6;
+}
