@@ -22,6 +22,7 @@ import Logo from '../../components/general_comps/logo'
 import MyInfo from '../../services/myInfo';
 import { TOKEN_NAME } from '../../services/apiService';
 import { resetUser } from "../../features/userSlice"
+import FollowersList from '../../components/client/followers/followersList';
 
 
 export default function Header() {
@@ -40,6 +41,7 @@ export default function Header() {
 
   //dialog open-close
   const [open, setOpen] = useState(false);
+  const [openFollowers, setOpenFollowers] = useState(false);
 
   //nanbar functions
   const handleOpenNavMenu = (event) => {
@@ -71,6 +73,18 @@ export default function Header() {
     setOpen(true);
     handleCloseUserMenu()
   };
+
+
+  // dialog followers functions
+  const handleCloseFollowers = () => {
+    setOpenFollowers(false);
+  };
+  const ClickFollowers = () => {
+    setOpenFollowers(true);
+    handleCloseUserMenu()
+  };
+
+
 
   const goToMyProfile = () => {
     nav("/myProfile")
@@ -148,8 +162,8 @@ export default function Header() {
                   handleCloseNavMenu()
                 }}>
                   Home</MenuItem>
-                <MenuItem onClick={()=>{
-                    handleCloseNavMenu()
+                <MenuItem onClick={() => {
+                  handleCloseNavMenu()
                 }}>Favorite</MenuItem>
               </Menu>
             </div>
@@ -225,9 +239,36 @@ export default function Header() {
               >
 
                 <MenuItem onClick={goToMyProfile}>Profile</MenuItem>
-                <MenuItem onClick={handleCloseUserMenu}>Followers</MenuItem>
+                <MenuItem onClick={ClickFollowers}>Followers</MenuItem>
                 <MenuItem onClick={handleCloseUserMenu}>Followings</MenuItem>
                 <MenuItem onClick={ClickLogout}>Logout</MenuItem>
+
+
+                <Dialog
+                  open={openFollowers}
+                  onClose={handleCloseFollowers}
+                  aria-labelledby="followers-dialog"
+                  aria-describedby="followers-dialog-description"
+                >
+
+                  <div className='container p-5'>
+
+                      <h2 className='s24 weight500 mb-4'>Followers</h2>
+                      <IconButton
+                        style={{ position: 'absolute', right: 2, top: 2 }}
+                        onClick={handleCloseFollowers}
+                      >
+                        <CloseIcon />
+                      </IconButton>
+                      <FollowersList/>
+
+                  </div>
+                </Dialog>
+
+
+
+
+
 
 
                 <Dialog
@@ -240,6 +281,7 @@ export default function Header() {
                     <DialogTitle
                       sx={{ mb: 2 }}
                       id="alert-dialog-title">
+
                       {"Are you sure you want to logout?"}
                     </DialogTitle>
                     <DialogActions>
@@ -248,6 +290,9 @@ export default function Header() {
                     </DialogActions>
                   </div>
                 </Dialog>
+
+
+
 
               </Menu>
             </div>
