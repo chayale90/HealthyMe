@@ -2,8 +2,11 @@
 
 1. CheckUserComp
     check every component in client side 
-    if the the role of user you can see the layout 
+    if the the role of user you can see the layout -just foodList page
     if not he will arrive to login page
+
+  
+
 
 2. CheckUserActiveComp
     check every component in client side 
@@ -17,4 +20,8 @@
     use with redux.
 
 
-
+  put this component in pages:
+  foodList: CheckUserComp   v
+  myProfile:CheckUserComp   v
+  editProfile: CheckUserActiveComp
+  addFood: CheckUserActiveComp

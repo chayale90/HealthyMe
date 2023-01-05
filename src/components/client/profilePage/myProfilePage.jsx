@@ -4,6 +4,7 @@ import { useSelector } from 'react-redux'
 import SettingsIcon from '@mui/icons-material/Settings';
 import { Link, useNavigate } from 'react-router-dom';
 import NavBarMyProfile from './navBarMyProfile';
+import CheckUserComp from '../../auth/checkComps/checkUserComp';
 
 
 export default function MyProfilePage() {
@@ -14,6 +15,7 @@ export default function MyProfilePage() {
   return (
     <div>
       <div className='container mb-5 mt-4'>
+        <CheckUserComp />
         <div className='d-flex ms-2'>
 
           <div className='d-none d-sm-block'>
@@ -53,8 +55,8 @@ export default function MyProfilePage() {
           </div>
         </div>
       </div>
-
       <NavBarMyProfile />
+
 
 
     </div>

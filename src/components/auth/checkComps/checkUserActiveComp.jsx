@@ -20,7 +20,7 @@ export default function CheckUserActiveComp() {
                 nav("/")
             }
             else if (resp.data.active != true) {
-                toast.error("You must be active to be here, you just can see the foods");
+                toast.error("You must be active to be here, you just can see the foodsList and your profile");
                 nav("/foods")
             }
         }
