@@ -25,3 +25,10 @@
   myProfile:CheckUserComp   v
   editProfile: CheckUserActiveComp
   addFood: CheckUserActiveComp
+
+
+
+
+
+  in the end:
+  to delete uploadTest from admin

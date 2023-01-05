@@ -9,23 +9,23 @@
 }
 
 .imgFoodPost {
-    border-radius: 9.0524px ;
+    border-radius: 9.0524px;
 }
 
-.img{
-    height:200px;
+.img {
+    height: 200px;
 }
 
-.divCount{
-min-height: 100px;
-width: 100px;
-background:rgba(237, 237, 237, 1) ;
-border-radius: 11.0576px;
+.divCount {
+    min-height: 100px;
+    width: 100px;
+    background: rgba(237, 237, 237, 1);
+    border-radius: 11.0576px;
 }
 
 @media (max-width:768px) {
-    .img{
-        height:250px;
+    .img {
+        height: 250px;
     }
 }
 
@@ -35,4 +35,3 @@ border-radius: 11.0576px;
         width: 370px;
     }
 }
-

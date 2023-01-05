@@ -47,9 +47,9 @@ export default function HeaderAdmin() {
               <li>
                 <Link to="/admin/foods">Foods</Link>
               </li>
-              <li>
+              {/* <li>
                 <Link to="/admin/upload">upload</Link>
-              </li>
+              </li> */}
             </ul>
             <div>
               <Button variant='contained' color='inherit' onClick={handleClickOpen}>Log out</Button>

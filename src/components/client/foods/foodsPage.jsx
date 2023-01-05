@@ -98,7 +98,8 @@ export default function FoodsPage() {
 
       <Fab
         sx={{ background: "#A435F0", color: "white", "&:hover": { color: "white", background: "#912CD6" }, position: 'sticky', bottom: 70, left: 1900 }}
-        aria-label="add">
+        onClick={() => { nav("/addFood") }}
+        aria-label="addFood">
         <AddIcon />
       </Fab>
     </div >
