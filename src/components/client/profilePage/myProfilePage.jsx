@@ -5,7 +5,7 @@ import SettingsIcon from '@mui/icons-material/Settings';
 import { Link, useNavigate } from 'react-router-dom';
 import NavBarMyProfile from './navBarMyProfile';
 import CheckUserComp from '../../auth/checkComps/checkUserComp';
-import { changeFavorite,changeHome } from "../../../features/userSlice"
+import { changeFavorites,changeHome } from "../../../features/userSlice"
 
 export default function MyProfilePage() {
   const { user } = useSelector(myStore => myStore.userSlice);
@@ -13,7 +13,7 @@ export default function MyProfilePage() {
   const nav = useNavigate()
   // console.log(user);
   const dispatch = useDispatch();
-  dispatch(changeFavorite({val:"none"}))
+  dispatch(changeFavorites({val:"none"}))
   dispatch(changeHome({val:"none"}))
 
   return (

@@ -21,12 +21,12 @@ import { theme } from "../../services/theme"
 import Logo from '../../components/general_comps/logo'
 import MyInfo from '../../services/myInfo';
 import { TOKEN_NAME } from '../../services/apiService';
-import { resetUser, changeFavorite, changeHome } from "../../features/userSlice"
+import { resetUser, changeFavorites, changeHome } from "../../features/userSlice"
 import FollowersList from '../../components/client/followers/followersList';
 
 
 export default function Header() {
-  const { user, home, favorite } = useSelector(myStore => myStore.userSlice);
+  const { user, home, favorites } = useSelector(myStore => myStore.userSlice);
   console.log(user);
 
   const nav = useNavigate();
@@ -165,7 +165,8 @@ export default function Header() {
                   Home</MenuItem>
                 <MenuItem onClick={() => {
                   handleCloseNavMenu()
-                }}>Favorite</MenuItem>
+                  nav("/myFavorites")
+                }}>Favorites</MenuItem>
               </Menu>
             </div>
 
@@ -178,16 +179,9 @@ export default function Header() {
             <div className='d-none d-md-flex' >
               <div>
                 <Button
-                  // onClick={handleCloseNavMenu}
                   onClick={() => {
-                    // setValues({
-                    //   home: "block",
-                    //   favorite: "none",
-                    // });
-
+                    // handleCloseNavMenu()
                     nav("/foods")
-                    // dispatch(changeHome({ val: "block" }))
-                    // dispatch(changeFavorite({ val: "none" }))
                   }}
                   sx={{
                     px: 3, paddingTop: "24px", paddingBottom: "21px"
@@ -201,12 +195,8 @@ export default function Header() {
                 <Button
                   // onClick={handleCloseNavMenu}
                   onClick={() => {
-                    // setValues({
-                    // dispatch()  favorite: "block",
-                    //   home: "none",
-                    // });
                     dispatch(changeHome({ val: "none" }))
-                    dispatch(changeFavorite({ val: "block" }))
+                    dispatch(changeFavorites({ val: "block" }))
                     // nav("/myFavoriteFoods")
                   }}
                   sx={{
@@ -215,7 +205,7 @@ export default function Header() {
                 >
                   Favorites
                 </Button>
-                <div className="mx-auto" style={{ display: favorite, minHeight: '2px', background: "#A435F0", width: "70%" }} ></div>
+                <div className="mx-auto" style={{ display: favorites, minHeight: '2px', background: "#A435F0", width: "70%" }} ></div>
               </div>
             </div>
 

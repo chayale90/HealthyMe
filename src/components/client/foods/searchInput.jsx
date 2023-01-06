@@ -69,20 +69,18 @@ export default function SearchInput() {
                     elevation={0}
                     sx={{ border: "1px solid #DCDCDC", "&:hover": { border: "1px solid gray" }, p: '2px 4px', display: 'flex', alignItems: 'center', borderRadius: 100 }}
                 >
-             
                     <IconButton
-                   
                         onClick={handleSubmit}
-                        sx={{ p: '10px',  color:'#A435F0'}} aria-label="search">
+                        sx={{ p: '10px', color: '#A435F0' }} aria-label="search">
                         <SearchIcon />
-                    </IconButton>  
-                         <InputBase
+                    </IconButton>
+                    <InputBase
                         inputRef={inputRef}
                         onFocus={handleFocus}
                         onBlur={handleBlur}
                         onChange={handleChange}
                         onKeyDown={handleKeyDown}
-                        sx={{ ml: 2, flex: 1 }}
+                        sx={{ ml: 1, flex: 1 }}
                         placeholder="Search..."
                         inputProps={{ 'aria-label': 'Search my food' }}
                     />

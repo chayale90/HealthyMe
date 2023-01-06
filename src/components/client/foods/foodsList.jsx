@@ -8,7 +8,7 @@ import FoodItem from './foodItem'
 import InfiniteScroll from 'react-infinite-scroller';
 import { useDispatch, useSelector } from 'react-redux';
 import { resetArSearch } from "../../../features/foodsSlice"
-import { changeFavorite,changeHome } from "../../../features/userSlice"
+import { changeFavorites,changeHome } from "../../../features/userSlice"
 
 
 export default function FoodsList({ arCats, sort }) {
@@ -21,7 +21,7 @@ export default function FoodsList({ arCats, sort }) {
   const [totalPages, setTotalPages] = useState(1);
   const [totalItems, setTotalItems] = useState(0);
 
-  dispatch(changeFavorite({ val: "none" }))
+  dispatch(changeFavorites({ val: "none" }))
   dispatch(changeHome({ val: "block" }))
   
   useEffect(() => {

@@ -5,7 +5,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const initValue = {
     user: {},
     home: 'block',
-    favorite: 'none'
+    favorites: 'none'
 }
 
 const userSlice = createSlice({
@@ -24,11 +24,11 @@ const userSlice = createSlice({
         changeHome: (state, action) => {
             state.home = action.payload.val
         },
-        changeFavorite: (state, action) => {
-            state.favorite = action.payload.val
+        changeFavorites: (state, action) => {
+            state.favorites = action.payload.val
         }
     }
 })
 
-export const { addUser, resetUser ,changeFavorite,changeHome} = userSlice.actions;
+export const { addUser, resetUser ,changeFavorites,changeHome} = userSlice.actions;
 export default userSlice.reducer;
