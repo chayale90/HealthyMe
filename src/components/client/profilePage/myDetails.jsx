@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { useSelector } from "react-redux";
 
 
-export default function MyInfo() {
+export default function MyDetails() {
   const { user } = useSelector((myStore) => myStore.userSlice);
   const [scale, setScale] = useState("");
   const [descreption, setDescreption] = useState("");

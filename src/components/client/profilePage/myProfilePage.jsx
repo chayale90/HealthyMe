@@ -1,17 +1,20 @@
 import { Avatar, IconButton, Tooltip } from '@mui/material'
 import React from 'react'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import SettingsIcon from '@mui/icons-material/Settings';
 import { Link, useNavigate } from 'react-router-dom';
 import NavBarMyProfile from './navBarMyProfile';
 import CheckUserComp from '../../auth/checkComps/checkUserComp';
-
+import { changeFavorite,changeHome } from "../../../features/userSlice"
 
 export default function MyProfilePage() {
   const { user } = useSelector(myStore => myStore.userSlice);
 
   const nav = useNavigate()
   // console.log(user);
+  const dispatch = useDispatch();
+  dispatch(changeFavorite({val:"none"}))
+  dispatch(changeHome({val:"none"}))
 
   return (
     <div>

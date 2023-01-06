@@ -8,22 +8,26 @@ import FoodItem from './foodItem'
 import InfiniteScroll from 'react-infinite-scroller';
 import { useDispatch, useSelector } from 'react-redux';
 import { resetArSearch } from "../../../features/foodsSlice"
+import { changeFavorite,changeHome } from "../../../features/userSlice"
 
 
 export default function FoodsList({ arCats, sort }) {
 
+  const dispatch = useDispatch()
+  const { arSearch } = useSelector(myStore => myStore.foodsSlice)
   const [items, setItems] = useState([]);
   const [hasMore, setHasMore] = useState(true);
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const [totalItems, setTotalItems] = useState(0);
-  const { arSearch } = useSelector(myStore => myStore.foodsSlice)
-  const dispatch = useDispatch()
 
- useEffect(() => {
-      loadMore()
-  }, [])
+  dispatch(changeFavorite({ val: "none" }))
+  dispatch(changeHome({ val: "block" }))
   
+  useEffect(() => {
+    loadMore()
+  }, [])
+
   // useEffect(() => {
   //   if (arSearch.length > 0) {
   //     loadMore()
@@ -67,7 +71,7 @@ export default function FoodsList({ arCats, sort }) {
       setTotalItems(totalItems + resp.data.length);
       console.log(totalItems);
 
-      
+
       // setHasMore(false) if there are no more items to load
       if (totalItems > resp.data.length) {
         setHasMore(false);

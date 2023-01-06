@@ -3,7 +3,9 @@ import { createSlice } from "@reduxjs/toolkit";
 
 // setting the slice his first store/state
 const initValue = {
-    user: {}
+    user: {},
+    home: 'block',
+    favorite: 'none'
 }
 
 const userSlice = createSlice({
@@ -18,9 +20,15 @@ const userSlice = createSlice({
         },
         resetUser: (state, action) => {
             state.user = {}
+        },
+        changeHome: (state, action) => {
+            state.home = action.payload.val
+        },
+        changeFavorite: (state, action) => {
+            state.favorite = action.payload.val
         }
     }
 })
 
-export const { addUser ,resetUser} = userSlice.actions;
+export const { addUser, resetUser ,changeFavorite,changeHome} = userSlice.actions;
 export default userSlice.reducer;

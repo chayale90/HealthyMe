@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom';
-import MyInfo from './myInfo';
+import MyDetails from './myDetails';
 import Posts from './postsList';
 
 export default function NavBarMyProfile() {
@@ -52,7 +52,7 @@ export default function NavBarMyProfile() {
             </div>
 
             <div style={{ display: showPosts }}><Posts /></div>
-            <div style={{ display: showInfo }}><MyInfo /></div>
+            <div style={{ display: showInfo }}><MyDetails /></div>
 
 
         </div>

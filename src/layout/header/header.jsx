@@ -21,12 +21,12 @@ import { theme } from "../../services/theme"
 import Logo from '../../components/general_comps/logo'
 import MyInfo from '../../services/myInfo';
 import { TOKEN_NAME } from '../../services/apiService';
-import { resetUser } from "../../features/userSlice"
+import { resetUser, changeFavorite, changeHome } from "../../features/userSlice"
 import FollowersList from '../../components/client/followers/followersList';
 
 
 export default function Header() {
-  const { user } = useSelector(myStore => myStore.userSlice);
+  const { user, home, favorite } = useSelector(myStore => myStore.userSlice);
   console.log(user);
 
   const nav = useNavigate();
@@ -35,7 +35,7 @@ export default function Header() {
   //navbar states
   const [anchorElNav, setAnchorElNav] = useState(null);
   const [anchorElUser, setAnchorElUser] = useState(null);
-  const [values, setValues] = useState({ button1: 'block', button2: 'none' });
+  // const [values, setValues] = useState({ home: 'block', favorite: 'none' });
   const [displayBurger, setDisplayBurger] = useState("block");
   const [displayButtonX, setDisplayButtonX] = useState("none");
 
@@ -72,6 +72,7 @@ export default function Header() {
   const ClickLogout = () => {
     setOpen(true);
     handleCloseUserMenu()
+
   };
 
 
@@ -179,30 +180,34 @@ export default function Header() {
                 <Button
                   // onClick={handleCloseNavMenu}
                   onClick={() => {
-                    setValues({
-                      button1: "block",
-                      button2: "none",
-                    });
+                    // setValues({
+                    //   home: "block",
+                    //   favorite: "none",
+                    // });
+
                     nav("/foods")
+                    // dispatch(changeHome({ val: "block" }))
+                    // dispatch(changeFavorite({ val: "none" }))
                   }}
                   sx={{
                     px: 3, paddingTop: "24px", paddingBottom: "21px"
                   }}>
                   Home
                 </Button>
-                <div className="mx-auto" style={{ display: values.button1, minHeight: '2px', background: "#A435F0", width: "70%" }} ></div>
+                <div className="mx-auto" style={{ display: home, minHeight: '2px', background: "#A435F0", width: "70%" }} ></div>
               </div>
 
               <div >
                 <Button
                   // onClick={handleCloseNavMenu}
                   onClick={() => {
-                    setValues({
-                      button2: "block",
-                      button1: "none",
-                    });
-                    nav("/myFavoriteFoods")
-
+                    // setValues({
+                    // dispatch()  favorite: "block",
+                    //   home: "none",
+                    // });
+                    dispatch(changeHome({ val: "none" }))
+                    dispatch(changeFavorite({ val: "block" }))
+                    // nav("/myFavoriteFoods")
                   }}
                   sx={{
                     px: 3, paddingTop: "24px", paddingBottom: "21px"
@@ -210,7 +215,7 @@ export default function Header() {
                 >
                   Favorites
                 </Button>
-                <div className="mx-auto" style={{ display: values.button2, minHeight: '2px', background: "#A435F0", width: "70%" }} ></div>
+                <div className="mx-auto" style={{ display: favorite, minHeight: '2px', background: "#A435F0", width: "70%" }} ></div>
               </div>
             </div>
 
@@ -253,14 +258,14 @@ export default function Header() {
 
                   <div className='container p-5'>
 
-                      <h2 className='s24 weight500 mb-4'>Followers</h2>
-                      <IconButton
-                        style={{ position: 'absolute', right: 2, top: 2 }}
-                        onClick={handleCloseFollowers}
-                      >
-                        <CloseIcon />
-                      </IconButton>
-                      <FollowersList/>
+                    <h2 className='s24 weight500 mb-4'>Followers</h2>
+                    <IconButton
+                      style={{ position: 'absolute', right: 2, top: 2 }}
+                      onClick={handleCloseFollowers}
+                    >
+                      <CloseIcon />
+                    </IconButton>
+                    <FollowersList />
 
                   </div>
                 </Dialog>
