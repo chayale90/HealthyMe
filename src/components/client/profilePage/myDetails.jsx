@@ -27,6 +27,10 @@ export default function MyDetails() {
       setScale("Your weight is higher than desired ")
       setDescreption("This may be because your daily calorie intake is greater than the energy your body expends during the day.")
     }
+    else if (BMI > 30) {
+      setScale("Your weight is significantly higher than desired. ")
+      setDescreption("The reason for this may be that your daily caloric intake is very large in relation to the energy your body expends during the day.")
+    }
   }
 
 
