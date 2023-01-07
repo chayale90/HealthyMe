@@ -5,7 +5,8 @@ import SettingsIcon from '@mui/icons-material/Settings';
 import { Link, useNavigate } from 'react-router-dom';
 import NavBarMyProfile from './navBarMyProfile';
 import CheckUserComp from '../../auth/checkComps/checkUserComp';
-import { changeFavorites,changeHome } from "../../../features/homeSlice"
+import { changeFavorites, changeHome } from "../../../features/homeSlice"
+import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
 
 export default function MyProfilePage() {
   const { user } = useSelector(myStore => myStore.userSlice);
@@ -14,14 +15,14 @@ export default function MyProfilePage() {
   // console.log(user);
   const dispatch = useDispatch();
 
-  dispatch(changeFavorites({val:"none"}))
-  dispatch(changeHome({val:"none"}))
+  dispatch(changeFavorites({ val: "none" }))
+  dispatch(changeHome({ val: "none" }))
 
   return (
     <div>
       <div className='container mb-5 mt-4'>
         <CheckUserComp />
-        <div className='d-flex ms-2'>
+        <div className='d-flex '>
 
           <div className='d-none d-sm-block'>
             <Avatar
@@ -38,16 +39,22 @@ export default function MyProfilePage() {
             />
           </div>
 
-          <div className='ms-sm-5 ms-3 mt-0 mt-sm-3'>
-            <h2 className='mb-4'> {user?.name}</h2>
+          <div className='ms-md-5 ms-4 mt-0 mt-sm-2'>
 
-            <div className='d-flex mb-3 text-center'>
+            <h2 className='mb-3'> {user?.name} |<span className='purple'> {user?.rank}</span> </h2>
+
+
+            <div className='d-flex mb-2 text-center'>
               <div className='me-3 '><Link className='underLine'> {user?.posts?.length} <span className='weight500'>Post</span></Link> </div>
               <div className='me-3 '><Link className='underLine'> {user?.followings?.length} <span className='weight500'>Followings</span></Link></div>
               <div><Link className='underLine'>{user?.followers?.length} <span className='weight500'>Followers</span></Link></div>
             </div>
 
-            <div>{user?.info}</div>
+            <div className='pb-2'>My motto: {user?.info}</div>
+            <div className='pb-2'>Location: {user?.location}</div>
+
+            <div >Coins: {user?.score}<AttachMoneyIcon sx={{ color: '#DAA520' }} />
+            </div>
           </div>
 
 
