@@ -21,12 +21,14 @@ import { theme } from "../../services/theme"
 import Logo from '../../components/general_comps/logo'
 import MyInfo from '../../services/myInfo';
 import { TOKEN_NAME } from '../../services/apiService';
-import { resetUser, changeFavorites, changeHome } from "../../features/userSlice"
+import { resetUser } from "../../features/userSlice"
+import {  changeFavorites, changeHome } from "../../features/homeSlice"
 import FollowersList from '../../components/client/followers/followersList';
 
 
 export default function Header() {
-  const { user, home, favorites } = useSelector(myStore => myStore.userSlice);
+  const { user } = useSelector(myStore => myStore.userSlice);
+  const {  home, favorites } = useSelector(myStore => myStore.homeSlice);
   console.log(user);
 
   const nav = useNavigate();
