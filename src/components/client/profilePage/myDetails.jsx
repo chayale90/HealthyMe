@@ -20,14 +20,14 @@ export default function MyDetails() {
       setScale("Your weight is lower than desired")
       setDescreption("It is recommended to consume more calories per day, so that the body receives all the nutrients it needs.")
     }
-    else if (BMI > 18.5 && BMI < 24.9) {
+    else if (BMI >= 18.5 && BMI < 24.9) {
       setScale("Your weight is normal")
     }
-    else if (BMI > 25 && BMI < 29.9) {
+    else if (BMI >= 24.9 && BMI < 29.9) {
       setScale("Your weight is higher than desired ")
       setDescreption("This may be because your daily calorie intake is greater than the energy your body expends during the day.")
     }
-    else if (BMI > 30) {
+    else if (BMI >= 29.9) {
       setScale("Your weight is significantly higher than desired. ")
       setDescreption("The reason for this may be that your daily caloric intake is very large in relation to the energy your body expends during the day.")
     }
