@@ -23,9 +23,10 @@ import MyInfo from '../../services/myInfo';
 import { TOKEN_NAME } from '../../services/apiService';
 import { resetUser } from "../../features/userSlice"
 import { changeFavorites, changeHome } from "../../features/homeSlice"
-import { setOpenFollowers } from "../../features/dialogSlice"
+import { setOpenFollowers,setOpenFollowings } from "../../features/dialogSlice"
 import FollowersList from '../../components/client/followers/followersList';
 import DialogFollowers from '../../components/client/followers/dialogFollowers';
+import DialogFollowings from '../../components/client/followings/dialogFollowings';
 
 
 export default function Header() {
@@ -91,6 +92,13 @@ export default function Header() {
     handleCloseUserMenu()
   };
 
+
+    // dialog Followings option functions 
+    const ClickFollowings = () => {
+      dispatch(setOpenFollowings({ val: true }))
+      handleCloseUserMenu()
+    };
+  
 
   // dialog onLogOut option functions 
   const onLogOut = () => {
@@ -236,11 +244,11 @@ export default function Header() {
 
                 <MenuItem onClick={goToMyProfile}>Profile</MenuItem>
                 <MenuItem onClick={ClickFollowers}>Followers</MenuItem>
-                <MenuItem onClick={handleCloseUserMenu}>Followings</MenuItem>
+                <MenuItem onClick={ClickFollowings}>Followings</MenuItem>
                 <MenuItem onClick={ClickLogout}>Logout</MenuItem>
 
                 <DialogFollowers />
-
+                <DialogFollowings/>
 
                 <Dialog
                   open={open}

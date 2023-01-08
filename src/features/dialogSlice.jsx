@@ -2,7 +2,8 @@ import { createSlice } from "@reduxjs/toolkit";
 
 // setting the slice his first store/state
 const initValue = {
-    openFollowers: false
+    openFollowers: false,
+    openFollowings: false
 }
 
 const dialogSlice = createSlice({
@@ -13,6 +14,9 @@ const dialogSlice = createSlice({
         //change open and close
         setOpenFollowers: (state, action) => {
             state.openFollowers = action.payload.val;
+        },
+        setOpenFollowings: (state, action) => {
+            state.openFollowings = action.payload.val;
         },
 
         // addForm: (state, action) => {
@@ -31,5 +35,5 @@ const dialogSlice = createSlice({
     }
 })
 
-export const { setOpenFollowers } = dialogSlice.actions;
+export const { setOpenFollowers,setOpenFollowings } = dialogSlice.actions;
 export default dialogSlice.reducer;
