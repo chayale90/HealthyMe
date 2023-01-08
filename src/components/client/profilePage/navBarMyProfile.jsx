@@ -3,10 +3,8 @@ import { Link } from 'react-router-dom';
 import MyDetails from './myDetails';
 import Posts from './postsList';
 
-export default function NavBarMyProfile() {
-    const [values, setValues] = useState({ button1: '#CCCCCC', button2: '#A435F0' });
-    const [showPosts, setShowPosts] = useState("none")
-    const [showInfo, setShowInfo] = useState("block")
+export default function NavBarMyProfile({setShowPosts,showPosts,values,setValues,clickOnPosts,setShowInfo,showInfo}) {
+    
     return (
         <div className='container mt-5 pt-sm-5 '>
             <div className='row mx-auto mb-5'>
@@ -14,7 +12,7 @@ export default function NavBarMyProfile() {
                 <div className='col-6 p-0'>
                     <div className='col' style={{ width: "100%",  background: values.button2, minHeight: '2px' }} ></div>
                     <div>
-                        <Link
+                        <div
                             className='weight500'
                             onClick={() => {
                                 setValues({
@@ -24,28 +22,23 @@ export default function NavBarMyProfile() {
                                 setShowPosts("none")
                                 setShowInfo("block")
                             }}
-                            style={{ color: values.button2, display: 'flex', justifyContent: "center", paddingTop: "21px", textDecoration: "none" }}>
+                            style={{ color: values.button2, display: 'flex', justifyContent: "center", paddingTop: "21px", textDecoration: "none",cursor:"pointer" }}>
                             My Personal info
-                        </Link>
+                        </div>
                     </div>
                 </div>
 
                 <div className='col-6 p-0'>
                     <div  style={{  background: values.button1, minHeight: '2px', width: "100%" }} ></div>
                     <div>
-                        <Link
+                        <div
                             className='weight500'
-                            onClick={() => {
-                                setValues({
-                                    button1: "#A435F0",
-                                    button2: "#CCCCCC",
-                                });
-                                setShowPosts("block")
-                                setShowInfo("none")
+                            onClick={()=>{
+                                clickOnPosts()
                             }}
-                            style={{ color: values.button1, display: 'flex', justifyContent: "center", paddingTop: "21px", textDecoration: "none" }}>
+                            style={{ color: values.button1, display: 'flex', justifyContent: "center", paddingTop: "21px", textDecoration: "none" ,cursor:"pointer" }}>
                             Posts
-                        </Link>
+                        </div>
                     </div>
                 </div>
 

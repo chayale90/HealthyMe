@@ -31,7 +31,7 @@ export default function PostsList() {
         setPage(page + 1);
     }
     const doApiMyFoods = async () => {
-        let url = API_URL + `/foods/myFoods/?page=${page}`
+        let url = API_URL + `/foods/myFoods?page=${page}`
         try {
             let resp = await doApiGet(url);
             setAr([...ar, ...resp.data])
@@ -43,7 +43,6 @@ export default function PostsList() {
             if (totalItems > resp.data.length) {
                 setHasMore(false);
             }
-
         }
         catch (err) {
             console.log(err);

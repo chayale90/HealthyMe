@@ -1,26 +1,51 @@
 import { Avatar, IconButton, Tooltip } from '@mui/material'
-import React from 'react'
+import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import SettingsIcon from '@mui/icons-material/Settings';
 import { Link, useNavigate } from 'react-router-dom';
+import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
 import NavBarMyProfile from './navBarMyProfile';
 import CheckUserComp from '../../auth/checkComps/checkUserComp';
 import { changeFavorites, changeHome } from "../../../features/homeSlice"
-import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
+import { setOpenFollowers } from "../../../features/dialogSlice"
+import { useEffect } from 'react';
 
 export default function MyProfilePage() {
   const { user } = useSelector(myStore => myStore.userSlice);
+  const [showPosts, setShowPosts] = useState("none")
+  const [values, setValues] = useState({ button1: '#CCCCCC', button2: '#A435F0' });
+  const [showInfo, setShowInfo] = useState("block")
 
   const nav = useNavigate()
   // console.log(user);
   const dispatch = useDispatch();
 
+  useEffect(()=>{
   dispatch(changeFavorites({ val: "none" }))
   dispatch(changeHome({ val: "none" }))
+  },[])
+
+
+  const clickOnPosts = () => {
+    setValues({
+      button1: "#A435F0",
+      button2: "#CCCCCC",
+    });
+    setShowPosts("block")
+    setShowInfo("none")
+  }
+
+  const onClickFollowers = () => {
+    dispatch(setOpenFollowers({ val: true }))
+  }
+
+  const onClickFollowings = () => {
+    // dispatch(setOpenFollowers({ val: true }))
+  }
 
   return (
     <div>
-      <div className='container mb-5 mt-4'>
+      <div className='container m-5'>
         <CheckUserComp />
         <div className='d-flex '>
 
@@ -43,11 +68,30 @@ export default function MyProfilePage() {
 
             <h2 className='mb-3'> {user?.name} |<span className='purple'> {user?.rank}</span> </h2>
 
-
             <div className='d-flex mb-2 text-center'>
-              <div className='me-3 '><Link className='underLine'> {user?.posts?.length} <span className='weight500'>Post</span></Link> </div>
-              <div className='me-3 '><Link className='underLine'> {user?.followings?.length} <span className='weight500'>Followings</span></Link></div>
-              <div><Link className='underLine'>{user?.followers?.length} <span className='weight500'>Followers</span></Link></div>
+
+              <div style={{ cursor: "pointer" }}
+                onClick={clickOnPosts}
+                className='underLine me-3'>
+                {user?.posts?.length} <span className='weight500'>
+                  Posts
+                </span>
+              </div>
+
+              <div style={{ cursor: "pointer" }}
+                onClick={onClickFollowers}
+                className='underLine me-3'>
+                {user?.followers?.length} <span className='weight500'>
+                  Followers
+                </span>
+              </div>
+
+              <div style={{ curser: "pointer" }}
+                onClick={onClickFollowings}
+                className='underLine me-3'>
+                {user?.followings?.length} <span className='weight500'>
+                  Followings </span>
+              </div>
             </div>
 
             <div className='pb-2'>My motto: {user?.info}</div>
@@ -68,7 +112,7 @@ export default function MyProfilePage() {
         </div>
       </div>
 
-      <NavBarMyProfile />
+      <NavBarMyProfile setShowInfo={setShowInfo} showInfo={showInfo} clickOnPosts={clickOnPosts} setShowPosts={setShowPosts} showPosts={showPosts} setValues={setValues} values={values} />
 
     </div>
   )

@@ -21,7 +21,7 @@ export default function DialogFollowers() {
     const handleBlur = () => {
         paperRef.current.style.borderColor = '#DCDCDC';
     };
-    
+
     const paperRef = useRef();
     const inputRef = useRef();
 
@@ -29,6 +29,7 @@ export default function DialogFollowers() {
         // nav('/foods?search=' + inputRef.current.value)
         setSearch(inputRef.current.value)
     };
+
     return (
         <div>
             <Dialog
@@ -37,40 +38,45 @@ export default function DialogFollowers() {
                 aria-labelledby="followers-dialog"
                 aria-describedby="followers-dialog-description"
             >
-                <div className='container p-5'>
-                    <h2 className='s24 weight500 mb-4'>Followers</h2>
-                    <IconButton
-                        style={{ position: 'absolute', right: 2, top: 2 }}
-                        onClick={handleCloseFollowers}
-                    >
-                        <CloseIcon />
-                    </IconButton>
-
-                    <Paper ref={paperRef}
-                        elevation={0}
-                        sx={{ border: "1px solid #DCDCDC", p: '1px 4px', display: 'flex', alignItems: 'center', borderRadius: 100 }}
-                    >
+                <Paper
+                    style={{ minHeight: '50vh' }}
+                    elevation={0}>
+                    <div className='container px-5 pt-5'>
+                        <h2 className='s24 weight500 mb-4'>Followers</h2>
                         <IconButton
-                            onClick={handleSubmit}
-                            sx={{ p: '10px', color: '#A435F0' }} aria-label="search">
-                            <SearchIcon />
+                            style={{ position: 'absolute', right: 2, top: 2 }}
+                            onClick={handleCloseFollowers}
+                        >
+                            <CloseIcon />
                         </IconButton>
-                        <InputBase
-                            inputRef={inputRef}
-                            onFocus={handleFocus}
-                            onBlur={handleBlur}
-                            // onChange={handleChange}
-                            // onKeyDown={handleKeyDown}
-                            sx={{ ml: 0, flex: 1, width: "400px" }}
-                            placeholder="Search"
-                            inputProps={{ 'aria-label': 'Search my food' }}
-                        />
-                    </Paper>
 
-                    <div className='mt-5'> <FollowersList /></div>
+                        <Paper
+                            ref={paperRef}
+                            elevation={0}
+                            sx={{ border: "1px solid #DCDCDC", p: '2px 4px', display: 'flex', alignItems: 'center', borderRadius: 100 }}
+                        >
+                            <IconButton
+                                onClick={handleSubmit}
+                                sx={{ p: '10px', color: '#A435F0' }} aria-label="search">
+                                <SearchIcon />
+                            </IconButton>
+                            <InputBase
+                                inputRef={inputRef}
+                                onFocus={handleFocus}
+                                onBlur={handleBlur}
+                                // onChange={handleChange}
+                                // onKeyDown={handleKeyDown}
+                                sx={{ ml: 0, flex: 1, width: "400px" }}
+                                placeholder="Search"
+                                inputProps={{ 'aria-label': 'Search my food' }}
+                            />
+                        </Paper>
+
+                        <div className='mt-5'> <FollowersList /></div>
 
 
-                </div>
+                    </div>
+                </Paper>
             </Dialog>
         </div>
     )

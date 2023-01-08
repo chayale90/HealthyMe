@@ -19,9 +19,9 @@ export default function FollowersList() {
   const [totalItems, setTotalItems] = useState(0);
 
 
-  useEffect(() => {
-    loadMore()
-  }, [])
+  // useEffect(() => {
+  //   loadMore()
+  // }, [])
 
   const loadMore = async () => {
     // Load additional items here and add them to the items array
@@ -30,7 +30,7 @@ export default function FollowersList() {
   }
 
   const doApiFollowers = async () => {
-    let url = API_URL + `/users/myFollowers/?page=${page}`
+    let url = API_URL + `/users/myFollowers?page=${page}`
     try {
       let resp = await doApiGet(url);
       console.log(resp.data);
@@ -51,7 +51,7 @@ export default function FollowersList() {
 
 
   return (
-    <div className='container'>
+    <div className='container '>
       <CheckUserActiveComp />
       <InfiniteScroll
         pageStart={page}
@@ -67,7 +67,7 @@ export default function FollowersList() {
           </div>
         }
       >
-        <div className=' justify-content-center'>
+        <div>
           {ar.map((item, i) => {
             return (
               <FollowerItem key={item._id} index={i} item={item} />
