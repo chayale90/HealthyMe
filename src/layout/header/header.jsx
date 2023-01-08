@@ -22,14 +22,17 @@ import Logo from '../../components/general_comps/logo'
 import MyInfo from '../../services/myInfo';
 import { TOKEN_NAME } from '../../services/apiService';
 import { resetUser } from "../../features/userSlice"
-import {  changeFavorites, changeHome } from "../../features/homeSlice"
+import { changeFavorites, changeHome } from "../../features/homeSlice"
+import { setOpenFollowers } from "../../features/dialogSlice"
 import FollowersList from '../../components/client/followers/followersList';
+import DialogFollowers from '../../components/client/followers/dialogFollowers';
 
 
 export default function Header() {
   const { user } = useSelector(myStore => myStore.userSlice);
-  const {  home, favorites } = useSelector(myStore => myStore.homeSlice);
   console.log(user);
+
+  const { home, favorites } = useSelector(myStore => myStore.homeSlice);
 
   const nav = useNavigate();
   const dispatch = useDispatch();
@@ -37,13 +40,12 @@ export default function Header() {
   //navbar states
   const [anchorElNav, setAnchorElNav] = useState(null);
   const [anchorElUser, setAnchorElUser] = useState(null);
-  // const [values, setValues] = useState({ home: 'block', favorite: 'none' });
   const [displayBurger, setDisplayBurger] = useState("block");
   const [displayButtonX, setDisplayButtonX] = useState("none");
 
   //dialog open-close
   const [open, setOpen] = useState(false);
-  const [openFollowers, setOpenFollowers] = useState(false);
+
 
   //nanbar functions
   const handleOpenNavMenu = (event) => {
@@ -62,12 +64,18 @@ export default function Header() {
     setDisplayButtonX("none")
   };
 
+  //close userMenu
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
   };
 
+  //my profile option
+  const goToMyProfile = () => {
+    nav("/myProfile")
+    handleCloseUserMenu()
+  }
 
-  // dialog functions
+  // dialog Logout option functions
   const handleClose = () => {
     setOpen(false);
   };
@@ -77,23 +85,14 @@ export default function Header() {
 
   };
 
-
-  // dialog followers functions
-  const handleCloseFollowers = () => {
-    setOpenFollowers(false);
-  };
+  // dialog Followers option functions 
   const ClickFollowers = () => {
-    setOpenFollowers(true);
+    dispatch(setOpenFollowers({ val: true }))
     handleCloseUserMenu()
   };
 
 
-
-  const goToMyProfile = () => {
-    nav("/myProfile")
-    handleCloseUserMenu()
-  }
-
+  // dialog onLogOut option functions 
   const onLogOut = () => {
     //delete token
     localStorage.removeItem(TOKEN_NAME);
@@ -240,32 +239,7 @@ export default function Header() {
                 <MenuItem onClick={handleCloseUserMenu}>Followings</MenuItem>
                 <MenuItem onClick={ClickLogout}>Logout</MenuItem>
 
-
-                <Dialog
-                  open={openFollowers}
-                  onClose={handleCloseFollowers}
-                  aria-labelledby="followers-dialog"
-                  aria-describedby="followers-dialog-description"
-                >
-
-                  <div className='container p-5'>
-
-                    <h2 className='s24 weight500 mb-4'>Followers</h2>
-                    <IconButton
-                      style={{ position: 'absolute', right: 2, top: 2 }}
-                      onClick={handleCloseFollowers}
-                    >
-                      <CloseIcon />
-                    </IconButton>
-                    <FollowersList />
-
-                  </div>
-                </Dialog>
-
-
-
-
-
+                <DialogFollowers />
 
 
                 <Dialog
@@ -287,8 +261,6 @@ export default function Header() {
                     </DialogActions>
                   </div>
                 </Dialog>
-
-
 
 
               </Menu>
