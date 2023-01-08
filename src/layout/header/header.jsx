@@ -22,12 +22,18 @@ import Logo from '../../components/general_comps/logo'
 import MyInfo from '../../services/myInfo';
 import { TOKEN_NAME } from '../../services/apiService';
 import { resetUser } from "../../features/userSlice"
+import { changeFavorites, changeHome } from "../../features/homeSlice"
+import { setOpenFollowers,setOpenFollowings } from "../../features/dialogSlice"
+import FollowersList from '../../components/client/followers/followersList';
+import DialogFollowers from '../../components/client/followers/dialogFollowers';
+import DialogFollowings from '../../components/client/followings/dialogFollowings';
 
-const pages = ['Home', 'Favorites'];
 
 export default function Header() {
   const { user } = useSelector(myStore => myStore.userSlice);
   console.log(user);
+
+  const { home, favorites } = useSelector(myStore => myStore.homeSlice);
 
   const nav = useNavigate();
   const dispatch = useDispatch();
@@ -35,12 +41,12 @@ export default function Header() {
   //navbar states
   const [anchorElNav, setAnchorElNav] = useState(null);
   const [anchorElUser, setAnchorElUser] = useState(null);
-  const [values, setValues] = useState({ button1: 'block', button2: 'none', button3: 'none' });
   const [displayBurger, setDisplayBurger] = useState("block");
   const [displayButtonX, setDisplayButtonX] = useState("none");
 
   //dialog open-close
   const [open, setOpen] = useState(false);
+
 
   //nanbar functions
   const handleOpenNavMenu = (event) => {
@@ -59,23 +65,42 @@ export default function Header() {
     setDisplayButtonX("none")
   };
 
+  //close userMenu
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
   };
 
+  //my profile option
+  const goToMyProfile = () => {
+    nav("/myProfile")
+    handleCloseUserMenu()
+  }
 
-  // dialog functions
+  // dialog Logout option functions
   const handleClose = () => {
     setOpen(false);
   };
   const ClickLogout = () => {
     setOpen(true);
+    handleCloseUserMenu()
+
   };
 
-  const goToMyProfile = () => {
-    nav("/myProfile")
-  }
+  // dialog Followers option functions 
+  const ClickFollowers = () => {
+    dispatch(setOpenFollowers({ val: true }))
+    handleCloseUserMenu()
+  };
+
+
+    // dialog Followings option functions 
+    const ClickFollowings = () => {
+      dispatch(setOpenFollowings({ val: true }))
+      handleCloseUserMenu()
+    };
   
+
+  // dialog onLogOut option functions 
   const onLogOut = () => {
     //delete token
     localStorage.removeItem(TOKEN_NAME);
@@ -84,7 +109,7 @@ export default function Header() {
     toast.success("You log Out")
     nav("/")
   }
-  
+
 
   //if for the avatar image
   let srcImg;
@@ -142,11 +167,15 @@ export default function Header() {
 
                 }}
               >
-                {pages.map((page) => (
-                  <MenuItem key={page} onClick={handleCloseNavMenu}>
-                    <Typography textAlign="center">{page}</Typography>
-                  </MenuItem>
-                ))}
+                <MenuItem onClick={() => {
+                  nav("/foods")
+                  handleCloseNavMenu()
+                }}>
+                  Home</MenuItem>
+                <MenuItem onClick={() => {
+                  handleCloseNavMenu()
+                  nav("/myFavorites")
+                }}>Favorites</MenuItem>
               </Menu>
             </div>
 
@@ -159,29 +188,25 @@ export default function Header() {
             <div className='d-none d-md-flex' >
               <div>
                 <Button
-                  // onClick={handleCloseNavMenu}
                   onClick={() => {
-                    setValues({
-                      button1: "block",
-                      button2: "none",
-                    });
+                    // handleCloseNavMenu()
+                    nav("/foods")
                   }}
                   sx={{
                     px: 3, paddingTop: "24px", paddingBottom: "21px"
                   }}>
                   Home
                 </Button>
-                <div className="mx-auto" style={{ display: values.button1, minHeight: '2px', background: "#A435F0", width: "70%" }} ></div>
+                <div className="mx-auto" style={{ display: home, minHeight: '2px', background: "#A435F0", width: "70%" }} ></div>
               </div>
 
               <div >
                 <Button
                   // onClick={handleCloseNavMenu}
                   onClick={() => {
-                    setValues({
-                      button2: "block",
-                      button1: "none",
-                    });
+                    dispatch(changeHome({ val: "none" }))
+                    dispatch(changeFavorites({ val: "block" }))
+                    // nav("/myFavoriteFoods")
                   }}
                   sx={{
                     px: 3, paddingTop: "24px", paddingBottom: "21px"
@@ -189,7 +214,7 @@ export default function Header() {
                 >
                   Favorites
                 </Button>
-                <div className="mx-auto" style={{ display: values.button2, minHeight: '2px', background: "#A435F0", width: "70%" }} ></div>
+                <div className="mx-auto" style={{ display: favorites, minHeight: '2px', background: "#A435F0", width: "70%" }} ></div>
               </div>
             </div>
 
@@ -218,10 +243,12 @@ export default function Header() {
               >
 
                 <MenuItem onClick={goToMyProfile}>Profile</MenuItem>
-                <MenuItem onClick={handleCloseUserMenu}>Followers</MenuItem>
-                <MenuItem onClick={handleCloseUserMenu}>Followings</MenuItem>
+                <MenuItem onClick={ClickFollowers}>Followers</MenuItem>
+                <MenuItem onClick={ClickFollowings}>Followings</MenuItem>
                 <MenuItem onClick={ClickLogout}>Logout</MenuItem>
 
+                <DialogFollowers />
+                <DialogFollowings/>
 
                 <Dialog
                   open={open}
@@ -233,6 +260,7 @@ export default function Header() {
                     <DialogTitle
                       sx={{ mb: 2 }}
                       id="alert-dialog-title">
+
                       {"Are you sure you want to logout?"}
                     </DialogTitle>
                     <DialogActions>
@@ -241,6 +269,7 @@ export default function Header() {
                     </DialogActions>
                   </div>
                 </Dialog>
+
 
               </Menu>
             </div>

@@ -1,0 +1,40 @@
+.imgPost {
+    min-height: 100%;
+    width: 306px;
+    border-radius: 9.0524px;
+    margin-bottom: 32px;
+    margin-right: 10px;
+    margin-left: 10px;
+
+}
+
+.imgFoodPost {
+    border-radius: 9.0524px;
+}
+
+.img {
+    height: 200px;
+}
+
+.divCount {
+    min-height: 100px;
+    width: 100px;
+    background :#a535f01d;
+    /* background: rgba(237, 237, 237, 1); */
+    border-radius: 11.0576px;
+}
+
+
+
+@media (max-width:768px) {
+    .img {
+        height: 250px;
+    }
+}
+
+@media (max-width:768px) {
+    .imgPost {
+        min-height: 100%;
+        width: 370px;
+    }
+}

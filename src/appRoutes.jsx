@@ -14,11 +14,11 @@ import FoodsListAdmin from './components/admin/foods/foodsListAdmin'
 import {ToastContainer} from "react-toastify"
 import 'react-toastify/dist/ReactToastify.css';
 
-import UploadTest from './assets/uploadTest'
+// import UploadTest from './assets/uploadTest'
 import LoginPage from './components/auth/loginPage/loginPage'
 import SignUpPage from './components/auth/signUpComps/signUpPage'
 import FoodsPage from './components/client/foods/foodsPage'
-import MyProfile from './components/client/profilePage/myProfile'
+import MyProfile from './components/client/profilePage/myProfilePage'
 
 
 export default function AppRoutes() {
@@ -47,7 +47,7 @@ export default function AppRoutes() {
                     <Route path='/admin/addCategory' element={<AddCategoryForm />} />
                     <Route path='/admin/editCategory/:id' element={<EditCategory />} />
                     <Route path='/admin/foods' element={<FoodsListAdmin />} />
-                    <Route path='/admin/upload' element={<UploadTest />} />
+                    {/* <Route path='/admin/upload' element={<UploadTest />} /> */}
                     {/* ******** */}
                     
                 </Route>

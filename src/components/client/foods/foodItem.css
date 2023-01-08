@@ -19,6 +19,7 @@
     height:200px;
 }
 
+
 @media (max-width:768px) {
     .img{
         height:250px;

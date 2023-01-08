@@ -68,7 +68,7 @@ export default function FoodItem({ item, setItems, items }) {
       {item.active == true && (
         <div className="mainDiv p-0">
           <div className="p-2 overflow-hidden h-100">
-            <img className="imgFood w-100 img" src={item.img_url} />
+            <img className="imgFood w-100 img" src={item.img_url} alt="imgFood"/>
 
             <div className="mt-3 d-flex align-items-center justify-content-between w-100">
               <div
@@ -90,9 +90,9 @@ export default function FoodItem({ item, setItems, items }) {
                   style={{
                     fontWeight: 500,
                   }}
-                  className="s16 ms-2 dark underLine"
+                  className="s16 ms-2 dark "
                 >
-               <div><Link style={{ textDecoration: 'none', color: 'black'}}> {userName}</Link></div>  
+               <div><Link className="dark underLine"> {userName}</Link></div>  
                 </div>
               </div>
 

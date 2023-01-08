@@ -7,8 +7,10 @@ import FoodsList from './foodsList'
 import AddIcon from '@mui/icons-material/Add';
 import { Fab } from '@mui/material';
 import SearchInput from './searchInput';
+import { useNavigate } from 'react-router-dom';
 
 export default function FoodsPage() {
+  const nav = useNavigate()
   const [sort, setSort] = useState("");
   const [category, setCategory] = useState("");
   const [arCats, setArCats] = useState([])
@@ -30,7 +32,7 @@ export default function FoodsPage() {
   ];
 
   useEffect(() => {
-      doApiCats()
+    doApiCats()
   }, [category])
 
   const doApiCats = async () => {
@@ -98,7 +100,8 @@ export default function FoodsPage() {
 
       <Fab
         sx={{ background: "#A435F0", color: "white", "&:hover": { color: "white", background: "#912CD6" }, position: 'sticky', bottom: 70, left: 1900 }}
-        aria-label="add">
+        onClick={() => { nav("/addFood") }}
+        aria-label="addFood">
         <AddIcon />
       </Fab>
     </div >
