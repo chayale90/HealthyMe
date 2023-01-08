@@ -9,7 +9,7 @@ export default function FollowerItem({ item }) {
                 <Avatar
                     sx={{ ms: 2, width: 32, height: 32 }}
                     src={item.img_url}
-                    alt="follower"
+                    alt="followerImg"
                 />
                 <Link className='ms-2 dark underLine'>{item.name}</Link>
 
