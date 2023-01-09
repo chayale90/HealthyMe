@@ -7,7 +7,7 @@ import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
 import NavBarMyProfile from './navBarMyProfile';
 import CheckUserComp from '../../auth/checkComps/checkUserComp';
 import { changeFavorites, changeHome } from "../../../features/homeSlice"
-import { setOpenFollowers } from "../../../features/dialogSlice"
+import { setOpenFollowers,setOpenFollowings } from "../../../features/dialogSlice"
 import { useEffect } from 'react';
 
 export default function MyProfilePage() {
@@ -40,12 +40,12 @@ export default function MyProfilePage() {
   }
 
   const onClickFollowings = () => {
-    // dispatch(setOpenFollowers({ val: true }))
+    dispatch(setOpenFollowings({ val: true }))
   }
 
   return (
     <div>
-      <div className='container m-5'>
+      <div className='container m-sm-5 mt-4'>
         <CheckUserComp />
         <div className='d-flex '>
 
@@ -64,9 +64,9 @@ export default function MyProfilePage() {
             />
           </div>
 
-          <div className='ms-md-5 ms-4 mt-0 mt-sm-2'>
+          <div className='ms-md-5 ms-2 mt-0 mt-sm-1'>
 
-            <h2 className='mb-3'> {user?.name} |<span className='purple'> {user?.rank}</span> </h2>
+            <h2 className='mb-3 s24'> {user?.name} |<span className='purple'> {user?.rank}</span> </h2>
 
             <div className='d-flex mb-2 text-center'>
 
@@ -86,9 +86,9 @@ export default function MyProfilePage() {
                 </span>
               </div>
 
-              <div style={{ curser: "pointer" }}
+              <div style={{ cursor: "pointer" }}
                 onClick={onClickFollowings}
-                className='underLine me-3'>
+                className='underLine '>
                 {user?.followings?.length} <span className='weight500'>
                   Followings </span>
               </div>

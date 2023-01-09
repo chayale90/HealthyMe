@@ -67,7 +67,7 @@ export default function SearchInput() {
             <div style={{ minHeight: "120px" }} className='mx-auto col-10 col-md-8 col-lg-5  pb-sm-4 mt-4'>
                 <Paper ref={paperRef}
                     elevation={0}
-                    sx={{ border: "1px solid #DCDCDC", "&:hover": { border: "1px solid gray" }, p: '2px 4px', display: 'flex', alignItems: 'center', borderRadius: 100 }}
+                    sx={{ border: "1px solid #DCDCDC", "&:hover": { border: "1px solid gray" }, p: '2px 4px', display: 'flex', alignItems: 'center', borderRadius: 100,boxShadow: "0px 0px 10px -4px rgba(0, 0, 0, 0.16)" }}
                 >
                     <IconButton
                         onClick={handleSubmit}

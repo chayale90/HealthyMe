@@ -52,7 +52,7 @@ export default function DialogFollowings() {
                         <Paper
                             ref={paperRef}
                             elevation={0}
-                            sx={{ border: "1px solid #DCDCDC", p: '2px 4px', display: 'flex', alignItems: 'center', borderRadius: 100 }}
+                            sx={{ border: "1px solid #DCDCDC", p: '2px 4px', display: 'flex', alignItems: 'center', borderRadius: 100,boxShadow: "0px 0px 10px -4px rgba(0, 0, 0, 0.16)"}}
                         >
                             <IconButton
                                 onClick={handleSubmit}

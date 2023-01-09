@@ -10,6 +10,8 @@ import { setOpenFollowers } from "../../../features/dialogSlice"
 export default function DialogFollowers() {
     const { openFollowers } = useSelector(myStore => myStore.dialogSlice);
     const dispatch = useDispatch();
+    const paperRef = useRef();
+    const inputRef = useRef();
 
     const handleCloseFollowers = () => {
         dispatch(setOpenFollowers({ val: false }))
@@ -21,9 +23,6 @@ export default function DialogFollowers() {
     const handleBlur = () => {
         paperRef.current.style.borderColor = '#DCDCDC';
     };
-
-    const paperRef = useRef();
-    const inputRef = useRef();
 
     const handleSubmit = () => {
         // nav('/foods?search=' + inputRef.current.value)
@@ -53,7 +52,7 @@ export default function DialogFollowers() {
                         <Paper
                             ref={paperRef}
                             elevation={0}
-                            sx={{ border: "1px solid #DCDCDC", p: '2px 4px', display: 'flex', alignItems: 'center', borderRadius: 100 }}
+                            sx={{ border: "1px solid #DCDCDC", p: '2px 4px', display: 'flex', alignItems: 'center', borderRadius: 100,boxShadow: "0px 0px 10px -4px rgba(0, 0, 0, 0.16)" }}
                         >
                             <IconButton
                                 onClick={handleSubmit}
