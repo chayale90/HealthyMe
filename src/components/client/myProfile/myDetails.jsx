@@ -13,7 +13,7 @@ export default function MyDetails() {
 
   useEffect(() => {
     calculationBMI()
-  }, [BMI])
+  }, [])
 
   const calculationBMI = () => {
     if (BMI < 18.5) {

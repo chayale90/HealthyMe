@@ -18,7 +18,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import LoginPage from './components/auth/loginPage/loginPage'
 import SignUpPage from './components/auth/signUpComps/signUpPage'
 import FoodsPage from './components/client/foods/foodsPage'
-import MyProfile from './components/client/profilePage/myProfilePage'
+import MyProfile from './components/client/myProfile/myProfilePage'
 
 
 export default function AppRoutes() {
