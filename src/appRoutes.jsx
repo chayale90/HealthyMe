@@ -20,6 +20,7 @@ import SignUpPage from './components/auth/signUpComps/signUpPage'
 import FoodsPage from './components/client/foods/foodsPage'
 import MyProfilePage from './components/client/myProfile/myProfilePage'
 import UserProfilePage from './components/client/userProfile/userProfilePage'
+import MyFavoritePage from './components/client/myFavorites/myFavoritePage'
 
 
 export default function AppRoutes() {
@@ -36,6 +37,8 @@ export default function AppRoutes() {
                     <Route path='/myProfile' element={<MyProfilePage />} />
                     <Route path='/userProfile/:id' element={<UserProfilePage />} />
 
+
+                    <Route path='/myFavorites' element={<MyFavoritePage />} />
 
                     {/* ******** */}
                 </Route>

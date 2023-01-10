@@ -206,7 +206,7 @@ export default function Header() {
                   onClick={() => {
                     dispatch(changeHome({ val: "none" }))
                     dispatch(changeFavorites({ val: "block" }))
-                    // nav("/myFavoriteFoods")
+                    nav("/myFavorites")
                   }}
                   sx={{
                     px: 3, paddingTop: "24px", paddingBottom: "21px"

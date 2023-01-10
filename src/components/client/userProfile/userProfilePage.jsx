@@ -39,14 +39,14 @@ export default function UserProfilePage() {
     }
   };
 
-  const clickOnPosts = () => {
-    setValues({
-      button1: "#A435F0",
-      button2: "#CCCCCC",
-    });
-    setShowPosts("block")
-    setShowInfo("none")
-  }
+  // const clickOnPosts = () => {
+  //   setValues({
+  //     button1: "#A435F0",
+  //     button2: "#CCCCCC",
+  //   });
+  //   setShowPosts("block")
+  //   setShowInfo("none")
+  // }
 
   const onClickFollowers = () => {
     dispatch(setOpenFollowers({ val: true }))

@@ -20,11 +20,15 @@ export default function UserPostsList() {
     const [hasMore, setHasMore] = useState(true);
     const [totalPages, setTotalPages] = useState(1);
     const [totalItems, setTotalItems] = useState(0);
+    const [first, setFirst] = useState(true);
+
     const params = useParams();
 
     useEffect(() => {
         loadMore()
     }, [params["id"]])
+
+
 
     const loadMore = async () => {
         // Load additional items here and add them to the items array
@@ -35,14 +39,16 @@ export default function UserPostsList() {
         let url = API_URL + `/foods/userFoods/${params["id"]}?page=${page}`;
         try {
             let resp = await doApiGet(url);
-            setAr([...ar, ...resp.data])
             console.log(resp.data);
+            setAr([...ar, ...resp.data])
 
             // Update the page and total pages variables
             setTotalItems(totalItems + resp.data.length);
 
             if (totalItems > resp.data.length) {
                 setHasMore(false);
+                setPage(1)
+
             }
         }
         catch (err) {
@@ -77,7 +83,7 @@ export default function UserPostsList() {
                 </div>
             </InfiniteScroll>
 
-        
+
         </div>
     )
 }
