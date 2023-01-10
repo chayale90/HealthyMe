@@ -1,30 +1,43 @@
-import { Avatar, IconButton, Tooltip } from '@mui/material'
+import { Avatar, Button, IconButton } from '@mui/material'
 import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import SettingsIcon from '@mui/icons-material/Settings';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
-import NavBarMyProfile from './navBarMyProfile';
 import CheckUserComp from '../../auth/checkComps/checkUserComp';
 import { changeFavorites, changeHome } from "../../../features/homeSlice"
-import { setOpenFollowers,setOpenFollowings } from "../../../features/dialogSlice"
+import { setOpenFollowers, setOpenFollowings } from "../../../features/dialogSlice"
 import { useEffect } from 'react';
+import { API_URL, doApiGet } from '../../../services/apiService';
+import CheckUserActiveComp from '../../auth/checkComps/checkUserActiveComp';
+import { toast } from 'react-toastify';
+import UserPostsList from './userPostsList';
+import { btnStyle2 } from '../../../services/btnStyle';
 
-export default function MyProfilePage() {
-  const { user } = useSelector(myStore => myStore.userSlice);
-  const [showPosts, setShowPosts] = useState("none")
-  const [values, setValues] = useState({ button1: '#CCCCCC', button2: '#A435F0' });
-  const [showInfo, setShowInfo] = useState("block")
-
+export default function UserProfilePage() {
+  const [user, setUser] = useState({})
   const nav = useNavigate()
   // console.log(user);
   const dispatch = useDispatch();
+  const params = useParams();
 
-  useEffect(()=>{
-  dispatch(changeFavorites({ val: "none" }))
-  dispatch(changeHome({ val: "none" }))
-  },[])
+  useEffect(() => {
+    dispatch(changeFavorites({ val: "none" }))
+    dispatch(changeHome({ val: "none" }))
+    doApi()
+  }, [params["id"]])
 
+  const doApi = async () => {
+    try {
+      const url = API_URL + "/users/userInfo/" + params["id"];
+      const resp = await doApiGet(url);
+      console.log(resp.data);
+      setUser(resp.data);
+    }
+    catch (err) {
+      console.log(err);
+      toast.error("There problem try come back later");
+    }
+  };
 
   const clickOnPosts = () => {
     setValues({
@@ -43,13 +56,14 @@ export default function MyProfilePage() {
     dispatch(setOpenFollowings({ val: true }))
   }
 
+
   return (
     <div>
       <div className='container mt-md-5 mt-4'>
-        <CheckUserComp />
+        <CheckUserActiveComp />
         <div className='d-flex '>
 
-          <div className='d-none d-sm-block'>
+          <div className='d-none d-sm-block justify-content-between'>
             <Avatar
               alt="myAvater"
               src={user.img_url}
@@ -65,14 +79,24 @@ export default function MyProfilePage() {
           </div>
 
           <div className='ms-md-5 ms-2 mt-0 mt-sm-1'>
+            <div className='d-flex'>
 
-            <h2 className='mb-3 s24'> {user?.name} |<span className='purple'> {user?.rank}</span> </h2>
+              <h2 className='mb-3 s24'> {user?.name} |<span className='purple'> {user?.rank}</span> </h2>
+              <div className='ms-auto justify-content-end d-md-none d-block'>
+                <Button
+                  style={{ float: "right" }}
+                  className=' loginBtn s18'
+                  sx={btnStyle2}
+                >
+                  Follow
+                </Button>
+              </div>
 
+            </div>
             <div className='d-flex mb-2 text-center'>
 
-              <div style={{ cursor: "pointer" }}
-                onClick={clickOnPosts}
-                className='underLine me-3'>
+              <div
+                className='me-3'>
                 {user?.posts?.length} <span className='weight500'>
                   Posts
                 </span>
@@ -97,22 +121,26 @@ export default function MyProfilePage() {
             <div className='pb-2'>My motto: {user?.info}</div>
             <div className='pb-2'>Location: {user?.location}</div>
 
-            <div >Coins: {user?.score}<AttachMoneyIcon sx={{ color: '#DAA520' }} />
-            </div>
+            <div>Coins: {user?.score} <AttachMoneyIcon sx={{ color: '#DAA520' }} /></div>
+
           </div>
 
 
-          <div className='col text-end'>
-            <Tooltip title={"Edit"} >
-              <IconButton onClick={() => { nav("/editMyProfile") }} sx={{ border: "gray 1px solid" }}>
-                <SettingsIcon />
-              </IconButton>
-            </Tooltip>
-          </div>
+          <div className='ms-auto justify-content-end d-none d-md-block '>
+                <Button
+                  style={{ float: "right"}}
+                  className=' loginBtn px-4'
+                  sx={btnStyle2}
+                >
+                  Follow
+                </Button>
+              </div>
+              
         </div>
+
+        <UserPostsList />
       </div>
 
-      <NavBarMyProfile setShowInfo={setShowInfo} showInfo={showInfo} clickOnPosts={clickOnPosts} setShowPosts={setShowPosts} showPosts={showPosts} setValues={setValues} values={values} />
 
     </div>
   )

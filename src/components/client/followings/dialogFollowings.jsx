@@ -40,7 +40,7 @@ export default function DialogFollowings() {
                 <Paper
                     style={{ minHeight: '50vh' }}
                     elevation={0}>
-                    <div className='container px-5 pt-5'>
+                    <div className='container p-md-5 p-4 pb-0 pb-md-0'>
                         <h2 className='s24 weight500 mb-4'>Following</h2>
                         <IconButton
                             style={{ position: 'absolute', right: 2, top: 2 }}
@@ -52,7 +52,7 @@ export default function DialogFollowings() {
                         <Paper
                             ref={paperRef}
                             elevation={0}
-                            sx={{ border: "1px solid #DCDCDC", p: '2px 4px', display: 'flex', alignItems: 'center', borderRadius: 100,boxShadow: "0px 0px 10px -4px rgba(0, 0, 0, 0.16)"}}
+                            sx={{ border: "1px solid #DCDCDC", p: '2px 4px', display: 'flex', alignItems: 'center', borderRadius: 100, boxShadow: "0px 0px 10px -4px rgba(0, 0, 0, 0.16)" }}
                         >
                             <IconButton
                                 onClick={handleSubmit}
@@ -71,7 +71,7 @@ export default function DialogFollowings() {
                             />
                         </Paper>
 
-                        <div className='mt-5'> <FollowingsList /></div>
+                        <div className='mt-5'><FollowingsList/></div>
 
 
                     </div>

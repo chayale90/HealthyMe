@@ -40,7 +40,7 @@ export default function DialogFollowers() {
                 <Paper
                     style={{ minHeight: '50vh' }}
                     elevation={0}>
-                    <div className='container px-5 pt-5'>
+                    <div className='container p-md-5 p-4 pb-0 pb-md-0'>
                         <h2 className='s24 weight500 mb-4'>Followers</h2>
                         <IconButton
                             style={{ position: 'absolute', right: 2, top: 2 }}

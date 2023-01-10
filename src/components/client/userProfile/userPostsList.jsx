@@ -1,17 +1,17 @@
 import React, { useEffect, useState } from 'react'
 import { CircularProgress, ThemeProvider } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { Fab } from '@mui/material';
 import InfiniteScroll from 'react-infinite-scroller';
 import { API_URL, doApiGet } from '../../../services/apiService'
-import PostItem from './postItem';
+import PostItem from '../myProfile/postItem';
 import { theme } from '../../../services/theme';
 import { useDispatch } from 'react-redux';
 import { toast } from 'react-toastify';
 
 
-export default function PostsList() {
+export default function UserPostsList() {
 
     const nav = useNavigate();
     const dispatch = useDispatch();
@@ -20,18 +20,19 @@ export default function PostsList() {
     const [hasMore, setHasMore] = useState(true);
     const [totalPages, setTotalPages] = useState(1);
     const [totalItems, setTotalItems] = useState(0);
+    const params = useParams();
 
     useEffect(() => {
         loadMore()
-    }, [])
+    }, [params["id"]])
 
     const loadMore = async () => {
         // Load additional items here and add them to the items array
-        await doApiMyFoods()
+        await doApiUserFoods()
         setPage(page + 1);
     }
-    const doApiMyFoods = async () => {
-        let url = API_URL + `/foods/myFoods?page=${page}`
+    const doApiUserFoods = async () => {
+        let url = API_URL + `/foods/userFoods/${params["id"]}?page=${page}`;
         try {
             let resp = await doApiGet(url);
             setAr([...ar, ...resp.data])
@@ -51,8 +52,8 @@ export default function PostsList() {
     }
 
     return (
-        <div>
-
+        <div className='container pt-5'>
+            <hr />
             <InfiniteScroll
                 pageStart={page}
                 loadMore={loadMore}
@@ -67,7 +68,7 @@ export default function PostsList() {
                     </div>
                 }
             >
-                <div className='row justify-content-center'>
+                <div className='row justify-content-center mt-4'>
                     {ar.map((item, i) => {
                         return (
                             <PostItem key={item._id} index={i} item={item} />
@@ -76,12 +77,7 @@ export default function PostsList() {
                 </div>
             </InfiniteScroll>
 
-            <Fab
-                sx={{ background: "#A435F0", color: "white", "&:hover": { color: "white", background: "#912CD6" }, position: 'sticky', bottom: 70, left: 1900 }}
-                onClick={() => { nav("/addFood") }}
-                aria-label="addFood">
-                <AddIcon />
-            </Fab>
+        
         </div>
     )
 }

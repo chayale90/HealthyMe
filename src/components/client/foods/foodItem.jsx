@@ -27,7 +27,8 @@ export default function FoodItem({ item, setItems, items }) {
       // console.log(resp.data);
       setUserName(resp.data.name);
       setUserImg(resp.data.img_url);
-    } catch (err) {
+    }
+    catch (err) {
       console.log(err);
       toast.error("There problem try come back later");
     }
@@ -54,7 +55,7 @@ export default function FoodItem({ item, setItems, items }) {
 
         console.log(updatedFoodItems);
         setItems([...updatedFoodItems]);
-        setChecked(prev=>!prev)
+        setChecked(prev => !prev)
 
       }
     } catch (err) {
@@ -68,18 +69,18 @@ export default function FoodItem({ item, setItems, items }) {
       {item.active == true && (
         <div className="mainDiv p-0">
           <div className="p-2 overflow-hidden h-100">
-            <img className="imgFood w-100 img" src={item.img_url} alt="imgFood"/>
+            <img className="imgFood w-100 img" src={item.img_url} alt="imgFood" />
 
             <div className="mt-3 d-flex align-items-center justify-content-between w-100">
               <div
                 className="d-flex align-items-center"
-                style={{
-                  cursor: "pointer",
-                }}
-                onClick={() => {
-                  //go to details of user
-                  nav("/");
-                }}
+                // style={{
+                //   cursor: "pointer",
+                // }}
+                // onClick={() => {
+                //   //go to details of user
+                //   nav((user._id == item.user_id) ? "/myProfile" : "/userProfile/" + item.user_id);
+                // }}
               >
                 <Avatar
                   sx={{ float: "start", width: 33, height: 33 }}
@@ -92,7 +93,13 @@ export default function FoodItem({ item, setItems, items }) {
                   }}
                   className="s16 ms-2 dark "
                 >
-               <div><Link className="dark underLine"> {userName}</Link></div>  
+                  <div>
+                    <Link
+                      to={(user._id == item.user_id) ? "/myProfile" : "/userProfile/" + item.user_id}
+                      className="dark underLine">
+                      {userName}
+                    </Link>
+                  </div>
                 </div>
               </div>
 
