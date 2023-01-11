@@ -46,7 +46,7 @@ export default function DialogFollowings() {
                 aria-describedby="Followings-dialog-description"
             >
                 <Paper
-                    style={{ minHeight: '50vh' }}
+                    style={{ minHeight: '75vh' }}
                     elevation={0}>
                     <div className='container p-md-5 p-4 pb-0 pb-md-0'>
                         <h2 className='s24 weight500 mb-4'>Following</h2>
