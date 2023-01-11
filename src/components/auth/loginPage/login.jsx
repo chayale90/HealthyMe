@@ -75,7 +75,7 @@ export default function Login() {
       <h2 className='s20 '>Log In</h2>
       <h6 className='welcomeText'>Welcome back! Please enter your details.</h6>
 
-      <form >
+      <form>
         <div className='inputEmail'>
           <ThemeProvider theme={theme}>
             <InputLabel style={{ fontSize: "14px" }} >Email</InputLabel>

@@ -95,7 +95,7 @@ export default function UserProfilePage() {
                 <Button
                   onClick={onFollowClick}
                   style={{ float: "right" }}
-                  className=' loginBtn'
+                  className='loginBtn'
                   sx={ btnStyle2 }
                 >
                  follow

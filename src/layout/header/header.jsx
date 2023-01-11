@@ -128,7 +128,7 @@ export default function Header() {
       <MyInfo />
 
       <AppBar position="static" sx={{ background: "rgba(255, 255, 255, 1)" }}>
-        <Container maxWidth="lg">
+        <Container maxWidth="lg" >
           <div className='d-flex justify-content-between align-items-center' >
             <div className='d-none d-md-flex'>
               <Link to="/foods">
