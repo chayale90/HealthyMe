@@ -3,13 +3,13 @@ import InfiniteScroll from 'react-infinite-scroller';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router';
 import { API_URL, doApiGet } from '../../../services/apiService';
-import CheckUserActiveComp from '../../auth/checkComps/checkUserActiveComp';
 import { theme } from '../../../services/theme';
 import { CircularProgress, ThemeProvider } from '@mui/material';
 import FollowingItem from './followingItem';
+import CheckUserActiveComp from '../../auth/checkComps/checkUserActiveComp';
 
 
-export default function FollowingsList() {
+export default function FollowingsList({ usersSearch }) {
   const [ar, setAr] = useState([])
   const nav = useNavigate();
   const dispatch = useDispatch();
@@ -17,6 +17,12 @@ export default function FollowingsList() {
   const [hasMore, setHasMore] = useState(true);
   const [totalPages, setTotalPages] = useState(1);
   const [totalItems, setTotalItems] = useState(0);
+
+
+  useEffect(() => {
+    if (usersSearch)
+      doApiSearch()
+  }, [usersSearch])
 
 
   useEffect(() => {
@@ -49,6 +55,20 @@ export default function FollowingsList() {
     }
   }
 
+  const doApiSearch = async () => {
+    //users/searchFollow?s=
+    let url = API_URL + "/users/searchFollow?s=" + usersSearch;
+    try {
+      let resp = await doApiGet(url);
+      console.log(resp.data);
+      setAr(resp.data);
+    }
+    catch (err) {
+      console.log(err);
+      toast.error("there problem ,try again later")
+    }
+  }
+
 
   return (
     <div className='container '>
@@ -58,14 +78,14 @@ export default function FollowingsList() {
         loadMore={loadMore}
         hasMore={hasMore}
         loader={
-          ar.length==0?"You have not followers yet":
-          <div className="loader" key={0}>
-            <ThemeProvider theme={theme}>
-              <div style={{ display: "flex" }}>
-                <div style={{ margin: "0 auto", color: "#A435F0" }} ><CircularProgress /></div>
-              </div>
-            </ThemeProvider>
-          </div>
+          ar.length == 0 ? "You have not followers yet" :
+            <div className="loader" key={0}>
+              <ThemeProvider theme={theme}>
+                <div style={{ display: "flex" }}>
+                  <div style={{ margin: "0 auto", color: "#A435F0" }} ><CircularProgress /></div>
+                </div>
+              </ThemeProvider>
+            </div>
         }
       >
         <div>

@@ -7,9 +7,10 @@ import CheckUserActiveComp from '../../auth/checkComps/checkUserActiveComp';
 import FollowerItem from './followerItem';
 import { theme } from '../../../services/theme';
 import { CircularProgress, ThemeProvider } from '@mui/material';
+import { toast } from 'react-toastify';
 
 
-export default function FollowersList() {
+export default function FollowersList({usersSearch}) {
   const [ar, setAr] = useState([])
   const nav = useNavigate();
   const dispatch = useDispatch();
@@ -17,6 +18,11 @@ export default function FollowersList() {
   const [hasMore, setHasMore] = useState(true);
   const [totalPages, setTotalPages] = useState(1);
   const [totalItems, setTotalItems] = useState(0);
+
+  useEffect(() => {
+    if (usersSearch)
+      doApiSearch()
+  }, [usersSearch])
 
 
   useEffect(() => {
@@ -49,6 +55,19 @@ export default function FollowersList() {
     }
   }
 
+  const doApiSearch = async () => {
+    //users/searchFollow?s=
+    let url = API_URL + "/users/searchFollow?s=" + usersSearch;
+    try {
+      let resp = await doApiGet(url);
+      console.log(resp.data);
+      setAr(resp.data);
+    }
+    catch (err) {
+      console.log(err);
+      toast.error("there problem ,try again later")
+    }
+  }
 
   return (
     <div className='container '>
