@@ -16,7 +16,7 @@ export default function FollowingItem({ item }) {
                     <Avatar
                         sx={{ ms: 2, width: 32, height: 32 }}
                         src={item.img_url}
-                        alt="followerImg"
+                        alt="followingImg"
                     />
                     <Link
                         onClick={() => { dispatch(setOpenFollowings({ val: false })) }}

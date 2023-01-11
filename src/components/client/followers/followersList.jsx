@@ -19,9 +19,9 @@ export default function FollowersList() {
   const [totalItems, setTotalItems] = useState(0);
 
 
-  // useEffect(() => {
-  //   loadMore()
-  // }, [])
+  useEffect(() => {
+    loadMore()
+  }, [])
 
   const loadMore = async () => {
     // Load additional items here and add them to the items array
@@ -58,6 +58,7 @@ export default function FollowersList() {
         loadMore={loadMore}
         hasMore={hasMore}
         loader={
+          ar.length==0?"You have not followers yet":
           <div className="loader" key={0}>
             <ThemeProvider theme={theme}>
               <div style={{ display: "flex" }}>

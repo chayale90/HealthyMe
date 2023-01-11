@@ -7,6 +7,7 @@ import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft';
 import { Link, useNavigate } from 'react-router-dom';
 import { theme } from '../../../../services/theme';
 import { btnStyle, btnStyle3, btnStyle2 } from '../../../../services/btnStyle';
+import CheckUserActiveComp from '../../../auth/checkComps/checkUserActiveComp';
 
 export default function AddFood() {
     const { register, getValues, handleSubmit, formState: { errors } } = useForm();
@@ -42,6 +43,7 @@ export default function AddFood() {
 
     return (
         <div className='container mt-3 mb-4'>
+              <CheckUserActiveComp/>
             <form onSubmit={handleSubmit(onSubForm)}>
                 <ThemeProvider theme={theme}>
 

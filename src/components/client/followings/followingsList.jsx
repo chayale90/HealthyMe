@@ -58,6 +58,7 @@ export default function FollowingsList() {
         loadMore={loadMore}
         hasMore={hasMore}
         loader={
+          ar.length==0?"You have not followers yet":
           <div className="loader" key={0}>
             <ThemeProvider theme={theme}>
               <div style={{ display: "flex" }}>
