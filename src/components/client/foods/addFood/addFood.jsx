@@ -121,7 +121,7 @@ export default function AddFood() {
 
                         <h2 className='s24 mt-4 mb-2'>Prep time</h2>
                         <div className='s16 mb-1'>How long does it take to prepare this dish?</div>
-                        <div className='d-flex justify-content-between'>
+                        <div className='d-flex justify-content-between mb-5'>
                             <div style={{width:"48%"}}>
                                 <TextField
                                     placeholder="Hours 0"

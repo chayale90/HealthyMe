@@ -19,9 +19,14 @@ export default function UserProfilePage() {
 
   const [otherUser, setOtherUser] = useState({})
   const nav = useNavigate()
-  // console.log(user);
+  console.log(user);
   const dispatch = useDispatch();
   const params = useParams();
+
+  console.log("***************");
+  console.log(user.following);
+  console.log(params["id"]);
+
 
   useEffect(() => {
     dispatch(changeFavorites({ val: "none" }))
@@ -52,11 +57,12 @@ export default function UserProfilePage() {
   }
 
   const onFollowClick = async () => {
+    console.log("we good");
     try {
       const url = API_URL + "/users/changeFollow/" + params["id"];
       let resp = await doApiMethod(url, "PATCH")
       console.log(resp.data);
-      if(resp.data){
+      if (resp.data) {
         doApi()
       }
     }
@@ -96,9 +102,9 @@ export default function UserProfilePage() {
                   onClick={onFollowClick}
                   style={{ float: "right" }}
                   className='loginBtn'
-                  sx={ btnStyle2 }
+                  sx={btnStyle2}
                 >
-                 follow
+                  follow
                 </Button>
               </div>
 
@@ -136,20 +142,14 @@ export default function UserProfilePage() {
           </div>
 
 
-          <div className='ms-auto justify-content-end d-none d-md-block ju'>
+          <div className='ms-auto justify-content-end d-none d-md-block '>
             <Button
               onClick={onFollowClick}
               style={{ float: "right" }}
               className='loginBtn px-4'
               sx={btnStyle2}
             >
-              {user?.followings?.map(item => {
-                return (
-                  item.includes(params["id"]) ? "Follow" : "Following"
-                )
-              })}
-
-
+              {(otherUser._id?.followers?.includes(user._id)) ? "Following" : "notFoolowing" }
             </Button>
           </div>
 
