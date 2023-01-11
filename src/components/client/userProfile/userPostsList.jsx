@@ -65,6 +65,7 @@ export default function UserPostsList() {
                 loadMore={loadMore}
                 hasMore={hasMore}
                 loader={
+                    ar.length>0&&
                     <div className="loader" key={0}>
                         <ThemeProvider theme={theme}>
                             <div style={{ display: "flex" }}>
