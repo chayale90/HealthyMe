@@ -6,12 +6,13 @@
 
 .addPhotoDiv {
     width: 100%;
-    min-height: 232px;
+    height: 232px;
     background: rgba(165, 53, 240, 0.094);
     display: flex;
     justify-content: center;
     align-items: center;
-    border-radius: 12px
+    border-radius: 12px;
+    border: 1px solid #D4D4D4;
 }
 
 
