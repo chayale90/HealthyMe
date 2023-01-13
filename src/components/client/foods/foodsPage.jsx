@@ -1,61 +1,119 @@
-import React, { useState, useRef } from 'react'
-import { useEffect } from 'react';
-import Select from 'react-select';
-import { toast } from 'react-toastify';
-import { API_URL, doApiGet } from '../../../services/apiService';
-import FoodsList from './foodsList'
-import AddIcon from '@mui/icons-material/Add';
-import { Fab } from '@mui/material';
-import SearchInput from './searchInput';
-import { useNavigate } from 'react-router-dom';
+import React, { useState, useRef } from "react";
+import { useEffect } from "react";
+import Select from "react-select";
+import { toast } from "react-toastify";
+import { API_URL, doApiGet } from "../../../services/apiService";
+import FoodsList from "./foodsList";
+import AddIcon from "@mui/icons-material/Add";
+import { Fab } from "@mui/material";
+import SearchInput from "./searchInput";
+import { setArSearch } from "../../../features/foodsSlice";
+import { useDispatch, useSelector } from "react-redux";
+import Button from "@mui/material/Button";
+
+const options = [
+  { value: "salads", label: "Salads" },
+  { value: "shakes", label: "Shakes" },
+  { value: "breakFast", label: "BreakFast" },
+  { value: "mainMeal", label: "MainMeal" },
+  { value: "quickMeal", label: "QuickMeal" },
+  { value: "All", label: "All" },
+];
+const optionsSort = [
+  { value: "calories", label: "Calories" },
+  { value: "dishes", label: "Dishes" },
+  { value: "likes", label: "Likes" },
+];
 
 export default function FoodsPage() {
-  const nav = useNavigate()
-  const [sort, setSort] = useState("");
-  const [category, setCategory] = useState("");
-  const [arCats, setArCats] = useState([])
-  console.log(sort);
-
-
-  const options = [
-    { value: 'salads', label: 'Salads' },
-    { value: 'shakes', label: 'Shakes' },
-    { value: 'breakFast', label: 'BreakFast' },
-    { value: 'mainMeal', label: 'MainMeal' },
-    { value: 'quickMeal', label: 'QuickMeal' },
-    { value: 'All', label: 'All' }
-  ];
-  const optionsSort = [
-    { value: 'calories', label: 'Calories' },
-    { value: 'dishes', label: 'Dishes' },
-    { value: 'likes', label: 'Likes' }
-  ];
+  const [sort, setSort] = useState(null);
+  const [searchQueries, setSearchQueries] = useState({
+    page: 1,
+    searchTerm: null,
+    categoryTerm: null,
+    // sort: "calories",
+  });
+  const [totalPages, setTotalPages] = useState(1);
+  const { arSearch } = useSelector((myStore) => myStore.foodsSlice);
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    doApiCats()
-  }, [category])
+    fetchFoodData(searchQueries);
+  }, []);
 
-  const doApiCats = async () => {
-    let url = API_URL + `/foods/category/${category}`;
+  const resetSearchResults = () => {
+    dispatch(setArSearch({ val: [] }));
+  };
+
+  const handleSearchInput = (value) => {
+    const tempSearchQueries = {
+      page: 1,
+      searchTerm: value,
+      categoryTerm: null,
+    };
+    console.log({value,tempSearchQueries});
+    setSearchQueries({
+      ...searchQueries,
+      ...tempSearchQueries,
+    });
+    fetchFoodData(tempSearchQueries);
+  };
+  const handleSetCategory = (event) => {
+    const tempSearchQueries = {
+      page: 1,
+      searchTerm: null,
+      categoryTerm: event.value,
+    };
+    setSearchQueries({
+      ...searchQueries,
+      ...tempSearchQueries,
+    });
+    fetchFoodData(tempSearchQueries);
+  };
+
+  const fetchFoodData = async (data) => {
+    const { page, searchTerm, categoryTerm } = searchQueries; // TODO: to use it after
+
+    let url = API_URL + `/foods/search`;
+    const params = {
+      page: data.page,
+      searchTerm: data.searchTerm,
+      categoryTerm: data.categoryTerm,
+      sort: data.sort,
+    };
+    console.log({ params });
     try {
-      const resp = await doApiGet(url);
-      console.log(resp.data);
-      setArCats([...resp.data])
-      console.log(category);
-    }
-    catch (err) {
+      let resp = await doApiGet(url, params);
+      const respData =
+        data.page === 1
+          ? { val: [...resp.data.data] }
+          : { val: [...arSearch, ...resp.data.data] };
+          console.log({respData,page});
+        
+      dispatch(setArSearch({ ...respData }));
+      setSearchQueries((prevState) => ({
+        ...prevState,
+        page: prevState.page + 1,
+      }));
+      setTotalPages(resp.data.totalPages);
+    } catch (err) {
       console.log(err);
-      toast.error("there problem ,try again later")
+      toast.error("there problem ,try again later");
     }
-  }
+  };
 
+  const loadMore = () => {
+    fetchFoodData(searchQueries);
+  };
+
+  const hasMore = searchQueries.page <= totalPages;
+  console.log({searchQueries,totalPages,hasMore});
   return (
-    <div className='container '>
-
-      <SearchInput />
-
-      <div className='row justify-content-center justify-content-md-between mx-sm-3 mx-xs-5 px-md-3 mx-lg-5 px-lg-5 mb-5'>
-        <div className='col-7 col-md-6 col-lg-5 col-xl-4'>
+    
+    <div id="food-page-scroll-container" className="container">
+      <SearchInput handleSearchInput={handleSearchInput} />
+      <div className="row justify-content-center justify-content-md-between mx-sm-3 mx-xs-5 px-md-3 mx-lg-5 px-lg-5 mb-5">
+        <div className="col-7 col-md-6 col-lg-5 col-xl-4">
           <Select
             theme={(theme) => ({
               ...theme,
@@ -63,7 +121,7 @@ export default function FoodsPage() {
               colors: {
                 ...theme.colors,
                 // primary25: 'grey',
-                primary: '#A435F0',
+                primary: "#A435F0",
               },
             })}
             className="basic-single"
@@ -71,11 +129,11 @@ export default function FoodsPage() {
             defaultValue={options[6]}
             placeholder="Category"
             options={options}
-            onChange={(e) => setCategory(e.value)}
+            onChange={handleSetCategory}
           />
         </div>
 
-        <div className='col-5 col-md-4 col-lg-3'>
+        <div className="col-5 col-md-4 col-lg-3">
           <Select
             theme={(theme) => ({
               ...theme,
@@ -83,7 +141,7 @@ export default function FoodsPage() {
               colors: {
                 ...theme.colors,
                 // primary25: 'grey',
-                primary: '#A435F0',
+                primary: "#A435F0",
               },
             })}
             className="basic-single"
@@ -96,14 +154,21 @@ export default function FoodsPage() {
         </div>
       </div>
 
-      <FoodsList arCats={arCats} sort={sort} />
-
+      <FoodsList sort={sort} />
+      {hasMore && <Button onClick={loadMore}>Load More</Button>}
       <Fab
-        sx={{ background: "#A435F0", color: "white", "&:hover": { color: "white", background: "#912CD6" }, position: 'sticky', bottom: 70, left: 1900 }}
-        onClick={() => { nav("/addFood") }}
-        aria-label="addFood">
+        sx={{
+          background: "#A435F0",
+          color: "white",
+          "&:hover": { color: "white", background: "#912CD6" },
+          position: "sticky",
+          bottom: 70,
+          left: 1900,
+        }}
+        aria-label="add"
+      >
         <AddIcon />
       </Fab>
-    </div >
-  )
+    </div>
+  );
 }
