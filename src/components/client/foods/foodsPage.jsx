@@ -10,6 +10,7 @@ import SearchInput from "./searchInput";
 import { setArSearch } from "../../../features/foodsSlice";
 import { useDispatch, useSelector } from "react-redux";
 import Button from "@mui/material/Button";
+import { useNavigate } from "react-router";
 
 const options = [
   { value: "salads", label: "Salads" },
@@ -25,7 +26,10 @@ const optionsSort = [
   { value: "likes", label: "Likes" },
 ];
 
+
+
 export default function FoodsPage() {
+const nav=useNavigate()
   const [sort, setSort] = useState(null);
   const [searchQueries, setSearchQueries] = useState({
     page: 1,
@@ -157,16 +161,11 @@ export default function FoodsPage() {
       <FoodsList sort={sort} />
       {hasMore && <Button onClick={loadMore}>Load More</Button>}
       <Fab
-        sx={{
-          background: "#A435F0",
-          color: "white",
-          "&:hover": { color: "white", background: "#912CD6" },
-          position: "sticky",
-          bottom: 70,
-          left: 1900,
-        }}
-        aria-label="add"
-      ><AddIcon /></Fab>
+        sx={{ background: "#A435F0", color: "white", "&:hover": { color: "white", background: "#912CD6" }, position: 'sticky', bottom: 70, left: 1900 }}
+        onClick={() => { nav("/addFood") }}
+        aria-label="addFood">
+        <AddIcon />
+      </Fab>
     </div>
   );
 }
