@@ -59,6 +59,7 @@ export default function AddFood() {
     }
 
     const handleChange = (e) => {
+        console.log(fileRef.current.files[0].name);
         setfileChosen(fileRef.current.files[0].name)
         const file = e.target.files[0];
         const reader = new FileReader();
@@ -69,7 +70,7 @@ export default function AddFood() {
         setDisplayDiv("none")
     }
 
-    const removeIMG = (e) => {
+    const removeIMG = () => {
         setImage(null);
         // reader.readAsDataURL(file);
         setDisplayDiv("block")
