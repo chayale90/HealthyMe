@@ -51,7 +51,7 @@ export default function FoodsPage() {
       searchTerm: value,
       categoryTerm: null,
     };
-    console.log({value,tempSearchQueries});
+    console.log({ value, tempSearchQueries });
     setSearchQueries({
       ...searchQueries,
       ...tempSearchQueries,
@@ -88,8 +88,8 @@ export default function FoodsPage() {
         data.page === 1
           ? { val: [...resp.data.data] }
           : { val: [...arSearch, ...resp.data.data] };
-          console.log({respData,page});
-        
+      console.log({ respData, page });
+
       dispatch(setArSearch({ ...respData }));
       setSearchQueries((prevState) => ({
         ...prevState,
@@ -107,9 +107,9 @@ export default function FoodsPage() {
   };
 
   const hasMore = searchQueries.page <= totalPages;
-  console.log({searchQueries,totalPages,hasMore});
+  console.log({ searchQueries, totalPages, hasMore });
   return (
-    
+
     <div id="food-page-scroll-container" className="container">
       <SearchInput handleSearchInput={handleSearchInput} />
       <div className="row justify-content-center justify-content-md-between mx-sm-3 mx-xs-5 px-md-3 mx-lg-5 px-lg-5 mb-5">
@@ -166,9 +166,7 @@ export default function FoodsPage() {
           left: 1900,
         }}
         aria-label="add"
-      >
-        <AddIcon />
-      </Fab>
+      ><AddIcon /></Fab>
     </div>
   );
 }
