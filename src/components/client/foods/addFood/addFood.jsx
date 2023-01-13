@@ -1,11 +1,11 @@
 import React, { useEffect, useRef, useState } from 'react'
-import "./addFood.css"
 import AddAPhotoIcon from '@mui/icons-material/AddAPhoto';
 import { Button, FormControl, IconButton, InputLabel, TextField, ThemeProvider } from '@mui/material';
 import MenuItem from '@mui/material/MenuItem';
 import { useForm } from 'react-hook-form';
 import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft';
 import { Link, useNavigate } from 'react-router-dom';
+import CloseIcon from '@mui/icons-material/Close';
 import { theme } from '../../../../services/theme';
 import { btnStyle, btnStyle3, btnStyle2 } from '../../../../services/btnStyle';
 import CheckUserActiveComp from '../../../auth/checkComps/checkUserActiveComp';
@@ -13,6 +13,7 @@ import { API_URL, doApiMethod } from '../../../../services/apiService';
 import { toast } from 'react-toastify';
 // import Select from 'react-select';
 import Select from '@mui/material/Select';
+import "./addFood.css"
 
 export default function AddFood() {
 
@@ -110,23 +111,33 @@ export default function AddFood() {
                             {errors.name && <div className='text-danger s14'>{errors?.name?.message}</div>}
                         </div>
 
-                        <div className="mt-5">
-                            {/* file */}
-                            <div className='text-center '>
-                                <div style={{ display: displayDiv }}>
-                                    <input
-                                        type="file" id="actual-btn"
-                                        ref={fileRef}
-                                        // className='d-block'
-                                        hidden
-                                        onInput={handleChange}
-                                    />
-                                    <label className='me-3 my-1 addPhotoDiv' htmlFor="actual-btn"><AddAPhotoIcon />Add photo</label>
-                                </div>
-                                {image && <div className='text-start' style={{ position: 'absolute', zIndex: 99 }}><Button onClick={removeIMG}>x</Button></div>}
-                                {image && <img className='addPhotoDiv' src={image} alt="Uploaded" style={{ position: 'relative', zIndex: 0 }} />}                                <span id="file-chosen">{fileChosen}</span>
+
+                        {/* file */}
+                        <div className='text-center mt-5'>
+                            <div style={{ display: displayDiv }}>
+                                <input
+                                    type="file" id="actual-btn"
+                                    ref={fileRef}
+                                    hidden
+                                    onInput={handleChange}
+                                />
+                                <label style={{ cursor: 'pointer' }} className='mb-1 addPhotoDiv' htmlFor="actual-btn"><AddAPhotoIcon sx={{ color: "#A435F0" }} />Add photo</label>
                             </div>
+                            {image &&
+                                <div 
+                                    style={{ position: 'relative', zIndex: 99, display: 'flex', justifyContent: 'end' }}>
+                                    <IconButton className='xButton'
+                                        style={{ position: 'absolute', right:0, top: 0 }}
+                                        onClick={removeIMG}
+                                    >
+                                        <CloseIcon sx={{ color: "#A435F0" }}/>
+                                    </IconButton>
+                                </div>
+                            }
+
+                            {image && <img className='addPhotoDiv' src={image} alt="Uploaded" style={{ position: 'relative', zIndex: 0 }} />}                                <span id="file-chosen">{fileChosen}</span>
                         </div>
+
 
                         <FormControl fullWidth sx={{ mt: 5, mb: 4 }}>
                             <InputLabel id="demo-simple-select-label">Category</InputLabel>

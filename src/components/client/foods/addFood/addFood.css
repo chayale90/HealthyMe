@@ -13,6 +13,8 @@
     align-items: center;
     border-radius: 12px;
     border: 1px solid #D4D4D4;
+    flex-direction:column;
+  
 }
 
 
@@ -22,11 +24,11 @@
     align-items: center;
     width: 730px;
     min-height: 56px;
-    position: sticky ;
+    position: sticky;
     top: 0;
     left: 0;
     z-index: 999;
-    background:rgba(255, 255, 255, 1) ;
+    background: rgba(255, 255, 255, 1);
 
 }
 
@@ -39,5 +41,6 @@
     .navButtons {
         width: 100%;
     }
-
+  
 }
+
