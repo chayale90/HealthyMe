@@ -8,7 +8,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { API_URL, doApiGet, doApiMethod } from "../../../services/apiService";
 
-export default function FoodItem({ item, setItems, items }) {
+export default function FoodItem({ item, onLikeClick }) {
   const nav = useNavigate();
   const [userName, setUserName] = useState("");
   const [userImg, setUserImg] = useState("");
@@ -19,7 +19,6 @@ export default function FoodItem({ item, setItems, items }) {
     doApiGetInfoUser();
   }, []);
 
-
   const doApiGetInfoUser = async () => {
     try {
       const url = API_URL + "/users/userInfo/" + item.user_id;
@@ -27,40 +26,9 @@ export default function FoodItem({ item, setItems, items }) {
       // console.log(resp.data);
       setUserName(resp.data.name);
       setUserImg(resp.data.img_url);
-    }
-    catch (err) {
-      console.log(err);
-      toast.error("There problem try come back later");
-    }
-  };
-
-  // FoodModel - id: likes:[userId,]
-  const onLikeClick = async () => {
-    let url = API_URL + "/foods/changeLike/" + item._id;
-    try {
-      const resp = await doApiMethod(url, "PATCH");
-      console.log(resp.data);
-      if (resp.data) {
-        const updatedFoodItems = items.map((foodItem) => {
-          if (foodItem._id === item._id) {
-            const isUserLikeFood = foodItem.likes.includes(user._id);
-            const tempLikes = isUserLikeFood
-              ? foodItem.likes.filter((userId) => userId !== user._id)
-              : [...foodItem.likes, user._id];
-
-            return { ...foodItem, likes: tempLikes };
-          }
-          return foodItem;
-        });
-
-        console.log(updatedFoodItems);
-        setItems([...updatedFoodItems]);
-        setChecked(prev => !prev)
-
-      }
     } catch (err) {
       console.log(err);
-      alert("There problem, or you try to change superAdmin to user");
+      toast.error("There problem try come back later");
     }
   };
 
@@ -69,18 +37,18 @@ export default function FoodItem({ item, setItems, items }) {
       {item.active == true && (
         <div className="mainDiv p-0">
           <div className="p-2 overflow-hidden h-100">
-            <img className="imgFood w-100 img" src={item.img_url} alt="imgFood" />
+            <img className="imgFood w-100 img" src={item.img_url} />
 
             <div className="mt-3 d-flex align-items-center justify-content-between w-100">
               <div
                 className="d-flex align-items-center"
-                // style={{
-                //   cursor: "pointer",
-                // }}
-                // onClick={() => {
-                //   //go to details of user
-                //   nav((user._id == item.user_id) ? "/myProfile" : "/userProfile/" + item.user_id);
-                // }}
+                style={{
+                  cursor: "pointer",
+                }}
+                onClick={() => {
+                  //go to details of user
+                  nav("/");
+                }}
               >
                 <Avatar
                   sx={{ float: "start", width: 33, height: 33 }}
@@ -91,12 +59,11 @@ export default function FoodItem({ item, setItems, items }) {
                   style={{
                     fontWeight: 500,
                   }}
-                  className="s16 ms-2 dark "
+                  className="s16 ms-2 dark underLine"
                 >
                   <div>
-                    <Link
-                      to={(user._id == item.user_id) ? "/myProfile" : "/userProfile/" + item.user_id}
-                      className="dark underLine">
+                    <Link style={{ textDecoration: "none", color: "black" }}>
+                      {" "}
                       {userName}
                     </Link>
                   </div>
@@ -106,7 +73,9 @@ export default function FoodItem({ item, setItems, items }) {
               <div>
                 <Zoom in={true}>
                   <IconButton
-                    onClick={onLikeClick}
+                    onClick={() => {
+                      onLikeClick(item._id, user._id);
+                    }}
                     sx={{ width: 33, height: 33 }}
                     aria-label="add to favorites"
                   >
@@ -115,7 +84,6 @@ export default function FoodItem({ item, setItems, items }) {
                     ) : (
                       <FavoriteIcon sx={{ color: "red" }} />
                     )}
-
                   </IconButton>
                 </Zoom>
               </div>
