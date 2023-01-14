@@ -4,16 +4,14 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import "./foodItem.css";
 import { toast } from "react-toastify";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { API_URL, doApiGet, doApiMethod } from "../../../services/apiService";
+import { API_URL, doApiGet } from "../../../services/apiService";
 
 export default function FoodItem({ item, onLikeClick }) {
-  const nav = useNavigate();
   const [userName, setUserName] = useState("");
   const [userImg, setUserImg] = useState("");
   const { user } = useSelector((myStore) => myStore.userSlice);
-  const [checked, setChecked] = useState(true);
 
   useEffect(() => {
     doApiGetInfoUser();
