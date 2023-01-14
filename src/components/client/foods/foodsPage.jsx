@@ -29,7 +29,7 @@ const optionsSort = [
 
 
 export default function FoodsPage() {
-const nav=useNavigate()
+  const nav = useNavigate()
   const [sort, setSort] = useState(null);
   const [searchQueries, setSearchQueries] = useState({
     page: 1,
@@ -159,10 +159,16 @@ const nav=useNavigate()
       </div>
 
       <FoodsList sort={sort} />
-      {hasMore && <Button style={{color: '#A435F0',border:'#A435F0 1px solid'}}  variant="outlined" onClick={loadMore}>Load More</Button>}
+      {hasMore &&
+        <div style={{ display: "flex" }}>
+          <div style={{ margin: "0 auto" }} >
+            <Button style={{ color: '#A435F0', border: '#A435F0 1px solid' }} variant="outlined" onClick={loadMore}>Load More</Button></div>
+        </div>
+      }
+
       <Fab
         sx={{ background: "#A435F0", color: "white", "&:hover": { color: "white", background: "#912CD6" }, position: 'sticky', bottom: 70, left: 1900 }}
-        onClick={() => { nav("/foods/addFood") }}
+        onClick={() => { nav("/addFood") }}
         aria-label="addFood">
         <AddIcon />
       </Fab>

@@ -79,12 +79,8 @@ export default function FollowingsList({ usersSearch }) {
         hasMore={hasMore}
         loader={
           ar.length == 0 ? "You have not followers yet" :
-            <div className="loader" key={0}>
-              <ThemeProvider theme={theme}>
-                <div style={{ display: "flex" }}>
-                  <div style={{ margin: "0 auto", color: "#A435F0" }} ><CircularProgress /></div>
-                </div>
-              </ThemeProvider>
+            <div style={{ display: "flex" }}>
+              <div style={{ margin: "0 auto", color: "#A435F0" }} ><CircularProgress /></div>
             </div>
         }
       >

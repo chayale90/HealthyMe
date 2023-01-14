@@ -10,7 +10,7 @@ import { CircularProgress, ThemeProvider } from '@mui/material';
 import { toast } from 'react-toastify';
 
 
-export default function FollowersList({usersSearch}) {
+export default function FollowersList({ usersSearch }) {
   const [ar, setAr] = useState([])
   const nav = useNavigate();
   const dispatch = useDispatch();
@@ -77,14 +77,10 @@ export default function FollowersList({usersSearch}) {
         loadMore={loadMore}
         hasMore={hasMore}
         loader={
-          ar.length==0?"You have not followers yet":
-          <div className="loader" key={0}>
-            <ThemeProvider theme={theme}>
-              <div style={{ display: "flex" }}>
-                <div style={{ margin: "0 auto", color: "#A435F0" }} ><CircularProgress /></div>
-              </div>
-            </ThemeProvider>
-          </div>
+          ar.length == 0 ? "You have not followers yet" :
+            <div style={{ display: "flex" }}>
+              <div style={{ margin: "0 auto", color: "#A435F0" }} ><CircularProgress /></div>
+            </div>
         }
       >
         <div>
