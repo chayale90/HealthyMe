@@ -78,7 +78,7 @@ export default function FoodsPage() {
   const fetchFoodData = async (data) => {
     const { page, searchTerm, categoryTerm } = searchQueries; // TODO: to use it after
 
-    let url = API_URL + `/foods/search`;
+    let url = API_URL + `/foods`;
     const params = {
       page: data.page,
       searchTerm: data.searchTerm,

@@ -158,7 +158,7 @@ export default function AddFood() {
                                 <MenuItem value={"mainMeal"}>MainMeal</MenuItem>
                                 <MenuItem value={"quickMeal"}>QuickMeal</MenuItem>
                             </Select>
-                            {errors.categories_url && <div className='text-danger s14'>Enter valid category</div>}
+                            {errors.categories_url && <div className='text-danger s14'>category is requried</div>}
                         </FormControl>
 
 
