@@ -43,8 +43,9 @@ export default function AddFood() {
         let url = API_URL + "/foods";
         try {
             let resp = await doApiMethod(url, "POST", bodyFormData);
+            console.log(resp.data);
             if (resp.data) {
-                // await doApiFileUploadFood(resp.data._id, fileRef);
+                await doApiFileUploadFood(resp.data._id, fileRef);
                 toast.success("food add succefuly");
                 nav("/foods")
             }
@@ -143,13 +144,13 @@ export default function AddFood() {
                         <FormControl fullWidth sx={{ mt: 5, mb: 4 }}>
                             <InputLabel id="demo-simple-select-label">Category</InputLabel>
                             <Select
-                                {...register('category_url', { required: true })}
+                                {...register('categories_url', { required: true , minLength: 2,maxLength:99})}
                                 labelId="demo-select-small"
                                 id="select-category"
                                 value={selectedOption}
                                 label="Category"
                                 onChange={(e) => setSelectedOption(e.target.value)}
-                                name="category_url"
+                                name="categories_url"
                             >
                                 <MenuItem value={"salads"}>Salads</MenuItem>
                                 <MenuItem value={"shakes"}>Shakes</MenuItem>
@@ -157,7 +158,7 @@ export default function AddFood() {
                                 <MenuItem value={"mainMeal"}>MainMeal</MenuItem>
                                 <MenuItem value={"quickMeal"}>QuickMeal</MenuItem>
                             </Select>
-                            {errors.category_url && <div className='text-danger s14'>Enter valid category</div>}
+                            {errors.categories_url && <div className='text-danger s14'>Enter valid category</div>}
                         </FormControl>
 
 

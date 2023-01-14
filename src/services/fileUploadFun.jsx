@@ -71,7 +71,11 @@ export const doApiFileUploadFood = async (_id,fileRef) => {
     formData.append("myFile22", myFile);
     let url = API_URL + "/upload/uploadFood/" + _id;
     try {
-        let resp = await axios.post(url, formData)
+        let resp = await axios.post(url, formData, {
+            headers: {
+                'x-api-key': localStorage[TOKEN_NAME]
+            }
+        })
         if (resp.data) {
             toast.success(resp.data.msg)
         }
