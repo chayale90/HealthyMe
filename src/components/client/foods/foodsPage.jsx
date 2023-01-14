@@ -35,7 +35,7 @@ export default function FoodsPage() {
     page: 1,
     searchTerm: null,
     categoryTerm: null,
-    // sort: "calories",
+    // sort: null
   });
   const [totalPages, setTotalPages] = useState(1);
   const { arSearch } = useSelector((myStore) => myStore.foodsSlice);
@@ -93,12 +93,8 @@ export default function FoodsPage() {
           ? { val: [...resp.data.data] }
           : { val: [...arSearch, ...resp.data.data] };
       console.log({ respData, page });
-
       dispatch(setArSearch({ ...respData }));
-      setSearchQueries((prevState) => ({
-        ...prevState,
-        page: prevState.page + 1,
-      }));
+      setSearchQueries((prevState) => ({ ...prevState, page: prevState.page + 1 }));
       setTotalPages(resp.data.totalPages);
     } catch (err) {
       console.log(err);

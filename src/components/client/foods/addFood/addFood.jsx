@@ -3,16 +3,16 @@ import AddAPhotoIcon from '@mui/icons-material/AddAPhoto';
 import { Button, FormControl, IconButton, InputLabel, TextField, ThemeProvider } from '@mui/material';
 import MenuItem from '@mui/material/MenuItem';
 import { useForm } from 'react-hook-form';
+import { toast } from 'react-toastify';
 import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft';
 import { Link, useNavigate } from 'react-router-dom';
+import Select from '@mui/material/Select';
 import CloseIcon from '@mui/icons-material/Close';
 import { theme } from '../../../../services/theme';
 import { btnStyle, btnStyle3, btnStyle2 } from '../../../../services/btnStyle';
 import CheckUserActiveComp from '../../../auth/checkComps/checkUserActiveComp';
 import { API_URL, doApiMethod } from '../../../../services/apiService';
-import { toast } from 'react-toastify';
-// import Select from 'react-select';
-import Select from '@mui/material/Select';
+import { doApiFileUploadFood } from '../../../../services/fileUploadFun';
 import "./addFood.css"
 
 export default function AddFood() {
@@ -35,7 +35,7 @@ export default function AddFood() {
     ];
     const onSubForm = async (bodyFormData) => {
         console.log(bodyFormData);
-        // await doApiAddFood(bodyFormData);
+        await doApiAddFood(bodyFormData);
     }
     console.log(selectedOption);
 
@@ -44,7 +44,7 @@ export default function AddFood() {
         try {
             let resp = await doApiMethod(url, "POST", bodyFormData);
             if (resp.data) {
-                await doApiFileUpload(resp.data._id, fileRef);
+                // await doApiFileUploadFood(resp.data._id, fileRef);
                 toast.success("food add succefuly");
                 nav("/foods")
             }
@@ -125,13 +125,13 @@ export default function AddFood() {
                                 <label style={{ cursor: 'pointer' }} className='mb-1 addPhotoDiv' htmlFor="actual-btn"><AddAPhotoIcon sx={{ color: "#A435F0" }} />Add photo</label>
                             </div>
                             {image &&
-                                <div 
+                                <div
                                     style={{ position: 'relative', zIndex: 99, display: 'flex', justifyContent: 'end' }}>
                                     <IconButton className='xButton'
-                                        style={{ position: 'absolute', right:0, top: 0 }}
+                                        style={{ position: 'absolute', right: 0, top: 0 }}
                                         onClick={removeIMG}
                                     >
-                                        <CloseIcon sx={{ color: "#A435F0" }}/>
+                                        <CloseIcon sx={{ color: "#A435F0" }} />
                                     </IconButton>
                                 </div>
                             }
