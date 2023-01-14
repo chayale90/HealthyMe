@@ -159,10 +159,10 @@ const nav=useNavigate()
       </div>
 
       <FoodsList sort={sort} />
-      {hasMore && <Button onClick={loadMore}>Load More</Button>}
+      {hasMore && <Button style={{color: '#A435F0',border:'#A435F0 1px solid'}}  variant="outlined" onClick={loadMore}>Load More</Button>}
       <Fab
         sx={{ background: "#A435F0", color: "white", "&:hover": { color: "white", background: "#912CD6" }, position: 'sticky', bottom: 70, left: 1900 }}
-        onClick={() => { nav("/addFood") }}
+        onClick={() => { nav("/foods/addFood") }}
         aria-label="addFood">
         <AddIcon />
       </Fab>
