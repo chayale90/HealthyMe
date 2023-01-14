@@ -37,37 +37,20 @@ export default function FoodItem({ item, onLikeClick }) {
       {item.active == true && (
         <div className="mainDiv p-0">
           <div className="p-2 overflow-hidden h-100">
-            <img className="imgFood w-100 img" src={item.img_url} />
+            <img className="imgFood w-100 img" src={item.img_url} alt="imgFood" />
 
             <div className="mt-3 d-flex align-items-center justify-content-between w-100">
-              <div
-                className="d-flex align-items-center"
-                style={{
-                  cursor: "pointer",
-                }}
-                onClick={() => {
-                  //go to details of user
-                  nav("/");
-                }}
-              >
+              <div className="d-flex align-items-center">
                 <Avatar
                   sx={{ float: "start", width: 33, height: 33 }}
                   src={userImg}
                   alt="AvatarOfFood"
                 />
-                <div
-                  style={{
-                    fontWeight: 500,
-                  }}
-                  className="s16 ms-2 dark underLine"
+                <Link style={{ fontWeight: 500 }} className="s16 ms-2 dark  underLine"
+                  to={(user._id == item.user_id) ? "/myProfile" : "/userProfile/" + item.user_id}
                 >
-                  <div>
-                    <Link style={{ textDecoration: "none", color: "black" }}>
-                      {" "}
-                      {userName}
-                    </Link>
-                  </div>
-                </div>
+                  {userName}
+                </Link>
               </div>
 
               <div>
