@@ -96,7 +96,7 @@ export default function AddFood() {
                         <Button type='submit'
                             className='saveBtn'
                             sx={btnStyle}
-                        >save</Button>
+                        >Add </Button>
                     </div>
 
                     <div className="mx-auto mainAddFood" >

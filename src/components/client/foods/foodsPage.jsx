@@ -24,7 +24,7 @@ const options = [
 const optionsSort = [
   { value: "calories", label: "Calories" },
   { value: "dishes", label: "Dishes" },
-  { value: "likes", label: "Likes" },
+  { value: "totalPrepMinutes", label: "Time" },
   { value: "", label: "No Sort" }
 ];
 
@@ -44,6 +44,7 @@ export default function FoodsPage() {
   const dispatch = useDispatch();
 
   useEffect(() => {
+    
     fetchFoodData(searchQueries);
   }, []);
 

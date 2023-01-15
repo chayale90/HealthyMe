@@ -11,9 +11,7 @@ export default function MyDetails() {
   const BMI = (user.weight / (user.height / 100 * user.height / 100)).toLocaleString()
 
 
-  useEffect(() => {
-    calculationBMI()
-  }, [])
+
 
   const calculationBMI = () => {
     if (BMI < 18.5) {
@@ -33,6 +31,9 @@ export default function MyDetails() {
     }
   }
 
+   useEffect(() => {
+    calculationBMI()
+  }, [BMI])
 
 
   return (
