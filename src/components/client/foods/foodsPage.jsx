@@ -11,6 +11,7 @@ import { setArSearch } from "../../../features/foodsSlice";
 import { useDispatch, useSelector } from "react-redux";
 import Button from "@mui/material/Button";
 import { useNavigate } from "react-router";
+import { changeFavorites, changeHome } from "../../../features/homeSlice"
 
 const options = [
   { value: "salads", label: "Salads" },
@@ -44,8 +45,11 @@ export default function FoodsPage() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    
+    dispatch(changeHome({ val: "block" }))
     fetchFoodData(searchQueries);
+    return () => {
+      dispatch(changeHome({ val: "none" }))
+    }
   }, []);
 
   const resetSearchResults = () => {

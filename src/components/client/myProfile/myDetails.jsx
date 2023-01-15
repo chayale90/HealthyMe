@@ -11,8 +11,6 @@ export default function MyDetails() {
   const BMI = (user.weight / (user.height / 100 * user.height / 100)).toLocaleString()
 
 
-
-
   const calculationBMI = () => {
     if (BMI < 18.5) {
       setScale("Your weight is lower than desired")
