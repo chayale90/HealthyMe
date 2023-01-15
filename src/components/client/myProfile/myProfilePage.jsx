@@ -6,7 +6,6 @@ import { Link, useNavigate } from 'react-router-dom';
 import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
 import NavBarMyProfile from './navBarMyProfile';
 import CheckUserComp from '../../auth/checkComps/checkUserComp';
-import { changeFavorites, changeHome } from "../../../features/homeSlice"
 import { setOpenFollowers,setOpenFollowings } from "../../../features/dialogSlice"
 import { useEffect } from 'react';
 
@@ -19,11 +18,6 @@ export default function MyProfilePage() {
   const nav = useNavigate()
   // console.log(user);
   const dispatch = useDispatch();
-
-  useEffect(()=>{
-  dispatch(changeFavorites({ val: "none" }))
-  dispatch(changeHome({ val: "none" }))
-  },[])
 
 
   const clickOnPosts = () => {

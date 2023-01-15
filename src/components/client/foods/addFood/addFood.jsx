@@ -144,7 +144,7 @@ export default function AddFood() {
                         <FormControl fullWidth sx={{ mt: 5, mb: 4 }}>
                             <InputLabel id="demo-simple-select-label">Category</InputLabel>
                             <Select
-                                {...register('categories_url', { required: true , minLength: 2,maxLength:99})}
+                                {...register('categories_url', { required: true, minLength: 2, maxLength: 99 })}
                                 labelId="demo-select-small"
                                 id="select-category"
                                 value={selectedOption}

@@ -11,7 +11,7 @@ export default function MyInfo() {
 
     useEffect(() => {
         doApiInfoUser()
-    }, [])
+    }, [user])
 
 
     const doApiInfoUser = async () => {
