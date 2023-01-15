@@ -96,6 +96,7 @@ export default function FoodsPage() {
       dispatch(setArSearch({ ...respData }));
       setSearchQueries((prevState) => ({ ...prevState, page: prevState.page + 1 }));
       setTotalPages(resp.data.totalPages);
+      
     } catch (err) {
       console.log(err);
       toast.error("there problem ,try again later");
@@ -106,7 +107,7 @@ export default function FoodsPage() {
     fetchFoodData(searchQueries);
   };
 
-  const hasMore = searchQueries.page <= totalPages;
+  const hasMore = searchQueries.page <= Math.ceil(totalPages);
   console.log({ searchQueries, totalPages, hasMore });
   return (
 
