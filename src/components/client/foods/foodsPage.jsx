@@ -2,16 +2,16 @@ import React, { useState, useRef } from "react";
 import { useEffect } from "react";
 import Select from "react-select";
 import { toast } from "react-toastify";
-import { API_URL, doApiGet } from "../../../services/apiService";
 import FoodsList from "./foodsList";
 import AddIcon from "@mui/icons-material/Add";
 import { Fab } from "@mui/material";
-import SearchInput from "./searchInput";
-import { setArSearch } from "../../../features/foodsSlice";
 import { useDispatch, useSelector } from "react-redux";
 import Button from "@mui/material/Button";
 import { useNavigate } from "react-router";
-import { changeFavorites, changeHome } from "../../../features/homeSlice"
+import SearchInput from "./searchInput";
+import { API_URL, doApiGet } from "../../../services/apiService";
+import { setArSearch } from "../../../features/foodsSlice";
+import { changeHome } from "../../../features/homeSlice"
 
 const options = [
   { value: "salads", label: "Salads" },
@@ -30,19 +30,19 @@ const optionsSort = [
 ];
 
 
-
 export default function FoodsPage() {
   const nav = useNavigate()
-  const [sort, setSort] = useState(null);
+  const [sort, setSort] = useState(null);  
+  const [totalPages, setTotalPages] = useState(1);
+  const { arSearch } = useSelector((myStore) => myStore.foodsSlice);
+  const dispatch = useDispatch();
+
   const [searchQueries, setSearchQueries] = useState({
     page: 1,
     searchTerm: null,
     categoryTerm: null,
     sort: null
   });
-  const [totalPages, setTotalPages] = useState(1);
-  const { arSearch } = useSelector((myStore) => myStore.foodsSlice);
-  const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(changeHome({ val: "block" }))

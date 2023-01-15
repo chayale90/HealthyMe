@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import { useDispatch } from 'react-redux';
-import { changeFavorites, changeHome } from "../../../features/homeSlice"
+import { changeFavorites } from "../../../features/homeSlice"
 
 export default function MyFavoritePage() {
 
