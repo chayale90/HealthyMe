@@ -46,7 +46,7 @@ export default function AddFood() {
             console.log(resp.data);
             if (resp.data) {
                 await doApiFileUploadFood(resp.data._id, fileRef);
-                toast.success("food add succefuly");
+                toast.success("Your Dish adds succefuly, You won 5 coins!");
                 nav("/foods")
             }
             else {
