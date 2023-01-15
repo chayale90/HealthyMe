@@ -18,12 +18,14 @@ const options = [
   { value: "breakFast", label: "BreakFast" },
   { value: "mainMeal", label: "MainMeal" },
   { value: "quickMeal", label: "QuickMeal" },
-  { value: "All", label: "All" },
+  { value: "", label: "No Category" }
 ];
+
 const optionsSort = [
   { value: "calories", label: "Calories" },
   { value: "dishes", label: "Dishes" },
   { value: "likes", label: "Likes" },
+  { value: "", label: "No Sort" }
 ];
 
 
@@ -35,7 +37,7 @@ export default function FoodsPage() {
     page: 1,
     searchTerm: null,
     categoryTerm: null,
-    // sort: null
+    sort: null
   });
   const [totalPages, setTotalPages] = useState(1);
   const { arSearch } = useSelector((myStore) => myStore.foodsSlice);
@@ -54,6 +56,7 @@ export default function FoodsPage() {
       page: 1,
       searchTerm: value,
       categoryTerm: null,
+      sort: null
     };
     console.log({ value, tempSearchQueries });
     setSearchQueries({
@@ -67,6 +70,21 @@ export default function FoodsPage() {
       page: 1,
       searchTerm: null,
       categoryTerm: event.value,
+      sort: null
+    };
+    setSearchQueries({
+      ...searchQueries,
+      ...tempSearchQueries,
+    });
+    fetchFoodData(tempSearchQueries);
+  };
+
+  const handleSetSort = (event) => {
+    const tempSearchQueries = {
+      page: 1,
+      searchTerm: null,
+      categoryTerm: null,
+      sort: event.value
     };
     setSearchQueries({
       ...searchQueries,
@@ -96,7 +114,7 @@ export default function FoodsPage() {
       dispatch(setArSearch({ ...respData }));
       setSearchQueries((prevState) => ({ ...prevState, page: prevState.page + 1 }));
       setTotalPages(resp.data.totalPages);
-      
+
     } catch (err) {
       console.log(err);
       toast.error("there problem ,try again later");
@@ -150,7 +168,7 @@ export default function FoodsPage() {
             // defaultValue={optionsSort[2]}
             placeholder="Sort By"
             options={optionsSort}
-            onChange={(e) => setSort(e.value)}
+            onChange={handleSetSort}
           />
         </div>
       </div>
