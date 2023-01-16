@@ -12,7 +12,6 @@ import { toast } from 'react-toastify';
 
 
 export default function UserPostsList() {
-
     const nav = useNavigate();
     const dispatch = useDispatch();
     const [ar, setAr] = useState([])
@@ -29,7 +28,6 @@ export default function UserPostsList() {
     }, [params["id"]])
 
 
-
     const loadMore = async () => {
         // Load additional items here and add them to the items array
         await doApiUserFoods()
@@ -39,16 +37,15 @@ export default function UserPostsList() {
         let url = API_URL + `/foods/userFoods/${params["id"]}?page=${page}`;
         try {
             let resp = await doApiGet(url);
-            console.log(resp.data);
             setAr([...ar, ...resp.data])
-
+            console.log(resp.data);
             // Update the page and total pages variables
             setTotalItems(totalItems + resp.data.length);
 
             if (totalItems > resp.data.length) {
                 setHasMore(false);
                 setPage(1)
-
+                setTotalItems(0)
             }
         }
         catch (err) {
@@ -65,7 +62,7 @@ export default function UserPostsList() {
                 loadMore={loadMore}
                 hasMore={hasMore}
                 loader={
-                    ar.length>0&&
+                    ar.length > 0 &&
                     <div className="loader" key={0}>
                         <ThemeProvider theme={theme}>
                             <div style={{ display: "flex" }}>

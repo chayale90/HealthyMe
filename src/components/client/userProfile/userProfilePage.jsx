@@ -22,8 +22,9 @@ export default function UserProfilePage() {
   const dispatch = useDispatch();
   const params = useParams();
 
-  console.log("***************");
-  console.log(user.following);
+  // console.log("***************");
+  // console.log(user.following);
+  
   console.log(params["id"]);
 
 
