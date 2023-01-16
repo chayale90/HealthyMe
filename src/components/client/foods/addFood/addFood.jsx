@@ -14,6 +14,7 @@ import CheckUserActiveComp from '../../../auth/checkComps/checkUserActiveComp';
 import { API_URL, doApiMethod } from '../../../../services/apiService';
 import { doApiFileUploadFood } from '../../../../services/fileUploadFun';
 import "./addFood.css"
+import { useSelector } from 'react-redux';
 
 export default function AddFood() {
 
@@ -21,18 +22,15 @@ export default function AddFood() {
     const nav = useNavigate();
     const fileRef = useRef();
     const inputRef = useRef();
-    const [selectedOption, setSelectedOption] = useState("")
+    const [selectedOption, setSelectedOption] = useState("");
+
     const [fileChosen, setfileChosen] = useState("No Img chosen");
     const [image, setImage] = useState(null);
     const [displayDiv, setDisplayDiv] = useState("block");
 
-    const options = [
-        { value: 'salads', label: 'Salads' },
-        { value: 'shakes', label: 'Shakes' },
-        { value: 'breakFast', label: 'BreakFast' },
-        { value: 'mainMeal', label: 'MainMeal' },
-        { value: 'quickMeal', label: 'QuickMeal' },
-    ];
+
+    const { user } = useSelector(myStore => myStore.userSlice);
+
     const onSubForm = async (bodyFormData) => {
         console.log(bodyFormData);
         await doApiAddFood(bodyFormData);
@@ -73,7 +71,7 @@ export default function AddFood() {
 
     const removeIMG = () => {
         setImage(null);
-        // reader.readAsDataURL(file);
+        fileRef.current.value = null;
         setDisplayDiv("block")
         setfileChosen("No Img chosen")
     }
@@ -96,7 +94,7 @@ export default function AddFood() {
                         <Button type='submit'
                             className='saveBtn'
                             sx={btnStyle}
-                        >Add </Button>
+                        >Add</Button>
                     </div>
 
                     <div className="mx-auto mainAddFood" >
