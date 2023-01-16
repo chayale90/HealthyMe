@@ -25,10 +25,6 @@ export default function FollowingsList({ usersSearch }) {
   }, [usersSearch])
 
 
-  useEffect(() => {
-    loadMore()
-  }, [])
-
   const loadMore = async () => {
     // Load additional items here and add them to the items array
     await doApiFollowings()
