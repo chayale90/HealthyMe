@@ -4,7 +4,6 @@ import { useDispatch, useSelector } from 'react-redux'
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
 import CheckUserComp from '../../auth/checkComps/checkUserComp';
-import { changeFavorites, changeHome } from "../../../features/homeSlice"
 import { setOpenFollowers, setOpenFollowings } from "../../../features/dialogSlice"
 import { useEffect } from 'react';
 import { API_URL, doApiGet, doApiMethod } from '../../../services/apiService';
@@ -29,8 +28,6 @@ export default function UserProfilePage() {
 
 
   useEffect(() => {
-    dispatch(changeFavorites({ val: "none" }))
-    dispatch(changeHome({ val: "none" }))
     doApi()
   }, [params["id"]])
 
