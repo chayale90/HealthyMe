@@ -1,17 +1,20 @@
-import { Avatar, IconButton, Zoom } from "@mui/material";
+import { Avatar, Button, IconButton, Zoom } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import "./foodItem.css";
 import { toast } from "react-toastify";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { API_URL, doApiGet } from "../../../services/apiService";
+import VisibilityIcon from '@mui/icons-material/Visibility';
 
 export default function FoodItem({ item, onLikeClick }) {
   const [userName, setUserName] = useState("");
   const [userImg, setUserImg] = useState("");
   const { user } = useSelector((myStore) => myStore.userSlice);
+  const nav = useNavigate()
+  const [isHovered, setIsHovered] = useState(false);
 
   useEffect(() => {
     doApiGetInfoUser();
@@ -34,8 +37,28 @@ export default function FoodItem({ item, onLikeClick }) {
     <React.Fragment>
       {item.active == true && (
         <div className="mainDiv p-0">
-          <div className="p-2 overflow-hidden h-100">
-            <img className="imgFood w-100 img" src={item.img_url} alt="imgFood" />
+          <div
+            className="p-2 overflow-hidden h-100">
+            <div className={isHovered ? 'lightDiv' : 'regularDiv'}
+              style={{ position: 'relative', display: 'flex', justifyContent: 'center', alignItems: 'center' }}
+              onMouseEnter={() => setIsHovered(true)}
+              onMouseLeave={() => setIsHovered(false)}
+            >
+              <img
+                onClick={() => { nav("/FoodInfo/" + item._id) }}
+                className=' imgFood w-100 img'
+                src={item.img_url} alt="imgFood"
+              />
+
+              {isHovered &&
+                <IconButton
+                  onClick={() => { nav("/FoodInfo/" + item._id) }}
+                  style={{ position: 'absolute', padding: 0 }}>
+                  <VisibilityIcon sx={{ fontSize: "40px" }} />
+                </IconButton>
+              }
+
+            </div>
 
             <div className="mt-3 d-flex align-items-center justify-content-between w-100">
               <div className="d-flex align-items-center">
