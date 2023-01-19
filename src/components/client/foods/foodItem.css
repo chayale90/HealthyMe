@@ -12,27 +12,26 @@
 
 .imgFood {
     border-radius: 9.0524px 9.0524px 0px 0px;
-}
-
-
-.img {
     height: 200px;
     cursor: pointer;
 }
 
-.lightDiv{
-    opacity:60% ;
+
+.lightDiv {
+    opacity: 60%;
     border-radius: 9.0524px 9.0524px 0px 0px;
 }
 
-img:hover+button {
+img:hover+.eyeBTN {
     display: flex;
     color: black;
 }
-button:hover {
+
+.eyeBTN:hover {
     display: flex;
     color: black;
 }
+
 @media (max-width:768px) {
     .img {
         height: 250px;

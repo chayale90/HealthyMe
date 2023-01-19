@@ -39,22 +39,23 @@ export default function FoodItem({ item, onLikeClick }) {
         <div className="mainDiv p-0">
           <div
             className="p-2 overflow-hidden h-100">
-            <div className={isHovered ? 'lightDiv' : 'regularDiv'}
+            <div className={isHovered ? 'lightDiv' : ''}
               style={{ position: 'relative', display: 'flex', justifyContent: 'center', alignItems: 'center' }}
               onMouseEnter={() => setIsHovered(true)}
               onMouseLeave={() => setIsHovered(false)}
             >
               <img
                 onClick={() => { nav("/FoodInfo/" + item._id) }}
-                className=' imgFood w-100 img'
+                className='imgFood w-100'
                 src={item.img_url} alt="imgFood"
               />
 
               {isHovered &&
                 <IconButton
+                className="eyeBTN"
                   onClick={() => { nav("/FoodInfo/" + item._id) }}
                   style={{ position: 'absolute', padding: 0 }}>
-                  <VisibilityIcon sx={{ fontSize: "40px" }} />
+                  <VisibilityIcon  className="eyeBTN" sx={{ fontSize: "40px" }} />
                 </IconButton>
               }
 

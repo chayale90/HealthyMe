@@ -9,12 +9,26 @@
 }
 
 .imgFoodPost {
-    border-radius: 9.0524px;
+    border-radius: 9.0524px;   
+     height: 200px;
+     cursor: pointer;
 }
 
-.img {
-    height: 200px;
+.lightDiv {
+    opacity: 60%;
+    border-radius: 9.0524px 9.0524px 0px 0px;
 }
+
+img:hover+.eyeBTN {
+    display: flex;
+    color: black;
+}
+
+.eyeBTN:hover {
+    display: flex;
+    color: black;
+}
+
 
 .divCount {
     min-height: 100px;
