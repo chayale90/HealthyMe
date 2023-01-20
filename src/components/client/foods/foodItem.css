@@ -40,7 +40,7 @@ img:hover+.eyeBTN {
 
 @media (max-width:768px) {
     .mainDiv {
-        min-height: 370px;
+        /* min-height: 370px; */
         width: 370px;
     }
 }
