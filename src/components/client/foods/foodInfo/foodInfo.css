@@ -1,0 +1,29 @@
+.imgFoodInfo {
+    width: 300px;
+    justify-content: center;
+    margin: 0 auto;
+}
+
+.hr {
+    width: 54px;
+    border: 0.5px solid #A7A7A7;
+    transform: rotate(90deg);
+}
+
+@media (max-width:991px) {
+    .imgFoodInfo {
+        width: 200px;
+    }
+    .hr {
+        width: 30px;
+    }
+}
+@media (max-width:768px) {
+    .imgFoodInfo {
+        width: 100%;
+    }
+    .hr {
+        width: 30px;
+      
+    }
+}

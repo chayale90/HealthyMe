@@ -67,6 +67,7 @@ export default function AddFood() {
         }
         reader.readAsDataURL(file);
         setDisplayDiv("none")
+
     }
 
     const removeIMG = () => {
@@ -101,7 +102,7 @@ export default function AddFood() {
                         <div className=''>
                             <h2 className='s24 mt-3 '>Dish Name</h2>
                             <TextField
-                                {...register('name', { required: { value: true, message: 'Name is requried' }, minLength: { value: 3, message: "first name must be at least 3 characters" }, maxLength: 99 })}
+                                {...register('name', { required: { value: true, message: 'Name is requried' }, minLength: { value: 3, message: "First name must be at least 3 characters" }, maxLength: 99 })}
                                 id="outlined-basic"
                                 fullWidth
                                 placeholder="Give your dish a name"
@@ -116,12 +117,14 @@ export default function AddFood() {
                         <div className='text-center mt-5'>
                             <div style={{ display: displayDiv }}>
                                 <input
+                                    // {...register('img_url', { required: true })}
                                     type="file" id="actual-btn"
                                     ref={fileRef}
                                     hidden
                                     onInput={handleChange}
                                 />
-                                <label style={{ cursor: 'pointer' }} className='mb-1 addPhotoDiv' htmlFor="actual-btn"><AddAPhotoIcon sx={{ color: "#A435F0" }} />Add photo</label>
+                                <label
+                                    style={{ cursor: 'pointer' }} className='mb-1 addPhotoDiv' htmlFor="actual-btn"><AddAPhotoIcon sx={{ color: "#A435F0" }} />Add photo</label>
                             </div>
                             {image &&
                                 <div
@@ -135,7 +138,10 @@ export default function AddFood() {
                                 </div>
                             }
 
-                            {image && <img className='addPhotoDiv' src={image} alt="Uploaded" style={{ position: 'relative', zIndex: 0 }} />}                                <span id="file-chosen">{fileChosen}</span>
+                            {image && <img className='addPhotoDiv' src={image} alt="Uploaded" style={{ position: 'relative', zIndex: 0 }} />}
+                            <span id="file-chosen">{fileChosen}</span>
+                            {/* {errors.img_url && <div className='text-danger s14'>Img is requried</div>} */}
+                            {displayDiv == "block" ? <div className='text-danger s14'>Img is requried</div> : ""}
                         </div>
 
 
@@ -152,23 +158,37 @@ export default function AddFood() {
                             >
                                 <MenuItem value={"salads"}>Salads</MenuItem>
                                 <MenuItem value={"shakes"}>Shakes</MenuItem>
-                                <MenuItem value={"breakFast"}>BreakFast</MenuItem>
-                                <MenuItem value={"mainMeal"}>MainMeal</MenuItem>
-                                <MenuItem value={"quickMeal"}>QuickMeal</MenuItem>
+                                <MenuItem value={"breakFast"}>Breakfast</MenuItem>
+                                <MenuItem value={"mainMeal"}>Main meal</MenuItem>
+                                <MenuItem value={"quickMeal"}>Quick meal</MenuItem>
                             </Select>
                             {errors.categories_url && <div className='text-danger s14'>category is requried</div>}
                         </FormControl>
 
+                        <div>
+                            <h2 className='s24 mb-2'>Description</h2>
+                            <TextField
+                                {...register('description', { required: { value: true, message: 'Description is requried' }, minLength: { value: 10, message: "Description must be at least 10 characters" }, maxLength: 500 })}
+                                id="outlined-basic" fullWidth
+                                placeholder="Descrip your dish.."
+                                variant="outlined"
+                            />
+                            {errors.description && <div className='text-danger s14'>{errors?.description?.message}</div>}
+                        </div>
 
-                        <h2 className='s24 mb-2'>Ingredients</h2>
-                        <TextField
-                            {...register('ingredient', { required: false, minLength: 2, maxLength: 99 })}
-                            id="outlined-basic" fullWidth
-                            placeholder="Add ingredients"
-                            variant="outlined"
-                            rows={2}
-                            multiline
-                        />
+                        <div>
+                            <h2 className='s24 mt-4 mb-2'>Ingredients</h2>
+                            <TextField
+                                {...register('ingredient', { required: { value: true, message: 'Ingredients is requried' }, minLength: 2, maxLength: 99 })}
+                                id="outlined-basic" fullWidth
+                                placeholder="Add ingredients"
+                                variant="outlined"
+                                rows={2}
+                                multiline
+                            />
+                            {errors.ingredient && <div className='text-danger s14'>{errors?.ingredient?.message}</div>}
+
+                        </div>
 
                         <h2 className='s24 mt-4 mb-2'>recipe</h2>
                         <TextField
