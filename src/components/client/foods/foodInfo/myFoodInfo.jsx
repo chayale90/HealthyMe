@@ -18,14 +18,14 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogTitle from '@mui/material/DialogTitle';
 import "./foodInfo.css"
 
-export default function FoodInfo() {
+export default function MyFoodInfo() {
     const { user } = useSelector(myStore => myStore.userSlice);
     const params = useParams()
     const [food, setFood] = useState({})
     const foodId = params["id"]
     const dispatch = useDispatch();
     const nav = useNavigate();
-    
+
     useEffect(() => {
         dispatch(changeHome({ val: "none" }))
         doApiGetFoodInfo()
@@ -36,7 +36,34 @@ export default function FoodInfo() {
             const url = API_URL + "/foods/foodInfo/" + foodId;
             const resp = await doApiGet(url);
             // console.log(resp.data);
-            setFood(resp.data)
+            setFood(resp?.data)
+        } catch (err) {
+            console.log(err);
+            toast.error("There problem try come back later");
+        }
+    };
+
+    //dialog open-close
+    const [open, setOpen] = useState(false);
+
+    // dialog Logout option functions
+    const handleClose = () => {
+        setOpen(false);
+    };
+    const ClickDelete = () => {
+        setOpen(true);
+    };
+
+
+    const onDeleteFood = async () => {
+        try {
+            const url = API_URL + "/foods/" + foodId;
+            const resp = await doApiMethod(url, "DELETE");
+            console.log(resp.data);
+            if (resp.data) {
+                toast.success("The dish delete succefuly");
+                nav("/foods")
+            }
         } catch (err) {
             console.log(err);
             toast.error("There problem try come back later");
@@ -44,6 +71,7 @@ export default function FoodInfo() {
     };
 
     return (
+
         <div className='container mt-md-5 mt-4'>
             <ThemeProvider theme={theme}>
 
@@ -79,20 +107,42 @@ export default function FoodInfo() {
                     <div className='d-block d-md-none mt-4 mx-auto'>
                         <img className='imgFoodInfo' style={{ borderRadius: "12px" }} src={food.img_url} alt="foodImg" />
                     </div>
+                    <div>
+                        <IconButton
+                            style={{ position: 'absolute', right: 0, top: 0 }}
+                            onClick={ClickDelete}
+                        >
+                            < DeleteIcon />
+                        </IconButton>
+
+                        <IconButton
+                            style={{ position: 'absolute', right: 45, top: 0, border: "0.5px solid #A7A7A7" }}
+                        // onClick={""}
+
+                        >
+                            <EditIcon />
+                        </IconButton>
+                    </div>
 
 
-               
-                        <div>
-                            <IconButton
-                                style={{ position: 'absolute', right: 10, top: 0 }}
-                            // onClick={""}
-                            >
-                                <FavoriteBorderIcon />
-                            </IconButton>
+                    <Dialog
+                        open={open}
+                        onClose={handleClose}
+                        aria-labelledby="alert-dialog-title"
+                        aria-describedby="alert-dialog-description"
+                    >
+                        <div className='p-3'>
+                            <DialogTitle
+                                sx={{ mb: 2 }}
+                                id="alert-dialog-title">
+                                Are you sure you want to delete {food.name} dish?
+                            </DialogTitle>
+                            <DialogActions>
+                                <Button onClick={handleClose}>Disagree</Button>
+                                <Button onClick={onDeleteFood} autoFocus>Agree</Button>
+                            </DialogActions>
                         </div>
-                    
-
-                
+                    </Dialog>
                 </div>
 
                 <hr className='mt-5 mb-4' />

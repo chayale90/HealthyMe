@@ -23,6 +23,7 @@ import UserProfilePage from './components/client/userProfile/userProfilePage'
 import MyFavoritePage from './components/client/myFavorites/myFavoritePage'
 import AddFood from './components/client/foods/addFood/addFood'
 import FoodInfo from './components/client/foods/foodInfo/foodInfo'
+import MyFoodInfo from './components/client/foods/foodInfo/myFoodInfo'
 
 
 export default function AppRoutes() {
@@ -39,7 +40,8 @@ export default function AppRoutes() {
                     <Route path='/myProfile' element={<MyProfilePage />} />
                     <Route path='/userProfile/:id' element={<UserProfilePage />} />
                     <Route path='/addFood' element={<AddFood/>} />
-                    <Route path='/FoodInfo/:id' element={<FoodInfo/>} />
+                    <Route path='/foodInfo/:id' element={<FoodInfo/>} />
+                    <Route path='/myFoodInfo/:id' element={<MyFoodInfo/>} />
 
 
                     <Route path='/myFavorites' element={<MyFavoritePage />} />

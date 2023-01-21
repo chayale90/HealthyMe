@@ -45,17 +45,17 @@ export default function FoodItem({ item, onLikeClick }) {
               onMouseLeave={() => setIsHovered(false)}
             >
               <img
-                onClick={() => { nav("/FoodInfo/" + item._id) }}
+                onClick={() => { user._id == item.user_id ? nav("/myFoodInfo/" + item._id) : nav("/foodInfo/" + item._id) }}
                 className='imgFood w-100'
                 src={item.img_url} alt="imgFood"
               />
 
               {isHovered &&
                 <IconButton
-                className="eyeBTN"
-                  onClick={() => { nav("/FoodInfo/" + item._id) }}
+                  className="eyeBTN"
+                  onClick={() => { user._id == item.user_id ? nav("/myFoodInfo/" + item._id) : nav("/foodInfo/" + item._id) }}
                   style={{ position: 'absolute', padding: 0 }}>
-                  <VisibilityIcon  className="eyeBTN" sx={{ fontSize: "40px" }} />
+                  <VisibilityIcon className="eyeBTN" sx={{ fontSize: "40px" }} />
                 </IconButton>
               }
 
