@@ -19,23 +19,21 @@ import { useSelector } from 'react-redux';
 export default function AddFood() {
 
     const { register, getValues, handleSubmit, formState: { errors } } = useForm();
+    const { user } = useSelector(myStore => myStore.userSlice);
     const nav = useNavigate();
     const fileRef = useRef();
     const inputRef = useRef();
     const [selectedOption, setSelectedOption] = useState("");
-
     const [fileChosen, setfileChosen] = useState("No Img chosen");
     const [image, setImage] = useState(null);
     const [displayDiv, setDisplayDiv] = useState("block");
 
-
-    const { user } = useSelector(myStore => myStore.userSlice);
+    // console.log(selectedOption);
 
     const onSubForm = async (bodyFormData) => {
         console.log(bodyFormData);
         await doApiAddFood(bodyFormData);
     }
-    console.log(selectedOption);
 
     const doApiAddFood = async (bodyFormData) => {
         let url = API_URL + "/foods";
