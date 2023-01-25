@@ -16,19 +16,25 @@ import { theme } from "../../../../services/theme"
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogTitle from '@mui/material/DialogTitle';
+import { Avatar } from '@mui/material';
+import { Link } from 'react-router-dom'
+
 import "./foodInfo.css"
 
 export default function FoodInfo() {
     const { user } = useSelector(myStore => myStore.userSlice);
+    const [userName, setUserName] = useState("");
+    const [userImg, setUserImg] = useState("");
     const params = useParams()
     const [food, setFood] = useState({})
     const foodId = params["id"]
     const dispatch = useDispatch();
     const nav = useNavigate();
-    
+
     useEffect(() => {
         dispatch(changeHome({ val: "none" }))
         doApiGetFoodInfo()
+
     }, [])
 
     const doApiGetFoodInfo = async () => {
@@ -37,24 +43,52 @@ export default function FoodInfo() {
             const resp = await doApiGet(url);
             // console.log(resp.data);
             setFood(resp.data)
+            doApiGetInfoUser(resp.data.user_id)
+
         } catch (err) {
             console.log(err);
             toast.error("There problem try come back later");
         }
     };
 
+    const doApiGetInfoUser = async (user_id) => {
+        try {
+            const url = API_URL + "/users/userInfo/" + user_id;
+            const resp = await doApiGet(url);
+            console.log(resp.data);
+            setUserName(resp.data.name);
+            setUserImg(resp.data.img_url);
+        } catch (err) {
+            console.log(err);
+            toast.error("There problem try come back later");
+        }
+    };
     return (
         <div className='container mt-md-5 mt-4'>
             <ThemeProvider theme={theme}>
 
-                <div style={{ position: 'relative' }} className='row align-items-center'>
+                <div style={{ position: 'relative' }} className='row '>
                     <div className='col-4 d-none d-md-block'>
                         <img className='imgFoodInfo' style={{ borderRadius: "12px" }} src={food.img_url} alt="foodImg" />
                     </div>
 
                     <div className='col-auto mt-2 mt-md-0 mx-auto mx-md-0 ms-lg-3'>
+
+                        <div className="d-flex align-items-center mb-2 mb-lg-4 mt-lg-2 mt-0">
+                            <Avatar
+                                sx={{ float: "start", width: 33, height: 33 }}
+                                src={userImg}
+                                alt="AvatarOfFood"
+                            />
+                            <Link style={{ fontWeight: 500 }} className="s16 ms-2 dark underLine"
+                                to={(user._id == food.user_id) ? "/myProfile" : "/userProfile/" + food.user_id}
+                            >
+                                {userName}
+                            </Link>
+                        </div>
+
                         <h1 className='s30 text-center text-md-start  mt-4 mt-md-0'>{food.name}</h1>
-                        <div className='s18 text-center text-md-start mb-4'>{food.description}</div>
+                        <div className='s18 text-center text-md-start mb-lg-4 mb-3 mb-md-2'>{food.description}</div>
                         <div className='d-flex align-items-center'>
                             <div className="d-block d-md-flex text-center">
                                 <div> <AccessTimeIcon className='me-2' /></div>
@@ -69,30 +103,30 @@ export default function FoodInfo() {
 
                             {food.calories &&
                                 <div className='d-block d-md-flex text-center'>
-                                    <div> <img className='me-2 ' src="/images/calories.png" alt="clockIcon" /></div>
-                                    <div >{food.calories} calories</div>
+                                    <div> <img className='me-2 mb-md-1 pb-md-1' src="/images/calories.png" alt="clockIcon" /></div>
+                                    <div className='mt-md-1'>{food.calories} calories</div>
                                 </div>
                             }
 
                         </div>
                     </div>
+
                     <div className='d-block d-md-none mt-4 mx-auto'>
                         <img className='imgFoodInfo' style={{ borderRadius: "12px" }} src={food.img_url} alt="foodImg" />
                     </div>
 
 
-               
-                        <div>
-                            <IconButton
-                                style={{ position: 'absolute', right: 10, top: 0 }}
-                            // onClick={""}
-                            >
-                                <FavoriteBorderIcon />
-                            </IconButton>
-                        </div>
-                    
+                    <div>
+                        <IconButton
+                            style={{ position: 'absolute', right: 10, top: 0 }}
+                        // onClick={""}
+                        >
+                            <FavoriteBorderIcon />
+                        </IconButton>
+                    </div>
 
-                
+
+
                 </div>
 
                 <hr className='mt-5 mb-4' />
