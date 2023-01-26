@@ -2,6 +2,7 @@
     width: 300px;
     justify-content: center;
     margin: 0 auto;
+
 }
 
 .hr {
@@ -10,18 +11,35 @@
     transform: rotate(90deg);
 }
 
+.likesDiv {
+    background: white;
+    border-radius: 17.75px;
+    height: 35px;
+    padding: 0 15px;
+    position: absolute;
+    left: 0;
+    bottom: 1px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 @media (max-width:991px) {
     .imgFoodInfo {
         width: 220px;
     }
+
     .hr {
         width: 30px;
     }
 }
+
 @media (max-width:768px) {
     .imgFoodInfo {
         width: 100%;
     }
+
     .hr {
         width: 30px;
     }

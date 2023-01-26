@@ -18,7 +18,8 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogTitle from '@mui/material/DialogTitle';
 import { Avatar } from '@mui/material';
 import { Link } from 'react-router-dom'
-
+import { Fab } from "@mui/material";
+import AddIcon from "@mui/icons-material/Add";
 import "./foodInfo.css"
 
 export default function FoodInfo() {
@@ -69,8 +70,9 @@ export default function FoodInfo() {
             <ThemeProvider theme={theme}>
 
                 <div style={{ position: 'relative' }} className='row align-items-center'>
-                    <div className='col-4 d-none d-md-block'>
+                    <div className='col-4 d-none d-md-block p-0'>
                         <img className='imgFoodInfo' style={{ borderRadius: "12px" }} src={food.img_url} alt="foodImg" />
+                        <div className='likesDiv m-1'>  <FavoriteIcon sx={{ color: "#A435F0", marginRight: 1 }} />{food?.likes?.length} Likes</div>
                     </div>
 
                     <div className="d-flex d-md-none align-items-center ">
@@ -87,8 +89,7 @@ export default function FoodInfo() {
                     </div>
 
                     <div className='col-auto mt-2 mt-md-0 mx-auto mx-md-0 ms-md-3 pe-0'>
-
-                    <div className="d-none d-md-flex align-items-center mb-2 mb-lg-4 mt-lg-2 mt-0">
+                        <div className="d-none d-md-flex align-items-center mb-2 mb-lg-4 mt-lg-2 mt-0">
                             <Avatar
                                 sx={{ float: "start", width: 33, height: 33 }}
                                 src={userImg}
@@ -126,9 +127,8 @@ export default function FoodInfo() {
                     </div>
 
                     <div className='d-block d-md-none mt-4 mx-auto'>
-                        <img className='imgFoodInfo' style={{ borderRadius: "12px" }} src={food.img_url} alt="foodImg" />
-                    </div>
-
+                        <img className='imgFoodInfo' style={{ borderRadius: "12px", position: 'relative' }} src={food.img_url} alt="foodImg" />
+                        <div className='likesDiv mb-1 ms-3'>  <FavoriteIcon sx={{ color: "#A435F0", marginRight: 1 }} />{food?.likes?.length} Likes</div>                    </div>
 
                     <div>
                         <IconButton
@@ -138,8 +138,6 @@ export default function FoodInfo() {
                             <FavoriteBorderIcon />
                         </IconButton>
                     </div>
-
-
 
                 </div>
 
@@ -158,6 +156,12 @@ export default function FoodInfo() {
                     }
                 </div>
 
+                <Fab
+                    sx={{ background: "#A435F0", color: "white", "&:hover": { color: "white", background: "#912CD6" }, position: 'sticky', bottom: 70, left: 1900 }}
+                    onClick={() => { nav("/addFood") }}
+                    aria-label="addFood">
+                    <AddIcon />
+                </Fab>
 
             </ThemeProvider>
         </div>
