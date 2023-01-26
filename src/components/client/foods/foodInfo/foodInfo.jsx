@@ -68,7 +68,7 @@ export default function FoodInfo() {
         <div className='container mt-md-5 mt-4'>
             <ThemeProvider theme={theme}>
 
-                <div style={{ position: 'relative' }} className='row '>
+                <div style={{ position: 'relative' }} className='row align-items-center'>
                     <div className='col-4 d-none d-md-block'>
                         <img className='imgFoodInfo' style={{ borderRadius: "12px" }} src={food.img_url} alt="foodImg" />
                     </div>
@@ -86,9 +86,9 @@ export default function FoodInfo() {
                         </Link>
                     </div>
 
-                    <div className='col-auto mt-2 mt-md-0 mx-auto mx-md-0 ms-md-3'>
+                    <div className='col-auto mt-2 mt-md-0 mx-auto mx-md-0 ms-md-3 pe-0'>
 
-                        <div className="d-none d-md-flex align-items-center mb-2 mb-lg-4 mt-lg-2 mt-0">
+                    <div className="d-none d-md-flex align-items-center mb-2 mb-lg-4 mt-lg-2 mt-0">
                             <Avatar
                                 sx={{ float: "start", width: 33, height: 33 }}
                                 src={userImg}
@@ -101,8 +101,8 @@ export default function FoodInfo() {
                             </Link>
                         </div>
 
-                        <h1 className='s30 text-center text-md-start  mt-4 mt-md-0'>{food.name}</h1>
-                        <div className='s18 text-center text-md-start mb-lg-4 mb-3 mb-md-2'>{food.description}</div>
+                        <h1 className='s30 text-center text-md-start mt-4 mt-md-0'>{food.name}</h1>
+                        <div className='s18 text-center text-md-start mb-2 mb-lg-4'>{food.description}</div>
                         <div className='d-flex align-items-center'>
                             <div className="d-block d-md-flex text-center">
                                 <div> <AccessTimeIcon className='me-2' /></div>
