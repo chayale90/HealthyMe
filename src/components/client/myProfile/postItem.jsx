@@ -3,8 +3,10 @@ import React, { useState } from 'react'
 import { useNavigate } from 'react-router';
 import "./myProfilePage.css"
 import VisibilityIcon from '@mui/icons-material/Visibility';
+import { useSelector } from 'react-redux';
 
 export default function PostItem({ item }) {
+    const { user } = useSelector(myStore => myStore.userSlice);
     const [isHovered, setIsHovered] = useState(false);
     const nav = useNavigate()
 
@@ -17,15 +19,15 @@ export default function PostItem({ item }) {
                 onMouseLeave={() => setIsHovered(false)}
             >
                 <img className='w-100 imgFoodPost'
-                    onClick={() => { nav("/FoodInfo/" + item._id) }}
-                    src={item.img_url}
+                onClick={() => { user._id == item.user_id ? nav("/myFoodInfo/" + item._id) : nav("/foodInfo/" + item._id) }}
+                src={item.img_url}
                     alt="imgFood"
                 />
 
                 {isHovered &&
                     <IconButton
                         className="eyeBTN"
-                        onClick={() => { nav("/FoodInfo/" + item._id) }}
+                        onClick={() => { user._id == item.user_id ? nav("/myFoodInfo/" + item._id) : nav("/foodInfo/" + item._id) }}
                         style={{ position: 'absolute', padding: 0 }}>
                         <VisibilityIcon className="eyeBTN" sx={{ fontSize: "40px" }} />
                     </IconButton>

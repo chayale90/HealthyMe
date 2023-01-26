@@ -16,15 +16,19 @@ import { theme } from "../../../../services/theme"
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogTitle from '@mui/material/DialogTitle';
+import { Avatar } from '@mui/material';
+import { Link } from 'react-router-dom'
 import "./foodInfo.css"
 
 export default function MyFoodInfo() {
     const { user } = useSelector(myStore => myStore.userSlice);
     const params = useParams()
-    const [food, setFood] = useState({})
-    const foodId = params["id"]
-    const dispatch = useDispatch();
     const nav = useNavigate();
+    const dispatch = useDispatch();
+    const [food, setFood] = useState({})
+    const [userName, setUserName] = useState("");
+    const [userImg, setUserImg] = useState("");
+    const foodId = params["id"]
 
     useEffect(() => {
         dispatch(changeHome({ val: "none" }))
@@ -37,12 +41,25 @@ export default function MyFoodInfo() {
             const resp = await doApiGet(url);
             // console.log(resp.data);
             setFood(resp?.data)
+            doApiGetInfoUser(resp.data.user_id)
         } catch (err) {
             console.log(err);
             toast.error("There problem try come back later");
         }
     };
 
+    const doApiGetInfoUser = async (user_id) => {
+        try {
+            const url = API_URL + "/users/userInfo/" + user_id;
+            const resp = await doApiGet(url);
+            console.log(resp.data);
+            setUserName(resp.data.name);
+            setUserImg(resp.data.img_url);
+        } catch (err) {
+            console.log(err);
+            toast.error("There problem try come back later");
+        }
+    };
     //dialog open-close
     const [open, setOpen] = useState(false);
 
@@ -80,7 +97,21 @@ export default function MyFoodInfo() {
                         <img className='imgFoodInfo' style={{ borderRadius: "12px" }} src={food.img_url} alt="foodImg" />
                     </div>
 
+
                     <div className='col-auto mt-2 mt-md-0 mx-auto mx-md-0 ms-lg-3'>
+                    <div className="d-none d-md-flex align-items-center mb-2 mb-lg-4 mt-lg-2 mt-0">
+                            <Avatar
+                                sx={{ float: "start", width: 33, height: 33 }}
+                                src={userImg}
+                                alt="AvatarOfFood"
+                            />
+                            <Link style={{ fontWeight: 500 }} className="s16 ms-2 dark underLine"
+                                to={(user._id == food.user_id) ? "/myProfile" : "/userProfile/" + food.user_id}
+                            >
+                                {userName}
+                            </Link>
+                        </div>
+                        
                         <h1 className='s30 text-center text-md-start  mt-4 mt-md-0'>{food.name}</h1>
                         <div className='s18 text-center text-md-start mb-4'>{food.description}</div>
                         <div className='d-flex align-items-center'>

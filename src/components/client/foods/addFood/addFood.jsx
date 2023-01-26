@@ -138,7 +138,7 @@ export default function AddFood() {
 
                             {image && <img className='addPhotoDiv' src={image} alt="Uploaded" style={{ position: 'relative', zIndex: 0 }} />}
                             <span id="file-chosen">{fileChosen}</span>
-                            {/* {errors.img_url && <div className='text-danger s14'>Img is requried</div>} */}
+                            {/* {errors.img_url &&displayDiv == "block"? <div className='text-danger s14'>Img is requried</div>:""} */}
                             {displayDiv == "block" ? <div className='text-danger s14'>Img is requried</div> : ""}
                         </div>
 
