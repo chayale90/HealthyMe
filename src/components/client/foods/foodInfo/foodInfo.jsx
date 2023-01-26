@@ -63,7 +63,7 @@ export default function FoodInfo() {
             toast.error("There problem try come back later");
         }
     };
-    
+
     return (
         <div className='container mt-md-5 mt-4'>
             <ThemeProvider theme={theme}>
@@ -86,7 +86,7 @@ export default function FoodInfo() {
                         </Link>
                     </div>
 
-                    <div className='col-auto mt-2 mt-md-0 mx-auto mx-md-0 ms-lg-3'>
+                    <div className='col-auto mt-2 mt-md-0 mx-auto mx-md-0 ms-md-3'>
 
                         <div className="d-none d-md-flex align-items-center mb-2 mb-lg-4 mt-lg-2 mt-0">
                             <Avatar

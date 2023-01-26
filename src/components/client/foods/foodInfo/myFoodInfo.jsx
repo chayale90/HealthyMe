@@ -96,9 +96,20 @@ export default function MyFoodInfo() {
                     <div className='col-4 d-none d-md-block'>
                         <img className='imgFoodInfo' style={{ borderRadius: "12px" }} src={food.img_url} alt="foodImg" />
                     </div>
+                    <div className="d-flex d-md-none align-items-center ">
+                        <Avatar
+                            sx={{ float: "start", width: 33, height: 33 }}
+                            src={userImg}
+                            alt="AvatarOfFood"
+                        />
+                        <Link style={{ fontWeight: 500 }} className="s16 ms-2 dark underLine"
+                            to={(user._id == food.user_id) ? "/myProfile" : "/userProfile/" + food.user_id}
+                        >
+                            {userName}
+                        </Link>
+                    </div>
 
-
-                    <div className='col-auto mt-2 mt-md-0 mx-auto mx-md-0 ms-lg-3'>
+                    <div className='col-auto mt-2 mt-md-0 mx-auto mx-md-0 ms-md-3'>
                     <div className="d-none d-md-flex align-items-center mb-2 mb-lg-4 mt-lg-2 mt-0">
                             <Avatar
                                 sx={{ float: "start", width: 33, height: 33 }}
