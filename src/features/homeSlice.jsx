@@ -3,7 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 // all little things in ui
 const initValue = {
-    home: 'block',
+    home: 'none',
     favorites: 'none'
 }
 
