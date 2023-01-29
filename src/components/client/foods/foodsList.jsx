@@ -8,7 +8,7 @@ import FoodItem from "./foodItem";
 import InfiniteScroll from "react-infinite-scroller";
 import { useDispatch, useSelector } from "react-redux";
 import { resetArSearch, setArSearch } from "../../../features/foodsSlice";
-
+import MyInfo from "../../../services/myInfo"
 export default function FoodsList({ hasMore }) {
   const { arSearch } = useSelector((myStore) => myStore.foodsSlice);
   const dispatch = useDispatch();
@@ -42,6 +42,7 @@ export default function FoodsList({ hasMore }) {
   };
   return (
     <div className="container">
+      <MyInfo />
       <CheckUserComp />
       <div className="row justify-content-center">
         {arSearch.map((item, i) => {
