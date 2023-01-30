@@ -17,7 +17,6 @@ import "./addFood.css"
 import { useSelector } from 'react-redux';
 
 export default function AddFood() {
-
     const { register, getValues, handleSubmit, formState: { errors } } = useForm();
     const { user } = useSelector(myStore => myStore.userSlice);
     const nav = useNavigate();
