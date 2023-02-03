@@ -178,7 +178,10 @@ export default function FoodsPage() {
         </div>
       </div>
 
+
       <FoodsList sort={sort} />
+
+      
       {hasMore &&
         <div style={{ display: "flex" }}>
           <div style={{ margin: "0 auto" }} >

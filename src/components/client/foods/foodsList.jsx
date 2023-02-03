@@ -56,7 +56,6 @@ export default function FoodsList({ hasMore }) {
           );
         })}
       </div>
-      {/* {hasMore && <h1>loading...</h1>} */}
-    </div>
+      {arSearch.length<1&&<h2 className='display-6 text-center my-5'>Loading...</h2>}    </div>
   );
 }
