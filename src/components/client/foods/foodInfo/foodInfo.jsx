@@ -22,8 +22,6 @@ import "./foodInfo.css"
 
 export default function FoodInfo() {
     const { user } = useSelector(myStore => myStore.userSlice);
-    const [userName, setUserName] = useState("");
-    const [userImg, setUserImg] = useState("");
     const params = useParams()
     const [food, setFood] = useState({})
     const foodId = params["id"]
@@ -33,35 +31,21 @@ export default function FoodInfo() {
     useEffect(() => {
         dispatch(changeHome({ val: "none" }))
         doApiGetFoodInfo()
-
     }, [])
 
     const doApiGetFoodInfo = async () => {
         try {
             const url = API_URL + "/foods/foodInfo/" + foodId;
             const resp = await doApiGet(url);
-            // console.log(resp.data);
-            setFood(resp.data)
-            doApiGetInfoUser(resp.data.user_id)
-
-        } catch (err) {
-            console.log(err);
-            toast.error("There problem try come back later");
-        }
-    };
-
-    const doApiGetInfoUser = async (user_id) => {
-        try {
-            const url = API_URL + "/users/userInfo/" + user_id;
-            const resp = await doApiGet(url);
             console.log(resp.data);
-            setUserName(resp.data.name);
-            setUserImg(resp.data.img_url);
+            setFood(resp.data)
+
         } catch (err) {
             console.log(err);
             toast.error("There problem try come back later");
         }
     };
+
 
     return (
         <ThemeProvider theme={theme}>
@@ -78,13 +62,13 @@ export default function FoodInfo() {
                             <div className="d-flex d-md-none align-items-center ">
                                 <Avatar
                                     sx={{ float: "start", width: 33, height: 33 }}
-                                    src={userImg}
-                                    alt="AvatarOfFood"
+                                    src={ food?.user_id?.img_url}
+                                alt="AvatarOfFood"
                                 />
                                 <Link style={{ fontWeight: 500 }} className="s16 ms-2 dark underLine"
                                     to={(user._id == food.user_id) ? "/myProfile" : "/userProfile/" + food.user_id}
                                 >
-                                    {userName}
+                                    {food.user_id.name}
                                 </Link>
                             </div>
 
@@ -92,13 +76,13 @@ export default function FoodInfo() {
                                 <div className="d-none d-md-flex align-items-center mb-2 mb-lg-4 mt-lg-2 mt-0">
                                     <Avatar
                                         sx={{ float: "start", width: 33, height: 33 }}
-                                        src={userImg}
+                                        src={ food?.user_id?.img_url}
                                         alt="AvatarOfFood"
                                     />
                                     <Link style={{ fontWeight: 500 }} className="s16 ms-2 dark underLine"
                                         to={(user._id == food.user_id) ? "/myProfile" : "/userProfile/" + food.user_id}
                                     >
-                                        {userName}
+                                        {food.user_id.name}
                                     </Link>
                                 </div>
 
