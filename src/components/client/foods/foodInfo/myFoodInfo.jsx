@@ -92,10 +92,6 @@ export default function MyFoodInfo() {
     return (
         <ThemeProvider theme={theme}>
             <div className='container mt-md-5 mt-4'>
-
-
-
-
                 {food._id ?
                     <div>
                         <div style={{ position: 'relative' }} className='row align-items-center'>
