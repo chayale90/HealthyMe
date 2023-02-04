@@ -9,10 +9,13 @@ import InfiniteScroll from "react-infinite-scroller";
 import { useDispatch, useSelector } from "react-redux";
 import { resetArSearch, setArSearch } from "../../../features/foodsSlice";
 import MyInfo from "../../../services/myInfo"
+
 export default function FoodsList({ hasMore }) {
   const { arSearch } = useSelector((myStore) => myStore.foodsSlice);
   const dispatch = useDispatch();
-console.log(arSearch);
+  console.log(arSearch);
+
+
   const onLikeClick = async (id, idUser) => {
     console.log({ id });
     let url = API_URL + "/foods/changeLike/" + id;
@@ -56,6 +59,6 @@ console.log(arSearch);
           );
         })}
       </div>
-      {arSearch.length<1&&<h2 className='display-6 text-center my-5'>Loading...</h2>}    </div>
+      {arSearch.length < 1 && <h2 className='display-6 text-center my-5'>Loading...</h2>}    </div>
   );
 }
