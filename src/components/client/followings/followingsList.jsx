@@ -7,6 +7,7 @@ import { theme } from '../../../services/theme';
 import { CircularProgress, ThemeProvider } from '@mui/material';
 import FollowingItem from './followingItem';
 import CheckUserActiveComp from '../../auth/checkComps/checkUserActiveComp';
+import { toast } from 'react-toastify';
 
 
 export default function FollowingsList({ usersSearch }) {
@@ -20,12 +21,15 @@ export default function FollowingsList({ usersSearch }) {
 
   const { userIdFollowings } = useSelector(myStore => myStore.dialogSlice);
 
-
   useEffect(() => {
     if (usersSearch)
-      doApiSearch()
+      setAr([])
+    doApiSearch()
   }, [usersSearch])
 
+  useEffect(() => {
+    loadMore()
+  }, [])
 
   const loadMore = async () => {
     // Load additional items here and add them to the items array
@@ -37,7 +41,7 @@ export default function FollowingsList({ usersSearch }) {
     let url = API_URL + `/users/myFollowings/${userIdFollowings}?page=${page}`
     try {
       let resp = await doApiGet(url);
-      console.log(resp.data);
+      // console.log(resp.data);
       if (resp.data.length === 0) {
         setHasMore(false);
         return;
@@ -57,11 +61,11 @@ export default function FollowingsList({ usersSearch }) {
   }
 
   const doApiSearch = async () => {
-    //users/searchFollow?s=
-    let url = API_URL + "/users/searchFollow?s=" + usersSearch;
+    //users/searchFollowings?s=
+    let url = API_URL + `/users/searchFollowings/${userIdFollowings}?s=${usersSearch}`;
     try {
       let resp = await doApiGet(url);
-      console.log(resp.data);
+      // console.log(resp.data);
       setAr(resp.data);
     }
     catch (err) {
@@ -79,9 +83,9 @@ export default function FollowingsList({ usersSearch }) {
         loadMore={loadMore}
         hasMore={hasMore}
         loader={
-        <div style={{ display: "flex" }}>
-          <div style={{ margin: "0 auto", color: "#A435F0" }} ><CircularProgress /></div>
-        </div>
+          <div style={{ display: "flex" }}>
+            <div style={{ margin: "0 auto", color: "#A435F0" }} ><CircularProgress /></div>
+          </div>
         }
       >
         <div>

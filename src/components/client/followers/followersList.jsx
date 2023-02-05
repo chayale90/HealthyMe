@@ -20,14 +20,18 @@ export default function FollowersList({ usersSearch }) {
   const [totalItems, setTotalItems] = useState(0);
 
   const { userIdFollowers } = useSelector(myStore => myStore.dialogSlice);
-  console.log(userIdFollowers);
+  // console.log(userIdFollowers);
 
 
-  useEffect(() => {
+  useEffect(() => { 
     if (usersSearch)
+    setAr([])
       doApiSearch()
   }, [usersSearch])
 
+  useEffect(() => { 
+    loadMore()
+  }, [])
 
   const loadMore = async () => {
     // Load additional items here and add them to the items array
@@ -39,7 +43,7 @@ export default function FollowersList({ usersSearch }) {
     let url = API_URL + `/users/myFollowers/${userIdFollowers}?page=${page}`
     try {
       let resp = await doApiGet(url);
-      console.log(resp.data);
+      // console.log(resp.data);
       if (resp.data.length === 0) {
         setHasMore(false);
         return;
@@ -60,8 +64,8 @@ export default function FollowersList({ usersSearch }) {
   }
 
   const doApiSearch = async () => {
-    //users/searchFollow?s=
-    let url = API_URL + "/users/searchFollow?s=" + usersSearch;
+    //users/searchFollowers?s=
+    let url = API_URL + `/users/searchFollowers/${userIdFollowers}?s=${usersSearch}`;
     try {
       let resp = await doApiGet(url);
       console.log(resp.data);
