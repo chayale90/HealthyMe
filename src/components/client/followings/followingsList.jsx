@@ -27,10 +27,6 @@ export default function FollowingsList({ usersSearch }) {
     doApiSearch()
   }, [usersSearch])
 
-  useEffect(() => {
-    loadMore()
-  }, [])
-
   const loadMore = async () => {
     // Load additional items here and add them to the items array
     await doApiFollowings()
@@ -95,6 +91,7 @@ export default function FollowingsList({ usersSearch }) {
             )
           })}
         </div>
+
       </InfiniteScroll>
 
     </div>

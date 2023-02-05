@@ -17,11 +17,11 @@ export default function FoodsList({ hasMore }) {
 
 
   const onLikeClick = async (id, idUser) => {
-    console.log({ id });
+    // console.log({ id });
     let url = API_URL + "/foods/changeLike/" + id;
     try {
       const resp = await doApiMethod(url, "PATCH");
-      console.log({ resp });
+      // console.log({ resp });
       if (resp.data) {
         const tempList = [...arSearch];
         const updatedFoodItems = tempList.map((foodItem) => {
@@ -59,6 +59,6 @@ export default function FoodsList({ hasMore }) {
           );
         })}
       </div>
-      {arSearch.length < 1 && <h2 className='display-6 text-center my-5'>Loading...</h2>}    </div>
+        </div>
   );
 }
