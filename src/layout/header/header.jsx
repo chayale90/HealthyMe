@@ -27,6 +27,7 @@ import { setOpenFollowers,setOpenFollowings } from "../../features/dialogSlice"
 import FollowersList from '../../components/client/followers/followersList';
 import DialogFollowers from '../../components/client/followers/dialogFollowers';
 import DialogFollowings from '../../components/client/followings/dialogFollowings';
+import { setUserIdFollowers,setUserIdFollowings } from "../../features/dialogSlice"
 
 
 export default function Header() {
@@ -89,6 +90,7 @@ export default function Header() {
   // dialog Followers option functions 
   const ClickFollowers = () => {
     dispatch(setOpenFollowers({ val: true }))
+    dispatch(setUserIdFollowers({ val:  user._id }))
     handleCloseUserMenu()
   };
 
@@ -96,6 +98,7 @@ export default function Header() {
     // dialog Followings option functions 
     const ClickFollowings = () => {
       dispatch(setOpenFollowings({ val: true }))
+      dispatch(setUserIdFollowings({ val:  user._id }))
       handleCloseUserMenu()
     };
   

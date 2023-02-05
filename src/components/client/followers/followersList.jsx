@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import InfiniteScroll from 'react-infinite-scroller';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router';
 import { API_URL, doApiGet } from '../../../services/apiService';
 import CheckUserActiveComp from '../../auth/checkComps/checkUserActiveComp';
@@ -19,6 +19,10 @@ export default function FollowersList({ usersSearch }) {
   const [totalPages, setTotalPages] = useState(1);
   const [totalItems, setTotalItems] = useState(0);
 
+  const { userIdFollowers } = useSelector(myStore => myStore.dialogSlice);
+  console.log(userIdFollowers);
+
+
   useEffect(() => {
     if (usersSearch)
       doApiSearch()
@@ -32,10 +36,14 @@ export default function FollowersList({ usersSearch }) {
   }
 
   const doApiFollowers = async () => {
-    let url = API_URL + `/users/myFollowers?page=${page}`
+    let url = API_URL + `/users/myFollowers/${userIdFollowers}?page=${page}`
     try {
       let resp = await doApiGet(url);
       console.log(resp.data);
+      if (resp.data.length === 0) {
+        setHasMore(false);
+        return;
+      }
       setAr([...ar, ...resp.data])
 
       // Update the page and total pages variables
@@ -73,7 +81,6 @@ export default function FollowersList({ usersSearch }) {
         loadMore={loadMore}
         hasMore={hasMore}
         loader={
-          ar.length == 0 ? "You have not followers yet" :
             <div style={{ display: "flex" }}>
               <div style={{ margin: "0 auto", color: "#A435F0" }} ><CircularProgress /></div>
             </div>
@@ -85,6 +92,7 @@ export default function FollowersList({ usersSearch }) {
               <FollowerItem key={item._id} index={i} item={item} />
             )
           })}
+
         </div>
       </InfiniteScroll>
 

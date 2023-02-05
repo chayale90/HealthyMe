@@ -11,7 +11,7 @@ import { useDispatch } from 'react-redux';
 import { toast } from 'react-toastify';
 
 
-export default function UserPostsList({postNum}) {
+export default function UserPostsList() {
     const nav = useNavigate();
     const dispatch = useDispatch();
     const [ar, setAr] = useState([])
@@ -85,7 +85,7 @@ export default function UserPostsList({postNum}) {
                             <PostItem key={item._id} index={i} item={item} />
                         )
                     })}
-                    {postNum===0&&<div className='display-6 text-center my-3' style={{color:"#A435F0"}}>Have no post yet</div>}
+                    {ar.length<1&&<div className='display-6 text-center my-3' style={{color:"#A435F0"}}>Have no post yet</div>}
                 </div>
             </InfiniteScroll>
 

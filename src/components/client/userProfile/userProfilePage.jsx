@@ -10,17 +10,15 @@ import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogTitle from '@mui/material/DialogTitle';
 import CheckUserComp from '../../auth/checkComps/checkUserComp';
-import { setOpenFollowers, setOpenFollowings } from "../../../features/dialogSlice"
+import { setOpenFollowers, setOpenFollowings,setUserIdFollowers,setUserIdFollowings } from "../../../features/dialogSlice"
 import { API_URL, doApiGet, doApiMethod } from '../../../services/apiService';
 import CheckUserActiveComp from '../../auth/checkComps/checkUserActiveComp';
 import { toast } from 'react-toastify';
 import UserPostsList from './userPostsList';
 import { btnStyle, btnStyle2, btnStyle3 } from '../../../services/btnStyle';
 
-
 export default function UserProfilePage() {
   const { user } = useSelector(myStore => myStore.userSlice);
-
   const [otherUser, setOtherUser] = useState({})
   const nav = useNavigate()
   console.log(user);
@@ -65,11 +63,14 @@ export default function UserProfilePage() {
   };
 
   const onClickFollowers = () => {
+    dispatch(setUserIdFollowers({ val:  params["id"] }))
     dispatch(setOpenFollowers({ val: true }))
   }
 
   const onClickFollowings = () => {
+    dispatch(setUserIdFollowings({ val:  params["id"] }))
     dispatch(setOpenFollowings({ val: true }))
+
   }
 
   const onFollowClick = async () => {
@@ -194,8 +195,8 @@ export default function UserProfilePage() {
             </div>
           </div>
         }
-        
-        <UserPostsList postNum={otherUser?.posts?.length}/>
+
+        <UserPostsList/>
 
         <Dialog
           open={open}

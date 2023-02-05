@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import InfiniteScroll from 'react-infinite-scroller';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router';
 import { API_URL, doApiGet } from '../../../services/apiService';
 import { theme } from '../../../services/theme';
@@ -18,6 +18,8 @@ export default function FollowingsList({ usersSearch }) {
   const [totalPages, setTotalPages] = useState(1);
   const [totalItems, setTotalItems] = useState(0);
 
+  const { userIdFollowings } = useSelector(myStore => myStore.dialogSlice);
+
 
   useEffect(() => {
     if (usersSearch)
@@ -32,12 +34,15 @@ export default function FollowingsList({ usersSearch }) {
   }
 
   const doApiFollowings = async () => {
-    let url = API_URL + `/users/myFollowings?page=${page}`
+    let url = API_URL + `/users/myFollowings/${userIdFollowings}?page=${page}`
     try {
       let resp = await doApiGet(url);
       console.log(resp.data);
+      if (resp.data.length === 0) {
+        setHasMore(false);
+        return;
+      }
       setAr([...ar, ...resp.data])
-
       // Update the page and total pages variables
       setTotalItems(totalItems + resp.data.length);
 
@@ -74,10 +79,9 @@ export default function FollowingsList({ usersSearch }) {
         loadMore={loadMore}
         hasMore={hasMore}
         loader={
-          ar.length == 0 ? "You have not followers yet" :
-            <div style={{ display: "flex" }}>
-              <div style={{ margin: "0 auto", color: "#A435F0" }} ><CircularProgress /></div>
-            </div>
+        <div style={{ display: "flex" }}>
+          <div style={{ margin: "0 auto", color: "#A435F0" }} ><CircularProgress /></div>
+        </div>
         }
       >
         <div>

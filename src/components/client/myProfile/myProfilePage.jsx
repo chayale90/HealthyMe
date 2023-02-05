@@ -8,16 +8,16 @@ import NavBarMyProfile from './navBarMyProfile';
 import CheckUserComp from '../../auth/checkComps/checkUserComp';
 import { setOpenFollowers,setOpenFollowings } from "../../../features/dialogSlice"
 import { useEffect } from 'react';
+import { setUserIdFollowers ,setUserIdFollowings} from "../../../features/dialogSlice"
 
 export default function MyProfilePage() {
+  const nav = useNavigate()
+  const dispatch = useDispatch();
+
   const { user } = useSelector(myStore => myStore.userSlice);
   const [showPosts, setShowPosts] = useState("none")
   const [values, setValues] = useState({ button1: '#CCCCCC', button2: '#A435F0' });
   const [showInfo, setShowInfo] = useState("block")
-
-  const nav = useNavigate()
-  // console.log(user);
-  const dispatch = useDispatch();
 
 
   const clickOnPosts = () => {
@@ -30,10 +30,12 @@ export default function MyProfilePage() {
   }
 
   const onClickFollowers = () => {
+    dispatch(setUserIdFollowers({ val:  user._id }))
     dispatch(setOpenFollowers({ val: true }))
   }
 
   const onClickFollowings = () => {
+    dispatch(setUserIdFollowings({ val:  user._id  }))
     dispatch(setOpenFollowings({ val: true }))
   }
 
@@ -59,9 +61,7 @@ export default function MyProfilePage() {
           </div>
 
           <div className='ms-md-5 ms-2 mt-0 mt-sm-1'>
-
             <h2 className='mb-3 s24'> {user?.name} |<span className='purple'> {user?.rank}</span> </h2>
-
             <div className='d-flex mb-2 text-center'>
 
               <div style={{ cursor: "pointer" }}
