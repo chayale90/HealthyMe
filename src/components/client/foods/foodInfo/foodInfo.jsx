@@ -29,20 +29,27 @@ export default function FoodInfo() {
     const [food, setFood] = useState({})
     const [userName, setUserName] = useState("");
     const [userImg, setUserImg] = useState("");
+    const [isLiked, setIsLiked] = useState(Boolean);
 
     useEffect(() => {
         dispatch(changeHome({ val: "none" }))
         doApiGetFoodInfo()
-    }, [])
+
+    }, [isLiked])
 
     const doApiGetFoodInfo = async () => {
+        const url = API_URL + "/foods/foodInfo/" + foodId;
         try {
-            const url = API_URL + "/foods/foodInfo/" + foodId;
             const resp = await doApiGet(url);
             console.log(resp.data);
             setFood(resp.data)
             doApiGetInfoUser(resp.data.user_id)
-
+            if (resp.data.likes.includes(user._id)) {
+                setIsLiked(true)
+            }
+            else {
+                setIsLiked(false)
+            }
         } catch (err) {
             console.log(err);
             toast.error("There problem try come back later");
@@ -50,8 +57,8 @@ export default function FoodInfo() {
     };
 
     const doApiGetInfoUser = async (user_id) => {
+        const url = API_URL + "/users/userInfo/" + user_id;
         try {
-            const url = API_URL + "/users/userInfo/" + user_id;
             const resp = await doApiGet(url);
             console.log(resp.data);
             setUserName(resp.data.name);
@@ -61,6 +68,19 @@ export default function FoodInfo() {
             toast.error("There problem try come back later");
         }
     };
+
+    const onLikeClick = async () => {
+        let url = API_URL + "/foods/changeLike/" + foodId;
+        try {
+            const resp = await doApiMethod(url, "PATCH");
+            console.log(resp.data)
+            setIsLiked(!isLiked);
+
+        } catch (err) {
+            console.log(err);
+            toast.error("There problem try come back later");
+        }
+    }
 
     return (
         <ThemeProvider theme={theme}>
@@ -78,10 +98,10 @@ export default function FoodInfo() {
                                 <Avatar
                                     sx={{ float: "start", width: 33, height: 33 }}
                                     src={userImg}
-                                alt="AvatarOfFood"
+                                    alt="AvatarOfFood"
                                 />
                                 <Link style={{ fontWeight: 500 }} className="s16 ms-2 dark underLine"
-                                    to={(user._id == food.user_id) ? "/myProfile" : "/userProfile/" + food.user_id}
+                                    to={ "/userProfile/" + food.user_id}
                                 >
                                     {userName}
                                 </Link>
@@ -95,7 +115,7 @@ export default function FoodInfo() {
                                         alt="AvatarOfFood"
                                     />
                                     <Link style={{ fontWeight: 500 }} className="s16 ms-2 dark underLine"
-                                        to={(user._id == food.user_id) ? "/myProfile" : "/userProfile/" + food.user_id}
+                                        to={"/userProfile/" + food.user_id}
                                     >
                                         {userName}
                                     </Link>
@@ -131,10 +151,15 @@ export default function FoodInfo() {
 
                             <div>
                                 <IconButton
+                                    onClick={onLikeClick}
                                     style={{ position: 'absolute', right: 10, top: 0 }}
-                                // onClick={""}
+                                    aria-label="add to favorites"
                                 >
-                                    <FavoriteBorderIcon />
+                                    {!isLiked ?
+                                        <FavoriteBorderIcon />
+                                        :
+                                        <FavoriteIcon sx={{ color: "red" }} />
+                                    }
                                 </IconButton>
                             </div>
 

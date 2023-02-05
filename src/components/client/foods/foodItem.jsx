@@ -78,22 +78,21 @@ export default function FoodItem({ item, onLikeClick }) {
               </div>
 
               <div>
-                <Zoom in={true}>
-                  <IconButton
-                    onClick={() => {
-                      onLikeClick(item._id, user._id);
-                    }}
-                    sx={{ width: 33, height: 33 }}
-                    aria-label="add to favorites"
-                  >
-                    {!item.likes.includes(user._id) ? (
-                      <FavoriteBorderIcon />
-                    ) : (
-                      <FavoriteIcon sx={{ color: "red" }} />
-                    )}
-                  </IconButton>
-                </Zoom>
+                <IconButton
+                  onClick={() => {
+                    onLikeClick(item._id, user._id);
+                  }}
+                  sx={{ width: 33, height: 33 }}
+                  aria-label="add to favorites"
+                >
+                  {!item.likes.includes(user._id) ? (
+                    <FavoriteBorderIcon />
+                  ) : (
+                    <FavoriteIcon sx={{ color: "red" }} />
+                  )}
+                </IconButton>
               </div>
+
             </div>
 
             <div className="s14 mt-2 ms-1 gray">{item.name}</div>

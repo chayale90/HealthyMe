@@ -107,7 +107,7 @@ export default function MyFoodInfo() {
                                     alt="AvatarOfFood"
                                 />
                                 <Link style={{ fontWeight: 500 }} className="s16 ms-2 dark underLine"
-                                    to={(user._id == food.user_id) ? "/myProfile" : "/userProfile/" + food.user_id}
+                                    to={"/myProfile"}
                                 >
                                     {userName}
                                 </Link>
@@ -121,7 +121,7 @@ export default function MyFoodInfo() {
                                         alt="AvatarOfFood"
                                     />
                                     <Link style={{ fontWeight: 500 }} className="s16 ms-2 dark underLine"
-                                        to={(user._id == food.user_id) ? "/myProfile" : "/userProfile/" + food.user_id}
+                                        to={ "/myProfile" }
                                     >
                                         {userName}
                                     </Link>
