@@ -1,16 +1,21 @@
-import { Avatar, Button, IconButton } from '@mui/material'
+import { Avatar, Button, IconButton, CircularProgress } from '@mui/material'
 import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
+import { useEffect } from 'react';
+import { ThemeProvider } from '@mui/material/styles';
+import { theme } from "../../../services/theme"
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogTitle from '@mui/material/DialogTitle';
 import CheckUserComp from '../../auth/checkComps/checkUserComp';
 import { setOpenFollowers, setOpenFollowings } from "../../../features/dialogSlice"
-import { useEffect } from 'react';
 import { API_URL, doApiGet, doApiMethod } from '../../../services/apiService';
 import CheckUserActiveComp from '../../auth/checkComps/checkUserActiveComp';
 import { toast } from 'react-toastify';
 import UserPostsList from './userPostsList';
-import { btnStyle2, btnStyle3 } from '../../../services/btnStyle';
+import { btnStyle, btnStyle2, btnStyle3 } from '../../../services/btnStyle';
 
 
 export default function UserProfilePage() {
@@ -21,16 +26,18 @@ export default function UserProfilePage() {
   console.log(user);
   const dispatch = useDispatch();
   const params = useParams();
+  const [isLiked, setIsLiked] = useState(Boolean);
+  const [first, setFirst] = useState(true);
 
-  // console.log("***************");
-  // console.log(user.following);
-  
-  console.log(params["id"]);
+  console.log("***************");
+  console.log(otherUser.followers);
 
+  // console.log(params["id"]);
 
   useEffect(() => {
     doApi()
-  }, [params["id"]])
+  }, [params["id"], isLiked])
+
 
   const doApi = async () => {
     try {
@@ -38,6 +45,15 @@ export default function UserProfilePage() {
       const resp = await doApiGet(url);
       console.log(resp.data);
       setOtherUser(resp.data);
+      if (resp.data.followers.includes(user._id)) {
+        setIsLiked(true)
+        setFirst(false)
+      }
+      else {
+        setIsLiked(false)
+        if (first != true)
+          ClickDeleteFollow()
+      }
 
     }
     catch (err) {
@@ -55,14 +71,12 @@ export default function UserProfilePage() {
   }
 
   const onFollowClick = async () => {
-    console.log("we good");
+    const url = API_URL + "/users/changeFollow/" + params["id"];
     try {
-      const url = API_URL + "/users/changeFollow/" + params["id"];
       let resp = await doApiMethod(url, "PATCH")
       console.log(resp.data);
-      if (resp.data) {
-        doApi()
-      }
+      setIsLiked(!isLiked);
+
     }
     catch (err) {
       console.log(err);
@@ -70,93 +84,134 @@ export default function UserProfilePage() {
     }
   }
 
+  //dialog open-close
+  const [open, setOpen] = useState(false);
+
+  // dialog Logout option functions
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  const ClickDeleteFollow = () => {
+    setOpen(true);
+  };
+
+
   return (
     <div>
-      <div className='container mt-md-5 mt-4'>
-        <CheckUserActiveComp />
-        <div className='d-flex'>
-
-          <div className='d-none d-sm-block '>
-            <Avatar
-              alt="myAvater"
-              src={otherUser?.img_url}
-              sx={{ width: 160, height: 160 }}
-            />
-          </div>
-          <div className='d-block d-sm-none'>
-            <Avatar
-              alt="myAvater"
-              src={otherUser?.img_url}
-              sx={{ width: 70, height: 70 }}
-            />
-          </div>
-
-          <div className='ms-md-5 ms-2 mt-0 mt-sm-1'>
+      <ThemeProvider theme={theme}>
+        {(otherUser.name) ?
+          <div className='container mt-md-5 mt-4'>
+            <CheckUserActiveComp />
             <div className='d-flex'>
 
-              <h2 className='mb-3 s24'> {otherUser?.name} |<span className='purple'> {otherUser?.rank}</span> </h2>
-              <div className=' d-md-none d-block'>
+              <div className='d-none d-sm-block '>
+                <Avatar
+                  alt="myAvater"
+                  src={otherUser?.img_url}
+                  sx={{ width: 160, height: 160 }}
+                />
+              </div>
+              <div className='d-block d-sm-none'>
+                <Avatar
+                  alt="myAvater"
+                  src={otherUser?.img_url}
+                  sx={{ width: 70, height: 70 }}
+                />
+              </div>
+
+              <div className='ms-md-5 ms-2 mt-0 mt-sm-1'>
+                <div className='d-flex'>
+
+                  <h2 className='mb-3 s24'> {otherUser?.name} |<span className='purple'> {otherUser?.rank}</span> </h2>
+                  <div className=' d-md-none d-block'>
+                    <Button
+                      onClick={onFollowClick}
+                      style={{ float: "right" }}
+                      className='loginBtn'
+                      sx={btnStyle2}
+                    >
+                      follow
+                    </Button>
+                  </div>
+
+                </div>
+                <div className='d-flex mb-2 text-center'>
+
+                  <div
+                    className='me-3'>
+                    {otherUser?.posts?.length} <span className='weight500'>
+                      Posts
+                    </span>
+                  </div>
+
+                  <div style={{ cursor: "pointer" }}
+                    onClick={onClickFollowers}
+                    className='underLine me-3'>
+                    {otherUser?.followers?.length} <span className='weight500'>
+                      Followers
+                    </span>
+                  </div>
+
+                  <div style={{ cursor: "pointer" }}
+                    onClick={onClickFollowings}
+                    className='underLine '>
+                    {otherUser?.followings?.length} <span className='weight500'>
+                      Followings </span>
+                  </div>
+                </div>
+
+                <div className='pb-2'>My motto: {otherUser?.info}</div>
+                <div className='pb-2'>Location: {otherUser?.location}</div>
+
+                <div>Coins: {otherUser?.score} <AttachMoneyIcon sx={{ color: '#DAA520' }} /></div>
+
+              </div>
+
+              <div className='ms-auto justify-content-end d-none d-md-block '>
                 <Button
                   onClick={onFollowClick}
                   style={{ float: "right" }}
-                  className='loginBtn'
-                  sx={btnStyle2}
+                  className='loginBtn px-4'
+                  sx={!isLiked ? btnStyle2 : btnStyle}
                 >
-                  follow
+
+                  {!isLiked ? "Follow" : "Foolowing "}
+
                 </Button>
               </div>
 
             </div>
-            <div className='d-flex mb-2 text-center'>
-
-              <div
-                className='me-3'>
-                {otherUser?.posts?.length} <span className='weight500'>
-                  Posts
-                </span>
-              </div>
-
-              <div style={{ cursor: "pointer" }}
-                onClick={onClickFollowers}
-                className='underLine me-3'>
-                {otherUser?.followers?.length} <span className='weight500'>
-                  Followers
-                </span>
-              </div>
-
-              <div style={{ cursor: "pointer" }}
-                onClick={onClickFollowings}
-                className='underLine '>
-                {otherUser?.followings?.length} <span className='weight500'>
-                  Followings </span>
-              </div>
+            <UserPostsList />
+          </div>
+          :
+          <div style={{ display: "flex", alignItems: "center", minHeight: '300px' }}>
+            <div style={{ margin: "0 auto", color: "#A435F0" }}>
+              <CircularProgress size={"100px"} />
             </div>
-
-            <div className='pb-2'>My motto: {otherUser?.info}</div>
-            <div className='pb-2'>Location: {otherUser?.location}</div>
-
-            <div>Coins: {otherUser?.score} <AttachMoneyIcon sx={{ color: '#DAA520' }} /></div>
-
           </div>
+        }
 
+        <Dialog
+          open={open}
+          onClose={handleClose}
+          aria-labelledby="alert-dialog-title"
+          aria-describedby="alert-dialog-description"
+        >
+          <div className='p-3'>
+            <DialogTitle
+              sx={{ mb: 0 }}
+              id="alert-dialog-title">
+              You are not following after {otherUser.name} now.
+            </DialogTitle>
+            <DialogActions>
+              <Button onClick={handleClose}>close</Button>
 
-          <div className='ms-auto justify-content-end d-none d-md-block '>
-            <Button
-              onClick={onFollowClick}
-              style={{ float: "right" }}
-              className='loginBtn px-4'
-              sx={btnStyle2}
-            >
-              {(otherUser._id?.followers?.includes(user._id)) ? "Following" : "notFoolowing" }
-            </Button>
+            </DialogActions>
           </div>
+        </Dialog>
 
-        </div>
-
-        <UserPostsList />
-      </div>
-
-
+      </ThemeProvider>
     </div>
   )
 }

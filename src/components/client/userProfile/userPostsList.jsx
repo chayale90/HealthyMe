@@ -44,8 +44,7 @@ export default function UserPostsList() {
 
             if (totalItems > resp.data.length) {
                 setHasMore(false);
-                setPage(1)
-                setTotalItems(0)
+    
             }
         }
         catch (err) {
