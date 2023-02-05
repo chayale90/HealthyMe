@@ -26,7 +26,7 @@ export default function UserProfilePage() {
   console.log(user);
   const dispatch = useDispatch();
   const params = useParams();
-  const [isLiked, setIsLiked] = useState(Boolean);
+  const [isFollow, setIsFollow] = useState(Boolean);
   const [first, setFirst] = useState(true);
 
   console.log("***************");
@@ -36,7 +36,7 @@ export default function UserProfilePage() {
 
   useEffect(() => {
     doApi()
-  }, [params["id"], isLiked])
+  }, [params["id"], isFollow])
 
 
   const doApi = async () => {
@@ -46,15 +46,14 @@ export default function UserProfilePage() {
       console.log(resp.data);
       setOtherUser(resp.data);
       if (resp.data.followers.includes(user._id)) {
-        setIsLiked(true)
+        setIsFollow(true)
         setFirst(false)
       }
       else {
-        setIsLiked(false)
+        setIsFollow(false)
         if (first != true)
           ClickDeleteFollow()
       }
-
     }
     catch (err) {
       console.log(err);
@@ -75,7 +74,7 @@ export default function UserProfilePage() {
     try {
       let resp = await doApiMethod(url, "PATCH")
       console.log(resp.data);
-      setIsLiked(!isLiked);
+      setIsFollow(!isFollow);
 
     }
     catch (err) {
@@ -173,10 +172,10 @@ export default function UserProfilePage() {
                   onClick={onFollowClick}
                   style={{ float: "right" }}
                   className='loginBtn px-4'
-                  sx={!isLiked ? btnStyle2 : btnStyle}
+                  sx={!isFollow ? btnStyle2 : btnStyle}
                 >
 
-                  {!isLiked ? "Follow" : "Foolowing "}
+                  {!isFollow ? "Follow" : "Foolowing "}
 
                 </Button>
               </div>
