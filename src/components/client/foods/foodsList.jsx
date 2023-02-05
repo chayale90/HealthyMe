@@ -58,7 +58,9 @@ export default function FoodsList({ hasMore }) {
             />
           );
         })}
+        {arSearch.length < 1 && <div className='display-6 text-center my-3' style={{ color: "#A435F0" }}>Loading...</div>}
+
       </div>
-        </div>
+    </div>
   );
 }
