@@ -89,6 +89,8 @@ export default function MyFoodInfo() {
         }
     };
 
+
+
     return (
         <ThemeProvider theme={theme}>
             <div className='container mt-md-5 mt-4'>
@@ -166,7 +168,7 @@ export default function MyFoodInfo() {
 
                                 <IconButton
                                     style={{ position: 'absolute', right: 45, top: 0, border: "0.5px solid #A7A7A7" }}
-                                // onClick={""}
+                                onClick={()=>{nav("/editFood")}}
 
                                 >
                                     <EditIcon />
