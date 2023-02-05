@@ -20,7 +20,7 @@ export default function SearchInput({ handleSearchInput }) {
   //     doApiSearch();
   //   }, [search]);
 
-  console.log(search);
+  // console.log(search);
 
   const handleFocus = () => {
     paperRef.current.style.borderColor = "#A435F0";

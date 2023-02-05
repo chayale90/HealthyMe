@@ -43,7 +43,7 @@ export default function AppRoutes() {
                     <Route path='/addFood' element={<AddFood/>} />
                     <Route path='/foodInfo/:id' element={<FoodInfo/>} />
                     <Route path='/myFoodInfo/:id' element={<MyFoodInfo/>} />
-                    <Route path='/editFood' element={<EditFood/>} />
+                    <Route path='/editFood/:id' element={<EditFood/>} />
 
 
                     <Route path='/myFavorites' element={<MyFavoritePage />} />

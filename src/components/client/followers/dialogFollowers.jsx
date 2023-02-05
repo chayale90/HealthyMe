@@ -15,7 +15,7 @@ export default function DialogFollowers() {
     const inputRef = useRef();
     const [search, setSearch] = useState("")
 
-    console.log(search);
+    // console.log(search);
 
     const handleCloseFollowers = () => {
         dispatch(setOpenFollowers({ val: false }))

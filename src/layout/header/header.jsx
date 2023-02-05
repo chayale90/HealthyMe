@@ -32,7 +32,7 @@ import { setUserIdFollowers,setUserIdFollowings } from "../../features/dialogSli
 
 export default function Header() {
   const { user } = useSelector(myStore => myStore.userSlice);
-  console.log(user);
+  // console.log(user);
 
   const { home, favorites } = useSelector(myStore => myStore.homeSlice);
 

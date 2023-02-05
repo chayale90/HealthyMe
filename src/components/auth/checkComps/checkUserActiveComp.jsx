@@ -18,7 +18,7 @@ export default function CheckUserActiveComp() {
         try {
             let url = API_URL + "/users/checkToken"
             let resp = await doApiGet(url);
-            console.log(resp.data);
+            // console.log(resp.data);
             if (resp.data.role != "user") {
                 toast.error("You must be user to be here ,try log in again");
                 dispatch(setOpenFollowers({ val: false }))

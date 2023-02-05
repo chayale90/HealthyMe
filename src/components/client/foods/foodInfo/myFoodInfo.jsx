@@ -54,7 +54,7 @@ export default function MyFoodInfo() {
         try {
             const url = API_URL + "/users/userInfo/" + user_id;
             const resp = await doApiGet(url);
-            console.log(resp.data);
+            // console.log(resp.data);
             setUserName(resp.data.name);
             setUserImg(resp.data.img_url);
         } catch (err) {
@@ -168,7 +168,7 @@ export default function MyFoodInfo() {
 
                                 <IconButton
                                     style={{ position: 'absolute', right: 45, top: 0, border: "0.5px solid #A7A7A7" }}
-                                onClick={()=>{nav("/editFood")}}
+                                onClick={()=>{nav("/editFood/"+foodId)}}
 
                                 >
                                     <EditIcon />
