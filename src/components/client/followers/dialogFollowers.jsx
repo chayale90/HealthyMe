@@ -9,6 +9,7 @@ import { setOpenFollowers } from "../../../features/dialogSlice"
 
 export default function DialogFollowers() {
     const { openFollowers } = useSelector(myStore => myStore.dialogSlice);
+    const { user } = useSelector(myStore => myStore.userSlice);
     const dispatch = useDispatch();
     const paperRef = useRef();
     const inputRef = useRef();

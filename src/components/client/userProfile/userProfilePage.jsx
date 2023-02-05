@@ -29,15 +29,18 @@ export default function UserProfilePage() {
   const [isFollow, setIsFollow] = useState(Boolean);
   const [first, setFirst] = useState(true);
 
-  console.log("***************");
-  console.log(otherUser.followers);
+  // console.log("***************");
+  // console.log(otherUser.followers);
 
   // console.log(params["id"]);
 
   useEffect(() => {
     doApi()
-  }, [params["id"], isFollow])
+  }, [params["id"]])
 
+  useEffect(() => {
+    doApi()
+  }, [isFollow])
 
   const doApi = async () => {
     try {
@@ -128,9 +131,10 @@ export default function UserProfilePage() {
                       onClick={onFollowClick}
                       style={{ float: "right" }}
                       className='loginBtn'
-                      sx={btnStyle2}
-                    >
-                      follow
+                      sx={!isFollow ? btnStyle2 : btnStyle}
+                      >
+      
+                        {!isFollow ? "Follow" : "Foolowing "}
                     </Button>
                   </div>
 
@@ -181,7 +185,7 @@ export default function UserProfilePage() {
               </div>
 
             </div>
-            <UserPostsList />
+
           </div>
           :
           <div style={{ display: "flex", alignItems: "center", minHeight: '300px' }}>
@@ -190,6 +194,8 @@ export default function UserProfilePage() {
             </div>
           </div>
         }
+        
+        <UserPostsList postNum={otherUser?.posts?.length}/>
 
         <Dialog
           open={open}

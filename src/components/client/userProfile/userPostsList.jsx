@@ -11,7 +11,7 @@ import { useDispatch } from 'react-redux';
 import { toast } from 'react-toastify';
 
 
-export default function UserPostsList() {
+export default function UserPostsList({postNum}) {
     const nav = useNavigate();
     const dispatch = useDispatch();
     const [ar, setAr] = useState([])
@@ -24,6 +24,11 @@ export default function UserPostsList() {
     const params = useParams();
 
     useEffect(() => {
+        setAr([]);
+        setPage(1);
+        setHasMore(true);
+        setTotalPages(1);
+        setTotalItems(0);
         loadMore()
     }, [params["id"]])
 
@@ -39,12 +44,15 @@ export default function UserPostsList() {
             let resp = await doApiGet(url);
             setAr([...ar, ...resp.data])
             console.log(resp.data);
+            if (resp.data.length === 0) {
+                setHasMore(false);
+                return;
+              }
             // Update the page and total pages variables
             setTotalItems(totalItems + resp.data.length);
 
             if (totalItems > resp.data.length) {
                 setHasMore(false);
-    
             }
         }
         catch (err) {
@@ -61,7 +69,7 @@ export default function UserPostsList() {
                 loadMore={loadMore}
                 hasMore={hasMore}
                 loader={
-                    ar.length > 0 &&
+                //    ( ar.length < 1 )&&
                     <div className="loader" key={0}>
                         <ThemeProvider theme={theme}>
                             <div style={{ display: "flex" }}>
@@ -77,6 +85,7 @@ export default function UserPostsList() {
                             <PostItem key={item._id} index={i} item={item} />
                         )
                     })}
+                    {postNum===0&&<div className='display-6 text-center my-3' style={{color:"#A435F0"}}>Have no post yet</div>}
                 </div>
             </InfiniteScroll>
 
