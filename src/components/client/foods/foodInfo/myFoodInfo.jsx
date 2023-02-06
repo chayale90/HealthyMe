@@ -24,6 +24,7 @@ import "./foodInfo.css"
 
 export default function MyFoodInfo() {
     const { user } = useSelector(myStore => myStore.userSlice);
+    const { loadingImg } = useSelector(myStore => myStore.homeSlice);
     const params = useParams()
     const nav = useNavigate();
     const dispatch = useDispatch();
@@ -35,7 +36,7 @@ export default function MyFoodInfo() {
     useEffect(() => {
         dispatch(changeHome({ val: "none" }))
         doApiGetFoodInfo()
-    }, [])
+    }, [loadingImg])
 
     const doApiGetFoodInfo = async () => {
         try {

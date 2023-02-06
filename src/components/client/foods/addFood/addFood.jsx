@@ -120,8 +120,7 @@ export default function AddFood() {
                                     hidden
                                     onInput={handleChange}
                                 />
-                                <label
-                                    style={{ cursor: 'pointer' }} className='mb-1 addPhotoDiv' htmlFor="actual-btn"><AddAPhotoIcon sx={{ color: "#A435F0" }} />Add photo</label>
+                                <label style={{ cursor: 'pointer' }} className='mb-1 addPhotoDiv' htmlFor="actual-btn"><AddAPhotoIcon sx={{ color: "#A435F0" }} />Add photo</label>
                             </div>
                             {image &&
                                 <div
@@ -227,7 +226,7 @@ export default function AddFood() {
                         <div className='d-flex justify-content-between mb-5'>
                             <div style={{ width: "48%" }}>
                                 <TextField
-                                    {...register('prepHours', { required: false, pattern: '[0-9]*', min: 1, max: 12, minLength: 1, maxLength: 2 })}
+                                    {...register('prepHours', { required: false, pattern: '[0-9]*', min: 0, max: 12, minLength: 1, maxLength: 2 })}
                                     placeholder="Hours 0"
                                     variant="outlined"
                                     type={"number"}
@@ -237,7 +236,7 @@ export default function AddFood() {
                             </div>
                             <div style={{ width: "48%" }}>
                                 <TextField
-                                    {...register('prepMinutes', { required: false, pattern: '[0-9]*', min: 1, max: 60, minLength: 1, maxLength: 2 })}
+                                    {...register('prepMinutes', { required: false, pattern: '[0-9]*', min: 0, max: 60, minLength: 1, maxLength: 2 })}
                                     placeholder="Minutes 0"
                                     variant="outlined"
                                     size='small'

@@ -62,31 +62,32 @@ export default function EditCategory() {
     <div className='container'>
       <CheckAdminComp />
       <h2 className='text-center display-4'>Edit category</h2>
-      {info.name ? <form onSubmit={handleSubmit(onSubForm)} className='col-md-8 p-3 shadow mx-auto'>
-        <label>Name:</label>
-        <input defaultValue={info.name} {...register("name", { required: true, minLength: 2 })} type="text" className='form-control' />
-        {errors.name && <div className='text-danger'>Enter valid name (min 2 chars) </div>}
+      {info.name ?
+        <form onSubmit={handleSubmit(onSubForm)} className='col-md-8 p-3 shadow mx-auto'>
+          <label>Name:</label>
+          <input defaultValue={info.name} {...register("name", { required: true, minLength: 2 })} type="text" className='form-control' />
+          {errors.name && <div className='text-danger'>Enter valid name (min 2 chars) </div>}
 
-        <label >Url name:</label>
-        {/* disabled- cant change the input*/}
-        <input value={info.url_name} disabled className='form-control' />
-        {/* {errors.url_name && <div className='text-danger'>Enter valid url name (min 2 chars) </div>} */}
-        <label>Info:</label>
-        <textarea defaultValue={info.info} {...register("info", { required: true, minLength: 2 })} className='form-control' rows="5"></textarea>
-        {errors.info && <div className='text-danger'>Enter valid info  (min 2 chars) </div>}
+          <label >Url name:</label>
+          {/* disabled- cant change the input*/}
+          <input value={info.url_name} disabled className='form-control' />
+          {/* {errors.url_name && <div className='text-danger'>Enter valid url name (min 2 chars) </div>} */}
+          <label>Info:</label>
+          <textarea defaultValue={info.info} {...register("info", { required: true, minLength: 2 })} className='form-control' rows="5"></textarea>
+          {errors.info && <div className='text-danger'>Enter valid info  (min 2 chars) </div>}
 
-        <label>Img url:</label>
-        <input ref={fileRef} type="file" className='form-control' />
-        {/* <input defaultValue={info.img_url} {...register("img_url", { required: true, minLength: 2 })} type="text" className='form-control' /> */}
-        {/* {errors.img_url && <div className='text-danger'>Enter valid url   (min 2 chars) </div>} */}
+          <label>Img url:</label>
+          <input ref={fileRef} type="file" className='form-control' />
+          {/* <input defaultValue={info.img_url} {...register("img_url", { required: true, minLength: 2 })} type="text" className='form-control' /> */}
+          {/* {errors.img_url && <div className='text-danger'>Enter valid url   (min 2 chars) </div>} */}
 
-        <img className='my-2' src={info.img_url} alt="img" height="100" />
+          <img className='my-2' src={info.img_url} alt="img" height="100" />
 
-        <div className='mt-3'>
-          <button className='btn btn-success me-3'>Update</button>
-          <Link className='btn btn-danger' to="/admin/categories">Back</Link>
-        </div>
-      </form> : <h2>Loading...</h2>}
+          <div className='mt-3'>
+            <button className='btn btn-success me-3'>Update</button>
+            <Link className='btn btn-danger' to="/admin/categories">Back</Link>
+          </div>
+        </form> : <h2>Loading...</h2>}
     </div>
   )
 }
