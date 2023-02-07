@@ -111,13 +111,13 @@ export default function EditAccount({ displayAccount, returnToMyDetails }) {
                                         size="small"
                                         autoComplete="email"
                                         fullWidth
-                                        // {...emailRef}
+                                        {...emailRef}
                                         label="Email"
                                         variant="outlined"
                                         type={"text"}
-                                        // onChange={handleChange('email')}
+                                        onChange={handleChange('email')}
                                         value={user.email}
-                                        disabled={true}
+                                        // disabled={true}
                                     />
                                     {/* {errors.email && <div className="text-danger s12">Enter valid email</div>} */}
                                 </div>
