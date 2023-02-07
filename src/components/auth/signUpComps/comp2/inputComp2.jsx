@@ -73,7 +73,6 @@ export default function InputComp2() {
                                 <Grid container direction="row" alignItems="center">
                                         {/* <p className="mb-2 s14"> What is your gender?*</p> */}
                                         <FormLabel style={{marginRight:20}} className="s14 " id="demo-row-radio-buttons-group-label">What is your gender?*</FormLabel>
-
                                         <RadioGroup
                                             row
                                             aria-labelledby="demo-row-radio-buttons-group-label"
@@ -89,13 +88,10 @@ export default function InputComp2() {
                                             </Box>
 
                                         </RadioGroup>
-
                                 </Grid>
                             </FormControl>
                             {/* {errors.sex && <div className='text-danger s12'>Enter valid sex </div>} */}
                         </div>
-
-
 
 
                         <div className='d-flex mt-3 mb-3'>
@@ -136,7 +132,6 @@ export default function InputComp2() {
                                         inputProps={{
                                             'aria-label': 'weight',
                                         }}
-
                                     />
                                     {errors.weight && <div className='text-danger s12'>Enter valid weight</div>}
                                 </FormControl>
@@ -168,8 +163,7 @@ export default function InputComp2() {
                                     dispatch(setShowHideComp1())
                                     dispatch(setShowHideComp2())
                                     dispatch(resetForm())
-                                }
-                                }
+                                }}
                                 sx={btnStyle2}
                                 className='loginBtn me-2'>
                                 Back

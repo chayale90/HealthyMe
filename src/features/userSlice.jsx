@@ -4,6 +4,7 @@ import { createSlice } from "@reduxjs/toolkit";
 // setting the slice his first store/state
 const initValue = {
     user: {},
+  
 }
 
 const userSlice = createSlice({

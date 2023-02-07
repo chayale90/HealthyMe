@@ -1,15 +1,16 @@
 import React, { useEffect, useState } from 'react'
 import InfiniteScroll from 'react-infinite-scroller';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router';
 import { API_URL, doApiGet } from '../../../services/apiService';
-import CheckUserActiveComp from '../../auth/checkComps/checkUserActiveComp';
 import { theme } from '../../../services/theme';
 import { CircularProgress, ThemeProvider } from '@mui/material';
 import FollowingItem from './followingItem';
+import CheckUserActiveComp from '../../auth/checkComps/checkUserActiveComp';
+import { toast } from 'react-toastify';
 
 
-export default function FollowingsList() {
+export default function FollowingsList({ usersSearch }) {
   const [ar, setAr] = useState([])
   const nav = useNavigate();
   const dispatch = useDispatch();
@@ -18,10 +19,13 @@ export default function FollowingsList() {
   const [totalPages, setTotalPages] = useState(1);
   const [totalItems, setTotalItems] = useState(0);
 
+  const { userIdFollowings } = useSelector(myStore => myStore.dialogSlice);
 
   useEffect(() => {
-    loadMore()
-  }, [])
+    if (usersSearch)
+      setAr([])
+    doApiSearch()
+  }, [usersSearch])
 
   const loadMore = async () => {
     // Load additional items here and add them to the items array
@@ -30,18 +34,35 @@ export default function FollowingsList() {
   }
 
   const doApiFollowings = async () => {
-    let url = API_URL + `/users/myFollowings?page=${page}`
+    let url = API_URL + `/users/myFollowings/${userIdFollowings}?page=${page}`
     try {
       let resp = await doApiGet(url);
-      console.log(resp.data);
+      // console.log(resp.data);
+      if (resp.data.length === 0) {
+        setHasMore(false);
+        return;
+      }
       setAr([...ar, ...resp.data])
-
       // Update the page and total pages variables
       setTotalItems(totalItems + resp.data.length);
 
       if (totalItems > resp.data.length) {
         setHasMore(false);
       }
+    }
+    catch (err) {
+      console.log(err);
+      toast.error("there problem ,try again later")
+    }
+  }
+
+  const doApiSearch = async () => {
+    //users/searchFollowings?s=
+    let url = API_URL + `/users/searchFollowings/${userIdFollowings}?s=${usersSearch}`;
+    try {
+      let resp = await doApiGet(url);
+      // console.log(resp.data);
+      setAr(resp.data);
     }
     catch (err) {
       console.log(err);
@@ -58,12 +79,8 @@ export default function FollowingsList() {
         loadMore={loadMore}
         hasMore={hasMore}
         loader={
-          <div className="loader" key={0}>
-            <ThemeProvider theme={theme}>
-              <div style={{ display: "flex" }}>
-                <div style={{ margin: "0 auto", color: "#A435F0" }} ><CircularProgress /></div>
-              </div>
-            </ThemeProvider>
+          <div style={{ display: "flex" }}>
+            <div style={{ margin: "0 auto", color: "#A435F0" }} ><CircularProgress /></div>
           </div>
         }
       >
@@ -74,6 +91,7 @@ export default function FollowingsList() {
             )
           })}
         </div>
+
       </InfiniteScroll>
 
     </div>

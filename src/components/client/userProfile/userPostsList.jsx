@@ -1,18 +1,17 @@
 import React, { useEffect, useState } from 'react'
 import { CircularProgress, ThemeProvider } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { Fab } from '@mui/material';
 import InfiniteScroll from 'react-infinite-scroller';
 import { API_URL, doApiGet } from '../../../services/apiService'
-import PostItem from './postItem';
+import PostItem from '../myProfile/postItem';
 import { theme } from '../../../services/theme';
 import { useDispatch } from 'react-redux';
 import { toast } from 'react-toastify';
 
 
-export default function PostsList() {
-
+export default function UserPostsList() {
     const nav = useNavigate();
     const dispatch = useDispatch();
     const [ar, setAr] = useState([])
@@ -20,23 +19,35 @@ export default function PostsList() {
     const [hasMore, setHasMore] = useState(true);
     const [totalPages, setTotalPages] = useState(1);
     const [totalItems, setTotalItems] = useState(0);
+    const [first, setFirst] = useState(true);
+
+    const params = useParams();
 
     useEffect(() => {
+        setAr([]);
+        setPage(1);
+        setHasMore(true);
+        setTotalPages(1);
+        setTotalItems(0);
         loadMore()
-    }, [])
+    }, [params["id"]])
+
 
     const loadMore = async () => {
         // Load additional items here and add them to the items array
-        await doApiMyFoods()
+        await doApiUserFoods()
         setPage(page + 1);
     }
-    const doApiMyFoods = async () => {
-        let url = API_URL + `/foods/myFoods?page=${page}`
+    const doApiUserFoods = async () => {
+        let url = API_URL + `/foods/userFoods/${params["id"]}?page=${page}`;
         try {
             let resp = await doApiGet(url);
             setAr([...ar, ...resp.data])
             console.log(resp.data);
-
+            if (resp.data.length === 0) {
+                setHasMore(false);
+                return;
+              }
             // Update the page and total pages variables
             setTotalItems(totalItems + resp.data.length);
 
@@ -51,13 +62,14 @@ export default function PostsList() {
     }
 
     return (
-        <div>
-
+        <div className='container pt-5'>
+            <hr />
             <InfiniteScroll
                 pageStart={page}
                 loadMore={loadMore}
                 hasMore={hasMore}
                 loader={
+                //    ( ar.length < 1 )&&
                     <div className="loader" key={0}>
                         <ThemeProvider theme={theme}>
                             <div style={{ display: "flex" }}>
@@ -67,21 +79,17 @@ export default function PostsList() {
                     </div>
                 }
             >
-                <div className='row justify-content-center'>
+                <div className='row justify-content-center mt-4'>
                     {ar.map((item, i) => {
                         return (
                             <PostItem key={item._id} index={i} item={item} />
                         )
                     })}
+                    {ar.length<1&&<div className='display-6 text-center my-3' style={{color:"#A435F0"}}>Have no post yet</div>}
                 </div>
             </InfiniteScroll>
 
-            <Fab
-                sx={{ background: "#A435F0", color: "white", "&:hover": { color: "white", background: "#912CD6" }, position: 'sticky', bottom: 70, left: 1900 }}
-                onClick={() => { nav("/addFood") }}
-                aria-label="addFood">
-                <AddIcon />
-            </Fab>
+
         </div>
     )
 }

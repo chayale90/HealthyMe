@@ -27,11 +27,12 @@ import { setOpenFollowers,setOpenFollowings } from "../../features/dialogSlice"
 import FollowersList from '../../components/client/followers/followersList';
 import DialogFollowers from '../../components/client/followers/dialogFollowers';
 import DialogFollowings from '../../components/client/followings/dialogFollowings';
+import { setUserIdFollowers,setUserIdFollowings } from "../../features/dialogSlice"
 
 
 export default function Header() {
   const { user } = useSelector(myStore => myStore.userSlice);
-  console.log(user);
+  // console.log(user);
 
   const { home, favorites } = useSelector(myStore => myStore.homeSlice);
 
@@ -89,6 +90,7 @@ export default function Header() {
   // dialog Followers option functions 
   const ClickFollowers = () => {
     dispatch(setOpenFollowers({ val: true }))
+    dispatch(setUserIdFollowers({ val:  user._id }))
     handleCloseUserMenu()
   };
 
@@ -96,6 +98,7 @@ export default function Header() {
     // dialog Followings option functions 
     const ClickFollowings = () => {
       dispatch(setOpenFollowings({ val: true }))
+      dispatch(setUserIdFollowings({ val:  user._id }))
       handleCloseUserMenu()
     };
   
@@ -128,7 +131,7 @@ export default function Header() {
       <MyInfo />
 
       <AppBar position="static" sx={{ background: "rgba(255, 255, 255, 1)" }}>
-        <Container maxWidth="lg">
+        <Container maxWidth="lg" >
           <div className='d-flex justify-content-between align-items-center' >
             <div className='d-none d-md-flex'>
               <Link to="/foods">
@@ -206,7 +209,7 @@ export default function Header() {
                   onClick={() => {
                     dispatch(changeHome({ val: "none" }))
                     dispatch(changeFavorites({ val: "block" }))
-                    // nav("/myFavoriteFoods")
+                    nav("/myFavorites")
                   }}
                   sx={{
                     px: 3, paddingTop: "24px", paddingBottom: "21px"

@@ -72,10 +72,10 @@ export default function Login() {
   return (
 
     <div>
-      <h2 className='s20 '>Log In</h2>
+      <h2 className='s22'>Log In</h2>
       <h6 className='welcomeText'>Welcome back! Please enter your details.</h6>
 
-      <form >
+      <form>
         <div className='inputEmail'>
           <ThemeProvider theme={theme}>
             <InputLabel style={{ fontSize: "14px" }} >Email</InputLabel>

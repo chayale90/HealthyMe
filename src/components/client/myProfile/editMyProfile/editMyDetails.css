@@ -1,0 +1,29 @@
+.divProfile {
+    min-height: 68px;
+    width: 400px;
+    cursor: pointer;
+    padding-left: 10px;
+    display: flex;
+    align-items: center;
+}
+
+
+.divProfile:hover {
+    background: rgba(164, 53, 240, 0.04);
+    height: 68px;
+    color: #A435F0;
+}
+
+
+.inputPass {
+    width: 100%;
+}
+
+@media (max-width:768px) {
+    .divProfile {
+        width: 250px;
+    }
+    .inputPass {
+        width: 100%;
+    }
+}

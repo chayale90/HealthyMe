@@ -6,24 +6,18 @@ import { Link, useNavigate } from 'react-router-dom';
 import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
 import NavBarMyProfile from './navBarMyProfile';
 import CheckUserComp from '../../auth/checkComps/checkUserComp';
-import { changeFavorites, changeHome } from "../../../features/homeSlice"
-import { setOpenFollowers } from "../../../features/dialogSlice"
+import { setOpenFollowers,setOpenFollowings } from "../../../features/dialogSlice"
 import { useEffect } from 'react';
+import { setUserIdFollowers ,setUserIdFollowings} from "../../../features/dialogSlice"
 
 export default function MyProfilePage() {
+  const nav = useNavigate()
+  const dispatch = useDispatch();
+
   const { user } = useSelector(myStore => myStore.userSlice);
   const [showPosts, setShowPosts] = useState("none")
   const [values, setValues] = useState({ button1: '#CCCCCC', button2: '#A435F0' });
   const [showInfo, setShowInfo] = useState("block")
-
-  const nav = useNavigate()
-  // console.log(user);
-  const dispatch = useDispatch();
-
-  useEffect(()=>{
-  dispatch(changeFavorites({ val: "none" }))
-  dispatch(changeHome({ val: "none" }))
-  },[])
 
 
   const clickOnPosts = () => {
@@ -36,16 +30,18 @@ export default function MyProfilePage() {
   }
 
   const onClickFollowers = () => {
+    dispatch(setUserIdFollowers({ val:  user._id }))
     dispatch(setOpenFollowers({ val: true }))
   }
 
   const onClickFollowings = () => {
-    // dispatch(setOpenFollowers({ val: true }))
+    dispatch(setUserIdFollowings({ val:  user._id  }))
+    dispatch(setOpenFollowings({ val: true }))
   }
 
   return (
     <div>
-      <div className='container m-5'>
+      <div className='container mt-md-5 mt-4'>
         <CheckUserComp />
         <div className='d-flex '>
 
@@ -64,10 +60,8 @@ export default function MyProfilePage() {
             />
           </div>
 
-          <div className='ms-md-5 ms-4 mt-0 mt-sm-2'>
-
-            <h2 className='mb-3'> {user?.name} |<span className='purple'> {user?.rank}</span> </h2>
-
+          <div className='ms-md-5 ms-2 mt-0 mt-sm-1'>
+            <h2 className='mb-3 s24'> {user?.name} |<span className='purple'> {user?.rank}</span> </h2>
             <div className='d-flex mb-2 text-center'>
 
               <div style={{ cursor: "pointer" }}
@@ -86,9 +80,9 @@ export default function MyProfilePage() {
                 </span>
               </div>
 
-              <div style={{ curser: "pointer" }}
+              <div style={{ cursor: "pointer" }}
                 onClick={onClickFollowings}
-                className='underLine me-3'>
+                className='underLine '>
                 {user?.followings?.length} <span className='weight500'>
                   Followings </span>
               </div>
@@ -104,7 +98,7 @@ export default function MyProfilePage() {
 
           <div className='col text-end'>
             <Tooltip title={"Edit"} >
-              <IconButton onClick={() => { nav("/editMyProfile") }} sx={{ border: "gray 1px solid" }}>
+              <IconButton onClick={() => { nav("/editMyDetails") }} sx={{ border: "gray 0.5px solid" }}>
                 <SettingsIcon />
               </IconButton>
             </Tooltip>

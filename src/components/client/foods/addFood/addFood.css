@@ -1,0 +1,59 @@
+.mainAddFood {
+    width: 540px;
+    min-height: 232.23px;
+}
+
+
+.addPhotoDiv {
+    width: 100%;
+    height: 232px;
+    background: rgba(165, 53, 240, 0.094);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 12px;
+    border: 1px solid #D4D4D4;
+    flex-direction:column;
+  
+}
+
+.editPhotoDiv {
+    margin-top: 12px;
+    width: 118px;
+    height: 118px;
+    background: rgba(165, 53, 240, 0.068);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 12px;
+    border: 1px solid #D4D4D4;
+    flex-direction:column;
+  
+}
+
+.navButtons {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 730px;
+    min-height: 56px;
+    position: sticky;
+    top: 0;
+    left: 0;
+    z-index: 999;
+    background: rgba(255, 255, 255, 1);
+
+}
+
+
+@media (max-width:768px) {
+    .mainAddFood {
+        width: 100%;
+    }
+
+    .navButtons {
+        width: 100%;
+    }
+  
+}
+

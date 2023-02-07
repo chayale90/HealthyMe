@@ -1,4 +1,4 @@
-import { Avatar, IconButton, Zoom } from "@mui/material";
+import { Avatar, Button, IconButton, Zoom } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
@@ -6,14 +6,16 @@ import "./foodItem.css";
 import { toast } from "react-toastify";
 import { Link, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { API_URL, doApiGet, doApiMethod } from "../../../services/apiService";
+import { API_URL, doApiGet } from "../../../services/apiService";
+import VisibilityIcon from '@mui/icons-material/Visibility';
 
-export default function FoodItem({ item, setItems, items }) {
-  const nav = useNavigate();
+export default function FoodItem({ item, onLikeClick }) {
+
+  const { user } = useSelector((myStore) => myStore.userSlice);
+  const nav = useNavigate()
+  const [isHovered, setIsHovered] = useState(false);
   const [userName, setUserName] = useState("");
   const [userImg, setUserImg] = useState("");
-  const { user } = useSelector((myStore) => myStore.userSlice);
-  const [checked, setChecked] = useState(true);
 
   useEffect(() => {
     doApiGetInfoUser();
@@ -33,85 +35,64 @@ export default function FoodItem({ item, setItems, items }) {
     }
   };
 
-  // FoodModel - id: likes:[userId,]
-  const onLikeClick = async () => {
-    let url = API_URL + "/foods/changeLike/" + item._id;
-    try {
-      const resp = await doApiMethod(url, "PATCH");
-      console.log(resp.data);
-      if (resp.data) {
-        const updatedFoodItems = items.map((foodItem) => {
-          if (foodItem._id === item._id) {
-            const isUserLikeFood = foodItem.likes.includes(user._id);
-            const tempLikes = isUserLikeFood
-              ? foodItem.likes.filter((userId) => userId !== user._id)
-              : [...foodItem.likes, user._id];
-
-            return { ...foodItem, likes: tempLikes };
-          }
-          return foodItem;
-        });
-
-        console.log(updatedFoodItems);
-        setItems([...updatedFoodItems]);
-        setChecked(prev=>!prev)
-
-      }
-    } catch (err) {
-      console.log(err);
-      alert("There problem, or you try to change superAdmin to user");
-    }
-  };
-
   return (
     <React.Fragment>
       {item.active == true && (
         <div className="mainDiv p-0">
-          <div className="p-2 overflow-hidden h-100">
-            <img className="imgFood w-100 img" src={item.img_url} alt="imgFood"/>
+          <div
+            className="p-2 overflow-hidden h-100">
+            <div className={isHovered ? 'lightDiv' : ''}
+              style={{ position: 'relative', display: 'flex', justifyContent: 'center', alignItems: 'center' }}
+              onMouseEnter={() => setIsHovered(true)}
+              onMouseLeave={() => setIsHovered(false)}
+            >
+              <img
+                onClick={() => { user._id == item.user_id ? nav("/myFoodInfo/" + item._id) : nav("/foodInfo/" + item._id) }}
+                className='imgFood w-100'
+                src={item.img_url} alt="imgFood"
+              />
+
+              {isHovered &&
+                <IconButton
+                  className="eyeBTN"
+                  onClick={() => { user._id == item.user_id ? nav("/myFoodInfo/" + item._id) : nav("/foodInfo/" + item._id) }}
+                  style={{ position: 'absolute', padding: 0 }}>
+                  <VisibilityIcon className="eyeBTN" sx={{ fontSize: "40px" }} />
+                </IconButton>
+              }
+
+            </div>
 
             <div className="mt-3 d-flex align-items-center justify-content-between w-100">
-              <div
-                className="d-flex align-items-center"
-                style={{
-                  cursor: "pointer",
-                }}
-                onClick={() => {
-                  //go to details of user
-                  nav("/");
-                }}
-              >
+              <div className="d-flex align-items-center">
                 <Avatar
                   sx={{ float: "start", width: 33, height: 33 }}
                   src={userImg}
                   alt="AvatarOfFood"
                 />
-                <div
-                  style={{
-                    fontWeight: 500,
-                  }}
-                  className="s16 ms-2 dark "
+                <Link style={{ fontWeight: 500 }} className="s16 ms-2 dark  underLine"
+                  to={(user._id == item.user_id) ? "/myProfile" : "/userProfile/" + item.user_id}
                 >
-               <div><Link className="dark underLine"> {userName}</Link></div>  
-                </div>
+                  {userName}
+                </Link>
               </div>
 
               <div>
-                <Zoom in={true}>
-                  <IconButton
-                    onClick={onLikeClick}
-                    sx={{ width: 33, height: 33 }}
-                    aria-label="add to favorites"
-                  >
-                    {!item.likes.includes(user._id) ? (
-                      <FavoriteBorderIcon />
-                    ) : (
-                      <FavoriteIcon sx={{ color: "red" }} />
-                    )}
-
-                  </IconButton>
-                </Zoom>
+                <IconButton
+                  onClick={() => {
+                    onLikeClick(item._id, user._id);
+                  }}
+                  sx={{ width: 33, height: 33 }}
+                  aria-label="add to favorites"
+                >
+                  {!item.likes.includes(user._id) ? (
+                    <FavoriteBorderIcon />
+                  ) : (
+                    <FavoriteIcon sx={{ color: "red" }} />
+                  )}
+                </IconButton>
               </div>
+
             </div>
 
             <div className="s14 mt-2 ms-1 gray">{item.name}</div>

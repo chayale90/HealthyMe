@@ -11,10 +11,6 @@ export default function MyDetails() {
   const BMI = (user.weight / (user.height / 100 * user.height / 100)).toLocaleString()
 
 
-  useEffect(() => {
-    calculationBMI()
-  }, [BMI])
-
   const calculationBMI = () => {
     if (BMI < 18.5) {
       setScale("Your weight is lower than desired")
@@ -33,14 +29,17 @@ export default function MyDetails() {
     }
   }
 
+   useEffect(() => {
+    calculationBMI()
+  }, [BMI])
 
 
   return (
     <div className='container '>
-      <div className='row text-center justify-content-center'>
-        <div className='divCount py-4 mx-3'>{(user?.height) / 100}  <br /><span className='weight500'> Height</span> </div>
-        <div className='divCount py-4 mx-3'>{user?.weight} <br /><span className='weight500'>KG</span> </div>
-        <div className='divCount py-4 mx-3'>{BMI}<br /><span className='weight500'>BMI</span> </div>
+      <div className='row text-center justify-content-around justify-content-sm-center'>
+        <div className='divCount py-4 mx-sm-4'>{(user?.height) / 100}  <br /><span className='weight500'> Height</span> </div>
+        <div className='divCount py-4 mx-sm-4'>{user?.weight} <br /><span className='weight500'>KG</span> </div>
+        <div className='divCount py-4 mx-sm-4'>{BMI}<br /><span className='weight500'>BMI</span> </div>
       </div>
       {/* <div className='text-center mt-4'>Your BMI is {user?.BMI}</div> */}
       <div className='text-center mt-4'>{scale}</div>

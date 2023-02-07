@@ -1,5 +1,5 @@
 import { Dialog, IconButton, InputBase, Paper } from '@mui/material'
-import React, { useRef } from 'react'
+import React, { useRef, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import CloseIcon from '@mui/icons-material/Close';
 import FollowersList from './followersList';
@@ -9,7 +9,13 @@ import { setOpenFollowers } from "../../../features/dialogSlice"
 
 export default function DialogFollowers() {
     const { openFollowers } = useSelector(myStore => myStore.dialogSlice);
+    const { user } = useSelector(myStore => myStore.userSlice);
     const dispatch = useDispatch();
+    const paperRef = useRef();
+    const inputRef = useRef();
+    const [search, setSearch] = useState("")
+
+    // console.log(search);
 
     const handleCloseFollowers = () => {
         dispatch(setOpenFollowers({ val: false }))
@@ -22,12 +28,14 @@ export default function DialogFollowers() {
         paperRef.current.style.borderColor = '#DCDCDC';
     };
 
-    const paperRef = useRef();
-    const inputRef = useRef();
-
     const handleSubmit = () => {
-        // nav('/foods?search=' + inputRef.current.value)
         setSearch(inputRef.current.value)
+    };
+
+    const handleKeyDown = (e) => {
+        if (e.key == "Enter") {
+            setSearch(inputRef.current.value)
+        }
     };
 
     return (
@@ -39,9 +47,9 @@ export default function DialogFollowers() {
                 aria-describedby="followers-dialog-description"
             >
                 <Paper
-                    style={{ minHeight: '50vh' }}
+                    style={{ minHeight: '75vh' }}
                     elevation={0}>
-                    <div className='container px-5 pt-5'>
+                    <div className='container p-md-5 p-4 pb-0 pb-md-0'>
                         <h2 className='s24 weight500 mb-4'>Followers</h2>
                         <IconButton
                             style={{ position: 'absolute', right: 2, top: 2 }}
@@ -53,7 +61,7 @@ export default function DialogFollowers() {
                         <Paper
                             ref={paperRef}
                             elevation={0}
-                            sx={{ border: "1px solid #DCDCDC", p: '2px 4px', display: 'flex', alignItems: 'center', borderRadius: 100 }}
+                            sx={{ border: "1px solid #DCDCDC", p: '2px 4px', display: 'flex', alignItems: 'center', borderRadius: 100, boxShadow: "0px 0px 10px -4px rgba(0, 0, 0, 0.16)" }}
                         >
                             <IconButton
                                 onClick={handleSubmit}
@@ -65,14 +73,16 @@ export default function DialogFollowers() {
                                 onFocus={handleFocus}
                                 onBlur={handleBlur}
                                 // onChange={handleChange}
-                                // onKeyDown={handleKeyDown}
+                                onKeyDown={handleKeyDown}
                                 sx={{ ml: 0, flex: 1, width: "400px" }}
                                 placeholder="Search"
                                 inputProps={{ 'aria-label': 'Search my food' }}
                             />
                         </Paper>
 
-                        <div className='mt-5'> <FollowersList /></div>
+                        <div className='mt-5'>
+                            <FollowersList usersSearch={search} />
+                        </div>
 
 
                     </div>

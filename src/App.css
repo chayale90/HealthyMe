@@ -28,6 +28,10 @@ body {
     font-size: 24px;
 }
 
+.s20{
+    font-size: 20px;
+}
+
 .s18 {
     font-size: 18px;
 }
@@ -64,7 +68,7 @@ body {
 
 /* width */
 ::-webkit-scrollbar {
-    width: 15px;
+    width: 13px;
     background: rgb(255, 255, 255);
 }
 
@@ -85,3 +89,14 @@ body {
 ::-webkit-scrollbar-thumb:hover {
     background: #912CD6;
 }
+
+
+/* icon nagishLi design*/
+#NagishLiTrigger{
+    bottom: 20px;
+    /* top:10px; */
+    right:none;
+    left:5px;
+    transform: scale(0.7,0.7);
+    filter: grayscale(100%);
+  }
