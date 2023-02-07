@@ -9,6 +9,7 @@ import { Link, useNavigate, useParams } from 'react-router-dom';
 import Select from '@mui/material/Select';
 import CloseIcon from '@mui/icons-material/Close';
 import { theme } from '../../../../services/theme';
+import CameraAltIcon from '@mui/icons-material/CameraAlt';
 import { btnStyle, btnStyle3, btnStyle2 } from '../../../../services/btnStyle';
 import CheckUserActiveComp from '../../../auth/checkComps/checkUserActiveComp';
 import { API_URL, doApiGet, doApiMethod } from '../../../../services/apiService';
@@ -159,7 +160,7 @@ export default function AddFood() {
                                         hidden
                                         onInput={handleChange}
                                     />
-                                    <label style={{ cursor: 'pointer' }} className='mb-1 editPhotoDiv' htmlFor="actual-btn"><AddAPhotoIcon sx={{ color: "#A435F0" }} />Edit photo</label>
+                                    <label style={{ cursor: 'pointer' }} className='mb-1 editPhotoDiv' htmlFor="actual-btn"><CameraAltIcon sx={{ color: "#A435F0" }} />Edit photo</label>
                                 </div>
 
                             </div>

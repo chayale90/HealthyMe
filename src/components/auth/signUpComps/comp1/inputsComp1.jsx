@@ -11,7 +11,6 @@ import { setShowHideComp1, setShowHideComp2, addForm } from "../../../../feature
 export default function InputsComp1() {
 
     const dispatch = useDispatch();
-    // const { counter,showHideComp1,showHideComp2,form } = useSelector(myStore => myStore.signUpSlice)
     const { register, getValues, handleSubmit, formState: { errors } } = useForm();
     const regEmail = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i
     const regWordWithoutDigits = /\b[^\d\W]+\b/g
@@ -34,7 +33,6 @@ export default function InputsComp1() {
                             {...register('name', { required: true, pattern: regWordWithoutDigits, minLength: 2, maxLength: 99 })}
                             autoComplete="FullName"
                             size='small' fullWidth
-
                             label="Full Name*"
                             variant="outlined"
                         />

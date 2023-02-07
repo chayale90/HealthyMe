@@ -98,7 +98,7 @@ export default function MyProfilePage() {
 
           <div className='col text-end'>
             <Tooltip title={"Edit"} >
-              <IconButton onClick={() => { nav("/editMyProfile") }} sx={{ border: "gray 0.5px solid" }}>
+              <IconButton onClick={() => { nav("/editMyDetails") }} sx={{ border: "gray 0.5px solid" }}>
                 <SettingsIcon />
               </IconButton>
             </Tooltip>

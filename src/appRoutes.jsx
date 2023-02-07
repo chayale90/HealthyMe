@@ -11,7 +11,7 @@ import FoodsListAdmin from './components/admin/foods/foodsListAdmin'
 
 // בשביל הודעות טוסט צריך קונטיינר שיהיה באפ ואת
 // הסי אס אס שלו
-import {ToastContainer} from "react-toastify"
+import { ToastContainer } from "react-toastify"
 import 'react-toastify/dist/ReactToastify.css';
 
 // import UploadTest from './assets/uploadTest'
@@ -25,6 +25,7 @@ import AddFood from './components/client/foods/addFood/addFood'
 import FoodInfo from './components/client/foods/foodInfo/foodInfo'
 import MyFoodInfo from './components/client/foods/foodInfo/myFoodInfo'
 import EditFood from './components/client/foods/editFood/editFood'
+import EditMyDetails from './components/client/myProfile/editMyProfile/editMyDetails'
 
 
 export default function AppRoutes() {
@@ -39,11 +40,14 @@ export default function AppRoutes() {
                     {/* Outlet */}
                     <Route path='/foods' element={<FoodsPage />} />
                     <Route path='/myProfile' element={<MyProfilePage />} />
+                    <Route path='/editMyDetails' element={<EditMyDetails />} />
+
                     <Route path='/userProfile/:id' element={<UserProfilePage />} />
-                    <Route path='/addFood' element={<AddFood/>} />
-                    <Route path='/foodInfo/:id' element={<FoodInfo/>} />
-                    <Route path='/myFoodInfo/:id' element={<MyFoodInfo/>} />
-                    <Route path='/editFood/:id' element={<EditFood/>} />
+
+                    <Route path='/addFood' element={<AddFood />} />
+                    <Route path='/foodInfo/:id' element={<FoodInfo />} />
+                    <Route path='/myFoodInfo/:id' element={<MyFoodInfo />} />
+                    <Route path='/editFood/:id' element={<EditFood />} />
 
 
                     <Route path='/myFavorites' element={<MyFavoritePage />} />
@@ -62,16 +66,16 @@ export default function AppRoutes() {
                     <Route path='/admin/foods' element={<FoodsListAdmin />} />
                     {/* <Route path='/admin/upload' element={<UploadTest />} /> */}
                     {/* ******** */}
-                    
+
                 </Route>
 
 
                 {/*   (*) => Rest of routes!?!?  */}
                 <Route path='*' element={<NotFound />} />
 
-             
-            </Routes>  
-             <ToastContainer position="top-left" theme="colored" />
+
+            </Routes>
+            <ToastContainer position="top-left" theme="colored" />
         </Router>
     )
 
