@@ -6,6 +6,7 @@ import CloseIcon from '@mui/icons-material/Close';
 import EditAccount from './editAccount';
 import "./editMyDetails.css"
 import EditProfile from './editProfile';
+import EditInfo from './editInfo';
 
 export default function EditMyDetails() {
     const nav = useNavigate()
@@ -17,11 +18,11 @@ export default function EditMyDetails() {
         setOpen(true);
     };
     const handleClose = () => {
-       nav("/myProfile")
+        nav("/myProfile")
     };
 
     const returnToMyDetails = () => {
-        setValues({ displayDetails: 'block', displayAccount: 'none', displayProfile: 'none' })
+        setValues({ displayDetails: 'block', displayAccount: 'none', displayProfile: 'none' , displayInfo: 'none' })
     }
 
     return (
@@ -55,15 +56,18 @@ export default function EditMyDetails() {
 
                         <div className='divProfile'
                             onClick={() => { setValues({ displayDetails: 'none', displayAccount: 'none', displayProfile: 'block', displayInfo: 'none' }) }}
-
                         >
                             Profile
                         </div>
 
                         <hr className='m-0' />
-                        <div className=' divProfile'
 
-                        >Personal info</div>
+                        <div className='divProfile'
+                            onClick={() => { setValues({ displayDetails: 'none', displayAccount: 'none', displayProfile: 'none', displayInfo: 'block' }) }}
+                        >
+                            Personal info
+                        </div>
+
                         <hr className='m-0 pb-5' />
 
                     </div>
@@ -74,6 +78,7 @@ export default function EditMyDetails() {
 
             <EditAccount displayAccount={values.displayAccount} returnToMyDetails={returnToMyDetails} />
             <EditProfile displayProfile={values.displayProfile} returnToMyDetails={returnToMyDetails} />
+            <EditInfo displayInfo={values.displayInfo} returnToMyDetails={returnToMyDetails} />
         </div>
     )
 }

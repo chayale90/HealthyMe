@@ -18,7 +18,7 @@ import "./editMyDetails"
 import { doApiFileUploadAvatars } from '../../../../services/fileUploadFun';
 
 
-export default function EditProfile({ displayProfile, returnToMyDetails }) {
+export default function EditInfo({ displayInfo, returnToMyDetails }) {
     const fileRef = useRef();
     const inputRef = useRef(null);
 
@@ -26,9 +26,8 @@ export default function EditProfile({ displayProfile, returnToMyDetails }) {
     const nav = useNavigate()
     const { user } = useSelector(myStore => myStore.userSlice);
 
-    const [image, setImage] = useState(null);
     const [displayDiv, setDisplayDiv] = useState("block");
-    const [fileChosen, setfileChosen] = useState("No Img Edit");
+
 
     const handleClose = () => {
         nav("/myProfile")
@@ -60,31 +59,12 @@ export default function EditProfile({ displayProfile, returnToMyDetails }) {
     };
 
 
-    const handleChange = (e) => {
-        // console.log(fileRef.current.files[0].name);
-        setfileChosen(fileRef.current.files[0].name)
-        const file = e.target.files[0];
-        const reader = new FileReader();
-        reader.onloadend = () => {
-            setImage(reader.result);
-        }
-        reader.readAsDataURL(file);
-        setDisplayDiv("none")
-
-    }
-
-    const removeIMG = () => {
-        setImage(null);
-        fileRef.current.value = null;
-        setDisplayDiv("block")
-        setfileChosen("No Img Edit")
-    }
 
     return (
         <>
             <ThemeProvider theme={theme}>
                 <Dialog
-                    style={{ display: displayProfile }}
+                    style={{ display: displayInfo }}
                     open={true}
                     onClose={handleClose}
                     fullWidth
@@ -97,47 +77,15 @@ export default function EditProfile({ displayProfile, returnToMyDetails }) {
                             user.name ?
                                 <form onSubmit={handleSubmit(onSubmit)}>
                                     <div className='container p-md-4 p-3'>
-                                        <div className='d-flex mb-4 pb-1 w-75 justify-content-between'>
+                                        <div className='d-flex mb-4 pb-1 '>
                                             <IconButton
                                                 onClick={() => { returnToMyDetails() }}
-                                          
+                                              
                                             >
                                                 <ArrowBackIcon />
                                             </IconButton>
-                                            <h2 className='s24 mt-2 pe-md-5 me-md-3 me-4'>Profile</h2>
+                                            <h2 className='s24 mt-2 ms-0 ps-4 ps-md-5 ms-md-5 '>Personal info</h2>
                                         </div>
-
-                                        <div className='text-center d-flex justify-content-center mb-5 '>
-                                            <input
-                                                // {...register('img_url', { required: true })}
-                                                type="file" id="actual-btn"
-                                                ref={fileRef}
-                                                hidden
-                                                onInput={handleChange}
-                                            />
-                                            <label style={{ borderRadius: "50%", padding: "5px", position: "absolute", top: 190, left: 240, zIndex: 99, cursor: 'pointer', background: "#FAFAFA", "&:hover": { background: "#FAFAFA" }, boxShadow: "rgba(0, 0, 0, 0.16)" }} htmlFor="actual-btn">
-                                                <EditIcon sx={{ color: "#A435F0" }} />
-                                            </label>
-                                            <Avatar
-                                                sx={{ width: 120, height: 120, position: "relative" }}
-                                                src={!image ? user.img_url : image}
-                                                alt="AvatarOfFood"
-                                            />
-                                            {image &&
-                                                <div
-                                                    style={{ position: 'relative', zIndex: 99, display: 'flex', justifyContent: 'end' }}>
-                                                    <IconButton className='xButton'
-                                                        style={{ position: 'absolute', left: -10, top: -10 }}
-                                                        onClick={removeIMG}
-                                                    >
-                                                        <CloseIcon sx={{ color: "#A435F0" }} />
-                                                    </IconButton>
-                                                </div>
-                                            }
-                                        </div>
-
-
-
 
 
 
