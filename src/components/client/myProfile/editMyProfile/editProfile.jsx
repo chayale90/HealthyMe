@@ -12,7 +12,10 @@ import { useSelector } from 'react-redux';
 import { theme } from "../../../../services/theme"
 import { btnStyle, btnStyle3, btnStyle2 } from '../../../../services/btnStyle';
 import { API_URL, doApiMethod } from '../../../../services/apiService';
+import CloseIcon from '@mui/icons-material/Close';
+
 import "./editMyDetails"
+import { doApiFileUploadAvatars } from '../../../../services/fileUploadFun';
 
 
 export default function EditProfile({ displayProfile, returnToMyDetails }) {
@@ -25,21 +28,25 @@ export default function EditProfile({ displayProfile, returnToMyDetails }) {
 
     const [image, setImage] = useState(null);
     const [displayDiv, setDisplayDiv] = useState("block");
+    const [fileChosen, setfileChosen] = useState("No Img Edit");
 
+    const handleClose = () => {
+        nav("/myProfile")
+    }
 
     const onSubmit = async (_dataBody) => {
-        console.log(_dataBody);
-        await doApiEditAccount(_dataBody);
+        // console.log(_dataBody);
+        await doApiEditProfile(_dataBody);
     };
 
-    const doApiEditAccount = async (_dataBody) => {
+    const doApiEditProfile = async (_dataBody) => {
         let url = API_URL + "/users/" + user._id;
         try {
             let resp = await doApiMethod(url, "PUT", _dataBody);
             if (resp.data) {
                 // console.log(resp.data);
-                toast.success("Profile changed successfully!");
-                // doApiInfoUser()
+                await doApiFileUploadAvatars(resp.data._id, fileRef);
+                toast.success("Your profile changed successfully!");
                 nav("/myProfile");
             }
             else {
@@ -54,7 +61,7 @@ export default function EditProfile({ displayProfile, returnToMyDetails }) {
 
 
     const handleChange = (e) => {
-        console.log(fileRef.current.files[0].name);
+        // console.log(fileRef.current.files[0].name);
         setfileChosen(fileRef.current.files[0].name)
         const file = e.target.files[0];
         const reader = new FileReader();
@@ -73,17 +80,13 @@ export default function EditProfile({ displayProfile, returnToMyDetails }) {
         setfileChosen("No Img Edit")
     }
 
-    const handleFileInputClick = () => {
-        setfileChosen(fileRef.current.files[0].name)
-        const file = e.target.files[0];
-    };
-
     return (
         <>
             <ThemeProvider theme={theme}>
                 <Dialog
                     style={{ display: displayProfile }}
                     open={true}
+                    onClose={handleClose}
                     fullWidth
                     maxWidth="xs"
                     aria-labelledby="editAccount-dialog"
@@ -104,7 +107,7 @@ export default function EditProfile({ displayProfile, returnToMyDetails }) {
                                             <h2 className='s24 mt-2 '>Profile</h2>
                                         </div>
 
-                                        <div className='text-center mb-5'>
+                                        <div className='text-center d-flex justify-content-center mb-5 '>
                                             <input
                                                 // {...register('img_url', { required: true })}
                                                 type="file" id="actual-btn"
@@ -112,61 +115,28 @@ export default function EditProfile({ displayProfile, returnToMyDetails }) {
                                                 hidden
                                                 onInput={handleChange}
                                             />
-                                            <label style={{ position: "absolute",top:190,left:115, cursor: 'pointer', background: "#FAFAFA", "&:hover": { background: "#FAFAFA" } }} htmlFor="actual-btn"><EditIcon sx={{ color: "#A435F0" }} /></label>
-
-                                            <div className='text-center mx-auto'>
-                                                <Avatar
-                                                    sx={{  width: 120, height: 120, position: "relative" }}
-                                                    src={!image ? user.img_url : image}
-                                                    alt="AvatarOfFood"
-                                                />
-                                            </div>
-
-                                            {/* <Badge
-                                                overlap="circular"
-                                                anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
-                                                badgeContent={
-                                                    <IconButton
-                                                        sx={{ background: "#FAFAFA", "&:hover": { background: "#FAFAFA" } }}
-                                                    >
-                                                        <EditIcon />
-                                                    </IconButton>}
-                                            >
-                                            </Badge> */}
-
-
-                                        </div>
-
-                                        {/* file */}
-                                        {/* <div className='text-center mt-5'> */}
-
-                                        {/* {image &&
+                                            <label style={{ borderRadius: "50%", padding: "5px", position: "absolute", top: 190, left: 240, zIndex: 99, cursor: 'pointer', background: "#FAFAFA", "&:hover": { background: "#FAFAFA" }, boxShadow: "rgba(0, 0, 0, 0.16)" }} htmlFor="actual-btn">
+                                                <EditIcon sx={{ color: "#A435F0" }} />
+                                            </label>
+                                            <Avatar
+                                                sx={{ width: 120, height: 120, position: "relative" }}
+                                                src={!image ? user.img_url : image}
+                                                alt="AvatarOfFood"
+                                            />
+                                            {image &&
                                                 <div
                                                     style={{ position: 'relative', zIndex: 99, display: 'flex', justifyContent: 'end' }}>
                                                     <IconButton className='xButton'
-                                                        style={{ position: 'absolute', right: 0, top: 0 }}
+                                                        style={{ position: 'absolute', left: -10, top: -10 }}
                                                         onClick={removeIMG}
                                                     >
                                                         <CloseIcon sx={{ color: "#A435F0" }} />
                                                     </IconButton>
                                                 </div>
                                             }
+                                        </div>
 
-                                            <img className='addPhotoDiv' src={!image ? user.img_url : image} alt="Uploaded" style={{ position: 'relative', zIndex: 0 }} />
-                                            {image && <span id="file-chosen">{fileChosen}</span>}
 
-                                            <div style={{ display: displayDiv }}>
-                                                <input
-                                                    // {...register('img_url', { required: true })}
-                                                    type="file" id="actual-btn"
-                                                    ref={fileRef}
-                                                    hidden
-                                                    onInput={handleChange}
-                                                />
-                                                <label style={{ cursor: 'pointer' }} className='mb-1 editPhotoDiv' htmlFor="actual-btn"><EditIcon sx={{ color: "#A435F0" }} />Edit photo</label>
-                                            </div>
-
-                                        </div> */}
 
 
 

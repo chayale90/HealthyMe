@@ -12,11 +12,12 @@ export default function EditMyDetails() {
     const [open, setOpen] = useState(true);
     const [values, setValues] = useState({ displayDetails: 'block', displayAccount: 'none', displayProfile: 'none', displayInfo: 'none' });
 
+    //dialog
     const handleOpen = () => {
         setOpen(true);
     };
     const handleClose = () => {
-        setOpen(false);
+       nav("/myProfile")
     };
 
     const returnToMyDetails = () => {
@@ -28,7 +29,7 @@ export default function EditMyDetails() {
             <Dialog
                 open={open}
                 style={{ display: values.displayDetails }}
-                // onClose={handleClose}
+                onClose={handleClose}
                 aria-labelledby="followers-dialog"
                 aria-describedby="followers-dialog-description"
             >

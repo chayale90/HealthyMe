@@ -52,6 +52,10 @@ export default function EditAccount({ displayAccount, returnToMyDetails }) {
         event.preventDefault();
     };
 
+    //dialog close
+    const handleClose = () => {
+        nav("/myProfile")
+    }
 
     const onSubmit = async (_dataBody) => {
         delete _dataBody.password3;
@@ -66,7 +70,6 @@ export default function EditAccount({ displayAccount, returnToMyDetails }) {
             if (resp.data) {
                 console.log(resp.data);
                 toast.success("Password changed successfully!");
-                // doApiInfoUser()
                 nav("/myProfile");
             }
             else {
@@ -86,6 +89,7 @@ export default function EditAccount({ displayAccount, returnToMyDetails }) {
                 <Dialog
                     style={{ display: displayAccount }}
                     open={open}
+                    onClose={handleClose}
                     fullWidth
                     maxWidth="xs"
                     aria-labelledby="editAccount-dialog"
