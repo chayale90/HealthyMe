@@ -19,7 +19,6 @@ export default function MyProfilePage() {
   const [values, setValues] = useState({ button1: '#CCCCCC', button2: '#A435F0' });
   const [showInfo, setShowInfo] = useState("block")
 
-
   const clickOnPosts = () => {
     setValues({
       button1: "#A435F0",

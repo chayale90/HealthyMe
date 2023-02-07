@@ -10,26 +10,29 @@ import { useForm } from 'react-hook-form';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { btnStyle, btnStyle3, btnStyle2 } from '../../../../services/btnStyle';
 import { API_URL, doApiMethod } from '../../../../services/apiService';
-import "./editMyDetails"
 import { toast } from 'react-toastify';
 import { useSelector } from 'react-redux';
+import MyInfo from "../../../../services/myInfo"
+import "./editMyDetails"
 
 export default function EditAccount({ displayAccount, returnToMyDetails }) {
     const nav = useNavigate()
+    const { register, getValues, handleSubmit, formState: { errors } } = useForm();
     const { user } = useSelector(myStore => myStore.userSlice);
 
-    const [open, setOpen] = useState(true);
-    const { register, getValues, handleSubmit, formState: { errors } } = useForm();
+    //hook that get info of user 
+    const [doApiInfoUser] = MyInfo();
 
+    const [open, setOpen] = useState(true);
+
+    const [values, setValues] = useState({ email: user?.email, password: '', newPassword: '', password3: '', showPassword: true, showNewPassword: false, showPassword3: false });
+    const passwordRef = register("password", { required: { value: true, message: 'Password is requried' }, minLength: { value: 3, message: "Password must be at least 3 characters" } });
+    const newPasswordRef = register("newPassword", { required: { value: true, message: 'NewPassword is requried' }, minLength: { value: 3, message: "NewPassword must be at least 3 characters" } });
+    const passwordRef3 = register("password3", { required: true, validate: (value) => { return value == getValues('newPassword') } });
     const emailRef = register("email", {
         required: true,
         pattern: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i
     })
-    const [values, setValues] = useState({ email: user?.email, password: '', newPassword: '', password3: '', showPassword: true, showNewPassword: false, showPassword3: false });
-    const passwordRef = register("password", { required: { value: true, message: 'Password is requried' }, minLength: { value: 3, message: "Password must be at least 3 characters" } });
-
-    const newPasswordRef = register("newPassword", { required: { value: true, message: 'NewPassword is requried' }, minLength: { value: 3, message: "NewPassword must be at least 3 characters" } });
-    let passwordRef3 = register("password3", { required: true, validate: (value) => { return value == getValues('newPassword') } });
 
     const handleChange = (prop) => (event) => {
         setValues({ ...values, [prop]: event.target.value });
@@ -66,8 +69,9 @@ export default function EditAccount({ displayAccount, returnToMyDetails }) {
         try {
             let resp = await doApiMethod(url, "PATCH", _dataBody);
             if (resp.data) {
-                // console.log(resp.data);
+                console.log(resp.data);
                 toast.success("Password changed successfully!");
+                doApiInfoUser()
                 nav("/myProfile");
             }
             else {
@@ -112,23 +116,21 @@ export default function EditAccount({ displayAccount, returnToMyDetails }) {
                                         size="small"
                                         autoComplete="email"
                                         fullWidth
-                                        {...emailRef}
+                                        // {...emailRef}
                                         label="Email"
-                                        id="outlined-basic"
                                         variant="outlined"
                                         type={"text"}
-                                        onChange={handleChange('email')}
-                                        value={values.email}
-                                        // disabled={true}
+                                        // onChange={handleChange('email')}
+                                        value={user.email}
+                                        disabled={true}
                                     />
-                                    {errors.email && <div className="text-danger s12">Enter valid email</div>}
+                                    {/* {errors.email && <div className="text-danger s12">Enter valid email</div>} */}
                                 </div>
 
 
                                 <div className='inputPass mt-3'>
                                     <InputLabel style={{ fontSize: "14px" }} htmlFor="password">Current Password</InputLabel>
                                     <OutlinedInput size="small"  {...passwordRef}
-                                        id="opassword"
                                         autoComplete="password"
                                         type={values.showPassword ? 'text' : 'password'}
                                         value={values.password}
@@ -155,7 +157,6 @@ export default function EditAccount({ displayAccount, returnToMyDetails }) {
                                 <div className='inputPass mt-3'>
                                     <InputLabel style={{ fontSize: "14px" }} htmlFor="newPassword">New Password</InputLabel>
                                     <OutlinedInput size="small"  {...newPasswordRef}
-                                        id="newPassword"
                                         autoComplete="newPassword"
                                         type={values.showNewPassword ? 'text' : 'password'}
                                         value={values.newPassword}
@@ -184,7 +185,6 @@ export default function EditAccount({ displayAccount, returnToMyDetails }) {
                                 <div className='inputPass mt-3'>
                                     <InputLabel style={{ fontSize: "14px" }} htmlFor="outlined-adornment-password">Confirm Password</InputLabel>
                                     <OutlinedInput size="small"  {...passwordRef3}
-                                        id="outlined-adornment-password"
                                         autoComplete="password3"
                                         type={values.showPassword3 ? 'text' : 'password'}
                                         value={values.password3}

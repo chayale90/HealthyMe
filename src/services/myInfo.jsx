@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from 'react-toastify';
 import { addUser } from "../features/userSlice"
@@ -8,6 +8,7 @@ export default function MyInfo() {
     const { user } = useSelector(myStore => myStore.userSlice)
     const dispatch = useDispatch();
     // console.log(user);
+    // const [] = useState(false);
 
     useEffect(() => {
         doApiInfoUser()
@@ -26,9 +27,7 @@ export default function MyInfo() {
             toast.error("there problem ,try again later")
         }
     }
+    return [doApiInfoUser];
 
-    return (
-        <>
-        </>
-    )
+
 }
