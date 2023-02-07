@@ -1,9 +1,7 @@
-import React, { useEffect, useState } from 'react'
+import React, {  useState } from 'react'
 import { Avatar, Dialog, IconButton, InputBase, Paper } from '@mui/material'
-import { OutlinedInput, InputLabel, InputAdornment, Button, TextField } from '@mui/material';
+import {  Button, TextField } from '@mui/material';
 import { Link, useNavigate } from 'react-router-dom';
-import Visibility from '@mui/icons-material/Visibility';
-import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import Badge from '@mui/material/Badge';
 import EditIcon from '@mui/icons-material/Edit';
 import { useForm } from 'react-hook-form';
@@ -11,22 +9,16 @@ import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { ThemeProvider } from '@mui/material/styles';
 import { toast } from 'react-toastify';
 import { useSelector } from 'react-redux';
-import { styled } from '@mui/material/styles';
 import { theme } from "../../../../services/theme"
 import { btnStyle, btnStyle3, btnStyle2 } from '../../../../services/btnStyle';
 import { API_URL, doApiMethod } from '../../../../services/apiService';
-import MyInfo from "../../../../services/myInfo"
 import "./editMyDetails"
-
 
 
 export default function EditProfile({ displayProfile, returnToMyDetails }) {
     const { register, getValues, handleSubmit, formState: { errors } } = useForm();
     const nav = useNavigate()
     const { user } = useSelector(myStore => myStore.userSlice);
-
-   //hook that get info of user 
-   const [doApiInfoUser] = MyInfo();
 
     const [open, setOpen] = useState(true);
 
@@ -43,7 +35,7 @@ export default function EditProfile({ displayProfile, returnToMyDetails }) {
             if (resp.data) {
                 // console.log(resp.data);
                 toast.success("Profile changed successfully!");
-                doApiInfoUser()
+                // doApiInfoUser()
                 nav("/myProfile");
             }
             else {

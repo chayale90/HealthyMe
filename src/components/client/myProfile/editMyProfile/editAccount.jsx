@@ -12,17 +12,12 @@ import { btnStyle, btnStyle3, btnStyle2 } from '../../../../services/btnStyle';
 import { API_URL, doApiMethod } from '../../../../services/apiService';
 import { toast } from 'react-toastify';
 import { useSelector } from 'react-redux';
-import MyInfo from "../../../../services/myInfo"
 import "./editMyDetails"
 
 export default function EditAccount({ displayAccount, returnToMyDetails }) {
     const nav = useNavigate()
     const { register, getValues, handleSubmit, formState: { errors } } = useForm();
     const { user } = useSelector(myStore => myStore.userSlice);
-
-    //hook that get info of user 
-    const [doApiInfoUser] = MyInfo();
-
     const [open, setOpen] = useState(true);
 
     const [values, setValues] = useState({ email: user?.email, password: '', newPassword: '', password3: '', showPassword: true, showNewPassword: false, showPassword3: false });
@@ -71,7 +66,7 @@ export default function EditAccount({ displayAccount, returnToMyDetails }) {
             if (resp.data) {
                 console.log(resp.data);
                 toast.success("Password changed successfully!");
-                doApiInfoUser()
+                // doApiInfoUser()
                 nav("/myProfile");
             }
             else {

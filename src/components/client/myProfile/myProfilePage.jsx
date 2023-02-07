@@ -9,6 +9,7 @@ import CheckUserComp from '../../auth/checkComps/checkUserComp';
 import { setOpenFollowers,setOpenFollowings } from "../../../features/dialogSlice"
 import { useEffect } from 'react';
 import { setUserIdFollowers ,setUserIdFollowings} from "../../../features/dialogSlice"
+import MyInfo from '../../../services/myInfo';
 
 export default function MyProfilePage() {
   const nav = useNavigate()
@@ -42,6 +43,7 @@ export default function MyProfilePage() {
     <div>
       <div className='container mt-md-5 mt-4'>
         <CheckUserComp />
+        <MyInfo/>
         <div className='d-flex '>
 
           <div className='d-none d-sm-block'>

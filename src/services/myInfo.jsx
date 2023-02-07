@@ -5,10 +5,7 @@ import { addUser } from "../features/userSlice"
 import { API_URL, doApiGet } from './apiService';
 
 export default function MyInfo() {
-    const { user } = useSelector(myStore => myStore.userSlice)
     const dispatch = useDispatch();
-    // console.log(user);
-    // const [] = useState(false);
 
     useEffect(() => {
         doApiInfoUser()
@@ -27,7 +24,10 @@ export default function MyInfo() {
             toast.error("there problem ,try again later")
         }
     }
-    return [doApiInfoUser];
 
+    return (
+        <>
+        </>
+    )
 
 }

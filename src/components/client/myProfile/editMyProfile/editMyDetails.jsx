@@ -3,7 +3,6 @@ import { Avatar, Dialog, IconButton, InputBase, Paper } from '@mui/material'
 import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import CloseIcon from '@mui/icons-material/Close';
-import SearchIcon from '@mui/icons-material/Search';
 import EditAccount from './editAccount';
 import "./editMyDetails.css"
 import EditProfile from './editProfile';
