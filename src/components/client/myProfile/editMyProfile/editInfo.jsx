@@ -1,21 +1,15 @@
 import React, { useRef, useState } from 'react'
-import { Avatar, Dialog, IconButton, InputBase, Paper } from '@mui/material'
+import { Dialog, IconButton, InputAdornment, OutlinedInput, Paper } from '@mui/material'
 import { Button, TextField } from '@mui/material';
-import { Link, useNavigate } from 'react-router-dom';
-import Badge from '@mui/material/Badge';
-import EditIcon from '@mui/icons-material/Edit';
+import { useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { ThemeProvider } from '@mui/material/styles';
 import { toast } from 'react-toastify';
 import { useSelector } from 'react-redux';
 import { theme } from "../../../../services/theme"
-import { btnStyle, btnStyle3, btnStyle2 } from '../../../../services/btnStyle';
+import { btnStyle } from '../../../../services/btnStyle';
 import { API_URL, doApiMethod } from '../../../../services/apiService';
-import CloseIcon from '@mui/icons-material/Close';
-
-import "./editMyDetails"
-import { doApiFileUploadAvatars } from '../../../../services/fileUploadFun';
 
 
 export default function EditInfo({ displayInfo, returnToMyDetails }) {
@@ -26,8 +20,19 @@ export default function EditInfo({ displayInfo, returnToMyDetails }) {
     const nav = useNavigate()
     const { user } = useSelector(myStore => myStore.userSlice);
 
-    const [displayDiv, setDisplayDiv] = useState("block");
+    console.log(user);
+    // console.log(dayjs(user.birth_date));
 
+    const [values, setValues] = useState({ birth_date: "", location: '', kg: '', weight: '' });
+
+    const st = String(user?.birth_date)
+    const birth_date = (st).slice(0, 10)
+
+    console.log(birth_date)
+
+    const handleChange = (prop) => (event) => {
+        setValues({ ...values, [prop]: event.target.value });
+    };
 
     const handleClose = () => {
         nav("/myProfile")
@@ -35,16 +40,15 @@ export default function EditInfo({ displayInfo, returnToMyDetails }) {
 
     const onSubmit = async (_dataBody) => {
         // console.log(_dataBody);
-        await doApiEditProfile(_dataBody);
+        await doApiEditInfo(_dataBody);
     };
 
-    const doApiEditProfile = async (_dataBody) => {
+    const doApiEditInfo = async (_dataBody) => {
         let url = API_URL + "/users/" + user._id;
         try {
             let resp = await doApiMethod(url, "PUT", _dataBody);
             if (resp.data) {
                 // console.log(resp.data);
-                await doApiFileUploadAvatars(resp.data._id, fileRef);
                 toast.success("Your profile changed successfully!");
                 nav("/myProfile");
             }
@@ -80,46 +84,76 @@ export default function EditInfo({ displayInfo, returnToMyDetails }) {
                                         <div className='d-flex mb-4 pb-1 '>
                                             <IconButton
                                                 onClick={() => { returnToMyDetails() }}
-                                              
+
                                             >
                                                 <ArrowBackIcon />
                                             </IconButton>
-                                            <h2 className='s24 mt-2 ms-0 ps-4 ps-md-5 ms-md-5 '>Personal info</h2>
+                                            <h2 className='s24 mt-2 ms-0 ps-4 ps-md-5 ms-md-4 '>Personal info</h2>
                                         </div>
 
 
+                                        <div className='d-flex mt-5 mb-4'>
+                                            <div className='w-50'>
+                                                <OutlinedInput
+                                                    {...register('birth_date', { required: true })}
+                                                    className='col-11 pe-1'
+                                                    size='small'
+                                                    label=""
+                                                    variant="outlined"
+                                                    type={"date"}
+                                                    defaultValue={birth_date}
+                                                    onChange={handleChange('birth_date')}
+                                                />
+                                                {errors.birth_date && <div className='text-danger s12'>Enter valid Birth Date</div>}
+                                            </div>
 
-                                        <div className='mb-4'>
-                                            <TextField
-                                                {...register('name', { required: true, min: 2, max: 99 })}
-                                                type={"text"}
-                                                size='small'
-                                                defaultValue={user.name}
-                                                fullWidth
-                                                variant="outlined"
-                                                label={"name"}
-                                                className="form-control"
-                                            // onChange={handleChange('name')}
-                                            />
-                                            {errors.name && <div className='text-danger s12'>Enter valid name</div>}
+                                            <div className='w-50'>
+                                                <TextField
+                                                    {...register('location', { required: false, minLength: 3, maxLength: 99 })}
+                                                    className=' form-control'
+                                                    size='small'
+                                                    label="Location"
+                                                    variant="outlined"
+                                                    defaultValue={user.location}
+                                                />
+                                                {errors.location && <div className='text-danger s12'>Enter valid location</div>}
+                                            </div>
                                         </div>
 
-                                        <div className='mb-4'>
-                                            <TextField type={"text"}
-                                                {...register('info', { required: true, min: 2, max: 99 })}
-                                                size='small'
-                                                defaultValue={user.info}
-                                                fullWidth
-                                                variant="outlined"
-                                                label="My motto"
-                                            // onChange={handleChange('info')}
-                                            />
-                                            {errors.info && <div className='text-danger s12'>Enter valid Motto</div>}
+
+                                        <div className='d-flex mb-4'>
+                                            <div className='w-50'>
+                                                {/* <FormControl variant="outlined"> */}
+                                                <OutlinedInput
+                                                    size='small'
+                                                    {...register('weight', { required: true, pattern: '[0-9]*', min: 25, max: 300, minLength: 2, maxLength: 3 })}
+                                                    className='col-11' type={"number"}
+                                                    endAdornment={<InputAdornment position="end">kg</InputAdornment>}
+                                                    inputProps={{
+                                                        'aria-label': 'weight',
+                                                    }}
+                                                    defaultValue={user.weight}
+                                                />
+                                                {errors.weight && <div className='text-danger s12'>Enter valid weight</div>}
+                                                {/* </FormControl> */}
+                                            </div>
+
+                                            <div className='w-50'>
+                                                <TextField className='col-auto' type={"number"}
+                                                    {...register('height', { required: true, pattern: '[0-9]*', min: 100, max: 300, minLength: 2, maxLength: 3 })}
+                                                    size='small'
+                                                    label="Height"
+                                                    variant="outlined"
+                                                    defaultValue={user.height}
+                                                />
+                                                {errors.height && <div className='text-danger s12'>Enter valid height</div>}
+                                            </div>
+
                                         </div>
 
                                         <Button type='submit'
                                             sx={btnStyle}
-                                            className='loginBtn mt-2'
+                                            className='loginBtn mt-3'
                                         >
                                             Save
                                         </Button>
