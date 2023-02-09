@@ -47,7 +47,7 @@ export default function UserPostsList() {
             if (resp.data.length === 0) {
                 setHasMore(false);
                 return;
-              }
+            }
             // Update the page and total pages variables
             setTotalItems(totalItems + resp.data.length);
 
@@ -69,15 +69,16 @@ export default function UserPostsList() {
                 loadMore={loadMore}
                 hasMore={hasMore}
                 loader={
-                    ar.length < 1 ?
-                    <div className='display-6 text-center my-3' style={{ color: "#A435F0" }}>Have no post yet</div>
-                    :                    <div className="loader" key={0}>
-                        <ThemeProvider theme={theme}>
-                            <div style={{ display: "flex" }}>
-                                <div style={{ margin: "0 auto", color: "#A435F0" }} ><CircularProgress /></div>
-                            </div>
-                        </ThemeProvider>
-                    </div>
+                    ar.length ==0  ?
+                        <div className='display-6 text-center my-3' style={{ color: "#A435F0" }}>Have no post yet</div>
+                        :
+                        <div className="loader" key={0}>
+                            <ThemeProvider theme={theme}>
+                                <div style={{ display: "flex" }}>
+                                    <div style={{ margin: "0 auto", color: "#A435F0" }} ><CircularProgress /></div>
+                                </div>
+                            </ThemeProvider>
+                        </div>
                 }
             >
                 <div className='row justify-content-center mt-4'>

@@ -34,8 +34,9 @@ export default function MyPostsList() {
         let url = API_URL + `/foods/myFoods?page=${page}`
         try {
             let resp = await doApiGet(url);
-            setAr([...ar, ...resp.data])
             console.log(resp.data);
+     
+            setAr([...ar, ...resp.data])
 
             // Update the page and total pages variables
             setTotalItems(totalItems + resp.data.length);
@@ -58,7 +59,7 @@ export default function MyPostsList() {
                 loadMore={loadMore}
                 hasMore={hasMore}
                 loader={
-                    ar.length < 1 ?
+                    (ar.length==0) ?
                         <div className='display-6 text-center my-3' style={{ color: "#A435F0" }}>Have no post yet</div>
                         :
                         <div className="loader" key={0}>

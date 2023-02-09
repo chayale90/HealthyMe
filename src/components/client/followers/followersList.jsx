@@ -23,10 +23,10 @@ export default function FollowersList({ usersSearch }) {
   // console.log(userIdFollowers);
 
 
-  useEffect(() => { 
+  useEffect(() => {
     if (usersSearch)
-    setAr([])
-      doApiSearch()
+      setAr([])
+    doApiSearch()
   }, [usersSearch])
 
 
@@ -82,9 +82,9 @@ export default function FollowersList({ usersSearch }) {
         loadMore={loadMore}
         hasMore={hasMore}
         loader={
-            <div style={{ display: "flex" }}>
-              <div style={{ margin: "0 auto", color: "#A435F0" }} ><CircularProgress /></div>
-            </div>
+          <div style={{ display: "flex" }}>
+            <div style={{ margin: "0 auto", color: "#A435F0" }} ><CircularProgress /></div>
+          </div>
         }
       >
         <div>
@@ -93,7 +93,7 @@ export default function FollowersList({ usersSearch }) {
               <FollowerItem key={item._id} index={i} item={item} />
             )
           })}
-
+          {/* {ar.length<1 && <div className='display-6 text-center my-3' style={{ color: "#A435F0" }}>Have no post yet</div> } */}
         </div>
       </InfiniteScroll>
 
