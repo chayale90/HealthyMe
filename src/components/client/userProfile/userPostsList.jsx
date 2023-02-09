@@ -69,8 +69,9 @@ export default function UserPostsList() {
                 loadMore={loadMore}
                 hasMore={hasMore}
                 loader={
-                //    ( ar.length < 1 )&&
-                    <div className="loader" key={0}>
+                    ar.length < 1 ?
+                    <div className='display-6 text-center my-3' style={{ color: "#A435F0" }}>Have no post yet</div>
+                    :                    <div className="loader" key={0}>
                         <ThemeProvider theme={theme}>
                             <div style={{ display: "flex" }}>
                                 <div style={{ margin: "0 auto", color: "#A435F0" }} ><CircularProgress /></div>
@@ -85,7 +86,6 @@ export default function UserPostsList() {
                             <PostItem key={item._id} index={i} item={item} />
                         )
                     })}
-                    {ar.length<1&&<div className='display-6 text-center my-3' style={{color:"#A435F0"}}>Have no post yet</div>}
                 </div>
             </InfiniteScroll>
 

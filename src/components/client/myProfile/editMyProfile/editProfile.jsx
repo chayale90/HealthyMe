@@ -158,7 +158,7 @@ export default function EditProfile({ displayProfile, returnToMyDetails }) {
 
                                         <div className='mb-4'>
                                             <TextField type={"text"}
-                                                {...register('info', { required: true, min: 2, max: 99 })}
+                                                {...register('info', { required: false, min: 2, max: 99 })}
                                                 size='small'
                                                 defaultValue={user.info}
                                                 fullWidth
