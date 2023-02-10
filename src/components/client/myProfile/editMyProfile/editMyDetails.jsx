@@ -7,6 +7,7 @@ import EditAccount from './editAccount';
 import "./editMyDetails.css"
 import EditProfile from './editProfile';
 import EditInfo from './editInfo';
+import CheckUserComp from '../../../auth/checkComps/checkUserComp';
 
 export default function EditMyDetails() {
     const nav = useNavigate()
@@ -27,6 +28,7 @@ export default function EditMyDetails() {
 
     return (
         <div>
+            <CheckUserComp/>
             <Dialog
                 open={open}
                 style={{ display: values.displayDetails }}
