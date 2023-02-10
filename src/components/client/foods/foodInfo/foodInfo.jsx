@@ -101,7 +101,7 @@ export default function FoodInfo() {
                                     alt="AvatarOfFood"
                                 />
                                 <Link style={{ fontWeight: 500 }} className="s16 ms-2 dark underLine"
-                                    to={ "/userProfile/" + food.user_id}
+                                    to={"/userProfile/" + food.user_id}
                                 >
                                     {userName}
                                 </Link>
@@ -126,7 +126,7 @@ export default function FoodInfo() {
                                 <div className='d-flex align-items-center'>
                                     <div className="d-block d-md-flex text-center">
                                         <div> <AccessTimeIcon className='me-2' /></div>
-                                        prep: {food.prepHours == null || food.prepHours == 0 ? "" : food.prepHours + " hrs"}  {food.prepMinutes} min
+                                        prep: {food.prepHours == null || food.prepHours == 0 ? "" : food.prepHours + " hrs"}  {food.prepMinutes == null ? "" : food.prepMinutes + " min"}
                                     </div>
                                     <hr className='hr' />
 

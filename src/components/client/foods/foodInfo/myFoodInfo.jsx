@@ -124,7 +124,7 @@ export default function MyFoodInfo() {
                                         alt="AvatarOfFood"
                                     />
                                     <Link style={{ fontWeight: 500 }} className="s16 ms-2 dark underLine"
-                                        to={ "/myProfile" }
+                                        to={"/myProfile"}
                                     >
                                         {userName}
                                     </Link>
@@ -135,7 +135,7 @@ export default function MyFoodInfo() {
                                 <div className='d-flex align-items-center'>
                                     <div className="d-block d-md-flex text-center">
                                         <div> <AccessTimeIcon className='me-2' /></div>
-                                        prep: {food.prepHours == null || food.prepHours == 0 ? "" : food.prepHours + " hrs"}  {food.prepMinutes} min
+                                        prep: {food.prepHours == null || food.prepHours == 0 ? "" : food.prepHours + " hrs"}  {food.prepMinutes == null ? "" : food.prepMinutes + " min"}
                                     </div>
                                     <hr className='hr' />
 
@@ -169,7 +169,7 @@ export default function MyFoodInfo() {
 
                                 <IconButton
                                     style={{ position: 'absolute', right: 45, top: 0, border: "0.5px solid #A7A7A7" }}
-                                onClick={()=>{nav("/editFood/"+foodId)}}
+                                    onClick={() => { nav("/editFood/" + foodId) }}
 
                                 >
                                     <EditIcon />
@@ -221,7 +221,7 @@ export default function MyFoodInfo() {
                         </Fab>
 
                     </div>
-                    : 
+                    :
                     <div style={{ display: "flex", alignItems: "center", minHeight: '300px' }}>
                         <div style={{ margin: "0 auto", color: "#A435F0" }}>
                             <CircularProgress size={"100px"} />
