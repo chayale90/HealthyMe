@@ -71,7 +71,7 @@ export default function AddFood() {
         setImage(null);
         fileRef.current.value = null;
         setDisplayDiv("block")
-        setfileChosen("")
+        setFileChosen("")
     }
 
     return (
