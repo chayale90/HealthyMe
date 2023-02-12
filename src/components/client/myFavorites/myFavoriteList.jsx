@@ -19,11 +19,11 @@ export default function MyFavoriteList() {
 
 
   useEffect(() => {
-    dispatch(changeFavorites({ val: "block" }))
     doApiFavoriteFood()
   }, [page])
 
   useEffect(() => {
+    dispatch(changeFavorites({ val: "block" }))
     return () => {
       dispatch(changeFavorites({ val: "none" }))
       setAr([])
