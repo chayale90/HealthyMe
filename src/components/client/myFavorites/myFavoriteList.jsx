@@ -21,21 +21,21 @@ export default function MyFavoriteList() {
   useEffect(() => {
     dispatch(changeFavorites({ val: "block" }))
     doApiFavoriteFood()
-    return () => {
-      dispatch(changeFavorites({ val: "none" }))
-    }
   }, [page])
 
+  useEffect(() => {
+    return () => {
+      dispatch(changeFavorites({ val: "none" }))
+      setAr([])
+    }
+  }, [])
 
   useEffect(() => {
     console.log("end screen hook")
-    // בודק אם הדף רק נטען ולא יפעיל את הפקודה
     if (!firstLoad && endScreen) {
       setPage(page + 1)
     }
     setFirstLoad(false);
-    // לנסות לעשות שמגיעים לסוף הדף 
-    // שיציג את ה10 הסרטונים הביאם שיתווספו לרשימה
   }, [endScreen])
 
   const doApiFavoriteFood = async () => {
@@ -44,11 +44,9 @@ export default function MyFavoriteList() {
       let resp = await doApiGet(url);
       console.log(resp.data);
       setAr([...ar, ...resp.data])
-      // מחזיר את הטוגל של בדיקה אם אנחנו בסוף העמוד הגלילה
-      // בחזרה לפולס
+      //return the toggle of end of page to false
       setEndScreenFalse()
       setShow("none")
-
     }
     catch (err) {
       console.log(err);
@@ -72,7 +70,6 @@ export default function MyFavoriteList() {
           );
         })}
         {endScreen && <h1 style={{ display: show }} className='diaplay-1 text-center'>Loading...</h1>}
-
       </div>
     </div>
   )
