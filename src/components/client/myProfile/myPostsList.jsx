@@ -9,6 +9,7 @@ import PostItem from './postItem';
 import { theme } from '../../../services/theme';
 import { useDispatch } from 'react-redux';
 import { toast } from 'react-toastify';
+import useScroll from '../../../hooks/useScroll';
 
 
 export default function MyPostsList() {
@@ -16,34 +17,38 @@ export default function MyPostsList() {
     const nav = useNavigate();
     const dispatch = useDispatch();
     const [ar, setAr] = useState([])
+    const [endScreen, setEndScreenFalse] = useScroll(0);
+    const [firstLoad, setFirstLoad] = useState(true)
     const [page, setPage] = useState(1);
-    const [hasMore, setHasMore] = useState(true);
-    const [totalPages, setTotalPages] = useState(1);
-    const [totalItems, setTotalItems] = useState(0);
+    const [show, setShow] = useState("block")
+
 
     useEffect(() => {
-        loadMore()
-    }, [])
+        //get all Followers 
+        doApiMyFoods()
+    }, [page])
 
-    const loadMore = async () => {
-        // Load additional items here and add them to the items array
-        await doApiMyFoods()
-        setPage(page + 1);
-    }
+    useEffect(() => {
+        console.log("end screen hook")
+        // בודק אם הדף רק נטען ולא יפעיל את הפקודה
+        if (!firstLoad && endScreen) {
+            setPage(page + 1)
+        }
+        setFirstLoad(false);
+        // לנסות לעשות שמגיעים לסוף הדף 
+        // שיציג את ה10 הסרטונים הביאם שיתווספו לרשימה
+    }, [endScreen])
+
     const doApiMyFoods = async () => {
         let url = API_URL + `/foods/myFoods?page=${page}`
         try {
             let resp = await doApiGet(url);
             console.log(resp.data);
-     
             setAr([...ar, ...resp.data])
 
-            // Update the page and total pages variables
-            setTotalItems(totalItems + resp.data.length);
+            setEndScreenFalse()
+            setShow("none")
 
-            if (totalItems > resp.data.length) {
-                setHasMore(false);
-            }
         }
         catch (err) {
             console.log(err);
@@ -53,32 +58,15 @@ export default function MyPostsList() {
 
     return (
         <div>
+            <div className='row justify-content-center'>
+                {ar.map((item, i) => {
+                    return (
+                        <PostItem key={item._id} index={i} item={item} />
+                    )
+                })}
+                {endScreen && <h1 style={{ display: show }} className='diaplay-1'>Loading...</h1>}
 
-            <InfiniteScroll
-                pageStart={page}
-                loadMore={loadMore}
-                hasMore={hasMore}
-                loader={
-                    (ar.length==0) ?
-                        <div className='display-6 text-center my-3' style={{ color: "#A435F0" }}>Have no post yet</div>
-                        :
-                        <div className="loader" key={0}>
-                            <ThemeProvider theme={theme}>
-                                <div style={{ display: "flex" }}>
-                                    <div style={{ margin: "0 auto", color: "#A435F0" }} ><CircularProgress /></div>
-                                </div>
-                            </ThemeProvider>
-                        </div>
-                }
-            >
-                <div className='row justify-content-center'>
-                    {ar.map((item, i) => {
-                        return (
-                            <PostItem key={item._id} index={i} item={item} />
-                        )
-                    })}
-                </div>
-            </InfiniteScroll>
+            </div>
 
             <Fab
                 sx={{ background: "#A435F0", color: "white", "&:hover": { color: "white", background: "#912CD6" }, position: 'sticky', bottom: 70, left: 1900 }}
