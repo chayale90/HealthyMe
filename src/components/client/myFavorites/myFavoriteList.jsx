@@ -12,23 +12,20 @@ export default function MyFavoriteList() {
 
   const dispatch = useDispatch();
   const [ar, setAr] = useState([]);
-  const [endScreen, setEndScreenFalse] = useScroll(10);
+  const [endScreen, setEndScreenFalse] = useScroll(600);
   const [firstLoad, setFirstLoad] = useState(true)
-  const [page,setPage] = useState(1);
-  const [show,setShow] = useState("block")
+  const [page, setPage] = useState(1);
+  const [show, setShow] = useState("block")
 
 
   useEffect(() => {
     dispatch(changeFavorites({ val: "block" }))
+    doApiFavoriteFood()
     return () => {
       dispatch(changeFavorites({ val: "none" }))
     }
-  }, [])
+  }, [page])
 
-  useEffect(()=>{
-    //get all foods that i liked them
-    doApiFavoriteFood()
-  },[page])
 
   useEffect(() => {
     console.log("end screen hook")
@@ -42,7 +39,7 @@ export default function MyFavoriteList() {
   }, [endScreen])
 
   const doApiFavoriteFood = async () => {
-    let url = API_URL + "/foods/myLikeFoods?page="+page;
+    let url = API_URL + "/foods/myLikeFoods?page=" + page;
     try {
       let resp = await doApiGet(url);
       console.log(resp.data);
@@ -50,8 +47,8 @@ export default function MyFavoriteList() {
       // מחזיר את הטוגל של בדיקה אם אנחנו בסוף העמוד הגלילה
       // בחזרה לפולס
       setEndScreenFalse()
-      setShow("none")  
-     
+      setShow("none")
+
     }
     catch (err) {
       console.log(err);
@@ -71,12 +68,10 @@ export default function MyFavoriteList() {
               key={item._id}
               index={i}
               item={item}
-
             />
           );
         })}
-        {endScreen && <h1 style={{display:show}} className='diaplay-1'>Loading...</h1>}
-        {/* {ar.length < 1 && <div className='display-6 text-center my-3' style={{ color: "#A435F0" }}>Loading...</div>} */}
+        {endScreen && <h1 style={{ display: show }} className='diaplay-1 text-center'>Loading...</h1>}
 
       </div>
     </div>
