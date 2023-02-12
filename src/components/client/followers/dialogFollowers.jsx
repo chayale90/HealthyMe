@@ -41,13 +41,15 @@ export default function DialogFollowers() {
     return (
         <div>
             <Dialog
+
                 open={openFollowers}
                 onClose={handleCloseFollowers}
                 aria-labelledby="followers-dialog"
                 aria-describedby="followers-dialog-description"
             >
                 <Paper
-                    style={{ minHeight: '75vh' }}
+                   id="dialogFollowers"
+                    style={{ minHeight: '50vh' }}
                     elevation={0}>
                     <div className='container p-md-5 p-4 pb-0 pb-md-0'>
                         <h2 className='s24 weight500 mb-4'>Followers</h2>

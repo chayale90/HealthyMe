@@ -12,7 +12,7 @@ export default function MyFavoriteList() {
 
   const dispatch = useDispatch();
   const [ar, setAr] = useState([]);
-  const [endScreen, setEndScreenFalse] = useScroll(600);
+  const [endScreen, setEndScreenFalse] = useScroll(10);
   const [firstLoad, setFirstLoad] = useState(true)
   const [page,setPage] = useState(1);
   const [show,setShow] = useState("block")
@@ -76,7 +76,7 @@ export default function MyFavoriteList() {
           );
         })}
         {endScreen && <h1 style={{display:show}} className='diaplay-1'>Loading...</h1>}
-        {ar.length < 1 && <div className='display-6 text-center my-3' style={{ color: "#A435F0" }}>Loading...</div>}
+        {/* {ar.length < 1 && <div className='display-6 text-center my-3' style={{ color: "#A435F0" }}>Loading...</div>} */}
 
       </div>
     </div>
