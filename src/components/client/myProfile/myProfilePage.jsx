@@ -2,13 +2,12 @@ import { Avatar, IconButton, Tooltip } from '@mui/material'
 import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import SettingsIcon from '@mui/icons-material/Settings';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
 import NavBarMyProfile from './navBarMyProfile';
 import CheckUserComp from '../../auth/checkComps/checkUserComp';
-import { setOpenFollowers,setOpenFollowings } from "../../../features/dialogSlice"
-import { useEffect } from 'react';
-import { setUserIdFollowers ,setUserIdFollowings} from "../../../features/dialogSlice"
+import { setOpenFollowers, setOpenFollowings } from "../../../features/dialogSlice"
+import { setUserIdFollowers, setUserIdFollowings } from "../../../features/dialogSlice"
 import MyInfo from '../../../services/myInfo';
 
 export default function MyProfilePage() {
@@ -30,12 +29,12 @@ export default function MyProfilePage() {
   }
 
   const onClickFollowers = () => {
-    dispatch(setUserIdFollowers({ val:  user._id }))
+    dispatch(setUserIdFollowers({ val: user._id }))
     dispatch(setOpenFollowers({ val: true }))
   }
 
   const onClickFollowings = () => {
-    dispatch(setUserIdFollowings({ val:  user._id  }))
+    dispatch(setUserIdFollowings({ val: user._id }))
     dispatch(setOpenFollowings({ val: true }))
   }
 
@@ -43,7 +42,7 @@ export default function MyProfilePage() {
     <div>
       <div className='container mt-md-5 mt-4'>
         <CheckUserComp />
-        <MyInfo/>
+        <MyInfo />
         <div className='d-flex '>
 
           <div className='d-none d-sm-block'>
@@ -97,6 +96,7 @@ export default function MyProfilePage() {
           </div>
 
 
+
           <div className='col text-end'>
             <Tooltip title={"Edit"} >
               <IconButton onClick={() => { nav("/editMyDetails") }} sx={{ border: "gray 0.5px solid" }}>
@@ -108,6 +108,7 @@ export default function MyProfilePage() {
       </div>
 
       <NavBarMyProfile setShowInfo={setShowInfo} showInfo={showInfo} clickOnPosts={clickOnPosts} setShowPosts={setShowPosts} showPosts={showPosts} setValues={setValues} values={values} />
+
 
     </div>
   )

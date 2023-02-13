@@ -1,78 +1,63 @@
 import React, { useEffect, useState } from 'react'
-import InfiniteScroll from 'react-infinite-scroller';
-import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate } from 'react-router';
-import { API_URL, doApiGet } from '../../../services/apiService';
-import CheckUserActiveComp from '../../auth/checkComps/checkUserActiveComp';
-import FollowerItem from './followerItem';
-import { theme } from '../../../services/theme';
-import { CircularProgress, ThemeProvider } from '@mui/material';
+import { List, ListItem } from '@mui/material';
+import useInfiniteScroll from 'react-infinite-scroll-hook';
+import { useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
-import useScrollFollowers from '../../../hooks/useScrollFollowers';
-
+import { API_URL, doApiGet } from '../../../services/apiService';
+import FollowerItem from "./followerItem";
 
 export default function FollowersList() {
-  const [ar, setAr] = useState([])
-  const nav = useNavigate();
-  const dispatch = useDispatch();
-  const [endScreen, setEndScreenFalse] = useScrollFollowers(200);
-  const [firstLoad, setFirstLoad] = useState(true)
-  const [page, setPage] = useState(1);
-  const [show, setShow] = useState("block")
-
-
   const { userIdFollowers } = useSelector(myStore => myStore.dialogSlice);
-  // console.log(userIdFollowers);
 
-
-
-  useEffect(() => {
-    //get all Followers 
-    doApiFollowers()
-  }, [page])
+  const [items, setItems] = useState([]);
+  const [page, setPage] = useState(1);
+  const [hasNextPage, setHasNextPage] = useState(true);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(undefined);
 
   useEffect(() => {
-    console.log("end screen hook")
-    // בודק אם הדף רק נטען ולא יפעיל את הפקודה
-    if (!firstLoad && endScreen) {
-      setPage(page + 1)
-    }
-    setFirstLoad(false);
-    // לנסות לעשות שמגיעים לסוף הדף 
-    // שיציג את ה10 הסרטונים הביאם שיתווספו לרשימה
-  }, [endScreen])
-  
-  const doApiFollowers = async () => {
-    let url = API_URL + `/users/myFollowers/${userIdFollowers}?page=${page}`
+    loadMore()
+  }, [hasNextPage])
+
+
+
+  const loadMore = async () => {
+    setLoading(true);
+    setPage(prevPage => prevPage + 1);
     try {
+      let url = API_URL + `/users/myFollowers/${userIdFollowers}?page=${page}`;
       let resp = await doApiGet(url);
-      console.log(resp.data);
-      setAr([...ar, ...resp.data])
-      // מחזיר את הטוגל של בדיקה אם אנחנו בסוף העמוד הגלילה
-      // בחזרה לפולס
-      setEndScreenFalse()
-      setShow("none")
-    }
-    catch (err) {
+      setItems([...items, ...resp.data]);
+      setHasNextPage(resp.data.length ==0);
+      setLoading(false);
+   
+    } catch (err) {
+      setError(err);
+      setLoading(false);
       console.log(err);
-      toast.error("there problem ,try again later")
+      toast.error("there problem ,try again later");
     }
-  }
-
-
+  };
+  const { sentryRef } = useInfiniteScroll({
+    loading,
+    hasNextPage,
+    onLoadMore: loadMore,
+    disabled: !!error,
+    rootMargin: '0px 600px 0px 0px',
+  });
 
   return (
-    <div className='container '>
-      <CheckUserActiveComp />
-      <div>
-        {ar.map((item, i) => {
-          return (
-            <FollowerItem key={item._id} index={i} item={item} />
-          )
-        })}
-        {endScreen && <h1 style={{display:show}} className='diaplay-1'>Loading...</h1>}
-      </div>
-
-    </div>
-  )
-}
+    <List>
+      {items.map((item, i) => {
+        return (
+          <FollowerItem key={item._id} index={i} item={item} />
+        )
+      })}
+      {(loading ) && (
+        <ListItem ref={sentryRef}>
+          <div>Loading...</div>
+        </ListItem>
+      )}
+    </List>
+  );
+};
