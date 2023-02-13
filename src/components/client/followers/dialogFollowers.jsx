@@ -48,7 +48,6 @@ export default function DialogFollowers() {
                 aria-describedby="followers-dialog-description"
             >
                 <Paper
-                   id="dialogFollowers"
                     style={{ minHeight: '50vh' }}
                     elevation={0}>
                     <div className='container p-md-5 p-4 pb-0 pb-md-0'>

@@ -5,6 +5,7 @@ import { useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 import { API_URL, doApiGet } from '../../../services/apiService';
 import FollowerItem from "./followerItem";
+import CheckUserActiveComp from '../../auth/checkComps/checkUserActiveComp';
 
 export default function FollowersList() {
   const { userIdFollowers } = useSelector(myStore => myStore.dialogSlice);
@@ -20,7 +21,6 @@ export default function FollowersList() {
   }, [hasNextPage])
 
 
-
   const loadMore = async () => {
     setLoading(true);
     setPage(prevPage => prevPage + 1);
@@ -28,9 +28,9 @@ export default function FollowersList() {
       let url = API_URL + `/users/myFollowers/${userIdFollowers}?page=${page}`;
       let resp = await doApiGet(url);
       setItems([...items, ...resp.data]);
-      setHasNextPage(resp.data.length ==0);
+      setHasNextPage(resp.data.length == 0);
       setLoading(false);
-   
+
     } catch (err) {
       setError(err);
       setLoading(false);
@@ -48,12 +48,13 @@ export default function FollowersList() {
 
   return (
     <List>
+      <CheckUserActiveComp />
       {items.map((item, i) => {
         return (
           <FollowerItem key={item._id} index={i} item={item} />
         )
       })}
-      {(loading ) && (
+      {(loading) && (
         <ListItem ref={sentryRef}>
           <div>Loading...</div>
         </ListItem>
