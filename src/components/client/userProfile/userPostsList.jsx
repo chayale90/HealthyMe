@@ -1,96 +1,76 @@
 import React, { useEffect, useState } from 'react'
-import { CircularProgress, ThemeProvider } from '@mui/material';
+import useInfiniteScroll from 'react-infinite-scroll-hook';
 import AddIcon from '@mui/icons-material/Add';
 import { useNavigate, useParams } from 'react-router-dom';
 import { Fab } from '@mui/material';
-import InfiniteScroll from 'react-infinite-scroller';
 import { API_URL, doApiGet } from '../../../services/apiService'
 import PostItem from '../myProfile/postItem';
-import { theme } from '../../../services/theme';
-import { useDispatch } from 'react-redux';
 import { toast } from 'react-toastify';
-
 
 export default function UserPostsList() {
     const nav = useNavigate();
-    const dispatch = useDispatch();
-    const [ar, setAr] = useState([])
+    const [items, setItems] = useState([]);
     const [page, setPage] = useState(1);
-    const [hasMore, setHasMore] = useState(true);
-    const [totalPages, setTotalPages] = useState(1);
-    const [totalItems, setTotalItems] = useState(0);
-    const [first, setFirst] = useState(true);
-
+    const [hasNextPage, setHasNextPage] = useState(true);
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState(undefined);
+  
     const params = useParams();
 
     useEffect(() => {
-        setAr([]);
-        setPage(1);
-        setHasMore(true);
-        setTotalPages(1);
-        setTotalItems(0);
         loadMore()
-    }, [params["id"]])
-
-
+      }, [hasNextPage])
+    
     const loadMore = async () => {
-        // Load additional items here and add them to the items array
-        await doApiUserFoods()
-        setPage(page + 1);
-    }
-    const doApiUserFoods = async () => {
+        setLoading(true);
+        setPage(prevPage => prevPage + 1);
         let url = API_URL + `/foods/userFoods/${params["id"]}?page=${page}`;
         try {
             let resp = await doApiGet(url);
-            setAr([...ar, ...resp.data])
             console.log(resp.data);
-            if (resp.data.length === 0) {
-                setHasMore(false);
-                return;
-            }
-            // Update the page and total pages variables
-            setTotalItems(totalItems + resp.data.length);
+            setItems([...items, ...resp.data]);
+            setHasNextPage(resp.data.length == 0);
+            setLoading(false);
 
-            if (totalItems > resp.data.length) {
-                setHasMore(false);
-            }
-        }
-        catch (err) {
+        } catch (err) {
+            setError(err);
+            setLoading(false);
             console.log(err);
-            toast.error("there problem, try later")
+            toast.error("there problem ,try again later");
         }
-    }
+    };
+ 
+    const { sentryRef } = useInfiniteScroll({
+        loading,
+        hasNextPage,
+        onLoadMore: loadMore,
+        disabled: !!error,
+        rootMargin: '0px 600px 0px 0px',
+    });
 
     return (
         <div className='container pt-5'>
             <hr />
-            <InfiniteScroll
-                pageStart={page}
-                loadMore={loadMore}
-                hasMore={hasMore}
-                loader={
-                    ar.length ==0  ?
-                        <div className='display-6 text-center my-3' style={{ color: "#A435F0" }}>Have no post yet</div>
-                        :
-                        <div className="loader" key={0}>
-                            <ThemeProvider theme={theme}>
-                                <div style={{ display: "flex" }}>
-                                    <div style={{ margin: "0 auto", color: "#A435F0" }} ><CircularProgress /></div>
-                                </div>
-                            </ThemeProvider>
-                        </div>
-                }
-            >
-                <div className='row justify-content-center mt-4'>
-                    {ar.map((item, i) => {
-                        return (
-                            <PostItem key={item._id} index={i} item={item} />
-                        )
-                    })}
-                </div>
-            </InfiniteScroll>
+            <div className='row justify-content-center mt-4'>
+                {items.map((item, i) => {
+                    return (
+                        <PostItem key={item._id} index={i} item={item} />
+                    )
+                })}
 
+                {(loading) && (
+                    <div ref={sentryRef}>
+                        <div>Loading...</div>
+                    </div>
+                )}
+            </div>
 
+            <Fab
+                sx={{ background: "#A435F0", color: "white", "&:hover": { color: "white", background: "#912CD6" }, position: 'sticky', bottom: 70, left: 1900 }}
+                onClick={() => { nav("/addFood") }}
+                aria-label="addFood">
+                <AddIcon />
+            </Fab>
         </div>
     )
 }

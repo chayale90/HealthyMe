@@ -1,71 +1,66 @@
 import React, { useEffect, useState } from 'react'
-import { CircularProgress, ThemeProvider } from '@mui/material';
+import useInfiniteScroll from 'react-infinite-scroll-hook';
 import AddIcon from '@mui/icons-material/Add';
 import { useNavigate } from 'react-router-dom';
 import { Fab } from '@mui/material';
-import InfiniteScroll from 'react-infinite-scroller';
 import { API_URL, doApiGet } from '../../../services/apiService'
 import PostItem from './postItem';
-import { theme } from '../../../services/theme';
-import { useDispatch } from 'react-redux';
 import { toast } from 'react-toastify';
-import useScroll from '../../../hooks/useScroll';
 
 
 export default function MyPostsList() {
-
     const nav = useNavigate();
-    const dispatch = useDispatch();
-    const [ar, setAr] = useState([])
-    const [endScreen, setEndScreenFalse] = useScroll(0);
-    const [firstLoad, setFirstLoad] = useState(true)
+    const [items, setItems] = useState([]);
     const [page, setPage] = useState(1);
-    const [show, setShow] = useState("block")
+    const [hasNextPage, setHasNextPage] = useState(true);
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState(undefined);
 
 
     useEffect(() => {
-        //get all Followers 
-        doApiMyFoods()
-    }, [page])
+        loadMore()
+    }, [hasNextPage])
 
-    useEffect(() => {
-        console.log("end screen hook")
-        // בודק אם הדף רק נטען ולא יפעיל את הפקודה
-        if (!firstLoad && endScreen) {
-            setPage(page + 1)
-        }
-        setFirstLoad(false);
-        // לנסות לעשות שמגיעים לסוף הדף 
-        // שיציג את ה10 הסרטונים הביאם שיתווספו לרשימה
-    }, [endScreen])
-
-    const doApiMyFoods = async () => {
+    const loadMore = async () => {
+        setLoading(true);
+        setPage(prevPage => prevPage + 1);
         let url = API_URL + `/foods/myFoods?page=${page}`
         try {
             let resp = await doApiGet(url);
             console.log(resp.data);
-            setAr([...ar, ...resp.data])
+            setItems([...items, ...resp.data]);
+            setHasNextPage(resp.data.length == 0);
+            setLoading(false);
 
-            setEndScreenFalse()
-            setShow("none")
-
-        }
-        catch (err) {
+        } catch (err) {
+            setError(err);
+            setLoading(false);
             console.log(err);
-            toast.error("there problem, try later")
+            toast.error("there problem ,try again later");
         }
-    }
+    };
+
+    const { sentryRef } = useInfiniteScroll({
+        loading,
+        hasNextPage,
+        onLoadMore: loadMore,
+        disabled: !!error,
+        rootMargin: '0px 600px 0px 0px',
+    });
 
     return (
         <div>
             <div className='row justify-content-center'>
-                {ar.map((item, i) => {
+                {items.map((item, i) => {
                     return (
                         <PostItem key={item._id} index={i} item={item} />
                     )
                 })}
-                {endScreen && <h1 style={{ display: show }} className='diaplay-1'>Loading...</h1>}
-
+                {(loading) && (
+                    <div ref={sentryRef}>
+                        <div>Loading...</div>
+                    </div>
+                )}
             </div>
 
             <Fab

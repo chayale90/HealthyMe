@@ -27,6 +27,7 @@ export default function FollowersList() {
     try {
       let url = API_URL + `/users/myFollowers/${userIdFollowers}?page=${page}`;
       let resp = await doApiGet(url);
+      // console.log(resp.data);
       setItems([...items, ...resp.data]);
       setHasNextPage(resp.data.length == 0);
       setLoading(false);
