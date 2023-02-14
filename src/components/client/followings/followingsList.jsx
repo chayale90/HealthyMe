@@ -7,7 +7,7 @@ import { API_URL, doApiGet } from '../../../services/apiService';
 import FollowingItem from "./followingItem";
 import CheckUserActiveComp from '../../auth/checkComps/checkUserActiveComp';
 
-export default function FollowersList() {
+export default function FollowersList({usersSearch}) {
   const { userIdFollowings } = useSelector(myStore => myStore.dialogSlice);
 
   const [items, setItems] = useState([]);
@@ -20,6 +20,10 @@ export default function FollowersList() {
     loadMore()
   }, [hasNextPage])
 
+  useEffect(() => {
+    if (usersSearch)
+       doApiSearch()
+  }, [usersSearch])
 
   const loadMore = async () => {
     setLoading(true);
@@ -38,6 +42,21 @@ export default function FollowersList() {
       toast.error("there problem ,try again later");
     }
   };
+
+  const doApiSearch = async () => {
+    //users/searchFollowers?s=
+    let url = API_URL + `/users/searchFollowings/${userIdFollowings}?s=${usersSearch}`;
+    try {
+      let resp = await doApiGet(url);
+      console.log(resp.data);
+      setItems([...resp.data]);
+    }
+    catch (err) {
+      console.log(err);
+      toast.error("there problem ,try again later")
+    }
+  }
+
   const { sentryRef } = useInfiniteScroll({
     loading,
     hasNextPage,
