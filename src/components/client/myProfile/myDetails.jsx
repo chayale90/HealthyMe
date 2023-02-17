@@ -18,8 +18,9 @@ export default function MyDetails() {
     }
     else if (BMI >= 18.5 && BMI < 24.9) {
       setScale("Your weight is normal")
+      setDescreption("It is important to note: a BMI between 18.5 and 20 is not normal for many. If such a result was obtained - professional advice should be sought.")
     }
-    else if (BMI >= 24.9 && BMI < 29.9) {
+    else if (BMI > 24.9 && BMI < 29.9) {
       setScale("Your weight is higher than desired ")
       setDescreption("This may be because your daily calorie intake is greater than the energy your body expends during the day.")
     }

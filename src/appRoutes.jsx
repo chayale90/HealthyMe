@@ -20,12 +20,12 @@ import SignUpPage from './components/auth/signUpComps/signUpPage'
 import FoodsPage from './components/client/foods/foodsPage'
 import MyProfilePage from './components/client/myProfile/myProfilePage'
 import UserProfilePage from './components/client/userProfile/userProfilePage'
-import MyFavoritePage from './components/client/myFavorites/myFavoritePage'
 import AddFood from './components/client/foods/addFood/addFood'
 import FoodInfo from './components/client/foods/foodInfo/foodInfo'
 import MyFoodInfo from './components/client/foods/foodInfo/myFoodInfo'
 import EditFood from './components/client/foods/editFood/editFood'
 import EditMyDetails from './components/client/myProfile/editMyProfile/editMyDetails'
+import MyFavoriteList from './components/client/myFavorites/myFavoriteList'
 
 
 export default function AppRoutes() {
@@ -50,7 +50,7 @@ export default function AppRoutes() {
                     <Route path='/editFood/:id' element={<EditFood />} />
 
 
-                    <Route path='/myFavorites' element={<MyFavoritePage />} />
+                    <Route path='/myFavorites' element={<MyFavoriteList />} />
 
                     {/* ******** */}
                 </Route>

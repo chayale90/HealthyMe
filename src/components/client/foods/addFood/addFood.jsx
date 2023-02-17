@@ -7,6 +7,7 @@ import { toast } from 'react-toastify';
 import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft';
 import { Link, useNavigate } from 'react-router-dom';
 import Select from '@mui/material/Select';
+import { useSelector } from 'react-redux';
 import CloseIcon from '@mui/icons-material/Close';
 import { theme } from '../../../../services/theme';
 import { btnStyle, btnStyle3, btnStyle2 } from '../../../../services/btnStyle';
@@ -14,7 +15,6 @@ import CheckUserActiveComp from '../../../auth/checkComps/checkUserActiveComp';
 import { API_URL, doApiMethod } from '../../../../services/apiService';
 import { doApiFileUploadFood } from '../../../../services/fileUploadFun';
 import "./addFood.css"
-import { useSelector } from 'react-redux';
 
 export default function AddFood() {
     const { register, getValues, handleSubmit, formState: { errors } } = useForm();
@@ -23,7 +23,7 @@ export default function AddFood() {
     const fileRef = useRef();
     const inputRef = useRef();
     const [selectedOption, setSelectedOption] = useState("");
-    const [fileChosen, setfileChosen] = useState("No Img chosen");
+    const [fileChosen, setFileChosen] = useState("");
     const [image, setImage] = useState(null);
     const [displayDiv, setDisplayDiv] = useState("block");
 
@@ -38,7 +38,7 @@ export default function AddFood() {
         let url = API_URL + "/foods";
         try {
             let resp = await doApiMethod(url, "POST", bodyFormData);
-            console.log(resp.data);
+            // console.log(resp.data);
             if (resp.data) {
                 await doApiFileUploadFood(resp.data._id, fileRef);
                 toast.success("Your Dish adds succefuly, You won 5 coins!");
@@ -55,8 +55,8 @@ export default function AddFood() {
     }
 
     const handleChange = (e) => {
-        console.log(fileRef.current.files[0].name);
-        setfileChosen(fileRef.current.files[0].name)
+        // console.log(fileRef.current.files[0].name);
+        setFileChosen(fileRef.current.files[0].name)
         const file = e.target.files[0];
         const reader = new FileReader();
         reader.onloadend = () => {
@@ -71,7 +71,7 @@ export default function AddFood() {
         setImage(null);
         fileRef.current.value = null;
         setDisplayDiv("block")
-        setfileChosen("No Img chosen")
+        setFileChosen("")
     }
 
     return (

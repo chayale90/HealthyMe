@@ -2,14 +2,13 @@ import { Avatar, Button, IconButton, Zoom } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
-import VisibilityIcon from '@mui/icons-material/Visibility';
 import { toast } from "react-toastify";
+import VisibilityIcon from '@mui/icons-material/Visibility';
 import { Link, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { API_URL, doApiGet } from "../../../services/apiService";
-import "./foodItem.css";
 
-export default function FoodItem({ item, onLikeClick }) {
+export default function FoodFavoriteItem({ item }) {
 
   const { user } = useSelector((myStore) => myStore.userSlice);
   const nav = useNavigate()
@@ -29,7 +28,8 @@ export default function FoodItem({ item, onLikeClick }) {
       // console.log(resp.data);
       setUserName(resp.data.name);
       setUserImg(resp.data.img_url);
-    } catch (err) {
+    }
+    catch (err) {
       console.log(err);
       toast.error("There problem try come back later");
     }
@@ -77,20 +77,8 @@ export default function FoodItem({ item, onLikeClick }) {
                 </Link>
               </div>
 
-              <div>
-                <IconButton
-                  onClick={() => {
-                    onLikeClick(item._id, user._id);
-                  }}
-                  sx={{ width: 33, height: 33 }}
-                  aria-label="add to favorites"
-                >
-                  {!item.likes.includes(user._id) ? (
-                    <FavoriteBorderIcon />
-                  ) : (
-                    <FavoriteIcon sx={{ color: "red" }} />
-                  )}
-                </IconButton>
+              <div className="me-1">
+                  <FavoriteIcon sx={{ color: "red" }} />     
               </div>
 
             </div>

@@ -1,4 +1,4 @@
-//not used
+
 
 import React, { useEffect, useState } from 'react'
 
@@ -22,7 +22,7 @@ export default function useScroll(offsetY) {
 
         // יחזיר את גובה כל המסמך
         let docHeight = document.documentElement.offsetHeight;
-        console.log("Scroll", windowHeight, scrollTop, docHeight)
+        // console.log("Scroll", windowHeight, scrollTop, docHeight)
 
         // -offsetY -> כדי שנוכל להגדיר כמה פיקסלים לפני 
         // שנגיע לסוף יציג כבר סוף עמוד

@@ -1,64 +1,49 @@
 import React, { useEffect, useState } from 'react'
-import InfiniteScroll from 'react-infinite-scroller';
-import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate } from 'react-router';
-import { API_URL, doApiGet } from '../../../services/apiService';
-import CheckUserActiveComp from '../../auth/checkComps/checkUserActiveComp';
-import FollowerItem from './followerItem';
-import { theme } from '../../../services/theme';
-import { CircularProgress, ThemeProvider } from '@mui/material';
+import { List, ListItem } from '@mui/material';
+import useInfiniteScroll from 'react-infinite-scroll-hook';
+import { useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
+import { API_URL, doApiGet } from '../../../services/apiService';
+import FollowerItem from "./followerItem";
+import CheckUserActiveComp from '../../auth/checkComps/checkUserActiveComp';
 
-
-export default function FollowersList({ usersSearch }) {
-  const [ar, setAr] = useState([])
-  const nav = useNavigate();
-  const dispatch = useDispatch();
-  const [page, setPage] = useState(1);
-  const [hasMore, setHasMore] = useState(true);
-  const [totalPages, setTotalPages] = useState(1);
-  const [totalItems, setTotalItems] = useState(0);
-
+export default function FollowersList({usersSearch}) {
   const { userIdFollowers } = useSelector(myStore => myStore.dialogSlice);
-  // console.log(userIdFollowers);
 
+  const [items, setItems] = useState([]);
+  const [page, setPage] = useState(1);
+  const [hasNextPage, setHasNextPage] = useState(true);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(undefined);
 
-  useEffect(() => { 
+  useEffect(() => {
+    loadMore()
+  }, [hasNextPage])
+
+  useEffect(() => {
     if (usersSearch)
-    setAr([])
-      doApiSearch()
+    doApiSearch()
   }, [usersSearch])
 
 
   const loadMore = async () => {
-    // Load additional items here and add them to the items array
-    await doApiFollowers()
-    setPage(page + 1);
-  }
-
-  const doApiFollowers = async () => {
-    let url = API_URL + `/users/myFollowers/${userIdFollowers}?page=${page}`
+    setLoading(true);
+    setPage(prevPage => prevPage + 1);
     try {
+      let url = API_URL + `/users/myFollowers/${userIdFollowers}?page=${page}`;
       let resp = await doApiGet(url);
       // console.log(resp.data);
-      if (resp.data.length === 0) {
-        setHasMore(false);
-        return;
-      }
-      setAr([...ar, ...resp.data])
-
-      // Update the page and total pages variables
-      setTotalItems(totalItems + resp.data.length);
-
-      if (totalItems > resp.data.length) {
-        setHasMore(false);
-      }
-    }
-    catch (err) {
+      setItems([...items, ...resp.data]);
+      setHasNextPage(resp.data.length == 0);
+      setLoading(false);
+    } catch (err) {
+      setError(err);
+      setLoading(false);
       console.log(err);
-      toast.error("there problem ,try again later")
+      toast.error("there problem ,try again later");
     }
-  }
+  };
+
 
   const doApiSearch = async () => {
     //users/searchFollowers?s=
@@ -66,7 +51,7 @@ export default function FollowersList({ usersSearch }) {
     try {
       let resp = await doApiGet(url);
       console.log(resp.data);
-      setAr(resp.data);
+      setItems([...resp.data]);
     }
     catch (err) {
       console.log(err);
@@ -74,29 +59,29 @@ export default function FollowersList({ usersSearch }) {
     }
   }
 
+
+
+  const { sentryRef } = useInfiniteScroll({
+    loading,
+    hasNextPage,
+    onLoadMore: loadMore,
+    disabled: !!error,
+    rootMargin: '0px 600px 0px 0px',
+  });
+
   return (
-    <div className='container '>
+    <List>
       <CheckUserActiveComp />
-      <InfiniteScroll
-        pageStart={page}
-        loadMore={loadMore}
-        hasMore={hasMore}
-        loader={
-            <div style={{ display: "flex" }}>
-              <div style={{ margin: "0 auto", color: "#A435F0" }} ><CircularProgress /></div>
-            </div>
-        }
-      >
-        <div>
-          {ar.map((item, i) => {
-            return (
-              <FollowerItem key={item._id} index={i} item={item} />
-            )
-          })}
-
-        </div>
-      </InfiniteScroll>
-
-    </div>
-  )
-}
+      {items.map((item, i) => {
+        return (
+          <FollowerItem key={item._id} index={i} item={item} />
+        )
+      })}
+      {(loading) && (
+        <ListItem ref={sentryRef}>
+          <div>Loading...</div>
+        </ListItem>
+      )}
+    </List>
+  );
+};

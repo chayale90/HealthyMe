@@ -13,8 +13,8 @@
     align-items: center;
     border-radius: 12px;
     border: 1px solid #D4D4D4;
-    flex-direction:column;
-  
+    flex-direction: column;
+    object-fit: cover
 }
 
 .editPhotoDiv {
@@ -27,8 +27,8 @@
     align-items: center;
     border-radius: 12px;
     border: 1px solid #D4D4D4;
-    flex-direction:column;
-  
+    flex-direction: column;
+
 }
 
 .navButtons {
@@ -54,6 +54,5 @@
     .navButtons {
         width: 100%;
     }
-  
-}
 
+}
