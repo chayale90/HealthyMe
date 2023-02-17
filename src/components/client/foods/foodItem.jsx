@@ -2,12 +2,12 @@ import { Avatar, Button, IconButton, Zoom } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
-import "./foodItem.css";
+import VisibilityIcon from '@mui/icons-material/Visibility';
 import { toast } from "react-toastify";
 import { Link, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { API_URL, doApiGet } from "../../../services/apiService";
-import VisibilityIcon from '@mui/icons-material/Visibility';
+import "./foodItem.css";
 
 export default function FoodItem({ item, onLikeClick }) {
 

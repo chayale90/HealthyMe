@@ -7,6 +7,7 @@ import { toast } from 'react-toastify';
 import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft';
 import { Link, useNavigate } from 'react-router-dom';
 import Select from '@mui/material/Select';
+import { useSelector } from 'react-redux';
 import CloseIcon from '@mui/icons-material/Close';
 import { theme } from '../../../../services/theme';
 import { btnStyle, btnStyle3, btnStyle2 } from '../../../../services/btnStyle';
@@ -14,7 +15,6 @@ import CheckUserActiveComp from '../../../auth/checkComps/checkUserActiveComp';
 import { API_URL, doApiMethod } from '../../../../services/apiService';
 import { doApiFileUploadFood } from '../../../../services/fileUploadFun';
 import "./addFood.css"
-import { useSelector } from 'react-redux';
 
 export default function AddFood() {
     const { register, getValues, handleSubmit, formState: { errors } } = useForm();

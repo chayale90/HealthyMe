@@ -3,10 +3,10 @@ import React, { useEffect, useState } from "react";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import { toast } from "react-toastify";
+import VisibilityIcon from '@mui/icons-material/Visibility';
 import { Link, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { API_URL, doApiGet } from "../../../services/apiService";
-import VisibilityIcon from '@mui/icons-material/Visibility';
 
 export default function FoodFavoriteItem({ item }) {
 
