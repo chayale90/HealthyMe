@@ -38,8 +38,8 @@ export default function FoodInfo() {
     }, [isLiked])
 
     const doApiGetFoodInfo = async () => {
-        const url = API_URL + "/foods/foodInfo/" + foodId;
         try {
+            const url = API_URL + "/foods/foodInfo/" + foodId;
             const resp = await doApiGet(url);
             console.log(resp.data);
             setFood(resp.data)
