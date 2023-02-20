@@ -14,10 +14,12 @@ export default function InputsComp1() {
     const { register, getValues, handleSubmit, formState: { errors } } = useForm();
     const regEmail = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i
     const regWordWithoutDigits = /\b[^\d\W]+\b/g
+    const { formComp1 } = useSelector(myStore => myStore.signUpSlice)
    
+
     const onSubmit = (_dataBody) => {
         console.log(_dataBody)
-        delete _dataBody.password2;
+        // delete _dataBody.password2; -do this in redux
         //here need to send to grandFather by redux:
         dispatch(addForm({ val: _dataBody }))
         dispatch(setShowHideComp1())
@@ -35,6 +37,7 @@ export default function InputsComp1() {
                             size='small' fullWidth
                             label="Full Name*"
                             variant="outlined"
+                            defaultValue={formComp1.name}
                         />
                         {errors.name && <div className='text-danger s12'>Enter valid name </div>}
                     </div>
@@ -47,6 +50,7 @@ export default function InputsComp1() {
                             type="email"
                             label="Email*"
                             variant="outlined"
+                            defaultValue={formComp1.email}
                         />
                         {errors.email && <div className='text-danger s12'>Enter valid email</div>}
                     </div>
@@ -58,8 +62,12 @@ export default function InputsComp1() {
                             id="outlined-adornment-password"
                             size='small' fullWidth
                             // sx={{ marginBottom: "20px" }}
-                            type="password" label="Password*"
-                            variant="outlined" />
+                            type="password" 
+                            label="Password*"
+                            variant="outlined" 
+                            defaultValue={formComp1.password}
+
+                            />
                         {errors.password && <div className='text-danger s12'>Enter valid password </div>}
                     </div>
 
@@ -70,7 +78,9 @@ export default function InputsComp1() {
                             size='small' fullWidth
                             type="password"
                             label="Confirm Password*"
-                            variant="outlined" />
+                            variant="outlined" 
+                            defaultValue={formComp1.password2}
+                            />
                         {errors.password2 && <div className='text-danger s12'>Password not match</div>}
                     </div>
 

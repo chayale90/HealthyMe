@@ -8,11 +8,12 @@ import { toast } from 'react-toastify';
 import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft';
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 import { useDispatch, useSelector } from 'react-redux';
+import { CircularProgress } from '@mui/material';
 import { theme } from '../../../../services/theme'
 import { btnStyle, btnStyle2, labelBtnUpload } from '../../../../services/btnStyle';
 import { API_URL, doApiMethod, doApiMethodSignUp } from '../../../../services/apiService';
 import { doApiFileUploadAvatars } from '../../../../services/fileUploadFun';
-import { setShowHideComp1, setShowHideComp2, addForm2, resetForm, changeLoading } from "../../../../features/signUpSlice"
+import { setShowHideComp1, setShowHideComp2, addForm2, resetForm, changeLoading,resetForm1 } from "../../../../features/signUpSlice"
 
 
 export default function InputComp2() {
@@ -23,9 +24,10 @@ export default function InputComp2() {
     const fileRef = useRef();
     const [fileChosen, setfileChosen] = useState("No Img chosen");
     const [value, setValue] = useState("female");
+    const [displayProgress, setDisplayProgress] = useState("none");
 
     // console.log({ value });
-    // console.log(form);
+    console.log(form);
 
     useEffect(() => {
         if (loading == "waiting")
@@ -33,11 +35,12 @@ export default function InputComp2() {
     }, [loading]);
 
     const onSubmit = async (_bodyFormData) => {
+        console.log(_bodyFormData);
         dispatch(addForm2({ val: _bodyFormData }))
-        // console.log(_bodyFormData);
     };
 
     const doApiSignUp = async () => {
+        setDisplayProgress("flex")
         let url = API_URL + "/users";
         try {
             let resp = await doApiMethod(url, "POST", form);
@@ -49,15 +52,19 @@ export default function InputComp2() {
                 dispatch(setShowHideComp1());
                 dispatch(setShowHideComp2());
                 dispatch(resetForm())
+                dispatch(resetForm1())
                 dispatch(changeLoading({ val: null }))
+                setDisplayProgress("none")
             }
             else {
-                toast.error("There problem, try again later")
+                toast.error(err.response.data[0])
+                setDisplayProgress("none")
             }
         }
         catch (err) {
             console.log(err);
-            toast.error("There problem, try again later")
+            toast.error(err.response.data.msg)
+            setDisplayProgress("none")
         }
     };
 
@@ -163,6 +170,7 @@ export default function InputComp2() {
                                     dispatch(setShowHideComp1())
                                     dispatch(setShowHideComp2())
                                     dispatch(resetForm())
+                                    dispatch(changeLoading({val:null}))
                                 }}
                                 sx={btnStyle2}
                                 className='loginBtn me-2'>
@@ -171,7 +179,9 @@ export default function InputComp2() {
 
                             <Button type='submit'
                                 sx={btnStyle}
-                                className='loginBtn'>
+                                className='loginBtn'  
+                                endIcon= {<CircularProgress sx={{display:displayProgress}} size={"20px"}  color="success"/>}
+                                >
                                 submit
                             </Button>
 
