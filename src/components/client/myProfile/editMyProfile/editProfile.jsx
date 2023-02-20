@@ -80,6 +80,16 @@ export default function EditProfile({ displayProfile, returnToMyDetails }) {
         setfileChosen("No Img Edit")
     }
 
+        //if for the avatar image
+        let srcImg;
+        if (user.img_url == "" && user.sex == "male") {
+          srcImg = "/images/man.png"
+        } else if (user.img_url == "" && user.sex == "female") {
+          srcImg = "/images/woman.png"
+        } else {
+          srcImg = user.img_url
+        }
+
     return (
         <>
             <ThemeProvider theme={theme}>
@@ -120,7 +130,7 @@ export default function EditProfile({ displayProfile, returnToMyDetails }) {
                                             </label>
                                             <Avatar
                                                 sx={{ width: 120, height: 120, position: "relative" }}
-                                                src={!image ? user.img_url : image}
+                                                src={!image ? srcImg : image}
                                                 alt="AvatarOfFood"
                                             />
                                             {image &&
