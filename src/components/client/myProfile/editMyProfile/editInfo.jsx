@@ -7,6 +7,7 @@ import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { ThemeProvider } from '@mui/material/styles';
 import { toast } from 'react-toastify';
 import { useSelector } from 'react-redux';
+import { CircularProgress } from '@mui/material';
 import { theme } from "../../../../services/theme"
 import { btnStyle } from '../../../../services/btnStyle';
 import { API_URL, doApiMethod } from '../../../../services/apiService';
@@ -24,6 +25,7 @@ export default function EditInfo({ displayInfo, returnToMyDetails }) {
     // console.log(dayjs(user.birth_date));
 
     const [values, setValues] = useState({ birth_date: "", location: '', kg: '', weight: '' });
+    const [displayProgress, setDisplayProgress] = useState("none");
 
     const st = String(user?.birth_date)
     const birth_date = (st).slice(0, 10)
@@ -44,6 +46,7 @@ export default function EditInfo({ displayInfo, returnToMyDetails }) {
     };
 
     const doApiEditInfo = async (_dataBody) => {
+        setDisplayProgress("flex")
         let url = API_URL + "/users/" + user._id;
         try {
             let resp = await doApiMethod(url, "PUT", _dataBody);
@@ -54,11 +57,13 @@ export default function EditInfo({ displayInfo, returnToMyDetails }) {
             }
             else {
                 toast.error("There problem, try again later")
+                setDisplayProgress("none")
             }
         }
         catch (err) {
             console.log(err);
             toast.error("There problem, try again later")
+            setDisplayProgress("none")
         }
     };
 
@@ -154,6 +159,10 @@ export default function EditInfo({ displayInfo, returnToMyDetails }) {
                                         <Button type='submit'
                                             sx={btnStyle}
                                             className='loginBtn mt-3'
+                                            endIcon={<CircularProgress
+                                                sx={{ display: displayProgress }}
+                                                size={"20px"} color="success"
+                                            />}
                                         >
                                             Save
                                         </Button>

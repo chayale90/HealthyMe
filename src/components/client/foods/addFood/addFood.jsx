@@ -7,6 +7,7 @@ import { toast } from 'react-toastify';
 import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft';
 import { Link, useNavigate } from 'react-router-dom';
 import Select from '@mui/material/Select';
+import { CircularProgress } from '@mui/material';
 import { useSelector } from 'react-redux';
 import CloseIcon from '@mui/icons-material/Close';
 import { theme } from '../../../../services/theme';
@@ -26,6 +27,7 @@ export default function AddFood() {
     const [fileChosen, setFileChosen] = useState("");
     const [image, setImage] = useState(null);
     const [displayDiv, setDisplayDiv] = useState("block");
+    const [displayProgress, setDisplayProgress] = useState("none");
 
     // console.log(selectedOption);
 
@@ -35,6 +37,7 @@ export default function AddFood() {
     }
 
     const doApiAddFood = async (bodyFormData) => {
+        setDisplayProgress("flex")
         let url = API_URL + "/foods";
         try {
             let resp = await doApiMethod(url, "POST", bodyFormData);
@@ -46,11 +49,13 @@ export default function AddFood() {
             }
             else {
                 toast.error("There problem, try again later")
+                setDisplayProgress("none")
             }
         }
         catch (err) {
             console.log(err);
             alert("There problem , or category url already in system")
+            setDisplayProgress("none")
         }
     }
 
@@ -81,18 +86,24 @@ export default function AddFood() {
                 <ThemeProvider theme={theme}>
 
                     <div className='mx-auto navButtons'>
-                        <div> <IconButton
-                            onClick={() => {
-                                nav("/foods")
-                            }}
-                            aria-label="back">
-                            <KeyboardArrowLeftIcon />
-                        </IconButton>Back</div>
+                        <div>
+                            <IconButton
+                                onClick={() => {
+                                    nav("/foods")
+                                }}
+                                aria-label="back">
+                                <KeyboardArrowLeftIcon />
+                            </IconButton>Back
+                        </div>
 
-                        <Button type='submit'
+                        <Button
+                            type='submit'
                             className='saveBtn'
                             sx={btnStyle}
-                        >Add</Button>
+                            endIcon={<CircularProgress sx={{ display: displayProgress }} size={"20px"} color="success" />}
+
+                        >Add
+                        </Button>
                     </div>
 
                     <div className="mx-auto mainAddFood" >
