@@ -9,6 +9,7 @@ import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { ThemeProvider } from '@mui/material/styles';
 import { toast } from 'react-toastify';
 import { useSelector } from 'react-redux';
+import { CircularProgress } from '@mui/material';
 import { theme } from "../../../../services/theme"
 import { btnStyle, btnStyle3, btnStyle2 } from '../../../../services/btnStyle';
 import { API_URL, doApiMethod } from '../../../../services/apiService';
@@ -29,6 +30,7 @@ export default function EditProfile({ displayProfile, returnToMyDetails }) {
     const [image, setImage] = useState(null);
     const [displayDiv, setDisplayDiv] = useState("block");
     const [fileChosen, setfileChosen] = useState("No Img Edit");
+    const [displayProgress, setDisplayProgress] = useState("none");
 
     const handleClose = () => {
         nav("/myProfile")
@@ -40,6 +42,7 @@ export default function EditProfile({ displayProfile, returnToMyDetails }) {
     };
 
     const doApiEditProfile = async (_dataBody) => {
+        setDisplayProgress("flex")
         let url = API_URL + "/users/" + user._id;
         try {
             let resp = await doApiMethod(url, "PUT", _dataBody);
@@ -80,15 +83,15 @@ export default function EditProfile({ displayProfile, returnToMyDetails }) {
         setfileChosen("No Img Edit")
     }
 
-        //if for the avatar image
-        let srcImg;
-        if (user.img_url == "" && user.sex == "male") {
-          srcImg = "/images/man.png"
-        } else if (user.img_url == "" && user.sex == "female") {
-          srcImg = "/images/woman.png"
-        } else {
-          srcImg = user.img_url
-        }
+    //if for the avatar image
+    let srcImg;
+    if (user.img_url == "" && user.sex == "male") {
+        srcImg = "/images/man.png"
+    } else if (user.img_url == "" && user.sex == "female") {
+        srcImg = "/images/woman.png"
+    } else {
+        srcImg = user.img_url
+    }
 
     return (
         <>
@@ -110,7 +113,7 @@ export default function EditProfile({ displayProfile, returnToMyDetails }) {
                                         <div className='d-flex mb-4 pb-1 w-75 justify-content-between'>
                                             <IconButton
                                                 onClick={() => { returnToMyDetails() }}
-                                          
+
                                             >
                                                 <ArrowBackIcon />
                                             </IconButton>
@@ -179,9 +182,15 @@ export default function EditProfile({ displayProfile, returnToMyDetails }) {
                                             {errors.info && <div className='text-danger s12'>Enter valid Motto</div>}
                                         </div>
 
-                                        <Button type='submit'
+                                        <Button
+                                            type='submit'
                                             sx={btnStyle}
                                             className='loginBtn mt-2'
+                                            endIcon={<CircularProgress
+                                                sx={{ display: displayProgress }}
+                                                size={"20px"}
+                                                color="success"
+                                            />}
                                         >
                                             Save
                                         </Button>

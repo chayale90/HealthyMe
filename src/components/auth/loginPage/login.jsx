@@ -48,6 +48,7 @@ export default function Login() {
     let url = API_URL + "/users/login"
     try {
       let resp = await doApiMethod(url, "POST", bodyData);
+      // console.log(resp.data);
       // Save the token
       localStorage.setItem(TOKEN_NAME, resp.data.token);
       if (resp.data.role == "admin") {
@@ -57,9 +58,6 @@ export default function Login() {
       }
       else if (resp.data.role == "user")
         nav("/foods")
-      // console.log(resp.data);
-      setDisplayProgress("none")
-
     }
     catch (err) {
       console.log(err);

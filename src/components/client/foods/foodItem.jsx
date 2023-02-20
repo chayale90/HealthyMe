@@ -14,12 +14,22 @@ export default function FoodItem({ item, onLikeClick }) {
   const { user } = useSelector((myStore) => myStore.userSlice);
   const nav = useNavigate()
   const [isHovered, setIsHovered] = useState(false);
-  const [userName, setUserName] = useState("");
-  const [userImg, setUserImg] = useState("");
+  const [otherUser, setOtherUser] = useState({});
 
   useEffect(() => {
     doApiGetInfoUser();
   }, []);
+
+
+    //if for the avatar image
+    let srcImg;
+    if (otherUser.img_url == "" && otherUser.sex == "male") {
+      srcImg = "/images/man.png"
+    } else if (otherUser.img_url == "" && otherUser.sex == "female") {
+      srcImg = "/images/woman.png"
+    } else {
+      srcImg = otherUser.img_url
+    }
 
 
   const doApiGetInfoUser = async () => {
@@ -27,8 +37,9 @@ export default function FoodItem({ item, onLikeClick }) {
       const url = API_URL + "/users/userInfo/" + item.user_id;
       const resp = await doApiGet(url);
       // console.log(resp.data);
-      setUserName(resp.data.name);
-      setUserImg(resp.data.img_url);
+      // setUserName(resp.data.name);
+      // setUserImg(resp.data.img_url);
+      setOtherUser(resp.data)
     } catch (err) {
       console.log(err);
       toast.error("There problem try come back later");
@@ -49,7 +60,8 @@ export default function FoodItem({ item, onLikeClick }) {
               <img
                 onClick={() => { user._id == item.user_id ? nav("/myFoodInfo/" + item._id) : nav("/foodInfo/" + item._id) }}
                 className='imgFood w-100'
-                src={item.img_url} alt="imgFood"
+                src={item.img_url} 
+                alt="imgFood"
               />
 
               {isHovered &&
@@ -67,13 +79,13 @@ export default function FoodItem({ item, onLikeClick }) {
               <div className="d-flex align-items-center">
                 <Avatar
                   sx={{ float: "start", width: 33, height: 33 }}
-                  src={userImg}
+                  src={srcImg}
                   alt="AvatarOfFood"
                 />
                 <Link style={{ fontWeight: 500 }} className="s16 ms-2 dark  underLine"
                   to={(user._id == item.user_id) ? "/myProfile" : "/userProfile/" + item.user_id}
                 >
-                  {userName}
+                  {otherUser.name}
                 </Link>
               </div>
 

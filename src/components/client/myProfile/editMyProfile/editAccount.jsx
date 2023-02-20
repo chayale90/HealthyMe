@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Avatar, Dialog, IconButton, InputBase, Paper } from '@mui/material'
+import { Avatar, Dialog, IconButton, InputBase, Paper,CircularProgress } from '@mui/material'
 import { OutlinedInput, InputLabel, InputAdornment, Button, TextField } from '@mui/material';
 import { Link, useNavigate } from 'react-router-dom';
 import Visibility from '@mui/icons-material/Visibility';
@@ -28,6 +28,7 @@ export default function EditAccount({ displayAccount, returnToMyDetails }) {
         required: true,
         pattern: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i
     })
+    const [displayProgress, setDisplayProgress] = useState("none");
 
     const handleChange = (prop) => (event) => {
         setValues({ ...values, [prop]: event.target.value });
@@ -59,26 +60,29 @@ export default function EditAccount({ displayAccount, returnToMyDetails }) {
 
     const onSubmit = async (_dataBody) => {
         delete _dataBody.password3;
-        console.log(_dataBody);
+        // console.log(_dataBody);
         await doApiEditAccount(_dataBody);
     };
 
     const doApiEditAccount = async (_dataBody) => {
+        setDisplayProgress("flex")
         let url = API_URL + "/users/changeMyPass";
         try {
             let resp = await doApiMethod(url, "PATCH", _dataBody);
             if (resp.data) {
-                console.log(resp.data);
+                // console.log(resp.data);
                 toast.success("Password changed successfully!");
                 nav("/myProfile");
             }
             else {
                 toast.error("There problem, try again later")
+                setDisplayProgress("none")
             }
         }
         catch (err) {
             console.log(err);
             toast.error("There problem, try again later")
+            setDisplayProgress("none")
         }
     };
 
@@ -210,6 +214,8 @@ export default function EditAccount({ displayAccount, returnToMyDetails }) {
                                 <Button type='submit'
                                     sx={btnStyle}
                                     className='loginBtn mt-2'
+                                    endIcon={<CircularProgress sx={{ display: displayProgress }} size={"20px"} color="success" />}
+
                                 >
                                     Save
                                 </Button>

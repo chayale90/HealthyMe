@@ -10,7 +10,7 @@ import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogTitle from '@mui/material/DialogTitle';
 import CheckUserComp from '../../auth/checkComps/checkUserComp';
-import { setOpenFollowers, setOpenFollowings,setUserIdFollowers,setUserIdFollowings } from "../../../features/dialogSlice"
+import { setOpenFollowers, setOpenFollowings, setUserIdFollowers, setUserIdFollowings } from "../../../features/dialogSlice"
 import { API_URL, doApiGet, doApiMethod } from '../../../services/apiService';
 import CheckUserActiveComp from '../../auth/checkComps/checkUserActiveComp';
 import { toast } from 'react-toastify';
@@ -26,6 +26,7 @@ export default function UserProfilePage() {
   const params = useParams();
   const [isFollow, setIsFollow] = useState(Boolean);
   const [first, setFirst] = useState(true);
+  const [displayProgress, setDisplayProgress] = useState("none");
 
   // console.log("***************");
   // console.log(otherUser.followers);
@@ -63,27 +64,36 @@ export default function UserProfilePage() {
   };
 
   const onClickFollowers = () => {
-    dispatch(setUserIdFollowers({ val:  params["id"] }))
+    dispatch(setUserIdFollowers({ val: params["id"] }))
     dispatch(setOpenFollowers({ val: true }))
   }
 
   const onClickFollowings = () => {
-    dispatch(setUserIdFollowings({ val:  params["id"] }))
+    dispatch(setUserIdFollowings({ val: params["id"] }))
     dispatch(setOpenFollowings({ val: true }))
-
   }
 
+
   const onFollowClick = async () => {
+    setDisplayProgress("flex")
     const url = API_URL + "/users/changeFollow/" + params["id"];
     try {
       let resp = await doApiMethod(url, "PATCH")
       console.log(resp.data);
-      setIsFollow(!isFollow);
-
+      if (resp.data) {
+        setIsFollow(!isFollow);
+        setDisplayProgress("none")
+      }
+      else {
+        toast.error("There problem, try again later")
+        setDisplayProgress("none")
+      }
     }
     catch (err) {
       console.log(err);
       toast.error("There problem try come back later");
+      setDisplayProgress("none")
+
     }
   }
 
@@ -99,6 +109,15 @@ export default function UserProfilePage() {
     setOpen(true);
   };
 
+  //if for the avatar image
+  let srcImg;
+  if (otherUser.img_url == "" && otherUser.sex == "male") {
+    srcImg = "/images/man.png"
+  } else if (otherUser.img_url == "" && otherUser.sex == "female") {
+    srcImg = "/images/woman.png"
+  } else {
+    srcImg = otherUser?.img_url
+  }
 
   return (
     <div>
@@ -111,14 +130,14 @@ export default function UserProfilePage() {
               <div className='d-none d-sm-block '>
                 <Avatar
                   alt="myAvater"
-                  src={otherUser?.img_url}
+                  src={srcImg}
                   sx={{ width: 160, height: 160 }}
                 />
               </div>
               <div className='d-block d-sm-none'>
                 <Avatar
                   alt="myAvater"
-                  src={otherUser?.img_url}
+                  src={srcImg}
                   sx={{ width: 70, height: 70 }}
                 />
               </div>
@@ -130,12 +149,13 @@ export default function UserProfilePage() {
                   <div className=' d-md-none d-block'>
                     <Button
                       onClick={onFollowClick}
+                      endIcon={<CircularProgress sx={{ display: displayProgress }} size={"20px"} color={!isFollow ? "primary" : "success"} />}
                       style={{ float: "right" }}
                       className='loginBtn'
                       sx={!isFollow ? btnStyle2 : btnStyle}
-                      >
-      
-                        {!isFollow ? "Follow" : "Foolowing "}
+                    >
+
+                      {!isFollow ? "Follow" : "Foolowing "}
                     </Button>
                   </div>
 
@@ -174,6 +194,7 @@ export default function UserProfilePage() {
 
               <div className='ms-auto justify-content-end d-none d-md-block '>
                 <Button
+                  endIcon={<CircularProgress sx={{ display: displayProgress }} size={"20px"} color={!isFollow ? "primary" : "success"} />}
                   onClick={onFollowClick}
                   style={{ float: "right" }}
                   className='loginBtn px-4'
@@ -196,7 +217,7 @@ export default function UserProfilePage() {
           </div>
         }
 
-        <UserPostsList/>
+        <UserPostsList />
 
         <Dialog
           open={open}
