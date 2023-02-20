@@ -14,9 +14,9 @@ export default function LoginPage() {
                     <div className='ps-lg-5 ms-lg-5 me-lg-1'>
                         <div className='d-flex justify-content-between'>
                           <Link to="/"> <Logo margin="mb-5"/></Link> 
-                            <div className='d-lg-none d-block col-5 mt-5 mb-2'>
+                            {/* <div className='d-lg-none d-block col-5 mt-5 mb-2'>
                                 <ImagesPosts width={"100%"}/>
-                            </div>
+                            </div> */}
                         </div>
 
                         <Login/>
