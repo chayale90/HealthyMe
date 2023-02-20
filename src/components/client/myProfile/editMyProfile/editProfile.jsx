@@ -131,7 +131,7 @@ export default function EditProfile({ displayProfile, returnToMyDetails }) {
                                             <Avatar
                                                 sx={{ width: 120, height: 120, position: "relative" }}
                                                 src={!image ? srcImg : image}
-                                                alt="AvatarOfFood"
+                                                alt="AvatarImg"
                                             />
                                             {image &&
                                                 <div
