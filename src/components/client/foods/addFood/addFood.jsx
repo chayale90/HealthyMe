@@ -141,7 +141,7 @@ export default function AddFood() {
                         </div>
 
 
-                        <FormControl fullWidth sx={{ mt: 5, mb: 4 }}>
+                        <FormControl fullWidth sx={{ mt: 5, mb: 4 }} size="small">
                             <InputLabel id="demo-simple-select-label">Category</InputLabel>
                             <Select
                                 {...register('categories_url', { required: true, minLength: 2, maxLength: 99 })}
@@ -151,6 +151,7 @@ export default function AddFood() {
                                 label="Category"
                                 onChange={(e) => setSelectedOption(e.target.value)}
                                 name="categories_url"
+                                variant="outlined"
                             >
                                 <MenuItem value={"salads"}>Salads</MenuItem>
                                 <MenuItem value={"shakes"}>Shakes</MenuItem>
@@ -168,6 +169,7 @@ export default function AddFood() {
                                 id="outlined-basic" fullWidth
                                 placeholder="Descrip your dish.."
                                 variant="outlined"
+                                size='small'
                             />
                             {errors.description && <div className='text-danger s14'>{errors?.description?.message}</div>}
                         </div>
