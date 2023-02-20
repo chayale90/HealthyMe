@@ -44,7 +44,7 @@ export default function InputComp2() {
             if (resp.data._id) {
                 console.log(resp.data);
                 await doApiFileUploadAvatars(resp.data._id, fileRef);
-                toast.success("You signed up succefuly");
+                toast.success("You signed up successfully");
                 nav("/");
                 dispatch(setShowHideComp1());
                 dispatch(setShowHideComp2());
