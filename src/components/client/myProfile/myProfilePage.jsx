@@ -38,6 +38,16 @@ export default function MyProfilePage() {
     dispatch(setOpenFollowings({ val: true }))
   }
 
+    //if for the avatar image
+    let srcImg;
+    if (user.img_url == "" && user.sex == "male") {
+      srcImg = "/images/man.png"
+    } else if (user.img_url == "" && user.sex == "female") {
+      srcImg = "/images/woman.png"
+    } else {
+      srcImg = user.img_url
+    }
+
   return (
     <div>
       <div className='container mt-md-5 mt-4'>
@@ -48,14 +58,14 @@ export default function MyProfilePage() {
           <div className='d-none d-sm-block'>
             <Avatar
               alt="myAvater"
-              src={user.img_url}
+              src={srcImg}
               sx={{ width: 160, height: 160 }}
             />
           </div>
           <div className='d-block d-sm-none'>
             <Avatar
               alt="myAvater"
-              src={user.img_url}
+              src={srcImg}
               sx={{ width: 70, height: 70 }}
             />
           </div>

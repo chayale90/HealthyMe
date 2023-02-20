@@ -6,18 +6,20 @@ import { IconButton, OutlinedInput, InputLabel, InputAdornment, Button, TextFiel
 import FormControl from '@mui/material/FormControl';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
+import { CircularProgress } from '@mui/material';
 import { ThemeProvider } from '@mui/material/styles';
 import { theme } from "../../../services/theme"
 // import style from './logintest.module.css'
 import { API_URL, doApiMethod, TOKEN_NAME } from '../../../services/apiService';
-import "./login.css"
 import { btnStyle } from '../../../services/btnStyle';
+import "./login.css"
 
 
 export default function Login() {
 
   const { register, handleSubmit, formState: { errors } } = useForm();
   const nav = useNavigate();
+  const [displayProgress, setDisplayProgress] = useState("none");
 
   const [values, setValues] = useState({ password: '', showPassword: false });
 
@@ -42,6 +44,7 @@ export default function Login() {
   }
 
   const doApiForm = async (bodyData) => {
+    setDisplayProgress("flex")
     let url = API_URL + "/users/login"
     try {
       let resp = await doApiMethod(url, "POST", bodyData);
@@ -55,10 +58,13 @@ export default function Login() {
       else if (resp.data.role == "user")
         nav("/foods")
       // console.log(resp.data);
+      setDisplayProgress("none")
+
     }
     catch (err) {
       console.log(err);
       toast.error("User or password worng, or service down");
+      setDisplayProgress("none")
     }
   }
 
@@ -72,12 +78,12 @@ export default function Login() {
   return (
 
     <div>
-      <h2 className='s22'>Log In</h2>
-      <h6 className='welcomeText'>Welcome back! Please enter your details.</h6>
+      <ThemeProvider theme={theme}>
+        <h2 className='s22'>Log In</h2>
+        <h6 className='welcomeText'>Welcome back! Please enter your details.</h6>
 
-      <form>
-        <div className='inputEmail'>
-          <ThemeProvider theme={theme}>
+        <form>
+          <div className='inputEmail'>
             <InputLabel style={{ fontSize: "14px" }} >Email</InputLabel>
             <OutlinedInput size="small"
               autoComplete="userName"
@@ -85,14 +91,13 @@ export default function Login() {
               label="Email"
               id="outlined-basic"
               variant="outlined"
-              type={"text"} />
-          </ThemeProvider>
-          {errors.email && <div className="text-danger s12">Enter valid email</div>}
+              type={"text"}
+            />
+            {errors.email && <div className="text-danger s12">Enter valid email</div>}
 
-        </div>
+          </div>
 
-        <div className='inputPass'>
-          <ThemeProvider theme={theme}>
+          <div className='inputPass'>
             <InputLabel style={{ fontSize: "14px" }} htmlFor="outlined-adornment-password">Password</InputLabel>
             <OutlinedInput size="small" fullWidth {...passwordRef}
               id="outlined-adornment-password"
@@ -114,23 +119,39 @@ export default function Login() {
               }
               label="Password"
             />
-          </ThemeProvider>
-          {errors.password && <div className="text-danger s12">Enter min 3 charts password</div>}
+            {errors.password && <div className="text-danger s12">Enter min 3 charts password</div>}
+          </div>
 
-        </div>
+          <Link to=""
+            style={{ textDecoration: "none" }}>
+            <p className='forgot1 s14 purple'>
+              Forgot password?
+            </p>
+          </Link>
 
-        <Link to="" style={{ textDecoration: "none" }}><p className='forgot1 s14 purple'>Forgot password?</p></Link>
+          <Button
+            onClick={handleSubmit(onSubForm)}
+            sx={btnStyle}
+            className='loginBtn'
+            endIcon={<CircularProgress sx={{ display: displayProgress }} size={"20px"} color="success" />}
+          >
+            Log In
+          </Button>
 
-        <Button  onClick={handleSubmit(onSubForm)} sx={btnStyle} className='loginBtn'>Log In</Button>
+          <div style={{ marginTop: "14px", marginBottom: "6px" }} className='d-flex justify-content-center'>
+            <p className='s14 ' style={{ marginBottom: 0 }}>Don’t have an account?</p>
+            <Link to="/signUp" style={{ textDecoration: "none" }}><p style={{ marginLeft: "6px", marginBottom: 0 }} className='purple s14'>sign up now!</p></Link>
+          </div>
 
-        <div style={{ marginTop: "14px", marginBottom: "6px" }} className='d-flex justify-content-center'>
-          <p className='s14 ' style={{ marginBottom: 0 }}>Don’t have an account?</p>
-          <Link to="/signUp" style={{ textDecoration: "none" }}><p style={{ marginLeft: "6px", marginBottom: 0 }} className='purple s14'>sign up now!</p></Link>
-        </div>
+          <Link to=""
+            style={{ textDecoration: "none" }}>
+            <p className='purple text-center m-0 s14'>
+              Forgot password?
+            </p>
+          </Link>
 
-        <Link to="" style={{ textDecoration: "none" }}><p className='purple text-center m-0 s14'>Forgot password?</p></Link>
-
-      </form >
+        </form >
+      </ThemeProvider>
     </div>
 
   )

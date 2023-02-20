@@ -4,17 +4,15 @@ import { createSlice } from "@reduxjs/toolkit";
 // setting the slice his first store/state
 const initValue = {
     form: {},
+    formComp1:{},
     showHideComp1: true,
     showHideComp2: false,
     loading: null
 }
 
 const signUpSlice = createSlice({
-    // name -> שם בזכרון של הסלייס והדיבאגר
     name: "signUp",
-    // מאפיין שמכיל את הסטייט ההתחלתי של הסלייס
     initialState: initValue,
-    // יכיל את הפונקציות/אקשנים שישפיעו על הסטייט של הסלייס
     reducers: {
         setShowHideComp1: (state, action) => {
             state.showHideComp1 = (!state.showHideComp1);
@@ -22,11 +20,10 @@ const signUpSlice = createSlice({
         setShowHideComp2: (state, action) => {
             state.showHideComp2 = (!state.showHideComp2);
         },
-        // actions -> משמש כדי לאסוף פרמטרים מהאקשן
-        // ששיגרנו , ותמיד המאפיין של האובייקט יהיה בתוך מאפיין
-        // PAYLOAD - מטען
         addForm: (state, action) => {
             state.form = { ...action.payload.val }
+            state.formComp1 = { ...action.payload.val }
+            delete state.form.password2;
         },
         addForm2: (state, action) => {
             state.form = { ...state.form, ...action.payload.val }
@@ -37,9 +34,12 @@ const signUpSlice = createSlice({
         },
         changeLoading: (state, action) => {
             state.loading = action.payload.val
-        }
+        }, 
+        resetForm1: (state, actions) => {
+            state.formComp1 = {};
+        },
     }
 })
 
-export const { setShowHideComp1, setShowHideComp2, addForm,addForm2, resetForm, changeLoading } = signUpSlice.actions;
+export const { setShowHideComp1, setShowHideComp2, addForm,addForm2, resetForm, changeLoading,resetForm1 } = signUpSlice.actions;
 export default signUpSlice.reducer;
