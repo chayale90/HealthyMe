@@ -71,8 +71,8 @@ export default function UserProfilePage() {
   const onClickFollowings = () => {
     dispatch(setUserIdFollowings({ val: params["id"] }))
     dispatch(setOpenFollowings({ val: true }))
-
   }
+
 
   const onFollowClick = async () => {
     setDisplayProgress("flex")
@@ -109,6 +109,15 @@ export default function UserProfilePage() {
     setOpen(true);
   };
 
+  //if for the avatar image
+  let srcImg;
+  if (otherUser.img_url == "" && otherUser.sex == "male") {
+    srcImg = "/images/man.png"
+  } else if (otherUser.img_url == "" && otherUser.sex == "female") {
+    srcImg = "/images/woman.png"
+  } else {
+    srcImg = otherUser?.img_url
+  }
 
   return (
     <div>
@@ -121,14 +130,14 @@ export default function UserProfilePage() {
               <div className='d-none d-sm-block '>
                 <Avatar
                   alt="myAvater"
-                  src={otherUser?.img_url}
+                  src={srcImg}
                   sx={{ width: 160, height: 160 }}
                 />
               </div>
               <div className='d-block d-sm-none'>
                 <Avatar
                   alt="myAvater"
-                  src={otherUser?.img_url}
+                  src={srcImg}
                   sx={{ width: 70, height: 70 }}
                 />
               </div>

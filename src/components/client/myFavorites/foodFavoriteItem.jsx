@@ -15,6 +15,7 @@ export default function FoodFavoriteItem({ item }) {
   const [isHovered, setIsHovered] = useState(false);
   const [userName, setUserName] = useState("");
   const [userImg, setUserImg] = useState("");
+  const [otherUser, setOtherUser] = useState({});
 
   useEffect(() => {
     doApiGetInfoUser();
@@ -26,14 +27,23 @@ export default function FoodFavoriteItem({ item }) {
       const url = API_URL + "/users/userInfo/" + item.user_id;
       const resp = await doApiGet(url);
       // console.log(resp.data);
-      setUserName(resp.data.name);
-      setUserImg(resp.data.img_url);
+      setOtherUser(resp.data)
     }
     catch (err) {
       console.log(err);
       toast.error("There problem try come back later");
     }
   };
+
+  //if for the avatar image
+  let srcImg;
+  if (otherUser.img_url == "" && otherUser.sex == "male") {
+    srcImg = "/images/man.png"
+  } else if (otherUser.img_url == "" && otherUser.sex == "female") {
+    srcImg = "/images/woman.png"
+  } else {
+    srcImg = otherUser.img_url
+  }
 
   return (
     <React.Fragment>
@@ -67,7 +77,7 @@ export default function FoodFavoriteItem({ item }) {
               <div className="d-flex align-items-center">
                 <Avatar
                   sx={{ float: "start", width: 33, height: 33 }}
-                  src={userImg}
+                  src={srcImg}
                   alt="AvatarOfFood"
                 />
                 <Link style={{ fontWeight: 500 }} className="s16 ms-2 dark  underLine"
@@ -78,7 +88,7 @@ export default function FoodFavoriteItem({ item }) {
               </div>
 
               <div className="me-1">
-                  <FavoriteIcon sx={{ color: "red" }} />     
+                <FavoriteIcon sx={{ color: "red" }} />
               </div>
 
             </div>

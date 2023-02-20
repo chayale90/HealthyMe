@@ -8,6 +8,15 @@ import { setOpenFollowers } from "../../../features/dialogSlice"
 export default function FollowerItem({ item }) {
     const dispatch = useDispatch();
 
+    //if for the avatar image
+    let srcImg;
+    if (item.img_url == "" && item.sex == "male") {
+        srcImg = "/images/man.png"
+    } else if (item.img_url == "" && item.sex == "female") {
+        srcImg = "/images/woman.png"
+    } else {
+        srcImg = item?.img_url
+    }
     return (
         <div>
 
@@ -15,7 +24,7 @@ export default function FollowerItem({ item }) {
                 <div className='d-flex'>
                     <Avatar
                         sx={{ ms: 2, width: 32, height: 32 }}
-                        src={item.img_url}
+                        src={srcImg}
                         alt="followerImg"
                     />
                     <Link
