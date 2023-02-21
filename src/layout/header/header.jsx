@@ -117,9 +117,9 @@ export default function Header() {
   //if for the avatar image
   let srcImg;
   if (user.img_url == "" && user.sex == "male") {
-    srcImg = "public/images/man.png"
+    srcImg = "/images/man.png"
   } else if (user.img_url == "" && user.sex == "female") {
-    srcImg = "public/images/woman.png"
+    srcImg = "/images/woman.png"
   } else {
     srcImg = user.img_url
   }
