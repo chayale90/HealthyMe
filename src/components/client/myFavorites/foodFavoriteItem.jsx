@@ -13,8 +13,6 @@ export default function FoodFavoriteItem({ item }) {
   const { user } = useSelector((myStore) => myStore.userSlice);
   const nav = useNavigate()
   const [isHovered, setIsHovered] = useState(false);
-  const [userName, setUserName] = useState("");
-  const [userImg, setUserImg] = useState("");
   const [otherUser, setOtherUser] = useState({});
 
   useEffect(() => {
@@ -83,7 +81,7 @@ export default function FoodFavoriteItem({ item }) {
                 <Link style={{ fontWeight: 500 }} className="s16 ms-2 dark  underLine"
                   to={(user._id == item.user_id) ? "/myProfile" : "/userProfile/" + item.user_id}
                 >
-                  {userName}
+                  {otherUser.name}
                 </Link>
               </div>
 

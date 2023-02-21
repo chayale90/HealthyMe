@@ -18,9 +18,11 @@ export default function PostItem({ item }) {
                 onMouseEnter={() => setIsHovered(true)}
                 onMouseLeave={() => setIsHovered(false)}
             >
-                <img className='w-100 imgFoodPost'
-                onClick={() => { user._id == item.user_id ? nav("/myFoodInfo/" + item._id) : nav("/foodInfo/" + item._id) }}
-                src={item.img_url}
+                <img
+                    className='w-100 imgFood'
+                    style={{ borderRadius: "9px" }}
+                    onClick={() => { user._id == item.user_id ? nav("/myFoodInfo/" + item._id) : nav("/foodInfo/" + item._id) }}
+                    src={item.img_url}
                     alt="imgFood"
                 />
 

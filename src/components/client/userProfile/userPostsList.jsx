@@ -51,7 +51,7 @@ export default function UserPostsList() {
     return (
         <div className='container pt-5'>
             <hr />
-            <div className='row justify-content-center mt-4'>
+            <div className='row justify-content-center mt-5'>
                 {items.map((item, i) => {
                     return (
                         <PostItem key={item._id} index={i} item={item} />
