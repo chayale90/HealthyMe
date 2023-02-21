@@ -76,7 +76,7 @@ export default function Login() {
 
   const loginGuest = () => {
     doApiForm({
-      email: "chaya@walla.com",
+      email: "guest@walla.com",
       password: "1234"
     });
   }
