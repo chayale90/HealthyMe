@@ -7,6 +7,7 @@ import { toast } from 'react-toastify';
 import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import Select from '@mui/material/Select';
+import { CircularProgress } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 import { theme } from '../../../../services/theme';
 import CameraAltIcon from '@mui/icons-material/CameraAlt';
@@ -17,7 +18,7 @@ import { doApiFileUploadFood, doApiFileEditFood } from '../../../../services/fil
 import { useDispatch, useSelector } from 'react-redux';
 import { changeLoading } from "../../../../features/homeSlice";
 
-export default function AddFood() {  
+export default function AddFood() {
     const nav = useNavigate();
     const fileRef = useRef();
     const inputRef = useRef();
@@ -99,10 +100,10 @@ export default function AddFood() {
     return (
         <div className='container mt-3 mb-4'>
             <CheckUserActiveComp />
+            <ThemeProvider theme={theme}>
+                {foodInfo.name ?
+                    <form onSubmit={handleSubmit(onSubForm)}>
 
-            {foodInfo.name ?
-                <form onSubmit={handleSubmit(onSubForm)}>
-                    <ThemeProvider theme={theme}>
 
                         <div className='mx-auto navButtons'>
                             <div> <IconButton
@@ -281,9 +282,16 @@ export default function AddFood() {
                                 </div>
                             </div>
                         </div>
-                    </ThemeProvider>
-                </form>
-                : <h2>Loading...</h2>}
+
+                    </form>
+                    :
+                    <div style={{ display: "flex", alignItems: "center", minHeight: '300px' }}>
+                        <div style={{ margin: "0 auto" }}>
+                            <CircularProgress size={"80px"} />
+                        </div>
+                    </div>
+                }
+            </ThemeProvider>
         </div >
     )
 }

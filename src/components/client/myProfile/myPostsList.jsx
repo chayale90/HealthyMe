@@ -1,11 +1,14 @@
 import React, { useEffect, useState } from 'react'
+import { useNavigate } from 'react-router-dom';
 import useInfiniteScroll from 'react-infinite-scroll-hook';
 import AddIcon from '@mui/icons-material/Add';
-import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
+import { ThemeProvider } from '@mui/material/styles';
+import { theme } from "../../../services/theme"
+import { CircularProgress } from '@mui/material';
 import { Fab } from '@mui/material';
 import { API_URL, doApiGet } from '../../../services/apiService'
 import PostItem from './postItem';
-import { toast } from 'react-toastify';
 
 
 export default function MyPostsList() {
@@ -50,25 +53,31 @@ export default function MyPostsList() {
 
     return (
         <div>
-            <div className='row justify-content-center'>
-                {items.map((item, i) => {
-                    return (
-                        <PostItem key={item._id} index={i} item={item} />
-                    )
-                })}
-                {(loading) && (
-                    <div ref={sentryRef}>
-                        <div>Loading...</div>
-                    </div>
-                )}
-            </div>
+            <ThemeProvider theme={theme}>
+                <div className='row justify-content-center'>
+                    {items.map((item, i) => {
+                        return (
+                            <PostItem key={item._id} index={i} item={item} />
+                        )
+                    })}
+                    {(loading) && (
+                        <div ref={sentryRef}>
+                            <div style={{ display: "flex", alignItems: "center", minHeight: '100px' }}>
+                                <div style={{ margin: "0 auto" }}>
+                                    <CircularProgress size={"50px"} />
+                                </div>
+                            </div>
+                        </div>
+                    )}
+                </div>
 
-            <Fab
-                sx={{ background: "#A435F0", color: "white", "&:hover": { color: "white", background: "#912CD6" }, position: 'sticky', bottom: 70, left: 1900 }}
-                onClick={() => { nav("/addFood") }}
-                aria-label="addFood">
-                <AddIcon />
-            </Fab>
+                <Fab
+                    sx={{ background: "#A435F0", color: "white", "&:hover": { color: "white", background: "#912CD6" }, position: 'sticky', bottom: 70, left: 1900 }}
+                    onClick={() => { nav("/addFood") }}
+                    aria-label="addFood">
+                    <AddIcon />
+                </Fab>
+            </ThemeProvider>
         </div>
     )
 }
