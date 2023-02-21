@@ -3,11 +3,12 @@ import { List, ListItem } from '@mui/material';
 import useInfiniteScroll from 'react-infinite-scroll-hook';
 import { useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
+import { CircularProgress } from '@mui/material';
 import { API_URL, doApiGet } from '../../../services/apiService';
 import FollowerItem from "./followerItem";
 import CheckUserActiveComp from '../../auth/checkComps/checkUserActiveComp';
 
-export default function FollowersList({usersSearch}) {
+export default function FollowersList({ usersSearch }) {
   const { userIdFollowers } = useSelector(myStore => myStore.dialogSlice);
 
   const [items, setItems] = useState([]);
@@ -22,7 +23,7 @@ export default function FollowersList({usersSearch}) {
 
   useEffect(() => {
     if (usersSearch)
-    doApiSearch()
+      doApiSearch()
   }, [usersSearch])
 
 
@@ -70,7 +71,7 @@ export default function FollowersList({usersSearch}) {
   });
 
   return (
-    <List>
+    <div>
       <CheckUserActiveComp />
       {items.map((item, i) => {
         return (
@@ -78,10 +79,14 @@ export default function FollowersList({usersSearch}) {
         )
       })}
       {(loading) && (
-        <ListItem ref={sentryRef}>
-          <div>Loading...</div>
-        </ListItem>
+        <div ref={sentryRef}>
+          <div style={{ display: "flex", alignItems: "center", minHeight: '100px' }}>
+            <div style={{ margin: "0 auto", color: "#A435F0" }}>
+              <CircularProgress size={"40px"} />
+            </div>
+          </div>
+        </div>
       )}
-    </List>
+    </div>
   );
 };

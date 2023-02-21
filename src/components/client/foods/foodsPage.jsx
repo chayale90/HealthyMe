@@ -185,7 +185,8 @@ export default function FoodsPage() {
       {hasMore &&
         <div style={{ display: "flex" }}>
           <div style={{ margin: "0 auto" }} >
-            <Button style={{ color: '#A435F0', border: '#A435F0 1px solid' }} variant="outlined" onClick={loadMore}>Load More</Button></div>
+            <Button style={{ color: '#A435F0', border: '#A435F0 1px solid' }} variant="outlined" onClick={loadMore}>Load More</Button>
+            </div>
         </div>
       }
 
