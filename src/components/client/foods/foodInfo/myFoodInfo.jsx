@@ -29,8 +29,7 @@ export default function MyFoodInfo() {
     const nav = useNavigate();
     const dispatch = useDispatch();
     const [food, setFood] = useState({})
-    const [userName, setUserName] = useState("");
-    const [userImg, setUserImg] = useState("");
+    const [otherUser, setOtherUser] = useState({});
     const foodId = params["id"]
 
     useEffect(() => {
@@ -56,13 +55,13 @@ export default function MyFoodInfo() {
             const url = API_URL + "/users/userInfo/" + user_id;
             const resp = await doApiGet(url);
             // console.log(resp.data);
-            setUserName(resp.data.name);
-            setUserImg(resp.data.img_url);
+            setOtherUser(resp.data);
         } catch (err) {
             console.log(err);
             toast.error("There problem try come back later");
         }
     };
+
     //dialog open-close
     const [open, setOpen] = useState(false);
 
@@ -73,7 +72,6 @@ export default function MyFoodInfo() {
     const ClickDelete = () => {
         setOpen(true);
     };
-
 
     const onDeleteFood = async () => {
         try {
@@ -90,7 +88,15 @@ export default function MyFoodInfo() {
         }
     };
 
-
+    const srcImg = React.useMemo(() => {
+        if (user.img_url == "" && user.sex == "male") {
+            return "/images/man.png";
+        } else if (user.img_url == "" && user.sex == "female") {
+            return "/images/woman.png";
+        } else {
+            return user.img_url;
+        }
+    }, [user]);
 
     return (
         <ThemeProvider theme={theme}>
@@ -100,19 +106,19 @@ export default function MyFoodInfo() {
                         <div style={{ position: 'relative' }} className='row align-items-center'>
                             <div style={{ position: 'relative' }} className='col-4 d-none d-md-block p-0'>
                                 <img className='imgFoodInfo' style={{ borderRadius: "12px" }} src={food.img_url} alt="foodImg" />
-                                <div className='likesDiv m-1'>  <FavoriteIcon sx={{ color: "#A435F0", marginRight: 1 }} />{food?.likes?.length} Likes</div>
+                                <div className='likesDiv m-1'><FavoriteIcon sx={{ color: "#A435F0", marginRight: 1 }} />{food?.likes?.length} Likes</div>
                             </div>
 
                             <div className="d-flex d-md-none align-items-center">
                                 <Avatar
                                     sx={{ float: "start", width: 33, height: 33 }}
-                                    src={userImg}
+                                    src={srcImg}
                                     alt="AvatarOfFood"
                                 />
                                 <Link style={{ fontWeight: 500 }} className="s16 ms-2 dark underLine"
                                     to={"/myProfile"}
                                 >
-                                    {userName}
+                                    {otherUser.name}
                                 </Link>
                             </div>
 
@@ -120,13 +126,13 @@ export default function MyFoodInfo() {
                                 <div className="d-none d-md-flex align-items-center mb-2 mb-lg-4 mt-lg-2 mt-0">
                                     <Avatar
                                         sx={{ float: "start", width: 33, height: 33 }}
-                                        src={userImg}
+                                        src={srcImg}
                                         alt="AvatarOfFood"
                                     />
                                     <Link style={{ fontWeight: 500 }} className="s16 ms-2 dark underLine"
                                         to={"/myProfile"}
                                     >
-                                        {userName}
+                                        {otherUser.name}
                                     </Link>
                                 </div>
 
@@ -170,12 +176,10 @@ export default function MyFoodInfo() {
                                 <IconButton
                                     style={{ position: 'absolute', right: 45, top: 0, border: "0.5px solid #A7A7A7" }}
                                     onClick={() => { nav("/editFood/" + foodId) }}
-
                                 >
                                     <EditIcon />
                                 </IconButton>
                             </div>
-
 
                             <Dialog
                                 open={open}
@@ -212,7 +216,6 @@ export default function MyFoodInfo() {
                             }
                         </div>
 
-
                         <Fab
                             sx={{ background: "#A435F0", color: "white", "&:hover": { color: "white", background: "#912CD6" }, position: 'sticky', bottom: 70, left: 1900 }}
                             onClick={() => { nav("/addFood") }}
@@ -223,8 +226,8 @@ export default function MyFoodInfo() {
                     </div>
                     :
                     <div style={{ display: "flex", alignItems: "center", minHeight: '300px' }}>
-                        <div style={{ margin: "0 auto", color: "#A435F0" }}>
-                            <CircularProgress size={"100px"} />
+                        <div style={{ margin: "0 auto" }}>
+                            <CircularProgress size={"80px"} />
                         </div>
                     </div>
                 }

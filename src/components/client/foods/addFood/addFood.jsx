@@ -69,7 +69,6 @@ export default function AddFood() {
         }
         reader.readAsDataURL(file);
         setDisplayDiv("none")
-
     }
 
     const removeIMG = () => {

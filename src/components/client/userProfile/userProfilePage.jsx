@@ -211,8 +211,8 @@ export default function UserProfilePage() {
           </div>
           :
           <div style={{ display: "flex", alignItems: "center", minHeight: '300px' }}>
-            <div style={{ margin: "0 auto", color: "#A435F0" }}>
-              <CircularProgress size={"100px"} />
+            <div style={{ margin: "0 auto" }}>
+              <CircularProgress size={"80px"} />
             </div>
           </div>
         }

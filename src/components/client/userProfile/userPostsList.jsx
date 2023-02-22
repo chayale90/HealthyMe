@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import useInfiniteScroll from 'react-infinite-scroll-hook';
 import AddIcon from '@mui/icons-material/Add';
 import { useNavigate, useParams } from 'react-router-dom';
+import { CircularProgress } from '@mui/material';
 import { Fab } from '@mui/material';
 import { API_URL, doApiGet } from '../../../services/apiService'
 import PostItem from '../myProfile/postItem';
@@ -14,13 +15,13 @@ export default function UserPostsList() {
     const [hasNextPage, setHasNextPage] = useState(true);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(undefined);
-  
+
     const params = useParams();
 
     useEffect(() => {
         loadMore()
-      }, [hasNextPage])
-    
+    }, [hasNextPage])
+
     const loadMore = async () => {
         setLoading(true);
         setPage(prevPage => prevPage + 1);
@@ -39,7 +40,7 @@ export default function UserPostsList() {
             toast.error("there problem ,try again later");
         }
     };
- 
+
     const { sentryRef } = useInfiniteScroll({
         loading,
         hasNextPage,
@@ -51,7 +52,7 @@ export default function UserPostsList() {
     return (
         <div className='container pt-5'>
             <hr />
-            <div className='row justify-content-center mt-4'>
+            <div className='row justify-content-center mt-5'>
                 {items.map((item, i) => {
                     return (
                         <PostItem key={item._id} index={i} item={item} />
@@ -60,7 +61,11 @@ export default function UserPostsList() {
 
                 {(loading) && (
                     <div ref={sentryRef}>
-                        <div>Loading...</div>
+                        <div style={{ display: "flex", alignItems: "center", minHeight: '100px' }}>
+                            <div style={{ margin: "0 auto", color: "#A435F0" }}>
+                                <CircularProgress size={"50px"} />
+                            </div>
+                        </div>
                     </div>
                 )}
             </div>

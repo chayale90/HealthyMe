@@ -73,6 +73,14 @@ export default function Login() {
 
   let passwordRef = register("password", { required: true, minLength: 3 });
 
+
+  const loginGuest = () => {
+    doApiForm({
+      email: "guest@walla.com",
+      password: "1234"
+    });
+  }
+
   return (
 
     <div>
@@ -120,12 +128,14 @@ export default function Login() {
             {errors.password && <div className="text-danger s12">Enter min 3 charts password</div>}
           </div>
 
-          <Link to=""
-            style={{ textDecoration: "none" }}>
-            <p className='forgot1 s14 purple'>
-              Forgot password?
+          <Button onClick={loginGuest}
+            style={{ textDecoration: "none", marginBottom: "20px" }}
+            variant={"outlined"}
+          >
+            <p className='p-0 m-0'>
+              Login-Guest
             </p>
-          </Link>
+          </Button>
 
           <Button
             onClick={handleSubmit(onSubForm)}

@@ -83,15 +83,17 @@ export default function EditProfile({ displayProfile, returnToMyDetails }) {
         setfileChosen("No Img Edit")
     }
 
-    //if for the avatar image
-    let srcImg;
-    if (user.img_url == "" && user.sex == "male") {
-        srcImg = "/images/man.png"
-    } else if (user.img_url == "" && user.sex == "female") {
-        srcImg = "/images/woman.png"
-    } else {
-        srcImg = user.img_url
-    }
+         //if for the avatar image
+         const srcImg = React.useMemo(() => {
+            if (user.img_url == "" && user.sex == "male") {
+                return "/images/man.png";
+            } else if (user.img_url == "" && user.sex == "female") {
+                return "/images/woman.png";
+            } else {
+                return user.img_url;
+            }
+        }, [user]);
+
 
     return (
         <>

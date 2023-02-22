@@ -1,11 +1,14 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux';
 import { toast } from 'react-toastify';
+import { ThemeProvider } from '@mui/material/styles';
+import { theme } from "../../../services/theme"
+import { CircularProgress } from '@mui/material';
+import useInfiniteScroll from 'react-infinite-scroll-hook';
 import { changeFavorites } from "../../../features/homeSlice"
 import { API_URL, doApiGet } from '../../../services/apiService';
 import CheckUserComp from '../../auth/checkComps/checkUserComp';
 import FoodFavoriteItem from './foodFavoriteItem';
-import useInfiniteScroll from 'react-infinite-scroll-hook';
 
 export default function MyFavoriteList() {
 
@@ -54,23 +57,29 @@ export default function MyFavoriteList() {
 
   return (
     <div className="container mt-5">
-      <CheckUserComp />
-      <div className="row justify-content-center">
-        {items.map((item, i) => {
-          return (
-            <FoodFavoriteItem
-              key={item._id}
-              index={i}
-              item={item}
-            />
-          );
-        })}
-        {(loading) && (
-          <div ref={sentryRef}>
-            <div className='text-center'>Loading...</div>
-          </div>
-        )}
-      </div>
+      <ThemeProvider theme={theme}>
+        <CheckUserComp />
+        <div className="row justify-content-center">
+          {items.map((item, i) => {
+            return (
+              <FoodFavoriteItem
+                key={item._id}
+                index={i}
+                item={item}
+              />
+            );
+          })}
+          {(loading) && (
+            <div ref={sentryRef}>
+              <div style={{ display: "flex", alignItems: "center", minHeight: '100px' }}>
+                <div style={{ margin: "0 auto" }}>
+                  <CircularProgress size={"50px"} />
+                </div>
+              </div>
+            </div>
+          )}
+        </div>
+      </ThemeProvider>
     </div>
   )
 }

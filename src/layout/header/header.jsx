@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import AppBar from '@mui/material/AppBar';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
@@ -23,11 +23,11 @@ import MyInfo from '../../services/myInfo';
 import { TOKEN_NAME } from '../../services/apiService';
 import { resetUser } from "../../features/userSlice"
 import { changeFavorites, changeHome } from "../../features/homeSlice"
-import { setOpenFollowers,setOpenFollowings } from "../../features/dialogSlice"
+import { setOpenFollowers, setOpenFollowings } from "../../features/dialogSlice"
 import FollowersList from '../../components/client/followers/followersList';
 import DialogFollowers from '../../components/client/followers/dialogFollowers';
 import DialogFollowings from '../../components/client/followings/dialogFollowings';
-import { setUserIdFollowers,setUserIdFollowings } from "../../features/dialogSlice"
+import { setUserIdFollowers, setUserIdFollowings } from "../../features/dialogSlice"
 
 
 export default function Header() {
@@ -90,18 +90,18 @@ export default function Header() {
   // dialog Followers option functions 
   const ClickFollowers = () => {
     dispatch(setOpenFollowers({ val: true }))
-    dispatch(setUserIdFollowers({ val:  user._id }))
+    dispatch(setUserIdFollowers({ val: user._id }))
     handleCloseUserMenu()
   };
 
 
-    // dialog Followings option functions 
-    const ClickFollowings = () => {
-      dispatch(setOpenFollowings({ val: true }))
-      dispatch(setUserIdFollowings({ val:  user._id }))
-      handleCloseUserMenu()
-    };
-  
+  // dialog Followings option functions 
+  const ClickFollowings = () => {
+    dispatch(setOpenFollowings({ val: true }))
+    dispatch(setUserIdFollowings({ val: user._id }))
+    handleCloseUserMenu()
+  };
+
 
   // dialog onLogOut option functions 
   const onLogOut = () => {
@@ -113,16 +113,16 @@ export default function Header() {
     nav("/")
   }
 
-
-  //if for the avatar image
-  let srcImg;
-  if (user.img_url == "" && user.sex == "male") {
-    srcImg = "public/images/man.png"
-  } else if (user.img_url == "" && user.sex == "female") {
-    srcImg = "public/images/woman.png"
-  } else {
-    srcImg = user.img_url
-  }
+  const srcImg = React.useMemo(() => {
+    if (user.img_url == "" && user.sex == "male") {
+      return "/images/man.png";
+    } else if (user.img_url == "" && user.sex == "female") {
+      return "/images/woman.png";
+    } else {
+      return user.img_url;
+    }
+  }, [user]);
+  
 
   return (
     <ThemeProvider theme={theme}>
@@ -251,7 +251,7 @@ export default function Header() {
                 <MenuItem onClick={ClickLogout}>Logout</MenuItem>
 
                 <DialogFollowers />
-                <DialogFollowings/>
+                <DialogFollowings />
 
                 <Dialog
                   open={open}
@@ -272,7 +272,6 @@ export default function Header() {
                     </DialogActions>
                   </div>
                 </Dialog>
-
 
               </Menu>
             </div>
