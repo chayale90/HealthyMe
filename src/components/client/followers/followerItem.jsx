@@ -9,14 +9,16 @@ export default function FollowerItem({ item }) {
     const dispatch = useDispatch();
 
     //if for the avatar image
-    let srcImg;
-    if (item.img_url == "" && item.sex == "male") {
-        srcImg = "/images/man.png"
-    } else if (item.img_url == "" && item.sex == "female") {
-        srcImg = "/images/woman.png"
-    } else {
-        srcImg = item?.img_url
-    }
+    const srcImg = React.useMemo(() => {
+        if (item.img_url == "" && item.sex == "male") {
+            return "/images/man.png";
+        } else if (item.img_url == "" && item.sex == "female") {
+            return "/images/woman.png";
+        } else {
+            return item.img_url;
+        }
+    }, [item]);
+    
     return (
         <div>
 

@@ -8,6 +8,17 @@ import {  setOpenFollowings } from "../../../features/dialogSlice"
 export default function FollowingItem({ item }) {
     const dispatch = useDispatch();
 
+        //if for the avatar image
+        const srcImg = React.useMemo(() => {
+            if (item.img_url == "" && item.sex == "male") {
+                return "/images/man.png";
+            } else if (item.img_url == "" && item.sex == "female") {
+                return "/images/woman.png";
+            } else {
+                return item.img_url;
+            }
+        }, [item]);
+
     return (
         <div>
 
@@ -15,7 +26,7 @@ export default function FollowingItem({ item }) {
                 <div className='d-flex'>
                     <Avatar
                         sx={{ ms: 2, width: 32, height: 32 }}
-                        src={item.img_url}
+                        src={srcImg}
                         alt="followingImg"
                     />
                     <Link

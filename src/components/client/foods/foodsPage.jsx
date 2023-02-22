@@ -5,6 +5,7 @@ import { toast } from "react-toastify";
 import FoodsList from "./foodsList";
 import AddIcon from "@mui/icons-material/Add";
 import { Fab } from "@mui/material";
+import { CircularProgress ,ThemeProvider} from '@mui/material';
 import { useDispatch, useSelector } from "react-redux";
 import Button from "@mui/material/Button";
 import { useNavigate } from "react-router";
@@ -12,6 +13,7 @@ import SearchInput from "./searchInput";
 import { API_URL, doApiGet } from "../../../services/apiService";
 import { setArSearch } from "../../../features/foodsSlice";
 import { changeHome } from "../../../features/homeSlice"
+import { theme } from '../../../services/theme';
 
 const options = [
   { value: "salads", label: "Salads" },
@@ -32,10 +34,11 @@ const optionsSort = [
 
 export default function FoodsPage() {
   const nav = useNavigate()
-  const [sort, setSort] = useState(null);  
+  const [sort, setSort] = useState(null);
   const [totalPages, setTotalPages] = useState(1);
   const { arSearch } = useSelector((myStore) => myStore.foodsSlice);
   const dispatch = useDispatch();
+  const [displayProgress, setDisplayProgress] = useState("none");
 
   const [searchQueries, setSearchQueries] = useState({
     page: 1,
@@ -99,8 +102,8 @@ export default function FoodsPage() {
   };
 
   const fetchFoodData = async (data) => {
-    const { page, searchTerm, categoryTerm } = searchQueries; // TODO: to use it after
 
+    const { page, searchTerm, categoryTerm } = searchQueries; // TODO: to use it after
     let url = API_URL + `/foods`;
     const params = {
       page: data.page,
@@ -109,6 +112,7 @@ export default function FoodsPage() {
       sort: data.sort,
     };
     console.log({ params });
+    setDisplayProgress("flex")
     try {
       let resp = await doApiGet(url, params);
       const respData =
@@ -119,10 +123,13 @@ export default function FoodsPage() {
       dispatch(setArSearch({ ...respData }));
       setSearchQueries((prevState) => ({ ...prevState, page: prevState.page + 1 }));
       setTotalPages(resp.data.totalPages);
+      setDisplayProgress("none")
 
     } catch (err) {
       console.log(err);
       toast.error("there problem ,try again later");
+      setDisplayProgress("none")
+
     }
   };
 
@@ -135,67 +142,76 @@ export default function FoodsPage() {
   return (
 
     <div id="food-page-scroll-container" className="container">
-      <SearchInput handleSearchInput={handleSearchInput} />
-      <div className="row justify-content-center justify-content-md-between mx-sm-3 mx-xs-5 px-md-3 mx-lg-5 px-lg-5 mb-5">
-        <div className="col-7 col-md-6 col-lg-5 col-xl-4">
-          <Select
-            theme={(theme) => ({
-              ...theme,
-              borderRadius: "5px",
-              colors: {
-                ...theme.colors,
-                // primary25: 'grey',
-                primary: "#A435F0",
-              },
-            })}
-            className="basic-single"
-            classNamePrefix="select"
-            defaultValue={options[6]}
-            placeholder="Category"
-            options={options}
-            onChange={handleSetCategory}
-          />
+      <ThemeProvider theme={theme}>
+
+        <SearchInput handleSearchInput={handleSearchInput} />
+        <div className="row justify-content-center justify-content-md-between mx-sm-3 mx-xs-5 px-md-3 mx-lg-5 px-lg-5 mb-5">
+          <div className="col-7 col-md-6 col-lg-5 col-xl-4">
+            <Select
+              theme={(theme) => ({
+                ...theme,
+                borderRadius: "5px",
+                colors: {
+                  ...theme.colors,
+                  // primary25: 'grey',
+                  primary: "#A435F0",
+                },
+              })}
+              className="basic-single"
+              classNamePrefix="select"
+              defaultValue={options[6]}
+              placeholder="Category"
+              options={options}
+              onChange={handleSetCategory}
+            />
+          </div>
+
+          <div className="col-5 col-md-4 col-lg-3">
+            <Select
+              theme={(theme) => ({
+                ...theme,
+                borderRadius: "5px",
+                colors: {
+                  ...theme.colors,
+                  // primary25: 'grey',
+                  primary: "#A435F0",
+                },
+              })}
+              className="basic-single"
+              classNamePrefix="select"
+              // defaultValue={optionsSort[2]}
+              placeholder="Sort By"
+              options={optionsSort}
+              onChange={handleSetSort}
+            />
+          </div>
         </div>
 
-        <div className="col-5 col-md-4 col-lg-3">
-          <Select
-            theme={(theme) => ({
-              ...theme,
-              borderRadius: "5px",
-              colors: {
-                ...theme.colors,
-                // primary25: 'grey',
-                primary: "#A435F0",
-              },
-            })}
-            className="basic-single"
-            classNamePrefix="select"
-            // defaultValue={optionsSort[2]}
-            placeholder="Sort By"
-            options={optionsSort}
-            onChange={handleSetSort}
-          />
-        </div>
-      </div>
+
+        <FoodsList sort={sort} />
 
 
-      <FoodsList sort={sort} />
-
-      
-      {hasMore &&
-        <div style={{ display: "flex" }}>
-          <div style={{ margin: "0 auto" }} >
-            <Button style={{ color: '#A435F0', border: '#A435F0 1px solid' }} variant="outlined" onClick={loadMore}>Load More</Button>
+        {hasMore &&
+          <div style={{ display: "flex" }}>
+            <div style={{ margin: "0 auto" }} >
+              <Button style={{ color: '#A435F0', border: '#A435F0 1px solid' }}
+                variant="outlined"
+                onClick={loadMore}
+                endIcon={<CircularProgress sx={{ display: displayProgress }} size={"20px"} color="primary" />}
+              >
+                Load More
+              </Button>
             </div>
-        </div>
-      }
+          </div>
+        }
 
-      <Fab
-        sx={{ background: "#A435F0", color: "white", "&:hover": { color: "white", background: "#912CD6" }, position: 'sticky', bottom: 70, left: 1900 }}
-        onClick={() => { nav("/addFood") }}
-        aria-label="addFood">
-        <AddIcon />
-      </Fab>
+        <Fab
+          sx={{ background: "#A435F0", color: "white", "&:hover": { color: "white", background: "#912CD6" }, position: 'sticky', bottom: 70, left: 1900 }}
+          onClick={() => { nav("/addFood") }}
+          aria-label="addFood">
+          <AddIcon />
+        </Fab>
+      </ThemeProvider>
     </div>
   );
 }
