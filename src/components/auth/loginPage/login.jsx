@@ -80,7 +80,7 @@ export default function Login() {
       password: "1234"
     });
   }
-  
+
   return (
 
     <div>
@@ -129,7 +129,9 @@ export default function Login() {
           </div>
 
           <Button onClick={loginGuest}
-            style={{ textDecoration: "none", marginBottom: "10px" }}>
+            style={{ textDecoration: "none", marginBottom: "20px" }}
+            variant={"outlined"}
+          >
             <p className='p-0 m-0'>
               Login-Guest
             </p>

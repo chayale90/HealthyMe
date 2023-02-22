@@ -24,7 +24,6 @@ export default function AddFood() {
     const inputRef = useRef();
     const params = useParams();
     const dispatch = useDispatch()
-
     const { register, getValues, handleSubmit, formState: { errors } } = useForm();
     const { user } = useSelector(myStore => myStore.userSlice);
     const [selectedOption, setSelectedOption] = useState("");
@@ -32,11 +31,11 @@ export default function AddFood() {
     const [image, setImage] = useState(null);
     const [displayDiv, setDisplayDiv] = useState("block");
     const [foodInfo, setFoodInfo] = useState({});
+    const [displayProgress, setDisplayProgress] = useState("none");
 
     useEffect(() => {
         doApiInit()
     }, [])
-
 
     const doApiInit = async () => {
         try {
@@ -57,6 +56,7 @@ export default function AddFood() {
     }
 
     const doApiEditFood = async (bodyFormData) => {
+        setDisplayProgress("flex")
         const url = API_URL + "/foods/" + params["id"];
         try {
             let resp = await doApiMethod(url, "PUT", bodyFormData);
@@ -69,11 +69,13 @@ export default function AddFood() {
             }
             else {
                 toast.error("There problem, try again later")
+                setDisplayProgress("none")
             }
         }
         catch (err) {
             console.log(err);
             alert("There problem , or category url already in system")
+            setDisplayProgress("none")
         }
     }
 
@@ -87,7 +89,6 @@ export default function AddFood() {
         }
         reader.readAsDataURL(file);
         setDisplayDiv("none")
-
     }
 
     const removeIMG = () => {
@@ -104,7 +105,6 @@ export default function AddFood() {
                 {foodInfo.name ?
                     <form onSubmit={handleSubmit(onSubForm)}>
 
-
                         <div className='mx-auto navButtons'>
                             <div> <IconButton
                                 onClick={() => {
@@ -117,7 +117,9 @@ export default function AddFood() {
                             <Button type='submit'
                                 className='saveBtn'
                                 sx={btnStyle}
-                            >Save</Button>
+                                endIcon={<CircularProgress sx={{ display: displayProgress }} size={"20px"} color="success" />}
+                            >Save
+                            </Button>
                         </div>
 
                         <div className="mx-auto mainAddFood" >
@@ -133,7 +135,6 @@ export default function AddFood() {
                                 />
                                 {errors.name && <div className='text-danger s14'>{errors?.name?.message}</div>}
                             </div>
-
 
                             {/* file */}
                             <div className='text-center mt-5'>
@@ -163,7 +164,6 @@ export default function AddFood() {
                                     />
                                     <label style={{ cursor: 'pointer' }} className='mb-1 editPhotoDiv' htmlFor="actual-btn"><CameraAltIcon sx={{ color: "#A435F0" }} />Edit photo</label>
                                 </div>
-
                             </div>
 
 
@@ -211,10 +211,8 @@ export default function AddFood() {
                                     rows={2}
                                     multiline
                                     defaultValue={foodInfo.ingredient}
-
                                 />
                                 {errors.ingredient && <div className='text-danger s14'>{errors?.ingredient?.message}</div>}
-
                             </div>
 
                             <h2 className='s24 mt-4 mb-2'>recipe</h2>
@@ -282,7 +280,6 @@ export default function AddFood() {
                                 </div>
                             </div>
                         </div>
-
                     </form>
                     :
                     <div style={{ display: "flex", alignItems: "center", minHeight: '300px' }}>
@@ -291,6 +288,7 @@ export default function AddFood() {
                         </div>
                     </div>
                 }
+
             </ThemeProvider>
         </div >
     )

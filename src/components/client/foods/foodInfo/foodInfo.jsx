@@ -27,8 +27,7 @@ export default function FoodInfo() {
     const dispatch = useDispatch();
     const nav = useNavigate();
     const [food, setFood] = useState({})
-    const [userName, setUserName] = useState("");
-    const [userImg, setUserImg] = useState("");
+    const [otherUser, setOtherUser] = useState({});
     const [isLiked, setIsLiked] = useState(Boolean);
 
     useEffect(() => {
@@ -61,8 +60,7 @@ export default function FoodInfo() {
         try {
             const resp = await doApiGet(url);
             console.log(resp.data);
-            setUserName(resp.data.name);
-            setUserImg(resp.data.img_url);
+            setOtherUser(resp.data);
         } catch (err) {
             console.log(err);
             toast.error("There problem try come back later");
@@ -82,6 +80,16 @@ export default function FoodInfo() {
         }
     }
 
+    const srcImg = React.useMemo(() => {
+        if (otherUser.img_url == "" && otherUser.sex == "male") {
+            return "/images/man.png";
+        } else if (otherUser.img_url == "" && otherUser.sex == "female") {
+            return "/images/woman.png";
+        } else {
+            return otherUser.img_url;
+        }
+    }, [otherUser]);
+
     return (
         <ThemeProvider theme={theme}>
             <div className='container mt-md-5 mt-4'>
@@ -97,13 +105,13 @@ export default function FoodInfo() {
                             <div className="d-flex d-md-none align-items-center ">
                                 <Avatar
                                     sx={{ float: "start", width: 33, height: 33 }}
-                                    src={userImg}
+                                    src={srcImg}
                                     alt="AvatarOfFood"
                                 />
                                 <Link style={{ fontWeight: 500 }} className="s16 ms-2 dark underLine"
                                     to={"/userProfile/" + food.user_id}
                                 >
-                                    {userName}
+                                    {otherUser.name}
                                 </Link>
                             </div>
 
@@ -111,13 +119,13 @@ export default function FoodInfo() {
                                 <div className="d-none d-md-flex align-items-center mb-2 mb-lg-4 mt-lg-2 mt-0">
                                     <Avatar
                                         sx={{ float: "start", width: 33, height: 33 }}
-                                        src={userImg}
+                                        src={srcImg}
                                         alt="AvatarOfFood"
                                     />
                                     <Link style={{ fontWeight: 500 }} className="s16 ms-2 dark underLine"
                                         to={"/userProfile/" + food.user_id}
                                     >
-                                        {userName}
+                                    {otherUser.name}
                                     </Link>
                                 </div>
 

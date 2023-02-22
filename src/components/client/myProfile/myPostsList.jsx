@@ -10,7 +10,6 @@ import { Fab } from '@mui/material';
 import { API_URL, doApiGet } from '../../../services/apiService'
 import PostItem from './postItem';
 
-
 export default function MyPostsList() {
     const nav = useNavigate();
     const [items, setItems] = useState([]);
@@ -18,7 +17,6 @@ export default function MyPostsList() {
     const [hasNextPage, setHasNextPage] = useState(true);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(undefined);
-
 
     useEffect(() => {
         loadMore()
@@ -34,7 +32,6 @@ export default function MyPostsList() {
             setItems([...items, ...resp.data]);
             setHasNextPage(resp.data.length == 0);
             setLoading(false);
-
         } catch (err) {
             setError(err);
             setLoading(false);
@@ -77,6 +74,7 @@ export default function MyPostsList() {
                     aria-label="addFood">
                     <AddIcon />
                 </Fab>
+                
             </ThemeProvider>
         </div>
     )
