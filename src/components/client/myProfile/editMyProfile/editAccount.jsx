@@ -109,7 +109,7 @@ export default function EditAccount({ displayAccount, returnToMyDetails }) {
                                     >
                                         <ArrowBackIcon />
                                     </IconButton>
-                                    <h2 className='s24 mt-2 '>Change password</h2>
+                                    <h2 className='changePass mt-2 '>Change password</h2>
                                 </div>
 
 
