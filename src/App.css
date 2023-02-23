@@ -3,6 +3,10 @@ body {
     /* overflow-x: hidden; */
 }
 
+.container {
+    max-width: 1050px;
+    /* min-height: inherit; */
+}
 
 .purple {
     color: #A435F0;
@@ -24,11 +28,11 @@ body {
     font-size: 26px;
 }
 
-.s24{
+.s24 {
     font-size: 24px;
 }
 
-.s20{
+.s20 {
     font-size: 20px;
 }
 
@@ -92,11 +96,20 @@ body {
 
 
 /* icon nagishLi design*/
-#NagishLiTrigger{
+#NagishLiTrigger {
     bottom: 20px;
     /* top:10px; */
-    right:none;
-    left:5px;
-    transform: scale(0.7,0.7);
+    right: none;
+    left: 5px;
+    transform: scale(0.7, 0.7);
     filter: grayscale(100%);
-  }
+}
+
+
+
+@media (max-width:991px) {
+    .container {
+        max-width: 700px;
+    }
+}
+
