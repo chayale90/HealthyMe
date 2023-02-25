@@ -116,7 +116,7 @@ export default function FoodInfo() {
                             </div>
 
                             <div className='col-auto mt-2 mt-md-0 mx-auto mx-md-0 ms-md-3 pe-0'>
-                                <div className="d-none d-md-flex align-items-center mb-2 mb-lg-4 mt-lg-2 mt-0">
+                                <div className="d-none d-md-flex align-items-center mb-4 mt-lg-2 mt-0">
                                     <Avatar
                                         sx={{ float: "start", width: 33, height: 33 }}
                                         src={srcImg}
