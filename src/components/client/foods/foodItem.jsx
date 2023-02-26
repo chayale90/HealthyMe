@@ -21,15 +21,15 @@ export default function FoodItem({ item, onLikeClick }) {
   }, []);
 
 
-    //if for the avatar image
-    let srcImg;
+  const srcImg = React.useMemo(() => {
     if (otherUser.img_url == "" && otherUser.sex == "male") {
-      srcImg = "/images/man.png"
+        return "/images/man.png";
     } else if (otherUser.img_url == "" && otherUser.sex == "female") {
-      srcImg = "/images/woman.png"
+        return "/images/woman.png";
     } else {
-      srcImg = otherUser.img_url
+        return otherUser.img_url;
     }
+}, [otherUser]);
 
 
   const doApiGetInfoUser = async () => {
@@ -37,8 +37,6 @@ export default function FoodItem({ item, onLikeClick }) {
       const url = API_URL + "/users/userInfo/" + item.user_id;
       const resp = await doApiGet(url);
       // console.log(resp.data);
-      // setUserName(resp.data.name);
-      // setUserImg(resp.data.img_url);
       setOtherUser(resp.data)
     } catch (err) {
       console.log(err);

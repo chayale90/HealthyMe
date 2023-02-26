@@ -128,14 +128,31 @@ export default function Login() {
             {errors.password && <div className="text-danger s12">Enter min 3 charts password</div>}
           </div>
 
-          <Button onClick={loginGuest}
-            style={{ textDecoration: "none", marginBottom: "20px" }}
-            variant={"outlined"}
-          >
-            <p className='p-0 m-0'>
-              Login-Guest
+          <Link to=""
+            style={{ textDecoration: "none" }}>
+            <p className='purple m-0 s14'>
+              Forgot password?
             </p>
-          </Button>
+          </Link>
+
+          <div className='d-flex justify-content-center mt-3'>
+            <div className='w-25' >
+              <hr />
+            </div>
+            <Button
+              className='mx-2'
+              onClick={loginGuest}
+              style={{ textDecoration: "none", marginBottom: "10px" }}
+              variant={"text"}
+            >
+              <p className='p-0 m-0'>
+                Login-Guest
+              </p>
+            </Button>
+            <div className='w-25'>
+              <hr />
+            </div>
+          </div>
 
           <Button
             onClick={handleSubmit(onSubForm)}
@@ -151,12 +168,7 @@ export default function Login() {
             <Link to="/signUp" style={{ textDecoration: "none" }}><p style={{ marginLeft: "6px", marginBottom: 0 }} className='purple s14'>sign up now!</p></Link>
           </div>
 
-          <Link to=""
-            style={{ textDecoration: "none" }}>
-            <p className='purple text-center m-0 s14'>
-              Forgot password?
-            </p>
-          </Link>
+
 
         </form >
       </ThemeProvider>

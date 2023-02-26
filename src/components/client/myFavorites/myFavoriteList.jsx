@@ -56,7 +56,7 @@ export default function MyFavoriteList() {
   });
 
   return (
-    <div className="container mt-5">
+    <div className="container mt-5" >
       <ThemeProvider theme={theme}>
         <CheckUserComp />
         <div className="row justify-content-center">

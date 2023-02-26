@@ -19,11 +19,11 @@ export default function SignUpPage() {
         <div className='col-11 col-sm-8 col-md-6 col-lg-5 col-xl-4'>
           <div className='ps-lg-5 ms-lg-5 me-lg-1'>
 
-            <div className='d-flex justify-content-between '>
+            <div className='d-flex justify-content-between mb-3 mb-lg-0'>
               <Link to="/"> <Logo margin="mb-5" /></Link>
-              <div className='d-lg-none d-block col-5 mt-5 mb-3 '>
+              {/* <div className='d-lg-none d-block col-5 mt-5 mb-3 '>
                 <ImagesPosts width={"100%"} />
-              </div>
+              </div> */}
             </div>
 
             {showHideComp1 &&

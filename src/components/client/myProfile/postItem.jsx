@@ -11,7 +11,7 @@ export default function PostItem({ item }) {
     const nav = useNavigate()
 
     return (
-        <div className='p-0 col-4 imgPost'>
+        <div className='p-0 imgPost'>
             <div
                 className={isHovered ? 'lightDiv overflow-hidden h-100' : 'overflow-hidden h-100'}
                 style={{ position: 'relative', display: 'flex', justifyContent: 'center', alignItems: 'center' }}
@@ -19,7 +19,7 @@ export default function PostItem({ item }) {
                 onMouseLeave={() => setIsHovered(false)}
             >
                 <img
-                    className='w-100 imgFood'
+                    className='imgFoodPost'
                     style={{ borderRadius: "9px" }}
                     onClick={() => { user._id == item.user_id ? nav("/myFoodInfo/" + item._id) : nav("/foodInfo/" + item._id) }}
                     src={item.img_url}

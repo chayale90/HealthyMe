@@ -109,21 +109,22 @@ export default function UserProfilePage() {
     setOpen(true);
   };
 
-  //if for the avatar image
-  let srcImg;
-  if (otherUser.img_url == "" && otherUser.sex == "male") {
-    srcImg = "/images/man.png"
-  } else if (otherUser.img_url == "" && otherUser.sex == "female") {
-    srcImg = "/images/woman.png"
-  } else {
-    srcImg = otherUser?.img_url
-  }
+    //if for the avatar image
+  const srcImg = React.useMemo(() => {
+    if (otherUser.img_url == "" && otherUser.sex == "male") {
+        return "/images/man.png";
+    } else if (otherUser.img_url == "" && otherUser.sex == "female") {
+        return "/images/woman.png";
+    } else {
+        return otherUser.img_url;
+    }
+}, [otherUser]);
 
   return (
     <div>
       <ThemeProvider theme={theme}>
         {(otherUser.name) ?
-          <div className='container mt-md-5 mt-4'>
+          <div className='container mt-5'>
             <CheckUserActiveComp />
             <div className='d-flex'>
 

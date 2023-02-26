@@ -52,7 +52,7 @@ export default function MyProfilePage() {
 
   return (
     <div>
-      <div className='container mt-md-5 mt-4'>
+      <div className='container mt-5'>
         <CheckUserComp />
         <MyInfo />
         <div className='d-flex '>

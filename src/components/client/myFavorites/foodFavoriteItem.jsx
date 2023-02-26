@@ -34,14 +34,15 @@ export default function FoodFavoriteItem({ item }) {
   };
 
   //if for the avatar image
-  let srcImg;
-  if (otherUser.img_url == "" && otherUser.sex == "male") {
-    srcImg = "/images/man.png"
-  } else if (otherUser.img_url == "" && otherUser.sex == "female") {
-    srcImg = "/images/woman.png"
-  } else {
-    srcImg = otherUser.img_url
-  }
+  const srcImg = React.useMemo(() => {
+    if (otherUser.img_url == "" && otherUser.sex == "male") {
+        return "/images/man.png";
+    } else if (otherUser.img_url == "" && otherUser.sex == "female") {
+        return "/images/woman.png";
+    } else {
+        return otherUser.img_url;
+    }
+}, [otherUser]);
 
   return (
     <React.Fragment>

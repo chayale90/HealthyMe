@@ -8,6 +8,10 @@
 }
 
 
+.changePass {
+    font-size: 24px;
+}
+
 .divProfile:hover {
     background: rgba(164, 53, 240, 0.04);
     height: 68px;
@@ -25,5 +29,8 @@
     }
     .inputPass {
         width: 100%;
+    }
+       .changePass {
+        font-size: 18px;
     }
 }
