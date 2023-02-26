@@ -1,5 +1,5 @@
 .imgPost {
-    min-height: 100%;
+    height: 315px;
     width: 306px;
     border-radius: 9.0524px;
     margin-bottom: 32px;
@@ -10,8 +10,10 @@
 
 .imgFoodPost {
     border-radius: 9.0524px;   
-     height: 200px;
+     height: 315px;
+     width: 306px;
      cursor: pointer;
+     object-fit: cover
 }
 
 .lightDiv {
