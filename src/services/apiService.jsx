@@ -18,7 +18,7 @@ export const doApiGet = async (_url, params = {}) => {
     });
     return resp;
   } catch (err) {
-    // throw-> בבקשות של פרומיס מזהים את זה בתור החזרת שגיאה
+    // throw-> in promise asks recognize this as error return
     throw err;
   }
 };
