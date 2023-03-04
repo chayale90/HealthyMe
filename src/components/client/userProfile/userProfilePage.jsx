@@ -201,9 +201,7 @@ export default function UserProfilePage() {
                   className='loginBtn px-4'
                   sx={!isFollow ? btnStyle2 : btnStyle}
                 >
-
-                  {!isFollow ? "Follow" : "Foolowing "}
-
+                  {!isFollow ? "Follow" : "Following "}
                 </Button>
               </div>
 

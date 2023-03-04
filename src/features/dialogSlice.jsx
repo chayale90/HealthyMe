@@ -6,6 +6,8 @@ const initValue = {
     openFollowings: false,
     userIdFollowers:"",
     userIdFollowings:"",
+    openUsersLikes:false
+    
 }
 
 const dialogSlice = createSlice({
@@ -25,22 +27,13 @@ const dialogSlice = createSlice({
         },
         setUserIdFollowings: (state, action) => {
             state.userIdFollowings = action.payload.val;
+        },
+        setOpenUsersLikes: (state, action) => {
+            state.openUsersLikes = action.payload.val;
         }
-        // addForm: (state, action) => {
-        //     state.form = { ...action.payload.val }
-        // },
-        // addForm2: (state, action) => {
-        //     state.form = { ...state.form, ...action.payload.val }
-        //     state.loading = "waiting"
-        // },
-        // resetForm: (state, actions) => {
-        //     state.form = {};
-        // },
-        // changeLoading: (state, action) => {
-        //     state.loading = action.payload.val
-        // }
     }
+  
 })
 
-export const { setOpenFollowers,setOpenFollowings,setUserIdFollowers,setUserIdFollowings } = dialogSlice.actions;
+export const { setOpenFollowers,setOpenFollowings,setUserIdFollowers,setUserIdFollowings,setOpenUsersLikes } = dialogSlice.actions;
 export default dialogSlice.reducer;
