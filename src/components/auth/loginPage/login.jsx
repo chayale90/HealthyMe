@@ -39,8 +39,10 @@ export default function Login() {
   };
 
   const onSubForm = (bodyData) => {
+   let email = bodyData.email.toLowerCase(); //To convert Lower Case
+   let password= bodyData.password
     // bodyData -> contain all values of inputs 
-    doApiForm(bodyData);
+    doApiForm({email,password});
   }
 
   const doApiForm = async (bodyData) => {
@@ -68,7 +70,7 @@ export default function Login() {
 
   let emailRef = register("email", {
     required: true,
-    pattern: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i
+    pattern:/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/i
   })
 
   let passwordRef = register("password", { required: true, minLength: 3 });
