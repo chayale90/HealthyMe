@@ -40,7 +40,7 @@ export default function UserLikeItem({ item }) {
                 <div className='ml-auto float-end justify-content-end mt-1'>
                     <div className='px-2' style={btnStyle2}>
                         {
-                            user.followings.includes(item._id) ? "following" : "follow"
+                            user.followings.includes(item._id) ? "Following" : "Follow"
                         }
                     </div>
                 </div>
