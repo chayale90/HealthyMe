@@ -16,11 +16,13 @@ import { theme } from "../../../../services/theme"
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogTitle from '@mui/material/DialogTitle';
+import { setOpenUsersLikes } from "../../../../features/dialogSlice"
 import { Avatar } from '@mui/material';
 import { Link } from 'react-router-dom';
 import { Fab } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import "./foodInfo.css"
+import DialogUsersLikes from './usersLikes/dialogUsersLikes';
 
 export default function MyFoodInfo() {
     const { user } = useSelector(myStore => myStore.userSlice);
@@ -98,6 +100,11 @@ export default function MyFoodInfo() {
         }
     }, [user]);
 
+    // dialog Followers option functions 
+    const onClickLikes = () => {
+        dispatch(setOpenUsersLikes({ val: true }))
+    };
+
     return (
         <ThemeProvider theme={theme}>
             <div className='container mt-md-5 mt-4'>
@@ -106,7 +113,11 @@ export default function MyFoodInfo() {
                         <div style={{ position: 'relative' }} className='row align-items-center'>
                             <div style={{ position: 'relative' }} className='col-4 d-none d-md-block p-0'>
                                 <img className='imgFoodInfo' style={{ borderRadius: "12px" }} src={food.img_url} alt="foodImg" />
-                                <div className='likesDiv m-1'><FavoriteIcon sx={{ color: "#A435F0", marginRight: 1 }} />{food?.likes?.length} Likes</div>
+                                <div className='likesDiv m-1'
+                                    onClick={onClickLikes}>
+                                    <FavoriteIcon sx={{ marginRight: 1, color: "white" }} />
+                                    {food?.likes?.length} Likes
+                                </div>
                             </div>
 
                             <div className="d-flex d-md-none align-items-center">
@@ -141,7 +152,7 @@ export default function MyFoodInfo() {
                                 <div className='d-flex align-items-center'>
                                     <div className="d-block d-md-flex text-center">
                                         <div> <AccessTimeIcon className='me-2' /></div>
-                                       {food.prepHours == null || food.prepHours == 0 ? "" : food.prepHours + " hrs"}  {food.prepMinutes == null ? "" : food.prepMinutes + " min"}
+                                        {food.prepHours == null || food.prepHours == 0 ? "" : food.prepHours + " hrs"}  {food.prepMinutes == null ? "" : food.prepMinutes + " min"}
                                     </div>
                                     <hr className='hr' />
 
@@ -162,7 +173,11 @@ export default function MyFoodInfo() {
 
                             <div className='d-block d-md-none mt-4 mx-auto'>
                                 <img className='imgFoodInfo' style={{ borderRadius: "12px", position: 'relative' }} src={food.img_url} alt="foodImg" />
-                                <div className='likesDiv mb-1 ms-3'>  <FavoriteIcon sx={{ color: "#A435F0", marginRight: 1 }} />{food?.likes?.length} Likes</div>
+                                <div className='likesDiv m-1 ms-3'
+                                    onClick={onClickLikes}>
+                                    <FavoriteIcon sx={{ marginRight: 1, color: "white" }} />
+                                    {food?.likes?.length} Likes
+                                </div>
                             </div>
 
                             <div>
@@ -233,6 +248,7 @@ export default function MyFoodInfo() {
                 }
 
             </div>
+            <DialogUsersLikes foodID={foodId} />
         </ThemeProvider>
     )
 }

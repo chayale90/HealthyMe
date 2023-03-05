@@ -1,8 +1,8 @@
 import axios from "axios";
 
-// export const API_URL = "http://localhost:3003";
+export const API_URL = "http://localhost:3003";
 // export const API_URL = "https://average-shawl-lion.cyclic.app"
-export const API_URL = "https://healthyme-back.up.railway.app"
+// export const API_URL = "https://healthyme-back.up.railway.app"
 
 export const TOKEN_NAME = "FOODS_TOKEN";
 
@@ -18,7 +18,7 @@ export const doApiGet = async (_url, params = {}) => {
     });
     return resp;
   } catch (err) {
-    // throw-> בבקשות של פרומיס מזהים את זה בתור החזרת שגיאה
+    // throw-> in promise asks recognize this as error return
     throw err;
   }
 };

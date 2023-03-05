@@ -32,7 +32,7 @@ export default function EditCategory() {
   }
 
   const onSubForm = async (bodyFormData) => {
-    // data -> מכיל את כל המאפיינים שלה השמות של האינפוטים עם הערך שלהם
+    //  data -> contain all properties of the names inputs with there value
     console.log(bodyFormData);
     await doApiForm(bodyFormData);
 

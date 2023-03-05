@@ -15,9 +15,11 @@ import { ThemeProvider } from '@mui/material/styles';
 import { theme } from "../../../../services/theme"
 import { Avatar } from '@mui/material';
 import { Link } from 'react-router-dom';
+import { setOpenUsersLikes } from "../../../../features/dialogSlice"
 import { CircularProgress } from '@mui/material';
 import { Fab } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
+import DialogUsersLikes from './usersLikes/dialogUsersLikes';
 import "./foodInfo.css"
 
 export default function FoodInfo() {
@@ -90,6 +92,13 @@ export default function FoodInfo() {
         }
     }, [otherUser]);
 
+
+    // dialog Followers option functions 
+    const onClickLikes = () => {
+        dispatch(setOpenUsersLikes({ val: true }))
+    };
+
+
     return (
         <ThemeProvider theme={theme}>
             <div className='container mt-md-5 mt-4'>
@@ -99,10 +108,14 @@ export default function FoodInfo() {
                         <div style={{ position: 'relative' }} className='row align-items-center'>
                             <div className='col-4 d-none d-md-block p-0'>
                                 <img className='imgFoodInfo' style={{ borderRadius: "12px" }} src={food.img_url} alt="foodImg" />
-                                <div className='likesDiv m-1'>  <FavoriteIcon sx={{ color: "#A435F0", marginRight: 1 }} />{food?.likes?.length} Likes</div>
+                                <div className='likesDiv m-1'
+                                    onClick={onClickLikes}>
+                                    <FavoriteIcon sx={{ marginRight: 1, color: "white" }} />
+                                    {food?.likes?.length} Likes
+                                </div>
                             </div>
 
-                            <div className="d-flex d-md-none align-items-center ">
+                            <div className="d-flex d-md-none align-items-center">
                                 <Avatar
                                     sx={{ float: "start", width: 33, height: 33 }}
                                     src={srcImg}
@@ -125,7 +138,7 @@ export default function FoodInfo() {
                                     <Link style={{ fontWeight: 500 }} className="s16 ms-2 dark underLine"
                                         to={"/userProfile/" + food.user_id}
                                     >
-                                    {otherUser.name}
+                                        {otherUser.name}
                                     </Link>
                                 </div>
 
@@ -149,13 +162,17 @@ export default function FoodInfo() {
                                             <div className='mt-md-1'>{food.calories} calories</div>
                                         </div>
                                     }
-
                                 </div>
                             </div>
 
                             <div className='d-block d-md-none mt-4 mx-auto'>
                                 <img className='imgFoodInfo' style={{ borderRadius: "12px", position: 'relative' }} src={food.img_url} alt="foodImg" />
-                                <div className='likesDiv mb-1 ms-3'>  <FavoriteIcon sx={{ color: "#A435F0", marginRight: 1 }} />{food?.likes?.length} Likes</div>                    </div>
+                                <div className='likesDiv mb-1 ms-3'
+                                    onClick={onClickLikes}>
+                                    <FavoriteIcon sx={{ marginRight: 1, color: "white" }} />
+                                    {food?.likes?.length} Likes
+                                </div>
+                            </div>
 
                             <div>
                                 <IconButton
@@ -203,6 +220,7 @@ export default function FoodInfo() {
                     </div>
                 }
             </div>
+            <DialogUsersLikes foodID={foodId} />
         </ThemeProvider>
     )
 }

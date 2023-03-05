@@ -13,25 +13,32 @@
 }
 
 .likesDiv {
-    background: white;
-    border-radius: 17.75px;
+    /* background: white; */
+    background: #A435F0;
+    border-radius: 33px;
     height: 35px;
     padding: 0 15px;
     position: absolute;
     left: 0;
     bottom: 1px;
-
     display: flex;
     justify-content: center;
     align-items: center;
+    color: white;
+    cursor: pointer;
+}
+
+.likesDiv:hover{
+   
+        background: #912CD6;
+        color: white;
+    
 }
 
 @media (max-width:991px) {
     .imgFoodInfo {
         width: 220px;
-
     }
-
     .hr {
         width: 30px;
     }

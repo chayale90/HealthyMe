@@ -9,8 +9,7 @@ import LayoutAdmin from './layoutAdmin/layoutAdmin'
 import UsersListAdmin from './components/admin/users/usersListAdmin'
 import FoodsListAdmin from './components/admin/foods/foodsListAdmin'
 
-// בשביל הודעות טוסט צריך קונטיינר שיהיה באפ ואת
-// הסי אס אס שלו
+//for toast container you need the container will be in app and his css
 import { ToastContainer } from "react-toastify"
 import 'react-toastify/dist/ReactToastify.css';
 
