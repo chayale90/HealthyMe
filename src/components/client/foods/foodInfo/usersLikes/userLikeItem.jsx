@@ -21,6 +21,18 @@ export default function UserLikeItem({ item }) {
         }
     }, [item]);
 
+
+    //if for the avatar image
+    const isFollowing = React.useMemo(() => {
+        if (user.followings.includes(item._id)) {
+            return "Following";
+        } else if (item._id == user._id) {
+            return "";
+        } else {
+            return "Not following";
+        }
+    }, [item]);
+
     return (
         <div>
             <div className='d-flex w-100 justify-content-between'>
@@ -38,11 +50,9 @@ export default function UserLikeItem({ item }) {
                 </div>
 
                 <div className='ml-auto float-end justify-content-end mt-1'>
-                    <div className='px-2' style={btnStyle2}>
-                        {
-                            user.followings.includes(item._id) ? "Following" : "Follow"
-                        }
-                    </div>
+                    {
+                        isFollowing
+                    }
                 </div>
             </div>
             <hr className='col' />
