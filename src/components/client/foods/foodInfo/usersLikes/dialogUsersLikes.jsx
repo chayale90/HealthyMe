@@ -2,9 +2,6 @@ import { Dialog, IconButton, InputBase, Paper } from '@mui/material'
 import React, { useRef, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import CloseIcon from '@mui/icons-material/Close';
-import FollowersList from './usersLikesList';
-import SearchIcon from '@mui/icons-material/Search';
-import { btnStyle, btnStyle2, btnStyle3 } from '../../../../../services/btnStyle';
 import { setOpenUsersLikes } from "../../../../../features/dialogSlice"
 import UsersLikesList from './usersLikesList';
 
