@@ -8,19 +8,11 @@ import UsersLikesList from './usersLikesList';
 
 export default function DialogUsersLikes({ foodID }) {
     const { openUsersLikes } = useSelector(myStore => myStore.dialogSlice);
-    const { user } = useSelector(myStore => myStore.userSlice);
     const dispatch = useDispatch();
-    const paperRef = useRef();
-    const inputRef = useRef();
-    const [search, setSearch] = useState("")
-
-    // console.log(search);
 
     const handleCloseUsersLikes = () => {
         dispatch(setOpenUsersLikes({ val: false }))
     };
-
-
 
     return (
         <div>
