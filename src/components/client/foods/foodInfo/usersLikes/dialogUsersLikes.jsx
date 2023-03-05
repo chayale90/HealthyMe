@@ -33,7 +33,7 @@ export default function DialogUsersLikes({ foodID }) {
                 <Paper
                  sx={{
                         '@media (max-width: 600px)': {
-                            width: '400px'
+                            width: '300px'
                         },
                         '@media (min-width: 600px)': {
                             width: '500px'
