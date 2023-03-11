@@ -16,7 +16,7 @@ export default function MyInfo() {
         const url = API_URL + "/users/myInfo"
         try {
             let { data } = await doApiGet(url);
-            // console.log(data);
+            console.log(data);
             dispatch(addUser({ val: data }))
         }
         catch (err) {

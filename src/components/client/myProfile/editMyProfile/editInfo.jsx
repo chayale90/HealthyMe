@@ -24,13 +24,13 @@ export default function EditInfo({ displayInfo, returnToMyDetails }) {
     console.log(user);
     // console.log(dayjs(user.birth_date));
 
-    const [values, setValues] = useState({ birth_date: "", location: '', kg: '', weight: '' });
+    const [values, setValues] = useState({ birth_date: user?.birth_date?.slice(0, 10) || '', location: '',  height: '' });
     const [displayProgress, setDisplayProgress] = useState("none");
 
-    const st = String(user?.birth_date)
-    const birth_date = (st).slice(0, 10)
+    // const st = String(user?.birth_date)
+    // const birth_date = (st).slice(0, 10)
 
-    console.log(birth_date)
+    // console.log(birth_date)
 
     const handleChange = (prop) => (event) => {
         setValues({ ...values, [prop]: event.target.value });
@@ -106,7 +106,8 @@ export default function EditInfo({ displayInfo, returnToMyDetails }) {
                                                     label=""
                                                     variant="outlined"
                                                     type={"date"}
-                                                    defaultValue={birth_date}
+                                                    value={values.birth_date} // Add this line
+                                                    // defaultValue={user?.birth_date?.slice(0, 10)}
                                                     onChange={handleChange('birth_date')}
                                                 />
                                                 {errors.birth_date && <div className='text-danger s12'>Enter valid Birth Date</div>}
@@ -120,6 +121,8 @@ export default function EditInfo({ displayInfo, returnToMyDetails }) {
                                                     label="Location"
                                                     variant="outlined"
                                                     defaultValue={user.location}
+                                                    onChange={handleChange('location')}
+
                                                 />
                                                 {errors.location && <div className='text-danger s12'>Enter valid location</div>}
                                             </div>
@@ -127,8 +130,7 @@ export default function EditInfo({ displayInfo, returnToMyDetails }) {
 
 
                                         <div className='d-flex mb-4'>
-                                            <div className='w-50'>
-                                                {/* <FormControl variant="outlined"> */}
+                                            {/* <div className='w-50'>
                                                 <OutlinedInput
                                                     size='small'
                                                     {...register('weight', { required: true, pattern: '[0-9]*', min: 25, max: 300, minLength: 2, maxLength: 3 })}
@@ -140,8 +142,7 @@ export default function EditInfo({ displayInfo, returnToMyDetails }) {
                                                     defaultValue={user.weight}
                                                 />
                                                 {errors.weight && <div className='text-danger s12'>Enter valid weight</div>}
-                                                {/* </FormControl> */}
-                                            </div>
+                                            </div> */}
 
                                             <div className='w-50'>
                                                 <TextField className='col-auto' type={"number"}
@@ -150,6 +151,8 @@ export default function EditInfo({ displayInfo, returnToMyDetails }) {
                                                     label="Height"
                                                     variant="outlined"
                                                     defaultValue={user.height}
+                                                    onChange={handleChange('height')}
+
                                                 />
                                                 {errors.height && <div className='text-danger s12'>Enter valid height</div>}
                                             </div>

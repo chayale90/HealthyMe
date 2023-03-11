@@ -1,6 +1,7 @@
-import React, { useEffect } from 'react'
+import React, { Component, useEffect } from 'react'
 import { useState } from 'react';
 import { useSelector } from "react-redux";
+import ChartJsMyWeight from './graph/ChartJsMyWeight';
 
 
 export default function MyDetails() {
@@ -8,8 +9,13 @@ export default function MyDetails() {
   const [scale, setScale] = useState("");
   const [descreption, setDescreption] = useState("");
 
-  const BMI = (user.weight / (user.height / 100 * user.height / 100)).toLocaleString()
+  const BMI =(user?.weight && user.weight.length > 0)? ((user.weight[user.weight.length-1].myWeight) / (user.height / 100 * user.height / 100)).toLocaleString():""
 
+  useEffect(() => {
+    if(BMI)
+    console.log(BMI);
+    calculationBMI()
+  }, [BMI])
 
   const calculationBMI = () => {
     if (BMI < 18.5) {
@@ -29,22 +35,23 @@ export default function MyDetails() {
       setDescreption("The reason for this may be that your daily caloric intake is very large in relation to the energy your body expends during the day.")
     }
   }
-
-   useEffect(() => {
-    calculationBMI()
-  }, [BMI])
-
-
+  
   return (
-    <div className='container '>
+    <div className='container'>
       <div className='row text-center justify-content-around justify-content-sm-center'>
         <div className='divCount py-4 mx-sm-4'>{(user?.height) / 100}  <br /><span className='weight500'> Height</span> </div>
-        <div className='divCount py-4 mx-sm-4'>{user?.weight} <br /><span className='weight500'>KG</span> </div>
-        <div className='divCount py-4 mx-sm-4'>{BMI}<br /><span className='weight500'>BMI</span> </div>
+        <div className='divCount py-4 mx-sm-4'>{(user?.weight && user.weight.length > 0)?user.weight[user.weight.length-1].myWeight:""} <br /><span className='weight500'>KG</span> </div>
+        <div className='divCount py-4 mx-sm-4'>{(user?.weight && user.weight.length > 0) ? BMI : 'N/A'}<br /><span className='weight500'>BMI</span> </div>
       </div>
+      
       {/* <div className='text-center mt-4'>Your BMI is {user?.BMI}</div> */}
+
       <div className='text-center mt-4'>{scale}</div>
-      <div className='text-center mt-3 mb-4'>{descreption}</div>
+      <div className='text-center mt-3 mb-4 '>{descreption}</div>
+
+      <div className='pb-5'>
+        <ChartJsMyWeight />
+      </div>
 
     </div>
   )
