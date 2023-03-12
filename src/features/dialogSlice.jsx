@@ -39,5 +39,5 @@ const dialogSlice = createSlice({
   
 })
 
-export const { setOpenFollowers,setOpenFollowings,setUserIdFollowers,setUserIdFollowings,setOpenUsersLikes ,setOpenEditWeight,setFlag} = dialogSlice.actions;
+export const { setOpenFollowers,setOpenFollowings,setUserIdFollowers,setUserIdFollowings,setOpenUsersLikes ,setOpenEditWeight} = dialogSlice.actions;
 export default dialogSlice.reducer;
