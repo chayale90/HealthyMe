@@ -72,7 +72,7 @@ export default function MyDetails() {
       <div className='text-center mt-3 mb-4 '>{descreption}</div>
 
       <div className='pb-5 pt-4'>
-        <h4 className='text-center darkPurple'>My proccess</h4>
+        <h5 className='text-center darkPurple'>My proccess</h5>
         <ChartJsMyWeight />
       </div>
 
