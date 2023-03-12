@@ -5,10 +5,10 @@ import { useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { ThemeProvider } from '@mui/material/styles';
+import { theme } from "../../../../services/theme"
 import { toast } from 'react-toastify';
 import { useSelector } from 'react-redux';
 import { CircularProgress } from '@mui/material';
-import { theme } from "../../../../services/theme"
 import { btnStyle } from '../../../../services/btnStyle';
 import { API_URL, doApiMethod } from '../../../../services/apiService';
 
@@ -21,15 +21,12 @@ export default function EditInfo({ displayInfo, returnToMyDetails }) {
     const nav = useNavigate()
     const { user } = useSelector(myStore => myStore.userSlice);
 
-    console.log(user);
-    // console.log(dayjs(user.birth_date));
 
-    const [values, setValues] = useState({ birth_date: user?.birth_date?.slice(0, 10) || '', location: '',  height: '' });
+    const [values, setValues] = useState({ birth_date: user?.birth_date?.slice(0, 10) || '', location: '', height: '' });
     const [displayProgress, setDisplayProgress] = useState("none");
 
     // const st = String(user?.birth_date)
     // const birth_date = (st).slice(0, 10)
-
     // console.log(birth_date)
 
     const handleChange = (prop) => (event) => {
@@ -130,20 +127,6 @@ export default function EditInfo({ displayInfo, returnToMyDetails }) {
 
 
                                         <div className='d-flex mb-4'>
-                                            {/* <div className='w-50'>
-                                                <OutlinedInput
-                                                    size='small'
-                                                    {...register('weight', { required: true, pattern: '[0-9]*', min: 25, max: 300, minLength: 2, maxLength: 3 })}
-                                                    className='col-11' type={"number"}
-                                                    endAdornment={<InputAdornment position="end">kg</InputAdornment>}
-                                                    inputProps={{
-                                                        'aria-label': 'weight',
-                                                    }}
-                                                    defaultValue={user.weight}
-                                                />
-                                                {errors.weight && <div className='text-danger s12'>Enter valid weight</div>}
-                                            </div> */}
-
                                             <div className='w-50'>
                                                 <TextField className='col-auto' type={"number"}
                                                     {...register('height', { required: true, pattern: '[0-9]*', min: 100, max: 300, minLength: 2, maxLength: 3 })}
@@ -156,7 +139,6 @@ export default function EditInfo({ displayInfo, returnToMyDetails }) {
                                                 />
                                                 {errors.height && <div className='text-danger s12'>Enter valid height</div>}
                                             </div>
-
                                         </div>
 
                                         <Button type='submit'
@@ -175,7 +157,6 @@ export default function EditInfo({ displayInfo, returnToMyDetails }) {
                                 :
                                 <div>Loading...</div>
                         }
-
                     </Paper>
                 </Dialog>
             </ThemeProvider>

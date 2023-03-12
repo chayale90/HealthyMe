@@ -10,7 +10,7 @@ import {
 } from "chart.js";
 import { Line } from "react-chartjs-2";
 import { useSelector } from "react-redux";
-import React from 'react'
+import React, { useEffect } from 'react'
 
 ChartJS.register(
   CategoryScale,
@@ -26,6 +26,7 @@ const options = {
   plugins: {
     legend: {
       position: "bottom",
+      display: false, // hide the legend
     },
   },
   scales: {
@@ -40,7 +41,11 @@ const options = {
   }
 };
 
+
+
 const ChartJsMyWeight = () => {
+
+
   const { user } = useSelector((myStore) => myStore.userSlice);
   const updatedDates = (user?.weight && user.weight.length > 0) ? (user?.weight).map((item) => {
     return (
