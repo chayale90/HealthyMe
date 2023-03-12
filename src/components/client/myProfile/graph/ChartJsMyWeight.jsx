@@ -22,6 +22,12 @@ ChartJS.register(
   Legend
 );
 
+
+
+
+
+const ChartJsMyWeight = () => {
+
 const options = {
   plugins: {
     legend: {
@@ -32,7 +38,7 @@ const options = {
   scales: {
     y: {
       min: 40,
-      max: 130,
+      max: 180,
       title: {
         display: true,
         text: 'My Weight (kg)',
@@ -40,12 +46,6 @@ const options = {
     }
   }
 };
-
-
-
-const ChartJsMyWeight = () => {
-
-
   const { user } = useSelector((myStore) => myStore.userSlice);
   const updatedDates = (user?.weight && user.weight.length > 0) ? (user?.weight).map((item) => {
     return (
