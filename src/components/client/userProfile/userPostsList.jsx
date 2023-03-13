@@ -28,7 +28,7 @@ export default function UserPostsList() {
         let url = API_URL + `/foods/userFoods/${params["id"]}?page=${page}`;
         try {
             let resp = await doApiGet(url);
-            console.log(resp.data);
+            // console.log(resp.data);
             setItems([...items, ...resp.data]);
             setHasNextPage(resp.data.length == 0);
             setLoading(false);

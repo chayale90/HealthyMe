@@ -12,7 +12,7 @@ import MyInfo from "../../../services/myInfo"
 export default function FoodsList({ hasMore }) {
   const { arSearch } = useSelector((myStore) => myStore.foodsSlice);
   const dispatch = useDispatch();
-  console.log(arSearch);
+  // console.log(arSearch);
 
 
   const onLikeClick = async (id, idUser) => {

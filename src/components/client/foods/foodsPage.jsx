@@ -111,7 +111,7 @@ export default function FoodsPage() {
       categoryTerm: data.categoryTerm,
       sort: data.sort,
     };
-    console.log({ params });
+    // console.log({ params });
     setDisplayProgress("flex")
     try {
       let resp = await doApiGet(url, params);
@@ -119,7 +119,7 @@ export default function FoodsPage() {
         data.page === 1
           ? { val: [...resp.data.data] }
           : { val: [...arSearch, ...resp.data.data] };
-      console.log({ respData, page });
+      // console.log({ respData, page });
       dispatch(setArSearch({ ...respData }));
       setSearchQueries((prevState) => ({ ...prevState, page: prevState.page + 1 }));
       setTotalPages(resp.data.totalPages);
@@ -138,7 +138,7 @@ export default function FoodsPage() {
   };
 
   const hasMore = searchQueries.page <= Math.ceil(totalPages);
-  console.log({ searchQueries, totalPages, hasMore });
+  // console.log({ searchQueries, totalPages, hasMore });
   return (
 
     <div id="food-page-scroll-container" className="container">

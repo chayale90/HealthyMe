@@ -31,7 +31,7 @@ export default function EditWeight() {
     const [displayProgress, setDisplayProgress] = useState("none");
 
     const onSubmit = async (_dataBody) => {
-        console.log(_dataBody);
+        // console.log(_dataBody);
         await doApiEditWeight(_dataBody);
     };
 
@@ -41,9 +41,8 @@ export default function EditWeight() {
         try {
             let resp = await doApiMethod(url, "PATCH", _dataBody);
             if (resp.data) {
-                console.log(resp.data);
+                // console.log(resp.data);
                 dispatch(setFlag())
-                console.log(myWeight)
                 if (myWeight < (user.weight[user.weight.length - 1].myWeight)) {
                     toast.success("Well done! keep doing what you are doing")
                 }

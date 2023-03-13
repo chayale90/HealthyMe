@@ -42,7 +42,7 @@ export default function FoodInfo() {
         try {
             const url = API_URL + "/foods/foodInfo/" + foodId;
             const resp = await doApiGet(url);
-            console.log(resp.data);
+            // console.log(resp.data);
             setFood(resp.data)
             doApiGetInfoUser(resp.data.user_id)
             if (resp.data.likes.includes(user._id)) {
@@ -61,7 +61,7 @@ export default function FoodInfo() {
         const url = API_URL + "/users/userInfo/" + user_id;
         try {
             const resp = await doApiGet(url);
-            console.log(resp.data);
+            // console.log(resp.data);
             setOtherUser(resp.data);
         } catch (err) {
             console.log(err);
@@ -73,7 +73,7 @@ export default function FoodInfo() {
         let url = API_URL + "/foods/changeLike/" + foodId;
         try {
             const resp = await doApiMethod(url, "PATCH");
-            console.log(resp.data)
+            // console.log(resp.data)
             setIsLiked(!isLiked);
 
         } catch (err) {

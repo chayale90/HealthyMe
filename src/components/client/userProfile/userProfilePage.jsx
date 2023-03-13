@@ -21,7 +21,7 @@ export default function UserProfilePage() {
   const { user } = useSelector(myStore => myStore.userSlice);
   const [otherUser, setOtherUser] = useState({})
   const nav = useNavigate()
-  console.log(user);
+  // console.log(user);
   const dispatch = useDispatch();
   const params = useParams();
   const [isFollow, setIsFollow] = useState(Boolean);
@@ -45,7 +45,7 @@ export default function UserProfilePage() {
     try {
       const url = API_URL + "/users/userInfo/" + params["id"];
       const resp = await doApiGet(url);
-      console.log(resp.data);
+      // console.log(resp.data);
       setOtherUser(resp.data);
       if (resp.data.followers.includes(user._id)) {
         setIsFollow(true)
@@ -79,7 +79,7 @@ export default function UserProfilePage() {
     const url = API_URL + "/users/changeFollow/" + params["id"];
     try {
       let resp = await doApiMethod(url, "PATCH")
-      console.log(resp.data);
+      // console.log(resp.data);
       if (resp.data) {
         setIsFollow(!isFollow);
         setDisplayProgress("none")
