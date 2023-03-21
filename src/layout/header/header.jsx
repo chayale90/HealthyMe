@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
 import AppBar from '@mui/material/AppBar';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
@@ -28,7 +28,9 @@ import FollowersList from '../../components/client/followers/followersList';
 import DialogFollowers from '../../components/client/followers/dialogFollowers';
 import DialogFollowings from '../../components/client/followings/dialogFollowings';
 import { setUserIdFollowers, setUserIdFollowings } from "../../features/dialogSlice"
-
+import { changeDarkMode } from "../../features/homeSlice"
+import Brightness4Icon from '@mui/icons-material/Brightness4';
+import Brightness7Icon from '@mui/icons-material/Brightness7';
 
 export default function Header() {
   const { user } = useSelector(myStore => myStore.userSlice);
@@ -122,7 +124,14 @@ export default function Header() {
       return user.img_url;
     }
   }, [user]);
-  
+
+
+
+  //darkMode
+  const { darkMode } = useSelector(myStore => myStore.homeSlice);
+
+
+
 
   return (
     <ThemeProvider theme={theme}>
@@ -130,7 +139,10 @@ export default function Header() {
       {/* provide details of user (that login) to all comps with redux */}
       <MyInfo />
 
-      <AppBar position="static" sx={{ background: "rgba(255, 255, 255, 1)" }}>
+      <AppBar
+        position="static" color={darkMode == false ? 'lightMode' : 'darkMode'}
+      // sx={{ background: "rgba(255, 255, 255, 1)" }}
+      >
         <Container maxWidth="lg" >
           <div className='d-flex justify-content-between align-items-center' >
             <div className='d-none d-md-flex'>
@@ -249,6 +261,12 @@ export default function Header() {
                 <MenuItem onClick={ClickFollowers}>Followers</MenuItem>
                 <MenuItem onClick={ClickFollowings}>Followings</MenuItem>
                 <MenuItem onClick={ClickLogout}>Logout</MenuItem>
+                <div className='text-center'>
+                  {darkMode==false?"Light":'Dark'}
+                  <IconButton sx={{ ml: 1 }} onClick={()=>{dispatch(changeDarkMode())}} color="inherit">
+                    {darkMode==true ? <Brightness7Icon /> : <Brightness4Icon />}
+                  </IconButton>
+                </div>
 
                 <DialogFollowers />
                 <DialogFollowings />

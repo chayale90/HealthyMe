@@ -1,10 +1,11 @@
 import { Dialog, IconButton, InputBase, Paper } from '@mui/material'
-import React, { useRef, useState } from 'react'
+import React, { useMemo, useRef, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import CloseIcon from '@mui/icons-material/Close';
 import FollowersList from './followersList';
 import SearchIcon from '@mui/icons-material/Search';
 import { setOpenFollowers } from "../../../features/dialogSlice"
+import { theme } from '../../../services/theme';
 
 
 export default function DialogFollowers() {
@@ -38,17 +39,27 @@ export default function DialogFollowers() {
         }
     };
 
+    //darkMode
+    const { darkMode } = useSelector(myStore => myStore.homeSlice);
+    const mode = useMemo(() => {
+        if (darkMode == true) {
+            return theme.palette.darkMode.main
+        } else if (darkMode == false) {
+            return theme.palette.success.main
+        }
+    }, [darkMode]);
+
+
     return (
         <div>
             <Dialog
-
                 open={openFollowers}
                 onClose={handleCloseFollowers}
                 aria-labelledby="followers-dialog"
                 aria-describedby="followers-dialog-description"
             >
                 <Paper
-                    style={{ minHeight: '50vh' }}
+                    style={{ background: mode, color: (darkMode == true) ? "white" : "black" }}
                     elevation={0}>
                     <div className='container p-md-5 p-4 pb-0 pb-md-0'>
                         <h2 className='s24 weight500 mb-4'>Followers</h2>

@@ -1,10 +1,11 @@
 import { Dialog, IconButton, InputBase, Paper } from '@mui/material'
-import React, { useRef, useState } from 'react'
+import React, { useMemo, useRef, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import CloseIcon from '@mui/icons-material/Close';
 import SearchIcon from '@mui/icons-material/Search';
 import { setOpenFollowings } from "../../../features/dialogSlice"
 import FollowingsList from './followingsList';
+import { theme } from '../../../services/theme';
 
 
 export default function DialogFollowings() {
@@ -36,6 +37,17 @@ export default function DialogFollowings() {
         }
     };
 
+    //darkMode
+    const { darkMode } = useSelector(myStore => myStore.homeSlice);
+    const mode = useMemo(() => {
+        if (darkMode == true) {
+            return theme.palette.darkMode.main 
+        } else if (darkMode == false ) {
+            return theme.palette.success.main
+        }
+      }, [darkMode]);
+
+    
     return (
         <div>
             
@@ -46,7 +58,7 @@ export default function DialogFollowings() {
                 aria-describedby="Followings-dialog-description"
             >
                 <Paper
-                    style={{ minHeight: '75vh' }}
+                    style={{ background:mode,color:(darkMode==true)?"white":"black"}}
                     elevation={0}>
                     <div className='container p-md-5 p-4 pb-0 pb-md-0'>
                         <h2 className='s24 weight500 mb-4'>Following</h2>
@@ -56,7 +68,6 @@ export default function DialogFollowings() {
                         >
                             <CloseIcon />
                         </IconButton>
-
                         <Paper
                             ref={paperRef}
                             elevation={0}
