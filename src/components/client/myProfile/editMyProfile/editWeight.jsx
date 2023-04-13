@@ -89,16 +89,16 @@ export default function EditWeight() {
                                         </IconButton>
 
 
-                                        <div className='d-flex mb-4 justify-content-center mt-4'>
+                                        <div className='my-4 m-auto d-flex justify-content-center flex-wrap'>
                                             <OutlinedInput
                                                 size='small'
-                                                {...register('myWeight', { required: true, pattern: '[0-9]*', min: 25, max: 300, minLength: 2, maxLength: 3 })}
+                                                {...register('myWeight', { required: true, pattern: '[0-9]*', min: 41, max: 180, minLength: 2, maxLength: 3 })}
                                                 className='col-11' type={"number"}
                                                 endAdornment={<InputAdornment position="end">kg</InputAdornment>}
                                                 defaultValue={user?.weight[user?.weight.length - 1].myWeight}
                                                 onChange={(e) => { setMyWeight(e.target.value) }}
                                             />
-                                            {errors.weight && <div className='text-danger s12'>Enter valid weight</div>}
+                                            {errors.myWeight && <div className='text-danger s12'>Enter valid weight</div>}
                                         </div>
 
                                         <Button type='submit'
