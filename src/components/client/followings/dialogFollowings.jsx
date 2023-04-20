@@ -37,20 +37,20 @@ export default function DialogFollowings() {
         }
     };
 
+
     //darkMode
     const { darkMode } = useSelector(myStore => myStore.homeSlice);
     const mode = useMemo(() => {
-        if (darkMode == true) {
-            return theme.palette.darkMode.main 
-        } else if (darkMode == false ) {
-            return theme.palette.success.main
-        }
-      }, [darkMode]);
+        if (darkMode)
+            return theme.palette.darkMode.main
+        return theme.palette.success.main
+    }, [darkMode]);
 
-    
+
+
     return (
         <div>
-            
+
             <Dialog
                 open={openFollowings}
                 onClose={handleCloseFollowings}
@@ -58,7 +58,7 @@ export default function DialogFollowings() {
                 aria-describedby="Followings-dialog-description"
             >
                 <Paper
-                    style={{ background:mode,color:(darkMode==true)?"white":"black"}}
+                    style={{ background: mode, color: (darkMode == true) ? "white" : "black" }}
                     elevation={0}>
                     <div className='container p-md-5 p-4 pb-0 pb-md-0'>
                         <h2 className='s24 weight500 mb-4'>Following</h2>
@@ -91,7 +91,7 @@ export default function DialogFollowings() {
                         </Paper>
 
                         <div className='mt-5'>
-                            <FollowingsList usersSearch={search}/>
+                            <FollowingsList usersSearch={search} />
                         </div>
 
 

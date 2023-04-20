@@ -42,11 +42,9 @@ export default function DialogFollowers() {
     //darkMode
     const { darkMode } = useSelector(myStore => myStore.homeSlice);
     const mode = useMemo(() => {
-        if (darkMode == true) {
+        if (darkMode)
             return theme.palette.darkMode.main
-        } else if (darkMode == false) {
-            return theme.palette.success.main
-        }
+        return theme.palette.success.main
     }, [darkMode]);
 
 

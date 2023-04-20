@@ -8,15 +8,13 @@ import Header from './header/header'
 
 export default function Layout() {
 
+    //darkMode
     const { darkMode } = useSelector(myStore => myStore.homeSlice);
-
-    const mode = React.useMemo(() => {
-        if (darkMode == true) {
+    const mode = useMemo(() => {
+        if (darkMode)
             return theme.palette.darkMode.main
-        } else if (darkMode == false ) {
-            return theme.palette.success.main
-        }
-      }, [darkMode]);
+        return theme.palette.success.main
+    }, [darkMode]);
     
     
     return (
