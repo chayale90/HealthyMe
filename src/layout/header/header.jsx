@@ -1,7 +1,7 @@
-import React, { useEffect, useMemo, useState } from 'react'
+// 3rd library
+import React, { useState } from 'react'
 import AppBar from '@mui/material/AppBar';
 import IconButton from '@mui/material/IconButton';
-import Typography from '@mui/material/Typography';
 import Menu from '@mui/material/Menu';
 import MenuIcon from '@mui/icons-material/Menu';
 import CloseIcon from '@mui/icons-material/Close';
@@ -17,6 +17,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 import { ThemeProvider } from '@mui/material/styles';
+// project imports
 import { theme } from "../../services/theme"
 import Logo from '../../components/general_comps/logo'
 import MyInfo from '../../services/myInfo';
@@ -24,7 +25,6 @@ import { TOKEN_NAME } from '../../services/apiService';
 import { resetUser } from "../../features/userSlice"
 import { changeFavorites, changeHome } from "../../features/homeSlice"
 import { setOpenFollowers, setOpenFollowings } from "../../features/dialogSlice"
-import FollowersList from '../../components/client/followers/followersList';
 import DialogFollowers from '../../components/client/followers/dialogFollowers';
 import DialogFollowings from '../../components/client/followings/dialogFollowings';
 import { setUserIdFollowers, setUserIdFollowings } from "../../features/dialogSlice"
@@ -126,11 +126,8 @@ export default function Header() {
   }, [user]);
 
 
-
   //darkMode
   const { darkMode } = useSelector(myStore => myStore.homeSlice);
-
-
 
 
   return (
