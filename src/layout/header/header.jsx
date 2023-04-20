@@ -17,6 +17,8 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 import { ThemeProvider } from '@mui/material/styles';
+import Brightness4Icon from '@mui/icons-material/Brightness4';
+import Brightness7Icon from '@mui/icons-material/Brightness7';
 // project imports
 import { theme } from "../../services/theme"
 import Logo from '../../components/general_comps/logo'
@@ -29,8 +31,7 @@ import DialogFollowers from '../../components/client/followers/dialogFollowers';
 import DialogFollowings from '../../components/client/followings/dialogFollowings';
 import { setUserIdFollowers, setUserIdFollowings } from "../../features/dialogSlice"
 import { changeDarkMode } from "../../features/homeSlice"
-import Brightness4Icon from '@mui/icons-material/Brightness4';
-import Brightness7Icon from '@mui/icons-material/Brightness7';
+
 
 export default function Header() {
   const { user } = useSelector(myStore => myStore.userSlice);
@@ -49,7 +50,6 @@ export default function Header() {
 
   //dialog open-close
   const [open, setOpen] = useState(false);
-
 
   //nanbar functions
   const handleOpenNavMenu = (event) => {
@@ -128,7 +128,6 @@ export default function Header() {
 
   //darkMode
   const { darkMode } = useSelector(myStore => myStore.homeSlice);
-
 
   return (
     <ThemeProvider theme={theme}>

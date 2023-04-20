@@ -1,14 +1,16 @@
+// 3rd library
 import React, { useState, useRef } from "react";
 import { useEffect } from "react";
 import Select from "react-select";
 import { toast } from "react-toastify";
-import FoodsList from "./foodsList";
+import { CircularProgress, ThemeProvider } from '@mui/material';
+import { useDispatch, useSelector } from "react-redux";
 import AddIcon from "@mui/icons-material/Add";
 import { Fab } from "@mui/material";
-import { CircularProgress ,ThemeProvider} from '@mui/material';
-import { useDispatch, useSelector } from "react-redux";
 import Button from "@mui/material/Button";
 import { useNavigate } from "react-router";
+// project imports
+import FoodsList from "./foodsList";
 import SearchInput from "./searchInput";
 import { API_URL, doApiGet } from "../../../services/apiService";
 import { setArSearch } from "../../../features/foodsSlice";
@@ -211,6 +213,7 @@ export default function FoodsPage() {
           aria-label="addFood">
           <AddIcon />
         </Fab>
+
       </ThemeProvider>
     </div>
   );
