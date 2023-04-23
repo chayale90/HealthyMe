@@ -89,7 +89,7 @@ export default function UserItemAdmin(props) {
             <td><img src={item.img_url} alt="Avatar" width={60} /></td>
             <td>{item.sex}</td>
             <td>{item.height}</td>
-            <td>{item.weight}</td>
+            <td>{item.weight[item.weight.length-1].myWeight}</td>
             <td>
                 <Button disableElevation onClick={onRoleClick} color="success" variant="contained">{item.role}</Button>
             </td>

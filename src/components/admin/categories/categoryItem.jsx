@@ -7,7 +7,7 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogTitle from '@mui/material/DialogTitle';
 import { API_URL, doApiMethod } from '../../../services/apiService'
 
-export default function CategoryItem({doApi}) {
+export default function CategoryItem(props) {
     let item = props.item
 
     const [isOpen, setIsOpen] = useState(false);
@@ -26,7 +26,7 @@ export default function CategoryItem({doApi}) {
             let resp = await doApiMethod(url, "DELETE")
             console.log(resp.data);
             if (resp.data) {
-                doApi();
+                props.doApi();
             }
         }
         catch (err) {
