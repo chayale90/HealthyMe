@@ -21,7 +21,7 @@ export default function CategoriesList() {
     }
     catch (err) {
       console.log(err);
-      toast.error("there problem, try later")
+      toast.error(`there problem, try later`)
     }
   }
 

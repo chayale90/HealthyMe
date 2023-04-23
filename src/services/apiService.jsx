@@ -1,8 +1,7 @@
 import axios from "axios";
 
 // export const API_URL = "http://localhost:3003";
-// export const API_URL = "https://average-shawl-lion.cyclic.app"
-export const API_URL = "https://healthyme-back.up.railway.app"
+export const API_URL = "https://healthyme-backend-production.up.railway.app"
 
 export const TOKEN_NAME = "FOODS_TOKEN";
 
@@ -26,7 +25,7 @@ export const doApiGet = async (_url, params = {}) => {
 // For Post,delete, put, patch
 export const doApiMethod = async (_url, _method, _body = {}) => {
   try {
-    console.log(_body);
+    // console.log(_body);
     let resp = await axios({
       url: _url,
       method: _method,
@@ -45,7 +44,7 @@ export const doApiMethod = async (_url, _method, _body = {}) => {
 //?do I need?
 export const doApiMethodSignUp = async (_url, _method, _body = {}) => {
   try {
-    console.log(_body);
+    // console.log(_body);
     let resp = await axios({
       url: _url,
       method: _method,
