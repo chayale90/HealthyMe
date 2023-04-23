@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
-import { Avatar, Dialog, IconButton, InputBase, Paper,CircularProgress } from '@mui/material'
-import { OutlinedInput, InputLabel, InputAdornment, Button, TextField } from '@mui/material';
+import { Avatar, Dialog, IconButton, Paper, CircularProgress } from '@mui/material'
+import { OutlinedInput, InputLabel, InputAdornment, Button } from '@mui/material';
 import { Link, useNavigate } from 'react-router-dom';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
@@ -18,8 +18,7 @@ export default function EditAccount({ displayAccount, returnToMyDetails }) {
     const nav = useNavigate()
     const { register, getValues, handleSubmit, formState: { errors } } = useForm();
     const { user } = useSelector(myStore => myStore.userSlice);
-    const [open, setOpen] = useState(true);
-
+    const [isOpen, setIsOpen] = useState(true);
     const [values, setValues] = useState({ email: user?.email, password: '', newPassword: '', password3: '', showPassword: true, showNewPassword: false, showPassword3: false });
     const passwordRef = register("password", { required: { value: true, message: 'Password is requried' }, minLength: { value: 3, message: "Password must be at least 3 characters" } });
     const newPasswordRef = register("newPassword", { required: { value: true, message: 'NewPassword is requried' }, minLength: { value: 3, message: "NewPassword must be at least 3 characters" } });
@@ -90,140 +89,140 @@ export default function EditAccount({ displayAccount, returnToMyDetails }) {
     return (
         <>
             <ThemeProvider theme={theme}>
-                <Dialog
-                    style={{ display: displayAccount }}
-                    open={open}
-                    onClose={handleClose}
-                    fullWidth
-                    maxWidth="xs"
-                    aria-labelledby="editAccount-dialog"
-                    aria-describedby="editAccount-dialog-description"
-                >
-                    <Paper >
-                        <form onSubmit={handleSubmit(onSubmit)}>
-                            <div className='container p-md-4 p-3'>
-                                <div className='d-flex mb-4 pb-1 '>
-                                    <IconButton
-                                        onClick={() => { returnToMyDetails() }}
-                                        sx={{ marginRight: "55px" }}
-                                    >
-                                        <ArrowBackIcon />
-                                    </IconButton>
-                                    <h2 className='changePass mt-2 '>Change password</h2>
-                                </div>
+                {isOpen &&
+                    <Dialog
+                        style={{ display: displayAccount }}
+                        open={isOpen}
+                        onClose={handleClose}
+                        fullWidth
+                        maxWidth="xs"
+                        aria-labelledby="editAccount-dialog"
+                        aria-describedby="editAccount-dialog-description"
+                    >
+                        <Paper>
+                            <form onSubmit={handleSubmit(onSubmit)}>
+                                <div className='container p-md-4 p-3'>
+                                    <div className='d-flex mb-4 pb-1 '>
+                                        <IconButton
+                                            onClick={() => { returnToMyDetails() }}
+                                            sx={{ marginRight: "55px" }}
+                                        >
+                                            <ArrowBackIcon />
+                                        </IconButton>
+                                        <h2 className='changePass mt-2 '>Change password</h2>
+                                    </div>
 
-
-                                <div className='inputEmail'>
-                                    <InputLabel style={{ fontSize: "14px" }} >Email</InputLabel>
-                                    <OutlinedInput
-                                        size="small"
-                                        autoComplete="email"
-                                        fullWidth
-                                        {...emailRef}
-                                        label="Email"
-                                        variant="outlined"
-                                        type={"text"}
-                                        onChange={handleChange('email')}
-                                        value={user.email}
+                                    <div className='inputEmail'>
+                                        <InputLabel style={{ fontSize: "14px" }} >Email</InputLabel>
+                                        <OutlinedInput
+                                            size="small"
+                                            autoComplete="email"
+                                            fullWidth
+                                            {...emailRef}
+                                            label="Email"
+                                            variant="outlined"
+                                            type={"text"}
+                                            onChange={handleChange('email')}
+                                            value={user.email}
                                         // disabled={true}
-                                    />
-                                    {/* {errors.email && <div className="text-danger s12">Enter valid email</div>} */}
+                                        />
+                                        {/* {errors.email && <div className="text-danger s12">Enter valid email</div>} */}
+                                    </div>
+
+
+                                    <div className='inputPass mt-3'>
+                                        <InputLabel style={{ fontSize: "14px" }} htmlFor="password">Current Password</InputLabel>
+                                        <OutlinedInput size="small"  {...passwordRef}
+                                            autoComplete="password"
+                                            type={values.showPassword ? 'text' : 'password'}
+                                            value={values.password}
+                                            onChange={handleChange('password')}
+                                            // defaultValue=" password"
+                                            fullWidth
+                                            endAdornment={
+                                                <InputAdornment position="end">
+                                                    <IconButton
+                                                        aria-label="toggle password visibility"
+                                                        onClick={handleClickShowPassword}
+                                                        onMouseDown={handleMouseDownPassword}
+                                                        edge="end"
+                                                    >
+                                                        {values.showPassword ? <VisibilityOff /> : <Visibility />}
+                                                    </IconButton>
+                                                </InputAdornment>
+                                            }
+                                            label="Password"
+                                        />
+                                        {errors.password && <div className="text-danger s12">{errors?.password?.message}</div>}
+                                    </div>
+
+                                    <div className='inputPass mt-3'>
+                                        <InputLabel style={{ fontSize: "14px" }} htmlFor="newPassword">New Password</InputLabel>
+                                        <OutlinedInput size="small"  {...newPasswordRef}
+                                            autoComplete="newPassword"
+                                            type={values.showNewPassword ? 'text' : 'password'}
+                                            value={values.newPassword}
+                                            onChange={handleChange('newPassword')}
+                                            // defaultValue="new password"
+                                            fullWidth
+                                            endAdornment={
+                                                <InputAdornment position="end">
+                                                    <IconButton
+                                                        aria-label="toggle password visibility"
+                                                        onClick={handleClickShowNewPassword}
+                                                        onMouseDown={handleMouseDownPassword}
+                                                        edge="end"
+                                                    >
+                                                        {values.showNewPassword ? <VisibilityOff /> : <Visibility />}
+                                                    </IconButton>
+                                                </InputAdornment>
+                                            }
+                                            label="Password2"
+                                        />
+
+                                        {errors.newPassword && <div className="text-danger s12">{errors?.newPassword?.message}</div>}
+                                    </div>
+
+
+                                    <div className='inputPass mt-3'>
+                                        <InputLabel style={{ fontSize: "14px" }} htmlFor="outlined-adornment-password">Confirm Password</InputLabel>
+                                        <OutlinedInput size="small"  {...passwordRef3}
+                                            autoComplete="password3"
+                                            type={values.showPassword3 ? 'text' : 'password'}
+                                            value={values.password3}
+                                            onChange={handleChange('password3')}
+                                            // defaultValue="Current password"
+                                            fullWidth
+                                            endAdornment={
+                                                <InputAdornment position="end">
+                                                    <IconButton
+                                                        aria-label="toggle password visibility"
+                                                        onClick={handleClickShowPassword3}
+                                                        onMouseDown={handleMouseDownPassword}
+                                                        edge="end"
+                                                    >
+                                                        {values.showPassword3 ? <VisibilityOff /> : <Visibility />}
+                                                    </IconButton>
+                                                </InputAdornment>
+                                            }
+                                            label="Password3"
+                                        />
+                                        {errors.password3 && <div className="text-danger s12">Password not match</div>}
+                                    </div>
+
+                                    <Button type='submit'
+                                        sx={btnStyle}
+                                        className='loginBtn mt-2'
+                                        endIcon={<CircularProgress sx={{ display: displayProgress }} size={"20px"} color="success" />}
+                                    >
+                                        Save
+                                    </Button>
+
                                 </div>
-
-
-                                <div className='inputPass mt-3'>
-                                    <InputLabel style={{ fontSize: "14px" }} htmlFor="password">Current Password</InputLabel>
-                                    <OutlinedInput size="small"  {...passwordRef}
-                                        autoComplete="password"
-                                        type={values.showPassword ? 'text' : 'password'}
-                                        value={values.password}
-                                        onChange={handleChange('password')}
-                                        // defaultValue=" password"
-                                        fullWidth
-                                        endAdornment={
-                                            <InputAdornment position="end">
-                                                <IconButton
-                                                    aria-label="toggle password visibility"
-                                                    onClick={handleClickShowPassword}
-                                                    onMouseDown={handleMouseDownPassword}
-                                                    edge="end"
-                                                >
-                                                    {values.showPassword ? <VisibilityOff /> : <Visibility />}
-                                                </IconButton>
-                                            </InputAdornment>
-                                        }
-                                        label="Password"
-                                    />
-                                    {errors.password && <div className="text-danger s12">{errors?.password?.message}</div>}
-                                </div>
-
-                                <div className='inputPass mt-3'>
-                                    <InputLabel style={{ fontSize: "14px" }} htmlFor="newPassword">New Password</InputLabel>
-                                    <OutlinedInput size="small"  {...newPasswordRef}
-                                        autoComplete="newPassword"
-                                        type={values.showNewPassword ? 'text' : 'password'}
-                                        value={values.newPassword}
-                                        onChange={handleChange('newPassword')}
-                                        // defaultValue="new password"
-                                        fullWidth
-                                        endAdornment={
-                                            <InputAdornment position="end">
-                                                <IconButton
-                                                    aria-label="toggle password visibility"
-                                                    onClick={handleClickShowNewPassword}
-                                                    onMouseDown={handleMouseDownPassword}
-                                                    edge="end"
-                                                >
-                                                    {values.showNewPassword ? <VisibilityOff /> : <Visibility />}
-                                                </IconButton>
-                                            </InputAdornment>
-                                        }
-                                        label="Password2"
-                                    />
-
-                                    {errors.newPassword && <div className="text-danger s12">{errors?.newPassword?.message}</div>}
-                                </div>
-
-
-                                <div className='inputPass mt-3'>
-                                    <InputLabel style={{ fontSize: "14px" }} htmlFor="outlined-adornment-password">Confirm Password</InputLabel>
-                                    <OutlinedInput size="small"  {...passwordRef3}
-                                        autoComplete="password3"
-                                        type={values.showPassword3 ? 'text' : 'password'}
-                                        value={values.password3}
-                                        onChange={handleChange('password3')}
-                                        // defaultValue="Current password"
-                                        fullWidth
-                                        endAdornment={
-                                            <InputAdornment position="end">
-                                                <IconButton
-                                                    aria-label="toggle password visibility"
-                                                    onClick={handleClickShowPassword3}
-                                                    onMouseDown={handleMouseDownPassword}
-                                                    edge="end"
-                                                >
-                                                    {values.showPassword3 ? <VisibilityOff /> : <Visibility />}
-                                                </IconButton>
-                                            </InputAdornment>
-                                        }
-                                        label="Password3"
-                                    />
-                                    {errors.password3 && <div className="text-danger s12">Password not match</div>}
-                                </div>
-
-                                <Button type='submit'
-                                    sx={btnStyle}
-                                    className='loginBtn mt-2'
-                                    endIcon={<CircularProgress sx={{ display: displayProgress }} size={"20px"} color="success" />}
-
-                                >
-                                    Save
-                                </Button>
-
-                            </div>
-                        </form>
-                    </Paper>
-                </Dialog>
+                            </form>
+                        </Paper>
+                    </Dialog>
+                }
             </ThemeProvider>
         </>
     )

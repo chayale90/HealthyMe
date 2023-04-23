@@ -98,27 +98,27 @@ export default function UserProfilePage() {
   }
 
   //dialog open-close
-  const [open, setOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
 
   // dialog Logout option functions
   const handleClose = () => {
-    setOpen(false);
+    setIsOpen(false);
   };
 
   const ClickDeleteFollow = () => {
     setOpen(true);
   };
 
-    //if for the avatar image
+  //if for the avatar image
   const srcImg = React.useMemo(() => {
     if (otherUser.img_url == "" && otherUser.sex == "male") {
-        return "/images/man.png";
+      return "/images/man.png";
     } else if (otherUser.img_url == "" && otherUser.sex == "female") {
-        return "/images/woman.png";
+      return "/images/woman.png";
     } else {
-        return otherUser.img_url;
+      return otherUser.img_url;
     }
-}, [otherUser]);
+  }, [otherUser]);
 
   return (
     <div>
@@ -218,24 +218,26 @@ export default function UserProfilePage() {
 
         <UserPostsList />
 
-        <Dialog
-          open={open}
-          onClose={handleClose}
-          aria-labelledby="alert-dialog-title"
-          aria-describedby="alert-dialog-description"
-        >
-          <div className='p-3'>
-            <DialogTitle
-              sx={{ mb: 0 }}
-              id="alert-dialog-title">
-              You are not following after {otherUser.name} now.
-            </DialogTitle>
-            <DialogActions>
-              <Button onClick={handleClose}>close</Button>
+        {isOpen&&
+          <Dialog
+            open={isOpen}
+            onClose={handleClose}
+            aria-labelledby="alert-dialog-title"
+            aria-describedby="alert-dialog-description"
+          >
+            <div className='p-3'>
+              <DialogTitle
+                sx={{ mb: 0 }}
+                id="alert-dialog-title">
+                You are not following after {otherUser.name} now.
+              </DialogTitle>
+              <DialogActions>
+                <Button onClick={handleClose}>close</Button>
 
-            </DialogActions>
-          </div>
-        </Dialog>
+              </DialogActions>
+            </div>
+          </Dialog>
+        }
 
       </ThemeProvider>
     </div>

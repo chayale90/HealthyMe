@@ -2,22 +2,22 @@ import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
+import { toast } from 'react-toastify';
 import DialogActions from '@mui/material/DialogActions';
 import DialogTitle from '@mui/material/DialogTitle';
 import { API_URL, doApiMethod } from '../../../services/apiService'
-import { toast } from 'react-toastify';
 
-export default function CategoryItem(props) {
+export default function CategoryItem({doApi}) {
     let item = props.item
 
-    const [open, setOpen] = useState(false);
+    const [isOpen, setIsOpen] = useState(false);
 
     const handleClickOpen = () => {
-        setOpen(true);
+        setIsOpen(true);
     };
 
     const handleClose = () => {
-        setOpen(false);
+        setIsOpen(false);
     };
 
     const onDeleteClick = async () => {
@@ -26,7 +26,7 @@ export default function CategoryItem(props) {
             let resp = await doApiMethod(url, "DELETE")
             console.log(resp.data);
             if (resp.data) {
-                props.doApi();
+                doApi();
             }
         }
         catch (err) {
@@ -34,7 +34,6 @@ export default function CategoryItem(props) {
             toast.error("There problem, or you try to change superAdmin to user")
         }
     }
-
 
     return (
         <tr>
@@ -52,8 +51,8 @@ export default function CategoryItem(props) {
             <td>
                 <button onClick={handleClickOpen} className='btn btn-danger me-2 my-0'>Del</button>
             </td>
-            <Dialog
-                open={open}
+            {isOpen && <Dialog
+                open={isOpen}
                 onClose={handleClose}
                 aria-labelledby="alert-dialog-title"
                 aria-describedby="alert-dialog-description"
@@ -66,6 +65,7 @@ export default function CategoryItem(props) {
                     <Button onClick={onDeleteClick} autoFocus>Agree</Button>
                 </DialogActions>
             </Dialog>
+            }
         </tr>
     )
 }

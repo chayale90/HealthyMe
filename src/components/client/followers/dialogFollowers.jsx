@@ -1,22 +1,20 @@
+//3rd library
 import { Dialog, IconButton, InputBase, Paper } from '@mui/material'
 import React, { useMemo, useRef, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import CloseIcon from '@mui/icons-material/Close';
+// project imports
 import FollowersList from './followersList';
 import SearchIcon from '@mui/icons-material/Search';
 import { setOpenFollowers } from "../../../features/dialogSlice"
 import { theme } from '../../../services/theme';
 
-
 export default function DialogFollowers() {
     const { openFollowers } = useSelector(myStore => myStore.dialogSlice);
-    const { user } = useSelector(myStore => myStore.userSlice);
     const dispatch = useDispatch();
     const paperRef = useRef();
     const inputRef = useRef();
     const [search, setSearch] = useState("")
-
-    // console.log(search);
 
     const handleCloseFollowers = () => {
         dispatch(setOpenFollowers({ val: false }))
@@ -93,7 +91,6 @@ export default function DialogFollowers() {
                         <div className='mt-5'>
                             <FollowersList usersSearch={search} />
                         </div>
-
 
                     </div>
                 </Paper>

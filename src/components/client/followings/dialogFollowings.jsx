@@ -1,8 +1,10 @@
+//3rd library
 import { Dialog, IconButton, InputBase, Paper } from '@mui/material'
 import React, { useMemo, useRef, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import CloseIcon from '@mui/icons-material/Close';
 import SearchIcon from '@mui/icons-material/Search';
+// project imports
 import { setOpenFollowings } from "../../../features/dialogSlice"
 import FollowingsList from './followingsList';
 import { theme } from '../../../services/theme';
@@ -50,7 +52,6 @@ export default function DialogFollowings() {
 
     return (
         <div>
-
             <Dialog
                 open={openFollowings}
                 onClose={handleCloseFollowings}
@@ -93,8 +94,6 @@ export default function DialogFollowings() {
                         <div className='mt-5'>
                             <FollowingsList usersSearch={search} />
                         </div>
-
-
                     </div>
                 </Paper>
             </Dialog>

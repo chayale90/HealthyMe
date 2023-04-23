@@ -11,7 +11,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { CircularProgress } from '@mui/material';
 import { theme } from '../../../../services/theme'
 import { btnStyle, btnStyle2, labelBtnUpload } from '../../../../services/btnStyle';
-import { API_URL, doApiMethod, doApiMethodSignUp } from '../../../../services/apiService';
+import { API_URL, doApiMethod } from '../../../../services/apiService';
 import { doApiFileUploadAvatars } from '../../../../services/fileUploadFun';
 import { setShowHideComp1, setShowHideComp2, addForm2, resetForm, changeLoading,resetForm1 } from "../../../../features/signUpSlice"
 

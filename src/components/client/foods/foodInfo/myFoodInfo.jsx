@@ -1,28 +1,28 @@
+//3rd library
 import { Button, CircularProgress, IconButton } from '@mui/material';
 import React, { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import { API_URL, doApiGet, doApiMethod } from '../../../../services/apiService';
 import EditIcon from '@mui/icons-material/Edit';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import { useDispatch, useSelector } from 'react-redux';
-import { changeHome } from "../../../../features/homeSlice"
-import MoreVertIcon from '@mui/icons-material/MoreVert';
-import FavoriteIcon from "@mui/icons-material/Favorite";
-import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
-import DeleteIcon from '@mui/icons-material/Delete';
-import { ThemeProvider } from '@mui/material/styles';
-import { theme } from "../../../../services/theme"
-import Dialog from '@mui/material/Dialog';
-import DialogActions from '@mui/material/DialogActions';
-import DialogTitle from '@mui/material/DialogTitle';
-import { setOpenUsersLikes } from "../../../../features/dialogSlice"
 import { Avatar } from '@mui/material';
 import { Link } from 'react-router-dom';
 import { Fab } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
-import "./foodInfo.css"
+import FavoriteIcon from "@mui/icons-material/Favorite";
+import DeleteIcon from '@mui/icons-material/Delete';
+import { ThemeProvider } from '@mui/material/styles';
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogTitle from '@mui/material/DialogTitle';
+// project imports
+import { API_URL, doApiGet, doApiMethod } from '../../../../services/apiService';
+import { theme } from "../../../../services/theme"
+import { changeHome } from "../../../../features/homeSlice"
+import { setOpenUsersLikes } from "../../../../features/dialogSlice"
 import DialogUsersLikes from './usersLikes/dialogUsersLikes';
+import "./foodInfo.css"
 
 export default function MyFoodInfo() {
     const { user } = useSelector(myStore => myStore.userSlice);
@@ -65,14 +65,14 @@ export default function MyFoodInfo() {
     };
 
     //dialog open-close
-    const [open, setOpen] = useState(false);
+    const [isOpen, setIsOpen] = useState(false);
 
     // dialog Logout option functions
     const handleClose = () => {
-        setOpen(false);
+        setIsOpen(false);
     };
     const ClickDelete = () => {
-        setOpen(true);
+        setIsOpen(true);
     };
 
     const onDeleteFood = async () => {
@@ -196,8 +196,9 @@ export default function MyFoodInfo() {
                                 </IconButton>
                             </div>
 
-                            <Dialog
-                                open={open}
+                         {isOpen&&
+                             <Dialog
+                                open={isOpen}
                                 onClose={handleClose}
                                 aria-labelledby="alert-dialog-title"
                                 aria-describedby="alert-dialog-description"
@@ -214,6 +215,7 @@ export default function MyFoodInfo() {
                                     </DialogActions>
                                 </div>
                             </Dialog>
+                         }  
                         </div>
 
                         <hr className='mt-5 mb-4' />

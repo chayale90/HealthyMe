@@ -49,7 +49,7 @@ export default function Header() {
   const [displayButtonX, setDisplayButtonX] = useState("none");
 
   //dialog open-close
-  const [open, setOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
 
   //nanbar functions
   const handleOpenNavMenu = (event) => {
@@ -81,10 +81,10 @@ export default function Header() {
 
   // dialog Logout option functions
   const handleClose = () => {
-    setOpen(false);
+    setIsOpen(false);
   };
   const ClickLogout = () => {
-    setOpen(true);
+    setIsOpen(true);
     handleCloseUserMenu()
 
   };
@@ -267,8 +267,9 @@ export default function Header() {
                 <DialogFollowers />
                 <DialogFollowings />
 
+             {isOpen&&
                 <Dialog
-                  open={open}
+                  open={isOpen}
                   onClose={handleClose}
                   aria-labelledby="alert-dialog-title"
                   aria-describedby="alert-dialog-description"
@@ -277,7 +278,6 @@ export default function Header() {
                     <DialogTitle
                       sx={{ mb: 2 }}
                       id="alert-dialog-title">
-
                       {"Are you sure you want to logout?"}
                     </DialogTitle>
                     <DialogActions>
@@ -286,6 +286,7 @@ export default function Header() {
                     </DialogActions>
                   </div>
                 </Dialog>
+             } 
 
               </Menu>
             </div>
