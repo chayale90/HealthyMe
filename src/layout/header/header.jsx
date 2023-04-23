@@ -49,7 +49,7 @@ export default function Header() {
   const [displayButtonX, setDisplayButtonX] = useState("none");
 
   //dialog open-close
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(Boolean);
 
   //nanbar functions
   const handleOpenNavMenu = (event) => {

@@ -1,17 +1,16 @@
 import React, { useState } from 'react'
-import { Avatar, Dialog, IconButton, InputBase, Paper } from '@mui/material'
-import { Link, useNavigate } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
+import {  Dialog, IconButton, Paper } from '@mui/material'
+import {  useNavigate } from 'react-router-dom';
 import CloseIcon from '@mui/icons-material/Close';
 import EditAccount from './editAccount';
-import "./editMyDetails.css"
 import EditProfile from './editProfile';
 import EditInfo from './editInfo';
 import CheckUserActiveComp from '../../../auth/checkComps/checkUserActiveComp';
+import "./editMyDetails.css"
 
 export default function EditMyDetails() {
     const nav = useNavigate()
-    const [isOpen, setIsOpen] = useState(true);
+    const [isOpen, setIsOpen] = useState(Boolean);
     const [values, setValues] = useState({ displayDetails: 'block', displayAccount: 'none', displayProfile: 'none', displayInfo: 'none' });
 
     //dialog

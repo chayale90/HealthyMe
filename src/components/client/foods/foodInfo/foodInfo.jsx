@@ -1,19 +1,21 @@
+//3rd library
 import { IconButton } from '@mui/material';
 import React, { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import { API_URL, doApiGet, doApiMethod } from '../../../../services/apiService';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import { useDispatch, useSelector } from 'react-redux';
-import { changeHome } from "../../../../features/homeSlice"
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import { ThemeProvider } from '@mui/material/styles';
-import { theme } from "../../../../services/theme"
 import { Avatar } from '@mui/material';
-import { Link } from 'react-router-dom';
-import { setOpenUsersLikes } from "../../../../features/dialogSlice"
 import { CircularProgress } from '@mui/material';
+import { Link } from 'react-router-dom';
+// project imports
+import { API_URL, doApiGet, doApiMethod } from '../../../../services/apiService';
+import { changeHome } from "../../../../features/homeSlice"
+import { theme } from "../../../../services/theme"
+import { setOpenUsersLikes } from "../../../../features/dialogSlice"
 import DialogUsersLikes from './usersLikes/dialogUsersLikes';
 import FabComp from '../../../../services/fabComp';
 import "./foodInfo.css"
@@ -31,7 +33,6 @@ export default function FoodInfo() {
     useEffect(() => {
         dispatch(changeHome({ val: "none" }))
         doApiGetFoodInfo()
-
     }, [isLiked])
 
     const doApiGetFoodInfo = async () => {
@@ -71,7 +72,6 @@ export default function FoodInfo() {
             const resp = await doApiMethod(url, "PATCH");
             // console.log(resp.data)
             setIsLiked(!isLiked);
-
         } catch (err) {
             console.log(err);
             toast.error("There problem try come back later");

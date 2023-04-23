@@ -11,7 +11,7 @@ import CheckAdminComp from "../../components/auth/checkComps/checkAdminComp"
 export default function HeaderAdmin() {
 
   const nav = useNavigate();
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(Boolean);
 
   const handleClickOpen = () => {
     setIsOpen(true);
