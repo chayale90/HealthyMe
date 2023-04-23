@@ -97,14 +97,14 @@ export default function AddFood() {
                             </IconButton>Back
                         </div>
 
-                    {    <Button
+                        <Button
                             type='submit'
                             className='saveBtn'
                             sx={btnStyle}
                             endIcon={<CircularProgress sx={{ display: displayProgress }} size={"20px"} color="success" />}
 
                         >Add
-                        </Button>}
+                        </Button>
                     </div>
 
                     <div className="mx-auto mainAddFood" >

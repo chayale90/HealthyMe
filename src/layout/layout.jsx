@@ -1,5 +1,5 @@
 import { ThemeProvider } from '@emotion/react'
-import React, { useEffect } from 'react'
+import React, { useEffect, useMemo } from 'react'
 import { useSelector } from 'react-redux'
 import { Outlet } from 'react-router-dom'
 import { theme } from '../services/theme'
