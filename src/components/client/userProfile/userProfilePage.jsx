@@ -1,37 +1,31 @@
+//3rd library
 import { Avatar, Button, IconButton, CircularProgress } from '@mui/material'
 import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { Link, useNavigate, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
 import { useEffect } from 'react';
-import { ThemeProvider } from '@mui/material/styles';
-import { theme } from "../../../services/theme"
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogTitle from '@mui/material/DialogTitle';
-import CheckUserComp from '../../auth/checkComps/checkUserComp';
+import { toast } from 'react-toastify';
+import { ThemeProvider } from '@mui/material/styles';
+// project imports
+import { theme } from "../../../services/theme"
 import { setOpenFollowers, setOpenFollowings, setUserIdFollowers, setUserIdFollowings } from "../../../features/dialogSlice"
 import { API_URL, doApiGet, doApiMethod } from '../../../services/apiService';
 import CheckUserActiveComp from '../../auth/checkComps/checkUserActiveComp';
-import { toast } from 'react-toastify';
 import UserPostsList from './userPostsList';
-import { btnStyle, btnStyle2, btnStyle3 } from '../../../services/btnStyle';
+import { btnStyle, btnStyle2 } from '../../../services/btnStyle';
 
 export default function UserProfilePage() {
   const { user } = useSelector(myStore => myStore.userSlice);
   const [otherUser, setOtherUser] = useState({})
-  const nav = useNavigate()
-  // console.log(user);
   const dispatch = useDispatch();
   const params = useParams();
   const [isFollow, setIsFollow] = useState(Boolean);
   const [first, setFirst] = useState(true);
   const [displayProgress, setDisplayProgress] = useState("none");
-
-  // console.log("***************");
-  // console.log(otherUser.followers);
-
-  // console.log(params["id"]);
 
   useEffect(() => {
     doApi()
@@ -79,7 +73,6 @@ export default function UserProfilePage() {
     const url = API_URL + "/users/changeFollow/" + params["id"];
     try {
       let resp = await doApiMethod(url, "PATCH")
-      // console.log(resp.data);
       if (resp.data) {
         setIsFollow(!isFollow);
         setDisplayProgress("none")
@@ -98,7 +91,7 @@ export default function UserProfilePage() {
   }
 
   //dialog open-close
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(Boolean);
 
   // dialog Logout option functions
   const handleClose = () => {
@@ -106,7 +99,7 @@ export default function UserProfilePage() {
   };
 
   const ClickDeleteFollow = () => {
-    setOpen(true);
+    setIsOpen(true);
   };
 
   //if for the avatar image
@@ -122,6 +115,7 @@ export default function UserProfilePage() {
 
   return (
     <div>
+      <CheckUserActiveComp />
       <ThemeProvider theme={theme}>
         {(otherUser.name) ?
           <div className='container mt-5'>
@@ -155,7 +149,6 @@ export default function UserProfilePage() {
                       className='loginBtn'
                       sx={!isFollow ? btnStyle2 : btnStyle}
                     >
-
                       {!isFollow ? "Follow" : "Foolowing "}
                     </Button>
                   </div>
@@ -188,9 +181,7 @@ export default function UserProfilePage() {
 
                 <div className='pb-2'>My motto: {otherUser?.info}</div>
                 <div className='pb-2'>Location: {otherUser?.location}</div>
-
                 <div>Coins: {otherUser?.score} <AttachMoneyIcon sx={{ color: '#DAA520' }} /></div>
-
               </div>
 
               <div className='ms-auto justify-content-end d-none d-md-block '>
@@ -204,7 +195,6 @@ export default function UserProfilePage() {
                   {!isFollow ? "Follow" : "Following "}
                 </Button>
               </div>
-
             </div>
 
           </div>
@@ -218,7 +208,7 @@ export default function UserProfilePage() {
 
         <UserPostsList />
 
-        {isOpen&&
+        {isOpen &&
           <Dialog
             open={isOpen}
             onClose={handleClose}
@@ -238,7 +228,6 @@ export default function UserProfilePage() {
             </div>
           </Dialog>
         }
-
       </ThemeProvider>
     </div>
   )

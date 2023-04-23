@@ -6,10 +6,8 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogTitle from '@mui/material/DialogTitle';
 import { API_URL, doApiMethod } from '../../../services/apiService';
 
-
-
 export default function UserItemAdmin(props) {
-    const [isOpen, setIsOpen] = useState(false);
+    const [isOpen, setIsOpen] = useState(Boolean);
     let item = props.item;
 
     const handleClickOpen = () => {

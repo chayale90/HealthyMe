@@ -10,7 +10,7 @@ import { API_URL, doApiMethod } from '../../../services/apiService'
 export default function CategoryItem(props) {
     let item = props.item
 
-    const [isOpen, setIsOpen] = useState(false);
+    const [isOpen, setIsOpen] = useState(Boolean);
 
     const handleClickOpen = () => {
         setIsOpen(true);
@@ -44,7 +44,6 @@ export default function CategoryItem(props) {
             <th>
                 <img src={item.img_url} alt="categoryImg" width="100" />
             </th>
-
             <td>
                 <Link className='btn btn-info me-2' to={"/admin/editCategory/" + item._id} >Edit</Link>
             </td>

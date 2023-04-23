@@ -64,7 +64,7 @@ export default function MyFoodInfo() {
     };
 
     //dialog open-close
-    const [isOpen, setIsOpen] = useState(false);
+    const [isOpen, setIsOpen] = useState(Boolean);
 
     // dialog Logout option functions
     const handleClose = () => {

@@ -10,7 +10,7 @@ import DialogTitle from '@mui/material/DialogTitle';
 
 export default function FoodItemAdmin(props) {
   let item = props.item;
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(Boolean);
 
   const handleClickOpen = () => {
     setIsOpen(true);

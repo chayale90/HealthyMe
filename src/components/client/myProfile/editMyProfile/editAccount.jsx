@@ -18,7 +18,7 @@ export default function EditAccount({ displayAccount, returnToMyDetails }) {
     const nav = useNavigate()
     const { register, getValues, handleSubmit, formState: { errors } } = useForm();
     const { user } = useSelector(myStore => myStore.userSlice);
-    const [isOpen, setIsOpen] = useState(true);
+    const [isOpen, setIsOpen] = useState(Boolean);
     const [values, setValues] = useState({ email: user?.email, password: '', newPassword: '', password3: '', showPassword: true, showNewPassword: false, showPassword3: false });
     const passwordRef = register("password", { required: { value: true, message: 'Password is requried' }, minLength: { value: 3, message: "Password must be at least 3 characters" } });
     const newPasswordRef = register("newPassword", { required: { value: true, message: 'NewPassword is requried' }, minLength: { value: 3, message: "NewPassword must be at least 3 characters" } });
