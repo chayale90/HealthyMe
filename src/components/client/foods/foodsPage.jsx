@@ -5,8 +5,6 @@ import Select from "react-select";
 import { toast } from "react-toastify";
 import { CircularProgress, ThemeProvider } from '@mui/material';
 import { useDispatch, useSelector } from "react-redux";
-import AddIcon from "@mui/icons-material/Add";
-import { Fab } from "@mui/material";
 import Button from "@mui/material/Button";
 import { useNavigate } from "react-router";
 // project imports
@@ -16,6 +14,7 @@ import { API_URL, doApiGet } from "../../../services/apiService";
 import { setArSearch } from "../../../features/foodsSlice";
 import { changeHome } from "../../../features/homeSlice"
 import { theme } from '../../../services/theme';
+import FabComp from '../../../services/fabComp';
 
 const options = [
   { value: "salads", label: "Salads" },
@@ -207,12 +206,7 @@ export default function FoodsPage() {
           </div>
         }
 
-        <Fab
-          sx={{ background: "#A435F0", color: "white", "&:hover": { color: "white", background: "#912CD6" }, position: 'sticky', bottom: 70, left: 1900 }}
-          onClick={() => { nav("/addFood") }}
-          aria-label="addFood">
-          <AddIcon />
-        </Fab>
+        <FabComp />
 
       </ThemeProvider>
     </div>
