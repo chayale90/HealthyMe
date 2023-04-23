@@ -1,19 +1,20 @@
+// 3rd library
 import React, { useState, useRef } from "react";
 import { useEffect } from "react";
 import Select from "react-select";
 import { toast } from "react-toastify";
-import FoodsList from "./foodsList";
-import AddIcon from "@mui/icons-material/Add";
-import { Fab } from "@mui/material";
-import { CircularProgress ,ThemeProvider} from '@mui/material';
+import { CircularProgress, ThemeProvider } from '@mui/material';
 import { useDispatch, useSelector } from "react-redux";
 import Button from "@mui/material/Button";
 import { useNavigate } from "react-router";
+// project imports
+import FoodsList from "./foodsList";
 import SearchInput from "./searchInput";
 import { API_URL, doApiGet } from "../../../services/apiService";
 import { setArSearch } from "../../../features/foodsSlice";
 import { changeHome } from "../../../features/homeSlice"
 import { theme } from '../../../services/theme';
+import FabComp from '../../../services/fabComp';
 
 const options = [
   { value: "salads", label: "Salads" },
@@ -111,7 +112,7 @@ export default function FoodsPage() {
       categoryTerm: data.categoryTerm,
       sort: data.sort,
     };
-    console.log({ params });
+    // console.log({ params });
     setDisplayProgress("flex")
     try {
       let resp = await doApiGet(url, params);
@@ -119,7 +120,7 @@ export default function FoodsPage() {
         data.page === 1
           ? { val: [...resp.data.data] }
           : { val: [...arSearch, ...resp.data.data] };
-      console.log({ respData, page });
+      // console.log({ respData, page });
       dispatch(setArSearch({ ...respData }));
       setSearchQueries((prevState) => ({ ...prevState, page: prevState.page + 1 }));
       setTotalPages(resp.data.totalPages);
@@ -138,7 +139,7 @@ export default function FoodsPage() {
   };
 
   const hasMore = searchQueries.page <= Math.ceil(totalPages);
-  console.log({ searchQueries, totalPages, hasMore });
+  // console.log({ searchQueries, totalPages, hasMore });
   return (
 
     <div id="food-page-scroll-container" className="container">
@@ -205,12 +206,8 @@ export default function FoodsPage() {
           </div>
         }
 
-        <Fab
-          sx={{ background: "#A435F0", color: "white", "&:hover": { color: "white", background: "#912CD6" }, position: 'sticky', bottom: 70, left: 1900 }}
-          onClick={() => { nav("/addFood") }}
-          aria-label="addFood">
-          <AddIcon />
-        </Fab>
+        <FabComp />
+
       </ThemeProvider>
     </div>
   );

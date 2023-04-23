@@ -1,21 +1,20 @@
+//3rd library
 import { Dialog, IconButton, InputBase, Paper } from '@mui/material'
-import React, { useRef, useState } from 'react'
+import React, { useMemo, useRef, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import CloseIcon from '@mui/icons-material/Close';
+// project imports
 import FollowersList from './followersList';
 import SearchIcon from '@mui/icons-material/Search';
 import { setOpenFollowers } from "../../../features/dialogSlice"
-
+import { theme } from '../../../services/theme';
 
 export default function DialogFollowers() {
     const { openFollowers } = useSelector(myStore => myStore.dialogSlice);
-    const { user } = useSelector(myStore => myStore.userSlice);
     const dispatch = useDispatch();
     const paperRef = useRef();
     const inputRef = useRef();
     const [search, setSearch] = useState("")
-
-    // console.log(search);
 
     const handleCloseFollowers = () => {
         dispatch(setOpenFollowers({ val: false }))
@@ -38,17 +37,25 @@ export default function DialogFollowers() {
         }
     };
 
+    //darkMode
+    const { darkMode } = useSelector(myStore => myStore.homeSlice);
+    const mode = useMemo(() => {
+        if (darkMode)
+            return theme.palette.darkMode.main
+        return theme.palette.success.main
+    }, [darkMode]);
+
+
     return (
         <div>
             <Dialog
-
                 open={openFollowers}
                 onClose={handleCloseFollowers}
                 aria-labelledby="followers-dialog"
                 aria-describedby="followers-dialog-description"
             >
                 <Paper
-                    style={{ minHeight: '50vh' }}
+                    style={{ background: mode, color: (darkMode == true) ? "white" : "black" }}
                     elevation={0}>
                     <div className='container p-md-5 p-4 pb-0 pb-md-0'>
                         <h2 className='s24 weight500 mb-4'>Followers</h2>
@@ -84,7 +91,6 @@ export default function DialogFollowers() {
                         <div className='mt-5'>
                             <FollowersList usersSearch={search} />
                         </div>
-
 
                     </div>
                 </Paper>

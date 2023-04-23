@@ -1,28 +1,27 @@
-import { Button, CircularProgress, IconButton } from '@mui/material';
+//3rd library
+import { Button, CircularProgress, Fab, IconButton } from '@mui/material';
 import React, { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import { API_URL, doApiGet, doApiMethod } from '../../../../services/apiService';
 import EditIcon from '@mui/icons-material/Edit';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import { useDispatch, useSelector } from 'react-redux';
-import { changeHome } from "../../../../features/homeSlice"
-import MoreVertIcon from '@mui/icons-material/MoreVert';
+import { Avatar } from '@mui/material';
+import { Link } from 'react-router-dom';
 import FavoriteIcon from "@mui/icons-material/Favorite";
-import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import DeleteIcon from '@mui/icons-material/Delete';
 import { ThemeProvider } from '@mui/material/styles';
-import { theme } from "../../../../services/theme"
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogTitle from '@mui/material/DialogTitle';
+// project imports
+import { API_URL, doApiGet, doApiMethod } from '../../../../services/apiService';
+import { theme } from "../../../../services/theme"
+import { changeHome } from "../../../../features/homeSlice"
 import { setOpenUsersLikes } from "../../../../features/dialogSlice"
-import { Avatar } from '@mui/material';
-import { Link } from 'react-router-dom';
-import { Fab } from "@mui/material";
-import AddIcon from "@mui/icons-material/Add";
-import "./foodInfo.css"
 import DialogUsersLikes from './usersLikes/dialogUsersLikes';
+import FabComp from '../../../../services/fabComp';
+import "./foodInfo.css"
 
 export default function MyFoodInfo() {
     const { user } = useSelector(myStore => myStore.userSlice);
@@ -65,14 +64,14 @@ export default function MyFoodInfo() {
     };
 
     //dialog open-close
-    const [open, setOpen] = useState(false);
+    const [isOpen, setIsOpen] = useState(false);
 
     // dialog Logout option functions
     const handleClose = () => {
-        setOpen(false);
+        setIsOpen(false);
     };
     const ClickDelete = () => {
-        setOpen(true);
+        setIsOpen(true);
     };
 
     const onDeleteFood = async () => {
@@ -196,24 +195,26 @@ export default function MyFoodInfo() {
                                 </IconButton>
                             </div>
 
-                            <Dialog
-                                open={open}
-                                onClose={handleClose}
-                                aria-labelledby="alert-dialog-title"
-                                aria-describedby="alert-dialog-description"
-                            >
-                                <div className='p-3'>
-                                    <DialogTitle
-                                        sx={{ mb: 2 }}
-                                        id="alert-dialog-title">
-                                        Are you sure you want to delete {food.name} dish?
-                                    </DialogTitle>
-                                    <DialogActions>
-                                        <Button onClick={handleClose}>Disagree</Button>
-                                        <Button onClick={onDeleteFood} autoFocus>Agree</Button>
-                                    </DialogActions>
-                                </div>
-                            </Dialog>
+                            {isOpen &&
+                                <Dialog
+                                    open={isOpen}
+                                    onClose={handleClose}
+                                    aria-labelledby="alert-dialog-title"
+                                    aria-describedby="alert-dialog-description"
+                                >
+                                    <div className='p-3'>
+                                        <DialogTitle
+                                            sx={{ mb: 2 }}
+                                            id="alert-dialog-title">
+                                            Are you sure you want to delete {food.name} dish?
+                                        </DialogTitle>
+                                        <DialogActions>
+                                            <Button onClick={handleClose}>Disagree</Button>
+                                            <Button onClick={onDeleteFood} autoFocus>Agree</Button>
+                                        </DialogActions>
+                                    </div>
+                                </Dialog>
+                            }
                         </div>
 
                         <hr className='mt-5 mb-4' />
@@ -231,12 +232,7 @@ export default function MyFoodInfo() {
                             }
                         </div>
 
-                        <Fab
-                            sx={{ background: "#A435F0", color: "white", "&:hover": { color: "white", background: "#912CD6" }, position: 'sticky', bottom: 70, left: 1900 }}
-                            onClick={() => { nav("/addFood") }}
-                            aria-label="addFood">
-                            <AddIcon />
-                        </Fab>
+                        <FabComp />
 
                     </div>
                     :

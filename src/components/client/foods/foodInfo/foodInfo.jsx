@@ -1,25 +1,21 @@
-import { Button, IconButton } from '@mui/material';
+import { IconButton } from '@mui/material';
 import React, { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { API_URL, doApiGet, doApiMethod } from '../../../../services/apiService';
-import EditIcon from '@mui/icons-material/Edit';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import { useDispatch, useSelector } from 'react-redux';
 import { changeHome } from "../../../../features/homeSlice"
-import MoreVertIcon from '@mui/icons-material/MoreVert';
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
-import DeleteIcon from '@mui/icons-material/Delete';
 import { ThemeProvider } from '@mui/material/styles';
 import { theme } from "../../../../services/theme"
 import { Avatar } from '@mui/material';
 import { Link } from 'react-router-dom';
 import { setOpenUsersLikes } from "../../../../features/dialogSlice"
 import { CircularProgress } from '@mui/material';
-import { Fab } from "@mui/material";
-import AddIcon from "@mui/icons-material/Add";
 import DialogUsersLikes from './usersLikes/dialogUsersLikes';
+import FabComp from '../../../../services/fabComp';
 import "./foodInfo.css"
 
 export default function FoodInfo() {
@@ -42,7 +38,7 @@ export default function FoodInfo() {
         try {
             const url = API_URL + "/foods/foodInfo/" + foodId;
             const resp = await doApiGet(url);
-            console.log(resp.data);
+            // console.log(resp.data);
             setFood(resp.data)
             doApiGetInfoUser(resp.data.user_id)
             if (resp.data.likes.includes(user._id)) {
@@ -61,7 +57,7 @@ export default function FoodInfo() {
         const url = API_URL + "/users/userInfo/" + user_id;
         try {
             const resp = await doApiGet(url);
-            console.log(resp.data);
+            // console.log(resp.data);
             setOtherUser(resp.data);
         } catch (err) {
             console.log(err);
@@ -73,7 +69,7 @@ export default function FoodInfo() {
         let url = API_URL + "/foods/changeLike/" + foodId;
         try {
             const resp = await doApiMethod(url, "PATCH");
-            console.log(resp.data)
+            // console.log(resp.data)
             setIsLiked(!isLiked);
 
         } catch (err) {
@@ -205,12 +201,7 @@ export default function FoodInfo() {
                             }
                         </div>
 
-                        <Fab
-                            sx={{ background: "#A435F0", color: "white", "&:hover": { color: "white", background: "#912CD6" }, position: 'sticky', bottom: 70, left: 1900 }}
-                            onClick={() => { nav("/addFood") }}
-                            aria-label="addFood">
-                            <AddIcon />
-                        </Fab>
+                 <FabComp/>
 
                     </div> :
                     <div style={{ display: "flex", alignItems: "center", minHeight: '300px' }}>

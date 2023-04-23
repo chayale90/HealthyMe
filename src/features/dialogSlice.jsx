@@ -6,8 +6,8 @@ const initValue = {
     openFollowings: false,
     userIdFollowers:"",
     userIdFollowings:"",
-    openUsersLikes:false
-    
+    openUsersLikes:false,
+    openEditWeight: false,
 }
 
 const dialogSlice = createSlice({
@@ -30,10 +30,14 @@ const dialogSlice = createSlice({
         },
         setOpenUsersLikes: (state, action) => {
             state.openUsersLikes = action.payload.val;
-        }
+        },
+        setOpenEditWeight: (state, action) => {
+            state.openEditWeight = action.payload.val;
+        },
+      
     }
   
 })
 
-export const { setOpenFollowers,setOpenFollowings,setUserIdFollowers,setUserIdFollowings,setOpenUsersLikes } = dialogSlice.actions;
+export const { setOpenFollowers,setOpenFollowings,setUserIdFollowers,setUserIdFollowings,setOpenUsersLikes ,setOpenEditWeight} = dialogSlice.actions;
 export default dialogSlice.reducer;

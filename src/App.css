@@ -23,7 +23,9 @@ body {
 .gray {
     color: #494949;
 }
-
+.white {
+    color: #ffffff;
+}
 .s30 {
     font-size: 26px;
 }
@@ -61,7 +63,7 @@ body {
 }
 
 .underLine {
-    color: #2E2E2E;
+    /* color: #2E2E2E; */
     text-decoration: none;
 }
 

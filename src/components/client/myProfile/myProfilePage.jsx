@@ -38,21 +38,29 @@ export default function MyProfilePage() {
     dispatch(setOpenFollowings({ val: true }))
   }
 
-        //if for the avatar image
-        const srcImg = React.useMemo(() => {
-          if (user.img_url == "" && user.sex == "male") {
-              return "/images/man.png";
-          } else if (user.img_url == "" && user.sex == "female") {
-              return "/images/woman.png";
-          } else {
-              return user.img_url;
-          }
-      }, [user]);
+  //if for the avatar image
+  const srcImg = React.useMemo(() => {
+    if (user.img_url == "" && user.sex == "male") {
+      return "/images/man.png";
+    } else if (user.img_url == "" && user.sex == "female") {
+      return "/images/woman.png";
+    } else {
+      return user.img_url;
+    }
+  }, [user]);
 
+
+  //darkMode
+  const { darkMode } = useSelector(myStore => myStore.homeSlice);
+  const colorFont = React.useMemo(() => {
+    if (darkMode == true) {
+      return "white"
+    }
+  }, [darkMode]);
 
   return (
-    <div>
-      <div className='container mt-5'>
+    <div style={{ color: colorFont }}>
+      <div className='container mt-5' >
         <CheckUserComp />
         <MyInfo />
         <div className='d-flex '>

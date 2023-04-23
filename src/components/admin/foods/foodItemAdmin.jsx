@@ -10,14 +10,14 @@ import DialogTitle from '@mui/material/DialogTitle';
 
 export default function FoodItemAdmin(props) {
   let item = props.item;
-  const [open, setOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
 
   const handleClickOpen = () => {
-    setOpen(true);
+    setIsOpen(true);
   };
 
   const handleClose = () => {
-    setOpen(false);
+    setIsOpen(false);
   };
 
   const onDeleteClick = async () => {
@@ -58,8 +58,8 @@ export default function FoodItemAdmin(props) {
       <td>
         <Button variant='contained' color='error' onClick={() => { handleClickOpen() }} className='btn btn-danger'>Del</Button>
       </td>
-      <Dialog
-        open={open}
+    { isOpen&& <Dialog
+        open={isOpen}
         onClose={handleClose}
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
@@ -72,6 +72,8 @@ export default function FoodItemAdmin(props) {
           <Button onClick={onDeleteClick} autoFocus>Agree</Button>
         </DialogActions>
       </Dialog>
+
+    }
     </tr>
 
   )

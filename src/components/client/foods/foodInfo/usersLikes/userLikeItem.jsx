@@ -49,7 +49,7 @@ export default function UserLikeItem({ item }) {
                     </Link>
                 </div>
 
-                <div className='ml-auto float-end justify-content-end mt-1'>
+                <div className='mt-1'>
                     {
                         isFollowing
                     }

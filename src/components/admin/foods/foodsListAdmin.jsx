@@ -31,8 +31,8 @@ export default function FoodsListAdmin() {
     let url = API_URL + "/foods/?page=" + page;
     try {
       let resp = await doApiGet(url);
-      setAr(resp.data);
-      console.log(resp.data);
+      setAr(resp.data.data);
+      console.log(resp.data.data);
     }
     catch (err) {
       console.log(err);

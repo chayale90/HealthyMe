@@ -1,3 +1,4 @@
+//3rd library
 import React, { useEffect, useRef, useState } from 'react'
 import AddAPhotoIcon from '@mui/icons-material/AddAPhoto';
 import { Button, FormControl, IconButton, InputLabel, TextField, ThemeProvider } from '@mui/material';
@@ -10,6 +11,7 @@ import Select from '@mui/material/Select';
 import { CircularProgress } from '@mui/material';
 import { useSelector } from 'react-redux';
 import CloseIcon from '@mui/icons-material/Close';
+// project imports
 import { theme } from '../../../../services/theme';
 import { btnStyle, btnStyle3, btnStyle2 } from '../../../../services/btnStyle';
 import CheckUserActiveComp from '../../../auth/checkComps/checkUserActiveComp';

@@ -34,7 +34,7 @@ import { API_URL, TOKEN_NAME } from "./apiService";
 
 export const doApiFileUploadAvatars = async (_id,fileRef) => {
     if (fileRef.current.files.length == 0) {
-        return toast.info("The image did not upload")
+        return toast.info("The Avatar did not upload")
     }
     let myFile = fileRef.current.files[0];
     if (myFile.size > 2 * 1024 * 1024) {

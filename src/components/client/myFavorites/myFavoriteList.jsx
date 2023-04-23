@@ -35,7 +35,7 @@ export default function MyFavoriteList() {
     try {
       let url = API_URL + "/foods/myLikeFoods?page=" + page;
       let resp = await doApiGet(url);
-      console.log(resp.data);
+      // console.log(resp.data);
       setItems([...items, ...resp.data]);
       setHasNextPage(resp.data.length == 0);
       setLoading(false);

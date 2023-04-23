@@ -11,14 +11,14 @@ import CheckAdminComp from "../../components/auth/checkComps/checkAdminComp"
 export default function HeaderAdmin() {
 
   const nav = useNavigate();
-  const [open, setOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
 
   const handleClickOpen = () => {
-    setOpen(true);
+    setIsOpen(true);
   };
 
   const handleClose = () => {
-    setOpen(false);
+    setIsOpen(false);
   };
 
   const onLogOut = () => {
@@ -54,20 +54,22 @@ export default function HeaderAdmin() {
             <div>
               <Button variant='contained' color='inherit' onClick={handleClickOpen}>Log out</Button>
             </div>
-            <Dialog
-              open={open}
-              onClose={handleClose}
-              aria-labelledby="alert-dialog-title"
-              aria-describedby="alert-dialog-description"
-            >
-              <DialogTitle id="alert-dialog-title">
-                {"Are you sure you want to logout?"}
-              </DialogTitle>
-              <DialogActions>
-                <Button onClick={handleClose}>Disagree</Button>
-                <Button onClick={onLogOut} autoFocus>Agree</Button>
-              </DialogActions>
-            </Dialog>
+            {isOpen &&
+              <Dialog
+                open={open}
+                onClose={handleClose}
+                aria-labelledby="alert-dialog-title"
+                aria-describedby="alert-dialog-description"
+              >
+                <DialogTitle id="alert-dialog-title">
+                  {"Are you sure you want to logout?"}
+                </DialogTitle>
+                <DialogActions>
+                  <Button onClick={handleClose}>Disagree</Button>
+                  <Button onClick={onLogOut} autoFocus>Agree</Button>
+                </DialogActions>
+              </Dialog>
+            }
           </nav>
         </div>
       </div>

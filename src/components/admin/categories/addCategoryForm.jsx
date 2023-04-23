@@ -1,7 +1,9 @@
+//3rd library
 import React, { useRef } from 'react'
 import { useForm } from 'react-hook-form';
 import { Link, useNavigate } from 'react-router-dom';
 import { toast } from "react-toastify"
+// project imports
 import { API_URL, doApiMethod } from '../../../services/apiService';
 import { doApiFileUpload } from '../../../services/fileUploadFun';
 import CheckAdminComp from '../../auth/checkComps/checkAdminComp';

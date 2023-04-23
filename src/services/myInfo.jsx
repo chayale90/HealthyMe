@@ -7,9 +7,12 @@ import { API_URL, doApiGet } from './apiService';
 export default function MyInfo() {
     const dispatch = useDispatch();
 
+    //when user edit his weight the toggle in userSlice change and this component render 
+    const { flagEditWeight } = useSelector(myStore => myStore.userSlice);
+
     useEffect(() => {
         doApiInfoUser()
-    }, [])
+    }, [flagEditWeight])
 
 
     const doApiInfoUser = async () => {

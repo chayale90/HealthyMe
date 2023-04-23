@@ -9,15 +9,15 @@ import { API_URL, doApiMethod } from '../../../services/apiService';
 
 
 export default function UserItemAdmin(props) {
-    const [open, setOpen] = useState(false);
+    const [isOpen, setIsOpen] = useState(false);
     let item = props.item;
 
     const handleClickOpen = () => {
-        setOpen(true);
+        setIsOpen(true);
     };
 
     const handleClose = () => {
-        setOpen(false);
+        setIsOpen(false);
     };
 
     const onRoleClick = async () => {
@@ -89,7 +89,7 @@ export default function UserItemAdmin(props) {
             <td><img src={item.img_url} alt="Avatar" width={60} /></td>
             <td>{item.sex}</td>
             <td>{item.height}</td>
-            <td>{item.weight}</td>
+            <td>{item.weight[item.weight.length-1].myWeight}</td>
             <td>
                 <Button disableElevation onClick={onRoleClick} color="success" variant="contained">{item.role}</Button>
             </td>
@@ -101,7 +101,7 @@ export default function UserItemAdmin(props) {
             <td>
                 <Button color="error" variant="contained" onClick={handleClickOpen} >Del</Button>
             </td>
-            <Dialog
+            {isOpen && <Dialog
                 open={open}
                 onClose={handleClose}
                 aria-labelledby="alert-dialog-title"
@@ -115,6 +115,7 @@ export default function UserItemAdmin(props) {
                     <Button onClick={onDeleteClick} autoFocus>Agree</Button>
                 </DialogActions>
             </Dialog>
+            }
         </tr>
     )
 }

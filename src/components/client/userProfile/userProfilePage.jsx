@@ -21,7 +21,7 @@ export default function UserProfilePage() {
   const { user } = useSelector(myStore => myStore.userSlice);
   const [otherUser, setOtherUser] = useState({})
   const nav = useNavigate()
-  console.log(user);
+  // console.log(user);
   const dispatch = useDispatch();
   const params = useParams();
   const [isFollow, setIsFollow] = useState(Boolean);
@@ -45,7 +45,7 @@ export default function UserProfilePage() {
     try {
       const url = API_URL + "/users/userInfo/" + params["id"];
       const resp = await doApiGet(url);
-      console.log(resp.data);
+      // console.log(resp.data);
       setOtherUser(resp.data);
       if (resp.data.followers.includes(user._id)) {
         setIsFollow(true)
@@ -79,7 +79,7 @@ export default function UserProfilePage() {
     const url = API_URL + "/users/changeFollow/" + params["id"];
     try {
       let resp = await doApiMethod(url, "PATCH")
-      console.log(resp.data);
+      // console.log(resp.data);
       if (resp.data) {
         setIsFollow(!isFollow);
         setDisplayProgress("none")
@@ -98,27 +98,27 @@ export default function UserProfilePage() {
   }
 
   //dialog open-close
-  const [open, setOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
 
   // dialog Logout option functions
   const handleClose = () => {
-    setOpen(false);
+    setIsOpen(false);
   };
 
   const ClickDeleteFollow = () => {
     setOpen(true);
   };
 
-    //if for the avatar image
+  //if for the avatar image
   const srcImg = React.useMemo(() => {
     if (otherUser.img_url == "" && otherUser.sex == "male") {
-        return "/images/man.png";
+      return "/images/man.png";
     } else if (otherUser.img_url == "" && otherUser.sex == "female") {
-        return "/images/woman.png";
+      return "/images/woman.png";
     } else {
-        return otherUser.img_url;
+      return otherUser.img_url;
     }
-}, [otherUser]);
+  }, [otherUser]);
 
   return (
     <div>
@@ -218,24 +218,26 @@ export default function UserProfilePage() {
 
         <UserPostsList />
 
-        <Dialog
-          open={open}
-          onClose={handleClose}
-          aria-labelledby="alert-dialog-title"
-          aria-describedby="alert-dialog-description"
-        >
-          <div className='p-3'>
-            <DialogTitle
-              sx={{ mb: 0 }}
-              id="alert-dialog-title">
-              You are not following after {otherUser.name} now.
-            </DialogTitle>
-            <DialogActions>
-              <Button onClick={handleClose}>close</Button>
+        {isOpen&&
+          <Dialog
+            open={isOpen}
+            onClose={handleClose}
+            aria-labelledby="alert-dialog-title"
+            aria-describedby="alert-dialog-description"
+          >
+            <div className='p-3'>
+              <DialogTitle
+                sx={{ mb: 0 }}
+                id="alert-dialog-title">
+                You are not following after {otherUser.name} now.
+              </DialogTitle>
+              <DialogActions>
+                <Button onClick={handleClose}>close</Button>
 
-            </DialogActions>
-          </div>
-        </Dialog>
+              </DialogActions>
+            </div>
+          </Dialog>
+        }
 
       </ThemeProvider>
     </div>

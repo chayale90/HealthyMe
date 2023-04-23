@@ -42,7 +42,7 @@ export default function AddFood() {
             let url = API_URL + "/foods/foodInfo/" + params["id"];
             let resp = await doApiGet(url);
             setFoodInfo(resp.data)
-            console.log(resp.data);
+            // console.log(resp.data);
         }
         catch (err) {
             console.log(err);
@@ -60,7 +60,7 @@ export default function AddFood() {
         const url = API_URL + "/foods/" + params["id"];
         try {
             let resp = await doApiMethod(url, "PUT", bodyFormData);
-            console.log(resp.data);
+            // console.log(resp.data);
             if (resp.data) {
                 await doApiFileEditFood(resp.data._id, fileRef);
                 dispatch(changeLoading())

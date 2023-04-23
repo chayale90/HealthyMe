@@ -63,7 +63,7 @@ export default function Login() {
     }
     catch (err) {
       console.log(err);
-      toast.error("User or password worng, or service down");
+      toast.error("User or password wrong, or service down");
       setDisplayProgress("none")
     }
   }

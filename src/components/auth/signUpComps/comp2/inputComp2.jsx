@@ -11,7 +11,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { CircularProgress } from '@mui/material';
 import { theme } from '../../../../services/theme'
 import { btnStyle, btnStyle2, labelBtnUpload } from '../../../../services/btnStyle';
-import { API_URL, doApiMethod, doApiMethodSignUp } from '../../../../services/apiService';
+import { API_URL, doApiMethod } from '../../../../services/apiService';
 import { doApiFileUploadAvatars } from '../../../../services/fileUploadFun';
 import { setShowHideComp1, setShowHideComp2, addForm2, resetForm, changeLoading,resetForm1 } from "../../../../features/signUpSlice"
 
@@ -24,10 +24,8 @@ export default function InputComp2() {
     const fileRef = useRef();
     const [fileChosen, setfileChosen] = useState("No Img chosen");
     const [value, setValue] = useState("female");
+    const [weight, setWeight] = useState([]);
     const [displayProgress, setDisplayProgress] = useState("none");
-
-    // console.log({ value });
-    console.log(form);
 
     useEffect(() => {
         if (loading == "waiting")
@@ -35,7 +33,8 @@ export default function InputComp2() {
     }, [loading]);
 
     const onSubmit = async (_bodyFormData) => {
-        console.log(_bodyFormData);
+        // console.log(_bodyFormData);
+        _bodyFormData.weight=weight;
         dispatch(addForm2({ val: _bodyFormData }))
     };
 
@@ -47,7 +46,7 @@ export default function InputComp2() {
             if (resp.data._id) {
                 console.log(resp.data);
                 await doApiFileUploadAvatars(resp.data._id, fileRef);
-                toast.success("You signed up successfully");
+                toast.success("You signed up successfully!");
                 nav("/");
                 dispatch(setShowHideComp1());
                 dispatch(setShowHideComp2());
@@ -63,6 +62,9 @@ export default function InputComp2() {
         }
         catch (err) {
             console.log(err);
+            if(err.code == 11000){
+                toast.error("Email already in system, try log in")
+            }
             toast.error(err.response.data.msg)
             setDisplayProgress("none")
         }
@@ -127,22 +129,23 @@ export default function InputComp2() {
                             </div>
                         </div>
 
-
                         <div className='d-flex mb-3'>
                             <div className='w-50'>
                                 <FormControl size='small' variant="outlined">
                                     <OutlinedInput
-                                        {...register('weight', { required: true, pattern: '[0-9]*', min: 25, max: 300, minLength: 2, maxLength: 3 })}
+                                        {...register('weight', { required: true, pattern: '[0-9]*', min: 25, max: 180, minLength: 2, maxLength: 3 })}
                                         className='col-11' type={"number"}
                                         id="outlined-adornment-weight"
                                         endAdornment={<InputAdornment position="end">kg*</InputAdornment>}
-                                        inputProps={{
-                                            'aria-label': 'weight',
+                                        onChange={(e) => {
+                                            const val = e.target.value;
+                                            setWeight([{"myWeight":val}]);
                                         }}
                                     />
                                     {errors.weight && <div className='text-danger s12'>Enter valid weight</div>}
                                 </FormControl>
                             </div>
+
                             <div className='w-50'>
                                 <TextField className='col-auto' type={"number"}
                                     {...register('height', { required: true, pattern: '[0-9]*', min: 100, max: 300, minLength: 2, maxLength: 3 })}

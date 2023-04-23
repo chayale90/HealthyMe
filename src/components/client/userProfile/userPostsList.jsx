@@ -1,12 +1,13 @@
+//3rd library
 import React, { useEffect, useState } from 'react'
 import useInfiniteScroll from 'react-infinite-scroll-hook';
-import AddIcon from '@mui/icons-material/Add';
 import { useNavigate, useParams } from 'react-router-dom';
 import { CircularProgress } from '@mui/material';
-import { Fab } from '@mui/material';
+import { toast } from 'react-toastify';
+// project imports
 import { API_URL, doApiGet } from '../../../services/apiService'
 import PostItem from '../myProfile/postItem';
-import { toast } from 'react-toastify';
+import FabComp from '../../../services/fabComp';
 
 export default function UserPostsList() {
     const nav = useNavigate();
@@ -28,7 +29,6 @@ export default function UserPostsList() {
         let url = API_URL + `/foods/userFoods/${params["id"]}?page=${page}`;
         try {
             let resp = await doApiGet(url);
-            console.log(resp.data);
             setItems([...items, ...resp.data]);
             setHasNextPage(resp.data.length == 0);
             setLoading(false);
@@ -69,13 +69,7 @@ export default function UserPostsList() {
                     </div>
                 )}
             </div>
-
-            <Fab
-                sx={{ background: "#A435F0", color: "white", "&:hover": { color: "white", background: "#912CD6" }, position: 'sticky', bottom: 70, left: 1900 }}
-                onClick={() => { nav("/addFood") }}
-                aria-label="addFood">
-                <AddIcon />
-            </Fab>
+          <FabComp/>
         </div>
     )
 }

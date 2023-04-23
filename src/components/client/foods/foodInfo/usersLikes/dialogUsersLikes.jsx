@@ -8,19 +8,11 @@ import UsersLikesList from './usersLikesList';
 
 export default function DialogUsersLikes({ foodID }) {
     const { openUsersLikes } = useSelector(myStore => myStore.dialogSlice);
-    const { user } = useSelector(myStore => myStore.userSlice);
     const dispatch = useDispatch();
-    const paperRef = useRef();
-    const inputRef = useRef();
-    const [search, setSearch] = useState("")
-
-    // console.log(search);
 
     const handleCloseUsersLikes = () => {
         dispatch(setOpenUsersLikes({ val: false }))
     };
-
-
 
     return (
         <div>
@@ -33,7 +25,7 @@ export default function DialogUsersLikes({ foodID }) {
                 <Paper
                  sx={{
                         '@media (max-width: 600px)': {
-                            width: '400px'
+                            width: '300px'
                         },
                         '@media (min-width: 600px)': {
                             width: '500px'

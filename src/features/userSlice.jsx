@@ -4,7 +4,7 @@ import { createSlice } from "@reduxjs/toolkit";
 // setting the slice his first store/state
 const initValue = {
     user: {},
-  
+    flagEditWeight:false
 }
 
 const userSlice = createSlice({
@@ -16,9 +16,12 @@ const userSlice = createSlice({
         },
         resetUser: (state, action) => {
             state.user = {}
-        }
+        },
+        setFlag:(state, action) => {
+            state.flagEditWeight =  !(state.flagEditWeight );
+        },
     }
 })
 
-export const { addUser, resetUser } = userSlice.actions;
+export const { addUser, resetUser,setFlag } = userSlice.actions;
 export default userSlice.reducer;
