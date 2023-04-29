@@ -8,12 +8,6 @@ import NotFound from './components/general_comps/notFound'
 import LayoutAdmin from './layoutAdmin/layoutAdmin'
 import UsersListAdmin from './components/admin/users/usersListAdmin'
 import FoodsListAdmin from './components/admin/foods/foodsListAdmin'
-
-//for toast container you need the container will be in app and his css
-import { ToastContainer } from "react-toastify"
-import 'react-toastify/dist/ReactToastify.css';
-
-// import UploadTest from './assets/uploadTest'
 import LoginPage from './components/auth/loginPage/loginPage'
 import SignUpPage from './components/auth/signUpComps/signUpPage'
 import FoodsPage from './components/client/foods/foodsPage'
@@ -26,6 +20,9 @@ import EditFood from './components/client/foods/editFood/editFood'
 import EditMyDetails from './components/client/myProfile/editMyProfile/editMyDetails'
 import MyFavoriteList from './components/client/myFavorites/myFavoriteList'
 
+//for toast container you need the container will be in app and his css
+import { ToastContainer } from "react-toastify"
+import 'react-toastify/dist/ReactToastify.css';
 
 export default function AppRoutes() {
     return (
