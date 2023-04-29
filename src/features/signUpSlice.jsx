@@ -4,9 +4,9 @@ import { createSlice } from "@reduxjs/toolkit";
 // setting the slice his first store/state
 const initValue = {
     form: {},
-    formComp1:{},
-    showHideComp1: true,
-    showHideComp2: false,
+    formBegin:{},
+    isShowBeginComp:true,
+    isShowEndComp: false,
     loading: null
 }
 
@@ -14,15 +14,15 @@ const signUpSlice = createSlice({
     name: "signUp",
     initialState: initValue,
     reducers: {
-        setShowHideComp1: (state, action) => {
-            state.showHideComp1 = (!state.showHideComp1);
+        setIsShowBeginComp: (state, action) => {
+            state.isShowBeginComp = (!state.isShowBeginComp);
         },
-        setShowHideComp2: (state, action) => {
-            state.showHideComp2 = (!state.showHideComp2);
+        setIsShowEndComp: (state, action) => {
+            state.isShowEndComp = (!state.isShowEndComp);
         },
         addForm: (state, action) => {
             state.form = { ...action.payload.val }
-            state.formComp1 = { ...action.payload.val }
+            state.formBegin = { ...action.payload.val }
             delete state.form.password2;
         },
         addForm2: (state, action) => {
@@ -35,11 +35,11 @@ const signUpSlice = createSlice({
         changeLoading: (state, action) => {
             state.loading = action.payload.val
         }, 
-        resetForm1: (state, actions) => {
-            state.formComp1 = {};
+        resetFormBegin: (state, actions) => {
+            state.formBegin = {};
         },
     }
 })
 
-export const { setShowHideComp1, setShowHideComp2, addForm,addForm2, resetForm, changeLoading,resetForm1 } = signUpSlice.actions;
+export const { setIsShowBeginComp, setIsShowEndComp, addForm,addForm2, resetForm, changeLoading,resetFormBegin } = signUpSlice.actions;
 export default signUpSlice.reducer;

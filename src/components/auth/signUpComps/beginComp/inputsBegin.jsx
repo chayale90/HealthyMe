@@ -1,33 +1,32 @@
-import { Button, OutlinedInput, TextField } from '@mui/material'
-import React, { useEffect } from 'react'
+import { Button, TextField } from '@mui/material'
+import React from 'react'
 import { ThemeProvider } from '@mui/material/styles';
 import { theme } from '../../../../services/theme';
 import { useForm } from 'react-hook-form';
 import { btnStyle } from '../../../../services/btnStyle'
 import { useDispatch, useSelector } from 'react-redux';
-import { setShowHideComp1, setShowHideComp2, addForm } from "../../../../features/signUpSlice"
+import { setIsShowBeginComp, setIsShowEndComp, addForm } from "../../../../features/signUpSlice"
 
 
-export default function InputsComp1() {
+export default function InputsBegin() {
 
     const dispatch = useDispatch();
     const { register, getValues, handleSubmit, formState: { errors } } = useForm();
     const regEmail = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i
     const regWordWithoutDigits = /\b[^\d\W]+\b/g
-    const { formComp1 } = useSelector(myStore => myStore.signUpSlice)
+    const { formBegin } = useSelector(myStore => myStore.signUpSlice)
    
 
     const onSubmit = (_dataBody) => {
-        console.log(_dataBody)
         // delete _dataBody.password2; -do this in redux
         //here need to send to grandFather by redux:
         dispatch(addForm({ val: _dataBody }))
-        dispatch(setShowHideComp1())
-        dispatch(setShowHideComp2())
+        dispatch(setIsShowBeginComp())
+        dispatch(setIsShowEndComp())
     }
 
     return (
-        <div >
+        <>
             <ThemeProvider theme={theme}>
                 <form onSubmit={handleSubmit(onSubmit)}>
                     <div className='mb-3'>
@@ -37,7 +36,7 @@ export default function InputsComp1() {
                             size='small' fullWidth
                             label="Full Name*"
                             variant="outlined"
-                            defaultValue={formComp1.name}
+                            defaultValue={formBegin.name}
                         />
                         {errors.name && <div className='text-danger s12'>Enter valid name </div>}
                     </div>
@@ -50,7 +49,7 @@ export default function InputsComp1() {
                             type="email"
                             label="Email*"
                             variant="outlined"
-                            defaultValue={formComp1.email}
+                            defaultValue={formBegin.email}
                         />
                         {errors.email && <div className='text-danger s12'>Enter valid email</div>}
                     </div>
@@ -61,12 +60,10 @@ export default function InputsComp1() {
                             autoComplete="password"
                             id="outlined-adornment-password"
                             size='small' fullWidth
-                            // sx={{ marginBottom: "20px" }}
                             type="password" 
                             label="Password*"
                             variant="outlined" 
-                            defaultValue={formComp1.password}
-
+                            defaultValue={formBegin.password}
                             />
                         {errors.password && <div className='text-danger s12'>Enter valid password </div>}
                     </div>
@@ -79,7 +76,7 @@ export default function InputsComp1() {
                             type="password"
                             label="Confirm Password*"
                             variant="outlined" 
-                            defaultValue={formComp1.password2}
+                            defaultValue={formBegin.password2}
                             />
                         {errors.password2 && <div className='text-danger s12'>Password not match</div>}
                     </div>
@@ -92,7 +89,7 @@ export default function InputsComp1() {
 
                 </form>
             </ThemeProvider>
-        </div >
+        </ >
 
     )
 }

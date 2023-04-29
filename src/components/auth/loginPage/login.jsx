@@ -3,7 +3,6 @@ import { useForm } from 'react-hook-form';
 import { Link, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { IconButton, OutlinedInput, InputLabel, InputAdornment, Button, TextField } from '@mui/material';
-import FormControl from '@mui/material/FormControl';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import { CircularProgress } from '@mui/material';
@@ -130,12 +129,12 @@ export default function Login() {
             {errors.password && <div className="text-danger s12">Enter min 3 charts password</div>}
           </div>
 
-          <Link to=""
+          {/* <Link to=""
             style={{ textDecoration: "none" }}>
             <p className='purple m-0 s14'>
               Forgot password?
             </p>
-          </Link>
+          </Link> */}
 
           <div className='d-flex justify-content-center mt-3'>
             <div className='w-25' >
@@ -169,8 +168,6 @@ export default function Login() {
             <p className='s14 ' style={{ marginBottom: 0 }}>Don’t have an account?</p>
             <Link to="/signUp" style={{ textDecoration: "none" }}><p style={{ marginLeft: "6px", marginBottom: 0 }} className='purple s14'>sign up now!</p></Link>
           </div>
-
-
 
         </form >
       </ThemeProvider>
