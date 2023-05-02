@@ -9,7 +9,7 @@ const initValue = {
     darkMode:false
 }
 
-const homeSlice = createSlice({
+const featuresSlice = createSlice({
     name: "home",
     initialState: initValue,
     reducers: {
@@ -29,5 +29,5 @@ const homeSlice = createSlice({
     }
 })
 
-export const { changeFavorites,changeHome,changeLoading,changeDarkMode} = homeSlice.actions;
-export default homeSlice.reducer;
+export const { changeFavorites,changeHome,changeLoading,changeDarkMode} = featuresSlice.actions;
+export default featuresSlice.reducer;

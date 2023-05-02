@@ -13,7 +13,7 @@ import { CircularProgress } from '@mui/material';
 import { Link } from 'react-router-dom';
 // project imports
 import { API_URL, doApiGet, doApiMethod } from '../../../../services/apiService';
-import { changeHome } from "../../../../features/homeSlice"
+import { changeHome } from "../../../../features/featuresSlice"
 import { theme } from "../../../../services/theme"
 import { setOpenUsersLikes } from "../../../../features/dialogSlice"
 import DialogUsersLikes from './usersLikes/dialogUsersLikes';

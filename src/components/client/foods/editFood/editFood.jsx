@@ -16,7 +16,7 @@ import CheckUserActiveComp from '../../../auth/checkComps/checkUserActiveComp';
 import { API_URL, doApiGet, doApiMethod } from '../../../../services/apiService';
 import { doApiFileUploadFood, doApiFileEditFood } from '../../../../services/fileUploadFun';
 import { useDispatch, useSelector } from 'react-redux';
-import { changeLoading } from "../../../../features/homeSlice";
+import { changeLoading } from "../../../../features/featuresSlice";
 
 export default function AddFood() {
     const nav = useNavigate();

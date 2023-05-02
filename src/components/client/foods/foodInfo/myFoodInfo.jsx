@@ -17,7 +17,7 @@ import DialogTitle from '@mui/material/DialogTitle';
 // project imports
 import { API_URL, doApiGet, doApiMethod } from '../../../../services/apiService';
 import { theme } from "../../../../services/theme"
-import { changeHome } from "../../../../features/homeSlice"
+import { changeHome } from "../../../../features/featuresSlice"
 import { setOpenUsersLikes } from "../../../../features/dialogSlice"
 import DialogUsersLikes from './usersLikes/dialogUsersLikes';
 import FabComp from '../../../../services/fabComp';
@@ -25,7 +25,7 @@ import "./foodInfo.css"
 
 export default function MyFoodInfo() {
     const { user } = useSelector(myStore => myStore.userSlice);
-    const { loadingImg } = useSelector(myStore => myStore.homeSlice);
+    const { loadingImg } = useSelector(myStore => myStore.featuresSlice);
     const params = useParams()
     const nav = useNavigate();
     const dispatch = useDispatch();

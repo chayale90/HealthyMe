@@ -5,7 +5,7 @@ import { ThemeProvider } from '@mui/material/styles';
 import { theme } from "../../../services/theme"
 import { CircularProgress } from '@mui/material';
 import useInfiniteScroll from 'react-infinite-scroll-hook';
-import { changeFavorites } from "../../../features/homeSlice"
+import { changeFavorites } from "../../../features/featuresSlice"
 import { API_URL, doApiGet } from '../../../services/apiService';
 import CheckUserComp from '../../auth/checkComps/checkUserComp';
 import FoodFavoriteItem from './foodFavoriteItem';
