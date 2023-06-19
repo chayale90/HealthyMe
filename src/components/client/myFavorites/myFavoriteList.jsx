@@ -3,12 +3,12 @@ import { useDispatch } from 'react-redux';
 import { toast } from 'react-toastify';
 import { ThemeProvider } from '@mui/material/styles';
 import { theme } from "../../../services/theme"
-import { CircularProgress } from '@mui/material';
 import useInfiniteScroll from 'react-infinite-scroll-hook';
 import { changeFavorites } from "../../../features/featuresSlice"
 import { API_URL, doApiGet } from '../../../services/apiService';
 import CheckUserComp from '../../auth/checkComps/checkUserComp';
 import FoodFavoriteItem from './foodFavoriteItem';
+import LoadingComp from '../../general_comps/loadingComp';
 
 export default function MyFavoriteList() {
 
@@ -71,11 +71,7 @@ export default function MyFavoriteList() {
           })}
           {(loading) && (
             <div ref={sentryRef}>
-              <div style={{ display: "flex", alignItems: "center", minHeight: '100px' }}>
-                <div style={{ margin: "0 auto" }}>
-                  <CircularProgress size={"50px"} />
-                </div>
-              </div>
+              <LoadingComp minHeight="100px" size="40px" />
             </div>
           )}
         </div>

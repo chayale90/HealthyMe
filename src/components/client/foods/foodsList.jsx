@@ -1,13 +1,13 @@
-import { CircularProgress } from "@mui/material";
-import React, { useEffect, useRef, useState } from "react";
+import React from "react";
 import { ThemeProvider } from '@mui/material/styles';
 import { theme } from "../../../services/theme"
-import { API_URL, doApiGet, doApiMethod } from "../../../services/apiService";
+import { API_URL, doApiMethod } from "../../../services/apiService";
 import CheckUserComp from "../../auth/checkComps/checkUserComp";
 import FoodItem from "./foodItem";
 import { useDispatch, useSelector } from "react-redux";
 import { setArSearch } from "../../../features/foodsSlice";
 import MyInfo from "../../../services/myInfo"
+import LoadingComp from "../../general_comps/loadingComp";
 
 export default function FoodsList({ hasMore }) {
   const { arSearch } = useSelector((myStore) => myStore.foodsSlice);
@@ -59,11 +59,8 @@ export default function FoodsList({ hasMore }) {
             );
           })}
           {arSearch.length < 1 &&
-            <div style={{ display: "flex", alignItems: "center", minHeight: '100px' }}>
-              <div style={{ margin: "0 auto" }}>
-                <CircularProgress size={"50px"} />
-              </div>
-            </div>
+                    <LoadingComp minHeight="100px" size="50px"/>
+
           }
 
         </div>

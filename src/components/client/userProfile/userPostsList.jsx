@@ -8,6 +8,7 @@ import { toast } from 'react-toastify';
 import { API_URL, doApiGet } from '../../../services/apiService'
 import PostItem from '../myProfile/postItem';
 import FabComp from '../../../services/fabComp';
+import LoadingComp from '../../general_comps/loadingComp';
 
 export default function UserPostsList() {
     const nav = useNavigate();
@@ -61,11 +62,8 @@ export default function UserPostsList() {
 
                 {(loading) && (
                     <div ref={sentryRef}>
-                        <div style={{ display: "flex", alignItems: "center", minHeight: '100px' }}>
-                            <div style={{ margin: "0 auto", color: "#A435F0" }}>
-                                <CircularProgress size={"50px"} />
-                            </div>
-                        </div>
+                                      <LoadingComp minHeight="100px" size="50px"/>
+
                     </div>
                 )}
             </div>

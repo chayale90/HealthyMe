@@ -9,7 +9,6 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import { ThemeProvider } from '@mui/material/styles';
 import { Avatar } from '@mui/material';
-import { CircularProgress } from '@mui/material';
 import { Link } from 'react-router-dom';
 // project imports
 import { API_URL, doApiGet, doApiMethod } from '../../../../services/apiService';
@@ -19,6 +18,7 @@ import { setOpenUsersLikes } from "../../../../features/dialogSlice"
 import DialogUsersLikes from './usersLikes/dialogUsersLikes';
 import FabComp from '../../../../services/fabComp';
 import "./foodInfo.css"
+import LoadingComp from '../../../general_comps/loadingComp';
 
 export default function FoodInfo() {
     const { user } = useSelector(myStore => myStore.userSlice);
@@ -201,14 +201,12 @@ export default function FoodInfo() {
                             }
                         </div>
 
-                 <FabComp/>
+                        <FabComp />
 
                     </div> :
-                    <div style={{ display: "flex", alignItems: "center", minHeight: '300px' }}>
-                        <div style={{ margin: "0 auto" }}>
-                            <CircularProgress size={"80px"} />
-                        </div>
-                    </div>
+                    <LoadingComp minHeight="300px" size="80px" />
+
+
                 }
             </div>
             <DialogUsersLikes foodID={foodId} />

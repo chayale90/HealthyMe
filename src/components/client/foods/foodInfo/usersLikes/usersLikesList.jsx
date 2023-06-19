@@ -1,15 +1,12 @@
 import React, { useEffect, useState } from 'react'
-import { List, ListItem } from '@mui/material';
 import useInfiniteScroll from 'react-infinite-scroll-hook';
-import { useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
-import { CircularProgress } from '@mui/material';
 import { API_URL, doApiGet } from '../../../../../services/apiService';
-import FollowerItem from "./userLikeItem";
 import CheckUserActiveComp from '../../../../auth/checkComps/checkUserActiveComp';
 import UserLikeItem from './userLikeItem';
+import LoadingComp from '../../../../general_comps/loadingComp';
 
-export default function UsersLikesList({ foodID}) {
+export default function UsersLikesList({ foodID }) {
   // const { userIdFollowers } = useSelector(myStore => myStore.dialogSlice);
 
   const [items, setItems] = useState([]);
@@ -59,11 +56,7 @@ export default function UsersLikesList({ foodID}) {
       })}
       {(loading) && (
         <div ref={sentryRef}>
-          <div style={{ display: "flex", alignItems: "center", minHeight: '100px' }}>
-            <div style={{ margin: "0 auto", color: "#A435F0" }}>
-              <CircularProgress size={"40px"} />
-            </div>
-          </div>
+          <LoadingComp minHeight="100px" size="40px" />
         </div>
       )}
     </div>

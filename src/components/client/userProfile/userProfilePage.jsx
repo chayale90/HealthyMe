@@ -1,5 +1,5 @@
 //3rd library
-import { Avatar, Button, IconButton, CircularProgress } from '@mui/material'
+import { Avatar, Button, CircularProgress } from '@mui/material'
 import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useParams } from 'react-router-dom';
@@ -17,6 +17,7 @@ import { API_URL, doApiGet, doApiMethod } from '../../../services/apiService';
 import CheckUserActiveComp from '../../auth/checkComps/checkUserActiveComp';
 import UserPostsList from './userPostsList';
 import { btnStyle, btnStyle2 } from '../../../services/btnStyle';
+import LoadingComp from '../../general_comps/loadingComp';
 
 export default function UserProfilePage() {
   const { user } = useSelector(myStore => myStore.userSlice);
@@ -199,11 +200,8 @@ export default function UserProfilePage() {
 
           </div>
           :
-          <div style={{ display: "flex", alignItems: "center", minHeight: '300px' }}>
-            <div style={{ margin: "0 auto" }}>
-              <CircularProgress size={"80px"} />
-            </div>
-          </div>
+          <LoadingComp minHeight="300px" size="80px"/>
+
         }
 
         <UserPostsList />
