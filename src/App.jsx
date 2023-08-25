@@ -5,7 +5,7 @@ import { Provider } from "react-redux";
 import signUpSlice from "./features/signUpSlice"
 import userSlice from "./features/userSlice"
 import foodsSlice from "./features/foodsSlice"
-import homeSlice from "./features/homeSlice"
+import featuresSlice from "./features/featuresSlice"
 import dialogSlice from "./features/dialogSlice"
 
 export const myStore = configureStore({
@@ -15,7 +15,7 @@ export const myStore = configureStore({
     foodsSlice,
 
     //for home and favorite options
-    homeSlice,
+    featuresSlice,
 
     dialogSlice
   }

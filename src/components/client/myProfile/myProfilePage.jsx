@@ -51,7 +51,7 @@ export default function MyProfilePage() {
 
 
   //darkMode
-  const { darkMode } = useSelector(myStore => myStore.homeSlice);
+  const { darkMode } = useSelector(myStore => myStore.featuresSlice);
   const colorFont = React.useMemo(() => {
     if (darkMode == true) {
       return "white"

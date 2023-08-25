@@ -12,7 +12,7 @@ import FoodsList from "./foodsList";
 import SearchInput from "./searchInput";
 import { API_URL, doApiGet } from "../../../services/apiService";
 import { setArSearch } from "../../../features/foodsSlice";
-import { changeHome } from "../../../features/homeSlice"
+import { changeHome } from "../../../features/featuresSlice"
 import { theme } from '../../../services/theme';
 import FabComp from '../../../services/fabComp';
 

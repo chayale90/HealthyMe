@@ -1,7 +1,8 @@
 import axios from "axios";
 
 // export const API_URL = "http://localhost:3003";
-export const API_URL = "https://healthyme-backend-production.up.railway.app"
+// export const API_URL = "https://healthyme-backend-production.up.railway.app"
+export const API_URL = "https://healthy-me-back-end.vercel.app"
 
 export const TOKEN_NAME = "FOODS_TOKEN";
 

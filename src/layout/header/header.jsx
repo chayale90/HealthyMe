@@ -25,19 +25,19 @@ import Logo from '../../components/general_comps/logo'
 import MyInfo from '../../services/myInfo';
 import { TOKEN_NAME } from '../../services/apiService';
 import { resetUser } from "../../features/userSlice"
-import { changeFavorites, changeHome } from "../../features/homeSlice"
+import { changeFavorites, changeHome } from "../../features/featuresSlice"
 import { setOpenFollowers, setOpenFollowings } from "../../features/dialogSlice"
 import DialogFollowers from '../../components/client/followers/dialogFollowers';
 import DialogFollowings from '../../components/client/followings/dialogFollowings';
 import { setUserIdFollowers, setUserIdFollowings } from "../../features/dialogSlice"
-import { changeDarkMode } from "../../features/homeSlice"
+import { changeDarkMode } from "../../features/featuresSlice"
 
 
 export default function Header() {
   const { user } = useSelector(myStore => myStore.userSlice);
   // console.log(user);
 
-  const { home, favorites } = useSelector(myStore => myStore.homeSlice);
+  const { home, favorites } = useSelector(myStore => myStore.featuresSlice);
 
   const nav = useNavigate();
   const dispatch = useDispatch();
@@ -127,7 +127,7 @@ export default function Header() {
 
 
   //darkMode
-  const { darkMode } = useSelector(myStore => myStore.homeSlice);
+  const { darkMode } = useSelector(myStore => myStore.featuresSlice);
 
   return (
     <ThemeProvider theme={theme}>

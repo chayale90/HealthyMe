@@ -8,6 +8,7 @@ import { CircularProgress } from '@mui/material';
 import { API_URL, doApiGet } from '../../../services/apiService'
 import PostItem from './postItem';
 import FabComp from '../../../services/fabComp';
+import LoadingComp from '../../general_comps/loadingComp';
 
 export default function MyPostsList() {
     const nav = useNavigate();
@@ -58,17 +59,14 @@ export default function MyPostsList() {
                     })}
                     {(loading) && (
                         <div ref={sentryRef}>
-                            <div style={{ display: "flex", alignItems: "center", minHeight: '100px' }}>
-                                <div style={{ margin: "0 auto" }}>
-                                    <CircularProgress size={"50px"} />
-                                </div>
-                            </div>
+                            <LoadingComp minHeight="100px" size="50px" />
+
                         </div>
                     )}
                 </div>
 
-             <FabComp/>
-                
+                <FabComp />
+
             </ThemeProvider>
         </div>
     )

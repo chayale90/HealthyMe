@@ -1,5 +1,5 @@
 //3rd library
-import { Button, CircularProgress, Fab, IconButton } from '@mui/material';
+import { Button } from '@mui/material';
 import React, { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
@@ -17,15 +17,16 @@ import DialogTitle from '@mui/material/DialogTitle';
 // project imports
 import { API_URL, doApiGet, doApiMethod } from '../../../../services/apiService';
 import { theme } from "../../../../services/theme"
-import { changeHome } from "../../../../features/homeSlice"
+import { changeHome } from "../../../../features/featuresSlice"
 import { setOpenUsersLikes } from "../../../../features/dialogSlice"
 import DialogUsersLikes from './usersLikes/dialogUsersLikes';
 import FabComp from '../../../../services/fabComp';
 import "./foodInfo.css"
+import LoadingComp from '../../../general_comps/loadingComp';
 
 export default function MyFoodInfo() {
     const { user } = useSelector(myStore => myStore.userSlice);
-    const { loadingImg } = useSelector(myStore => myStore.homeSlice);
+    const { loadingImg } = useSelector(myStore => myStore.featuresSlice);
     const params = useParams()
     const nav = useNavigate();
     const dispatch = useDispatch();
@@ -236,11 +237,8 @@ export default function MyFoodInfo() {
 
                     </div>
                     :
-                    <div style={{ display: "flex", alignItems: "center", minHeight: '300px' }}>
-                        <div style={{ margin: "0 auto" }}>
-                            <CircularProgress size={"80px"} />
-                        </div>
-                    </div>
+                    <LoadingComp minHeight="300px" size="80px"/>
+
                 }
 
             </div>

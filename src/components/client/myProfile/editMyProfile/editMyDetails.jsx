@@ -10,7 +10,6 @@ import "./editMyDetails.css"
 
 export default function EditMyDetails() {
     const nav = useNavigate()
-    const [isOpen, setIsOpen] = useState(Boolean);
     const [values, setValues] = useState({ displayDetails: 'block', displayAccount: 'none', displayProfile: 'none', displayInfo: 'none' });
 
     //dialog
@@ -25,9 +24,8 @@ export default function EditMyDetails() {
     return (
         <div>
             <CheckUserActiveComp />
-            {isOpen &&
                 <Dialog
-                    open={isOpen}
+                    open={true}
                     style={{ display: values.displayDetails }}
                     onClose={handleClose}
                     aria-labelledby="followers-dialog"
@@ -72,7 +70,7 @@ export default function EditMyDetails() {
                         </div>
                     </Paper>
                 </Dialog>
-            }
+            
 
             <EditAccount displayAccount={values.displayAccount} returnToMyDetails={returnToMyDetails} />
             <EditProfile displayProfile={values.displayProfile} returnToMyDetails={returnToMyDetails} />

@@ -9,7 +9,7 @@ import Header from './header/header'
 export default function Layout() {
 
     //darkMode
-    const { darkMode } = useSelector(myStore => myStore.homeSlice);
+    const { darkMode } = useSelector(myStore => myStore.featuresSlice);
     const mode = useMemo(() => {
         if (darkMode)
             return theme.palette.darkMode.main

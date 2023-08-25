@@ -3,14 +3,13 @@ import { List, ListItem } from '@mui/material';
 import useInfiniteScroll from 'react-infinite-scroll-hook';
 import { useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
-import { CircularProgress } from '@mui/material';
 import { API_URL, doApiGet } from '../../../services/apiService';
 import FollowerItem from "./followerItem";
 import CheckUserActiveComp from '../../auth/checkComps/checkUserActiveComp';
+import LoadingComp from '../../general_comps/loadingComp';
 
 export default function FollowersList({ usersSearch }) {
   const { userIdFollowers } = useSelector(myStore => myStore.dialogSlice);
-
   const [items, setItems] = useState([]);
   const [page, setPage] = useState(1);
   const [hasNextPage, setHasNextPage] = useState(true);
@@ -80,11 +79,7 @@ export default function FollowersList({ usersSearch }) {
       })}
       {(loading) && (
         <div ref={sentryRef}>
-          <div style={{ display: "flex", alignItems: "center", minHeight: '100px' }}>
-            <div style={{ margin: "0 auto", color: "#A435F0" }}>
-              <CircularProgress size={"40px"} />
-            </div>
-          </div>
+          <LoadingComp minHeight="100px" size="40px" />
         </div>
       )}
     </div>

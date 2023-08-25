@@ -3,7 +3,7 @@ import React from 'react'
 import { useNavigate } from 'react-router-dom';
 import AddIcon from '@mui/icons-material/Add';
 
-export default function fab() {
+export default function FabComp() {
     const nav = useNavigate();
 
     return (

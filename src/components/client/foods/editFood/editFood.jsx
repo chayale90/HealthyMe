@@ -16,7 +16,8 @@ import CheckUserActiveComp from '../../../auth/checkComps/checkUserActiveComp';
 import { API_URL, doApiGet, doApiMethod } from '../../../../services/apiService';
 import { doApiFileUploadFood, doApiFileEditFood } from '../../../../services/fileUploadFun';
 import { useDispatch, useSelector } from 'react-redux';
-import { changeLoading } from "../../../../features/homeSlice";
+import { changeLoading } from "../../../../features/featuresSlice";
+import LoadingComp from '../../../general_comps/loadingComp';
 
 export default function AddFood() {
     const nav = useNavigate();
@@ -282,11 +283,7 @@ export default function AddFood() {
                         </div>
                     </form>
                     :
-                    <div style={{ display: "flex", alignItems: "center", minHeight: '300px' }}>
-                        <div style={{ margin: "0 auto" }}>
-                            <CircularProgress size={"80px"} />
-                        </div>
-                    </div>
+                    <LoadingComp minHeight="300px" size="80px"/>
                 }
 
             </ThemeProvider>
