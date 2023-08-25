@@ -34,8 +34,6 @@ export default function PostItem({ item }) {
                         <VisibilityIcon className="eyeBTN" sx={{ fontSize: "40px" }} />
                     </IconButton>
                 }
-
-
             </div>
         </div>
 
