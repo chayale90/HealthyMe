@@ -129,12 +129,6 @@ export default function Login() {
             {errors.password && <div className="text-danger s12">Enter min 3 charts password</div>}
           </div>
 
-          {/* <Link to=""
-            style={{ textDecoration: "none" }}>
-            <p className='purple m-0 s14'>
-              Forgot password?
-            </p>
-          </Link> */}
 
           <div className='d-flex justify-content-center mt-3'>
             <div className='w-25' >
