@@ -2,54 +2,45 @@ import React, { useState } from 'react'
 import { useForm } from 'react-hook-form';
 import { Link, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import { IconButton, OutlinedInput, InputLabel, InputAdornment, Button, TextField } from '@mui/material';
+import { IconButton, OutlinedInput, InputLabel, InputAdornment, Button, FormHelperText, Box } from '@mui/material';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import { CircularProgress } from '@mui/material';
 import { ThemeProvider } from '@mui/material/styles';
-import { theme } from "../../../services/theme"
-// import style from './logintest.module.css'
-import { API_URL, doApiMethod, TOKEN_NAME } from '../../../services/apiService';
-import { btnStyle } from '../../../services/btnStyle';
+import { theme } from "@/services/theme"
+import { API_URL, doApiMethod, TOKEN_NAME } from '@/services/apiService';
+import { btnStyle } from '@/services/btnStyle';
 import "./login.css"
 
 
 export default function Login() {
 
-  const { register, handleSubmit, formState: { errors } } = useForm();
+  const { register, handleSubmit, formState: { errors }, getValues } = useForm({
+    defaultValues: {
+      email: "",
+      password: "",
+    }
+  });
   const nav = useNavigate();
   const [displayProgress, setDisplayProgress] = useState("none");
-
-  const [values, setValues] = useState({ password: '', showPassword: false });
-
-  const handleChange = (prop) => (event) => {
-    setValues({ ...values, [prop]: event.target.value });
-  };
+  const [showPassword, setShowPassword] = useState(false);
 
   const handleClickShowPassword = () => {
-    setValues({
-      ...values,
-      showPassword: !values.showPassword,
-    });
-  };
-
-  const handleMouseDownPassword = (event) => {
-    event.preventDefault();
+    setShowPassword(prev => !prev)
   };
 
   const onSubForm = (bodyData) => {
-   let email = bodyData.email.toLowerCase(); //To convert Lower Case
-   let password= bodyData.password
+    let email = bodyData.email.toLowerCase(); // Convert to lowercase
+    let password = bodyData.password
     // bodyData -> contain all values of inputs 
-    doApiForm({email,password});
+    doApiLogin({ email, password });
   }
 
-  const doApiForm = async (bodyData) => {
+  const doApiLogin = async (bodyData) => {
     setDisplayProgress("flex")
     let url = API_URL + "/users/login"
     try {
       let resp = await doApiMethod(url, "POST", bodyData);
-      // console.log(resp.data);
       // Save the token
       localStorage.setItem(TOKEN_NAME, resp.data.token);
       if (resp.data.role == "admin") {
@@ -69,10 +60,14 @@ export default function Login() {
 
   let emailRef = register("email", {
     required: true,
-    pattern:/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/i
+    pattern: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/i
   })
 
-  let passwordRef = register("password", { required: true, minLength: 3 });
+  let passwordRef = register("password", {
+    required: { value: true, message: 'חובה למלא סיסמא' },
+    minLength: { value: 3, message: 'הסיסמה חייבת להכיל לפחות 3 תווים' },
+    maxLength: { value: 99, message: 'הסיסמה יכולה להכיל עד 99 תווים' }
+  });
 
 
   const loginGuest = () => {
@@ -83,57 +78,61 @@ export default function Login() {
   }
 
   return (
-
-    <div>
+    <>
       <ThemeProvider theme={theme}>
         <h2 className='s22'>Log In</h2>
         <h6 className='welcomeText'>Welcome back! Please enter your details.</h6>
 
-        <form>
-          <div className='inputEmail'>
+        <form onSubmit={handleSubmit(onSubForm)}>
+          <Box className='inputEmail'>
             <InputLabel style={{ fontSize: "14px" }} >Email</InputLabel>
-            <OutlinedInput size="small"
+            <OutlinedInput
+              {...emailRef}
+              size="small"
               autoComplete="userName"
-              fullWidth {...emailRef}
+              fullWidth
               label="Email"
-              id="outlined-basic"
               variant="outlined"
-              type={"text"}
+              type="text"
             />
-            {errors.email && <div className="text-danger s12">Enter valid email</div>}
+            <FormHelperText error={!!errors.email}>
+              {errors.email && errors?.email?.message}
+            </FormHelperText>
+          </Box>
 
-          </div>
-
-          <div className='inputPass'>
+          <Box className='inputPass'>
             <InputLabel style={{ fontSize: "14px" }} htmlFor="outlined-adornment-password">Password</InputLabel>
-            <OutlinedInput size="small" fullWidth {...passwordRef}
+            <OutlinedInput
+              {...passwordRef}
+              size="small"
+              fullWidth
               id="outlined-adornment-password"
               autoComplete="password"
-              type={values.showPassword ? 'text' : 'password'}
-              value={values.password}
-              onChange={handleChange('password')}
+              type={showPassword ? 'text' : 'password'}
+              value={getValues.password}
               endAdornment={
                 <InputAdornment position="end">
                   <IconButton
                     aria-label="toggle password visibility"
                     onClick={handleClickShowPassword}
-                    onMouseDown={handleMouseDownPassword}
                     edge="end"
                   >
-                    {values.showPassword ? <VisibilityOff /> : <Visibility />}
+                    {showPassword ? <Visibility /> :<VisibilityOff /> }
                   </IconButton>
                 </InputAdornment>
               }
               label="Password"
             />
-            {errors.password && <div className="text-danger s12">Enter min 3 charts password</div>}
-          </div>
+            <FormHelperText error={!!errors.password}>
+              {errors.password && errors?.password?.message}
+            </FormHelperText>
+          </Box>
 
 
-          <div className='d-flex justify-content-center mt-3'>
-            <div className='w-25' >
+          <Box className='d-flex justify-content-center mt-3'>
+            <Box className='w-25' >
               <hr />
-            </div>
+            </Box>
             <Button
               className='mx-2'
               onClick={loginGuest}
@@ -144,13 +143,13 @@ export default function Login() {
                 Login-Guest
               </p>
             </Button>
-            <div className='w-25'>
+            <Box className='w-25'>
               <hr />
-            </div>
-          </div>
+            </Box>
+          </Box>
 
           <Button
-            onClick={handleSubmit(onSubForm)}
+            type="submit"
             sx={btnStyle}
             className='loginBtn'
             endIcon={<CircularProgress sx={{ display: displayProgress }} size={"20px"} color="success" />}
@@ -158,14 +157,13 @@ export default function Login() {
             Log In
           </Button>
 
-          <div style={{ marginTop: "14px", marginBottom: "6px" }} className='d-flex justify-content-center'>
+          <Box style={{ marginTop: "14px", marginBottom: "6px" }} className='d-flex justify-content-center'>
             <p className='s14 ' style={{ marginBottom: 0 }}>Don’t have an account?</p>
             <Link to="/signUp" style={{ textDecoration: "none" }}><p style={{ marginLeft: "6px", marginBottom: 0 }} className='purple s14'>sign up now!</p></Link>
-          </div>
+          </Box>
 
         </form >
       </ThemeProvider>
-    </div>
-
+    </>
   )
 }
