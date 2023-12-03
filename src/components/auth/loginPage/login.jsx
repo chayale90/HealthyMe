@@ -14,13 +14,13 @@ import "./login.css"
 
 
 export default function Login() {
-
   const { register, handleSubmit, formState: { errors }, getValues } = useForm({
     defaultValues: {
       email: "",
       password: "",
     }
   });
+  
   const nav = useNavigate();
   const [displayProgress, setDisplayProgress] = useState("none");
   const [showPassword, setShowPassword] = useState(false);
