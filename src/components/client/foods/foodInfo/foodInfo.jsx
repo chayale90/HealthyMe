@@ -11,12 +11,12 @@ import { ThemeProvider } from '@mui/material/styles';
 import { Avatar } from '@mui/material';
 import { Link } from 'react-router-dom';
 // project imports
-import { API_URL, doApiGet, doApiMethod } from '../../../../services/apiService';
-import { changeHome } from "../../../../features/featuresSlice"
-import { theme } from "../../../../services/theme"
-import { setOpenUsersLikes } from "../../../../features/dialogSlice"
+import { API_URL, doApiGet, doApiMethod } from '@/services/apiService';
+import { changeHome } from "@/features/featuresSlice"
+import { theme } from "@/services/theme"
+import { setOpenUsersLikes } from "@/features/dialogSlice"
 import DialogUsersLikes from './usersLikes/dialogUsersLikes';
-import FabComp from '../../../../services/fabComp';
+import FabComp from '@/services/fabComp';
 import "./foodInfo.css"
 import LoadingComp from '../../../general_comps/loadingComp';
 
@@ -39,9 +39,8 @@ export default function FoodInfo() {
         try {
             const url = API_URL + "/foods/foodInfo/" + foodId;
             const resp = await doApiGet(url);
-            // console.log(resp.data);
-            setFood(resp.data)
-            doApiGetInfoUser(resp.data.user_id)
+            setFood(resp.data);
+            await doApiGetInfoUser(resp.data.user_id)
             if (resp.data.likes.includes(user._id)) {
                 setIsLiked(true)
             }

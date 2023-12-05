@@ -15,7 +15,7 @@ import { theme } from '@/services/theme';
 import { btnStyle } from '@/services/btnStyle';
 import CheckUserActiveComp from '../../../auth/checkComps/checkUserActiveComp';
 import { API_URL, doApiMethod } from '@/services/apiService';
-import { doApiFileUploadFood } from '@/services/fileUploadFun';
+import { uploadImgFood } from '@/services/fileUploadFun';
 import "./addFood.css"
 
 export default function AddFood() {
@@ -35,7 +35,7 @@ export default function AddFood() {
         try {
             const resp = await doApiMethod(url, "POST", bodyFormData);
             if (resp.data) {
-                const uploadSuccess = await doApiFileUploadFood(resp.data._id, fileRef);
+                const uploadSuccess = await uploadImgFood(resp.data._id, fileRef);
                 uploadSuccess
                     ? (toast.success("Your Dish was added successfully! You won 5 coins!"), nav("/foods"))
                     : toast.error("There was a problem uploading the image");
@@ -49,7 +49,7 @@ export default function AddFood() {
             setDisplayProgress("none");
         }
     };
-    
+
 
     const handleChange = (e) => {
         setFileChosen(fileRef.current.files[0].name)

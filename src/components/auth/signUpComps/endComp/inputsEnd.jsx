@@ -9,11 +9,11 @@ import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft';
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 import { useDispatch, useSelector } from 'react-redux';
 import { CircularProgress } from '@mui/material';
-import { theme } from '../../../../services/theme'
-import { btnStyle, btnStyle2, labelBtnUpload } from '../../../../services/btnStyle';
-import { API_URL, doApiMethod } from '../../../../services/apiService';
-import { doApiFileUploadAvatars } from '../../../../services/fileUploadFun';
-import { setIsShowBeginComp, setIsShowEndComp, addForm2, resetForm, changeLoading, resetFormBegin } from "../../../../features/signUpSlice"
+import { theme } from '@/services/theme'
+import { btnStyle, btnStyle2, labelBtnUpload } from '@/services/btnStyle';
+import { API_URL, doApiMethod } from '@/services/apiService';
+import { doApiFileUploadAvatars } from '@/services/fileUploadFun';
+import { setIsShowBeginComp, setIsShowEndComp, addForm2, resetForm, changeLoading, resetFormBegin } from "@/features/signUpSlice"
 
 
 export default function InputsEnd() {

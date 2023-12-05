@@ -58,9 +58,9 @@ export const doApiFileUploadAvatars = async (_id,fileRef) => {
     }
 }
 
-export const doApiFileUploadFood = async (_id,fileRef) => {
+export const uploadImgFood = async (_id,fileRef) => {
     if (fileRef.current.files.length == 0) {
-        return toast.info("You need to choose image and then upload it")
+        return toast.info("The image does not change")
     }
     let myFile = fileRef.current.files[0];
     if (myFile.size > 2 * 1024 * 1024) {
@@ -77,38 +77,8 @@ export const doApiFileUploadFood = async (_id,fileRef) => {
             }
         })
         if (resp.data) {
-            toast.success(resp.data.msg);
+            toast.success("image uploaded successfully");
             return true; 
-        }
-    }
-    catch (err) {
-        toast.error("There error, try again later")
-        console.log(err);
-    }
-}
-
-
-export const doApiFileEditFood = async (_id,fileRef) => {
-    if (fileRef.current.files.length == 0) {
-        return toast.info("You do not change the image")
-    }
-    let myFile = fileRef.current.files[0];
-    if (myFile.size > 2 * 1024 * 1024) {
-        return toast.error("Image too big")
-    }
-    console.log(myFile);
-    // new FormData() -> know to use with files from client
-    const formData = new FormData();
-    formData.append("myFile22", myFile);
-    let url = API_URL + "/upload/uploadFood/" + _id;
-    try {
-        let resp = await axios.post(url, formData, {
-            headers: {
-                'x-api-key': localStorage[TOKEN_NAME]
-            }
-        })
-        if (resp.data) {
-            toast.success(resp.data.msg)
         }
     }
     catch (err) {
