@@ -2,17 +2,15 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import { API_URL, TOKEN_NAME } from "./apiService";
 
- export const doApiFileUpload = async (_id,fileRef) => {
-    console.log(fileRef.current.files[0])
+//category image in admin panel - V
+ export const uploadImgCategory = async (_id,fileRef) => {
     if (fileRef.current.files.length == 0) {
-        return toast.info("You need to choose image and then upload it")
+        return toast.info("The image category did not change")
     }
     let myFile = fileRef.current.files[0];
     if (myFile.size > 2 * 1024 * 1024) {
         return toast.error("Image too big")
     }
-    console.log(myFile);
-    // new FormData() -> know to use with files from client
     const formData = new FormData();
     formData.append("myFile22", myFile);
     let url = API_URL + "/upload/uploadCategory/" + _id;
@@ -23,7 +21,8 @@ import { API_URL, TOKEN_NAME } from "./apiService";
             }
         })
         if (resp.data) {
-            toast.success(resp.data.msg)
+            toast.success("image uploaded successfully");
+            return true;
         }
     }
     catch (err) {
@@ -32,16 +31,16 @@ import { API_URL, TOKEN_NAME } from "./apiService";
     }
 }
 
+//avater image
 export const doApiFileUploadAvatars = async (_id,fileRef) => {
     if (fileRef.current.files.length == 0) {
-        return toast.info("The Avatar did not upload")
+        return toast.info("The image Avater did not change")
     }
     let myFile = fileRef.current.files[0];
     if (myFile.size > 2 * 1024 * 1024) {
         return toast.error("Image too big")
     }
     console.log(myFile);
-    // new FormData() -> know to use with files from client
     const formData = new FormData();
     formData.append("myFile22", myFile);
     let url = API_URL + "/upload/uploadAvatarSignUp/" + _id;
@@ -58,15 +57,15 @@ export const doApiFileUploadAvatars = async (_id,fileRef) => {
     }
 }
 
+//food image - V
 export const uploadImgFood = async (_id,fileRef) => {
     if (fileRef.current.files.length == 0) {
-        return toast.info("The image does not change")
+        return toast.info("The image did not change")
     }
     let myFile = fileRef.current.files[0];
     if (myFile.size > 2 * 1024 * 1024) {
         return toast.error("Image too big")
     }
-    // new FormData() -> know to use with files from client
     const formData = new FormData();
     formData.append("myFile22", myFile);
     let url = API_URL + "/upload/uploadFood/" + _id;

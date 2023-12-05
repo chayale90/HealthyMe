@@ -24,8 +24,8 @@ export default function CategoryItem(props) {
         let url = API_URL + "/categories/" + item._id
         try {
             let resp = await doApiMethod(url, "DELETE")
-            console.log(resp.data);
             if (resp.data) {
+                toast.success("category deleted successfully")
                 props.doApi();
             }
         }
@@ -42,7 +42,7 @@ export default function CategoryItem(props) {
             <th>{item.url_name}</th>
             <th>{item.info}</th>
             <th>
-                <img src={item.img_url} alt="categoryImg" width="100" />
+                <img src={`${item.img_url}?${Date.now()}`} alt="categoryImg" width="100" />
             </th>
             <td>
                 <Link className='btn btn-info me-2' to={"/admin/editCategory/" + item._id} >Edit</Link>
