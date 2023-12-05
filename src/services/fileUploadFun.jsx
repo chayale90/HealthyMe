@@ -45,6 +45,7 @@ export const doApiFileUploadAvatars = async (_id,fileRef) => {
     const formData = new FormData();
     formData.append("myFile22", myFile);
     let url = API_URL + "/upload/uploadAvatarSignUp/" + _id;
+    console.log(url);
     try {
         let resp = await axios.post(url, formData)
         if (resp.data) {
@@ -65,7 +66,6 @@ export const doApiFileUploadFood = async (_id,fileRef) => {
     if (myFile.size > 2 * 1024 * 1024) {
         return toast.error("Image too big")
     }
-    console.log(myFile);
     // new FormData() -> know to use with files from client
     const formData = new FormData();
     formData.append("myFile22", myFile);
@@ -77,7 +77,8 @@ export const doApiFileUploadFood = async (_id,fileRef) => {
             }
         })
         if (resp.data) {
-            toast.success(resp.data.msg)
+            toast.success(resp.data.msg);
+            return true; 
         }
     }
     catch (err) {
