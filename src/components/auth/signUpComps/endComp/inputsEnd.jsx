@@ -9,11 +9,12 @@ import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft';
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 import { useDispatch, useSelector } from 'react-redux';
 import { CircularProgress } from '@mui/material';
-import { theme } from '../../../../services/theme'
-import { btnStyle, btnStyle2, labelBtnUpload } from '../../../../services/btnStyle';
-import { API_URL, doApiMethod } from '../../../../services/apiService';
-import { doApiFileUploadAvatars } from '../../../../services/fileUploadFun';
-import { setIsShowBeginComp, setIsShowEndComp, addForm2, resetForm, changeLoading, resetFormBegin } from "../../../../features/signUpSlice"
+// project imports
+import { theme } from '@/services/theme'
+import { btnStyle, btnStyle2, labelBtnUpload } from '@/services/btnStyle';
+import { API_URL, doApiMethod } from '@/services/apiService';
+import { uploadImgAvatar } from '@/services/fileUploadFun';
+import { setIsShowBeginComp, setIsShowEndComp, addForm2, resetForm, changeLoading, resetFormBegin } from "@/features/signUpSlice"
 
 
 export default function InputsEnd() {
@@ -33,7 +34,6 @@ export default function InputsEnd() {
     }, [loading]);
 
     const onSubmit = async (_bodyFormData) => {
-        // console.log(_bodyFormData);
         _bodyFormData.weight = weight;
         dispatch(addForm2({ val: _bodyFormData }))
     };
@@ -44,8 +44,7 @@ export default function InputsEnd() {
         try {
             let resp = await doApiMethod(url, "POST", form);
             if (resp.data._id) {
-                // console.log(resp.data);
-                await doApiFileUploadAvatars(resp.data._id, fileRef);
+                await uploadImgAvatar(resp.data._id, fileRef);
                 toast.success("You signed up successfully!");
                 nav("/");
                 dispatch(setIsShowBeginComp());

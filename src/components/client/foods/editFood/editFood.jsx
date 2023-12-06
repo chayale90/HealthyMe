@@ -1,32 +1,30 @@
+//3rd library
 import React, { useEffect, useRef, useState } from 'react'
-import AddAPhotoIcon from '@mui/icons-material/AddAPhoto';
 import { Button, FormControl, IconButton, InputLabel, TextField, ThemeProvider } from '@mui/material';
 import MenuItem from '@mui/material/MenuItem';
 import { useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
 import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft';
-import { Link, useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import Select from '@mui/material/Select';
 import { CircularProgress } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
-import { theme } from '../../../../services/theme';
 import CameraAltIcon from '@mui/icons-material/CameraAlt';
-import { btnStyle, btnStyle3, btnStyle2 } from '../../../../services/btnStyle';
+import { useDispatch } from 'react-redux';
+// project imports
+import { theme } from '@/services/theme';
+import { btnStyle } from '@/services/btnStyle';
 import CheckUserActiveComp from '../../../auth/checkComps/checkUserActiveComp';
-import { API_URL, doApiGet, doApiMethod } from '../../../../services/apiService';
-import { doApiFileUploadFood, doApiFileEditFood } from '../../../../services/fileUploadFun';
-import { useDispatch, useSelector } from 'react-redux';
-import { changeLoading } from "../../../../features/featuresSlice";
+import { API_URL, doApiGet, doApiMethod } from '@/services/apiService';
+import { uploadImgFood } from '@/services/fileUploadFun';
 import LoadingComp from '../../../general_comps/loadingComp';
 
 export default function AddFood() {
     const nav = useNavigate();
     const fileRef = useRef();
-    const inputRef = useRef();
     const params = useParams();
     const dispatch = useDispatch()
     const { register, getValues, handleSubmit, formState: { errors } } = useForm();
-    const { user } = useSelector(myStore => myStore.userSlice);
     const [selectedOption, setSelectedOption] = useState("");
     const [fileChosen, setfileChosen] = useState("No Img Edit");
     const [image, setImage] = useState(null);
@@ -43,7 +41,6 @@ export default function AddFood() {
             let url = API_URL + "/foods/foodInfo/" + params["id"];
             let resp = await doApiGet(url);
             setFoodInfo(resp.data)
-            // console.log(resp.data);
         }
         catch (err) {
             console.log(err);
@@ -51,37 +48,31 @@ export default function AddFood() {
         }
     }
 
-    const onSubForm = async (bodyFormData) => {
-        console.log(bodyFormData);
-        await doApiEditFood(bodyFormData);
-    }
-
-    const doApiEditFood = async (bodyFormData) => {
-        setDisplayProgress("flex")
-        const url = API_URL + "/foods/" + params["id"];
+    const onSubEditFood = async (bodyFormData) => {
+        setDisplayProgress("flex");
+        const url = `${API_URL}/foods/${params["id"]}`;
         try {
             let resp = await doApiMethod(url, "PUT", bodyFormData);
-            // console.log(resp.data);
             if (resp.data) {
-                await doApiFileEditFood(resp.data._id, fileRef);
-                dispatch(changeLoading())
-                toast.success("Your Dish edits succefuly!");
-                nav("/myFoodInfo/" + params["id"])
+                const uploadSuccess = await uploadImgFood(resp.data._id, fileRef);
+                if (uploadSuccess) {
+                    toast.success("Your Dish edits succefuly!");
+                    nav("/myFoodInfo/" + params["id"]);
+                }
+                else toast.error("There was a problem uploading the image");
             }
-            else {
-                toast.error("There problem, try again later")
-                setDisplayProgress("none")
-            }
+            else toast.error("There problem, try again later")
         }
         catch (err) {
             console.log(err);
             alert("There problem , or category url already in system")
-            setDisplayProgress("none")
+        }
+        finally {
+            setDisplayProgress("none");
         }
     }
 
     const handleChange = (e) => {
-        console.log(fileRef.current.files[0].name);
         setfileChosen(fileRef.current.files[0].name)
         const file = e.target.files[0];
         const reader = new FileReader();
@@ -104,7 +95,7 @@ export default function AddFood() {
             <CheckUserActiveComp />
             <ThemeProvider theme={theme}>
                 {foodInfo.name ?
-                    <form onSubmit={handleSubmit(onSubForm)}>
+                    <form onSubmit={handleSubmit(onSubEditFood)}>
 
                         <div className='mx-auto navButtons'>
                             <div> <IconButton
@@ -152,7 +143,7 @@ export default function AddFood() {
                                     </div>
                                 }
 
-                                <img className='addPhotoDiv' src={!image ? foodInfo.img_url : image} alt="Uploaded" style={{ position: 'relative', zIndex: 0 }} />
+                                <img className='addPhotoDiv' src={!image ? `${foodInfo?.img_url}?${Date.now()}` : image} alt="Uploaded" style={{ position: 'relative', zIndex: 0 }} />
                                 {image && <span id="file-chosen">{fileChosen}</span>}
 
                                 <div style={{ display: displayDiv }}>
@@ -283,7 +274,7 @@ export default function AddFood() {
                         </div>
                     </form>
                     :
-                    <LoadingComp minHeight="300px" size="80px"/>
+                    <LoadingComp minHeight="300px" size="80px" />
                 }
 
             </ThemeProvider>

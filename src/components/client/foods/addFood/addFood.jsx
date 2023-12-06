@@ -1,68 +1,57 @@
 //3rd library
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useRef, useState } from 'react'
 import AddAPhotoIcon from '@mui/icons-material/AddAPhoto';
 import { Button, FormControl, IconButton, InputLabel, TextField, ThemeProvider } from '@mui/material';
 import MenuItem from '@mui/material/MenuItem';
 import { useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
 import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import Select from '@mui/material/Select';
 import { CircularProgress } from '@mui/material';
-import { useSelector } from 'react-redux';
 import CloseIcon from '@mui/icons-material/Close';
 // project imports
-import { theme } from '../../../../services/theme';
-import { btnStyle, btnStyle3, btnStyle2 } from '../../../../services/btnStyle';
+import { theme } from '@/services/theme';
+import { btnStyle } from '@/services/btnStyle';
 import CheckUserActiveComp from '../../../auth/checkComps/checkUserActiveComp';
-import { API_URL, doApiMethod } from '../../../../services/apiService';
-import { doApiFileUploadFood } from '../../../../services/fileUploadFun';
+import { API_URL, doApiMethod } from '@/services/apiService';
+import { uploadImgFood } from '@/services/fileUploadFun';
 import "./addFood.css"
 
 export default function AddFood() {
     const { register, getValues, handleSubmit, formState: { errors } } = useForm();
-    const { user } = useSelector(myStore => myStore.userSlice);
     const nav = useNavigate();
     const fileRef = useRef();
-    const inputRef = useRef();
     const [selectedOption, setSelectedOption] = useState("");
     const [fileChosen, setFileChosen] = useState("");
     const [image, setImage] = useState(null);
     const [displayDiv, setDisplayDiv] = useState("block");
     const [displayProgress, setDisplayProgress] = useState("none");
 
-    // console.log(selectedOption);
 
-    const onSubForm = async (bodyFormData) => {
-        console.log(bodyFormData);
-        await doApiAddFood(bodyFormData);
-    }
-
-    const doApiAddFood = async (bodyFormData) => {
-        setDisplayProgress("flex")
-        let url = API_URL + "/foods";
+    const onSubAddFood = async (bodyFormData) => {
+        setDisplayProgress("flex");
+        const url = `${API_URL}/foods`;
         try {
-            let resp = await doApiMethod(url, "POST", bodyFormData);
-            // console.log(resp.data);
+            const resp = await doApiMethod(url, "POST", bodyFormData);
             if (resp.data) {
-                await doApiFileUploadFood(resp.data._id, fileRef);
-                toast.success("Your Dish adds succefuly, You won 5 coins!");
-                nav("/foods")
+                const uploadSuccess = await uploadImgFood(resp.data._id, fileRef);
+                uploadSuccess
+                    ? (toast.success("Your Dish was added successfully! You won 5 coins!"), nav("/foods"))
+                    : toast.error("There was a problem uploading the image");
+            } else {
+                toast.error("There was a problem adding the dish, please try again later");
             }
-            else {
-                toast.error("There problem, try again later")
-                setDisplayProgress("none")
-            }
-        }
-        catch (err) {
+        } catch (err) {
             console.log(err);
-            alert("There problem , or category url already in system")
-            setDisplayProgress("none")
+            alert("There was a problem, or the category URL already exists in the system");
+        } finally {
+            setDisplayProgress("none");
         }
-    }
+    };
+
 
     const handleChange = (e) => {
-        // console.log(fileRef.current.files[0].name);
         setFileChosen(fileRef.current.files[0].name)
         const file = e.target.files[0];
         const reader = new FileReader();
@@ -83,7 +72,7 @@ export default function AddFood() {
     return (
         <div className='container mt-3 mb-4'>
             <CheckUserActiveComp />
-            <form onSubmit={handleSubmit(onSubForm)}>
+            <form onSubmit={handleSubmit(onSubAddFood)}>
                 <ThemeProvider theme={theme}>
 
                     <div className='mx-auto navButtons'>
@@ -102,7 +91,6 @@ export default function AddFood() {
                             className='saveBtn'
                             sx={btnStyle}
                             endIcon={<CircularProgress sx={{ display: displayProgress }} size={"20px"} color="success" />}
-
                         >Add
                         </Button>
                     </div>

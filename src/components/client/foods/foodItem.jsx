@@ -58,7 +58,7 @@ export default function FoodItem({ item, onLikeClick }) {
               <img
                 onClick={() => { user._id == item.user_id ? nav("/myFoodInfo/" + item._id) : nav("/foodInfo/" + item._id) }}
                 className='imgFood w-100'
-                src={item.img_url} 
+                src={`${item?.img_url}?${Date.now()}`} 
                 alt="imgFood"
               />
 

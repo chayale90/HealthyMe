@@ -1,8 +1,7 @@
 import React, { useRef, useState } from 'react'
-import { Avatar, Dialog, IconButton, InputBase, Paper } from '@mui/material'
+import { Avatar, Dialog, IconButton, Paper } from '@mui/material'
 import { Button, TextField } from '@mui/material';
 import { Link, useNavigate } from 'react-router-dom';
-import Badge from '@mui/material/Badge';
 import EditIcon from '@mui/icons-material/Edit';
 import { useForm } from 'react-hook-form';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
@@ -10,13 +9,13 @@ import { ThemeProvider } from '@mui/material/styles';
 import { toast } from 'react-toastify';
 import { useSelector } from 'react-redux';
 import { CircularProgress } from '@mui/material';
-import { theme } from "../../../../services/theme"
-import { btnStyle, btnStyle3, btnStyle2 } from '../../../../services/btnStyle';
-import { API_URL, doApiMethod } from '../../../../services/apiService';
 import CloseIcon from '@mui/icons-material/Close';
-
+// project imports
+import { theme } from "@/services/theme"
+import { btnStyle } from '@/services/btnStyle';
+import { API_URL, doApiMethod } from '@/services/apiService';
+import { uploadAvatarUpdate } from '@/services/fileUploadFun';
 import "./editMyDetails"
-import { doApiFileUploadAvatars } from '../../../../services/fileUploadFun';
 
 
 export default function EditProfile({ displayProfile, returnToMyDetails }) {
@@ -37,7 +36,6 @@ export default function EditProfile({ displayProfile, returnToMyDetails }) {
     }
 
     const onSubmit = async (_dataBody) => {
-        // console.log(_dataBody);
         await doApiEditProfile(_dataBody);
     };
 
@@ -47,10 +45,11 @@ export default function EditProfile({ displayProfile, returnToMyDetails }) {
         try {
             let resp = await doApiMethod(url, "PUT", _dataBody);
             if (resp.data) {
-                // console.log(resp.data);
-                await doApiFileUploadAvatars(resp.data._id, fileRef);
                 toast.success("Your profile changed successfully!");
-                nav("/myProfile");
+                const uploadSuccess = await uploadAvatarUpdate(resp.data._id, fileRef);
+                uploadSuccess ?
+                    nav("/myProfile")
+                    : toast.error("There was a problem uploading the image");
             }
             else {
                 toast.error("There problem, try again later")
@@ -83,16 +82,16 @@ export default function EditProfile({ displayProfile, returnToMyDetails }) {
         setfileChosen("No Img Edit")
     }
 
-         //if for the avatar image
-         const srcImg = React.useMemo(() => {
-            if (user.img_url == "" && user.sex == "male") {
-                return "/images/man.png";
-            } else if (user.img_url == "" && user.sex == "female") {
-                return "/images/woman.png";
-            } else {
-                return user.img_url;
-            }
-        }, [user]);
+    //if for the avatar image
+    const srcImg = React.useMemo(() => {
+        if (user.img_url == "" && user.sex == "male") {
+            return "/images/man.png";
+        } else if (user.img_url == "" && user.sex == "female") {
+            return "/images/woman.png";
+        } else {
+            return user.img_url;
+        }
+    }, [user]);
 
 
     return (
@@ -151,11 +150,6 @@ export default function EditProfile({ displayProfile, returnToMyDetails }) {
                                             }
                                         </div>
 
-
-
-
-
-
                                         <div className='mb-4'>
                                             <TextField
                                                 {...register('name', { required: true, min: 2, max: 99 })}
@@ -196,7 +190,6 @@ export default function EditProfile({ displayProfile, returnToMyDetails }) {
                                         >
                                             Save
                                         </Button>
-
                                     </div>
                                 </form>
                                 :

@@ -5,7 +5,6 @@ import { createSlice } from "@reduxjs/toolkit";
 const initValue = {
     home: 'none',
     favorites: 'none',
-    loadingImg:true,
     darkMode:false
 }
 
@@ -19,15 +18,11 @@ const featuresSlice = createSlice({
         changeFavorites: (state, action) => {
             state.favorites = action.payload.val
         },
-        //update the img of food when edit food
-        changeLoading: (state, action) => {
-            state.loading = !(state.loading )
-        },
         changeDarkMode: (state, action) => {
             state.darkMode = !(state.darkMode )
         }
     }
 })
 
-export const { changeFavorites,changeHome,changeLoading,changeDarkMode} = featuresSlice.actions;
+export const { changeFavorites,changeHome,changeDarkMode} = featuresSlice.actions;
 export default featuresSlice.reducer;

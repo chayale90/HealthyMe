@@ -15,18 +15,17 @@ import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogTitle from '@mui/material/DialogTitle';
 // project imports
-import { API_URL, doApiGet, doApiMethod } from '../../../../services/apiService';
-import { theme } from "../../../../services/theme"
-import { changeHome } from "../../../../features/featuresSlice"
-import { setOpenUsersLikes } from "../../../../features/dialogSlice"
+import { API_URL, doApiGet, doApiMethod } from '@/services/apiService';
+import { theme } from "@/services/theme"
+import { changeHome } from "@/features/featuresSlice"
+import { setOpenUsersLikes } from "@/features/dialogSlice"
 import DialogUsersLikes from './usersLikes/dialogUsersLikes';
-import FabComp from '../../../../services/fabComp';
+import FabComp from '@/services/fabComp';
 import "./foodInfo.css"
 import LoadingComp from '../../../general_comps/loadingComp';
 
 export default function MyFoodInfo() {
     const { user } = useSelector(myStore => myStore.userSlice);
-    const { loadingImg } = useSelector(myStore => myStore.featuresSlice);
     const params = useParams()
     const nav = useNavigate();
     const dispatch = useDispatch();
@@ -36,16 +35,15 @@ export default function MyFoodInfo() {
 
     useEffect(() => {
         dispatch(changeHome({ val: "none" }))
-        doApiGetFoodInfo()
-    }, [loadingImg])
+        doApiGetFoodInfo();
+    }, [])
 
     const doApiGetFoodInfo = async () => {
         try {
             const url = API_URL + "/foods/foodInfo/" + foodId;
             const resp = await doApiGet(url);
-            // console.log(resp.data);
             setFood(resp?.data)
-            doApiGetInfoUser(resp.data.user_id)
+           await doApiGetInfoUser(resp.data.user_id)
         } catch (err) {
             console.log(err);
             toast.error("There problem try come back later");
@@ -56,7 +54,6 @@ export default function MyFoodInfo() {
         try {
             const url = API_URL + "/users/userInfo/" + user_id;
             const resp = await doApiGet(url);
-            // console.log(resp.data);
             setOtherUser(resp.data);
         } catch (err) {
             console.log(err);
@@ -112,7 +109,7 @@ export default function MyFoodInfo() {
                     <div>
                         <div style={{ position: 'relative' }} className='row align-items-center'>
                             <div style={{ position: 'relative' }} className='col-4 d-none d-md-block p-0'>
-                                <img className='imgFoodInfo' style={{ borderRadius: "12px" }} src={food.img_url} alt="foodImg" />
+                                <img className='imgFoodInfo' style={{ borderRadius: "12px" }} src={`${food.img_url}?${Date.now()}`} alt="foodImg" />
                                 <div className='likesDiv m-1'
                                     onClick={onClickLikes}>
                                     <FavoriteIcon sx={{ marginRight: 1, color: "white" }} />
@@ -172,7 +169,7 @@ export default function MyFoodInfo() {
                             </div>
 
                             <div className='d-block d-md-none mt-4 mx-auto'>
-                                <img className='imgFoodInfo' style={{ borderRadius: "12px", position: 'relative' }} src={food.img_url} alt="foodImg" />
+                                <img className='imgFoodInfo' style={{ borderRadius: "12px", position: 'relative' }} src={`${food?.img_url}?${Date.now()}`} alt="foodImg" />
                                 <div className='likesDiv m-1 ms-3'
                                     onClick={onClickLikes}>
                                     <FavoriteIcon sx={{ marginRight: 1, color: "white" }} />
