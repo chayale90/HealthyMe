@@ -75,7 +75,7 @@ export const uploadAvatarUpdate = async (_id, fileRef) => {
             }
         })
         if (resp.data) {
-            toast.success("Avater updated image uploaded successfully");
+            toast.success("Avater updated successfully");
             return true;
         }
     }

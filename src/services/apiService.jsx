@@ -1,12 +1,10 @@
 import axios from "axios";
 
 // export const API_URL = "http://localhost:3003";
-// export const API_URL = "https://healthyme-backend-production.up.railway.app"
-export const API_URL = "https://healthy-me-back-be4vbvbf6-chayale90.vercel.app"
+export const API_URL = "https://backend-healthyme.up.railway.app"
+// export const API_URL = "https://healthy-me-back-end-z5ue.vercel.app"
 
 export const TOKEN_NAME = "FOODS_TOKEN";
-
-// export const USER_ROLE = "USER_ROLE"
 
 export const doApiGet = async (_url, params = {}) => {
   try {

@@ -45,11 +45,12 @@ export default function EditProfile({ displayProfile, returnToMyDetails }) {
         try {
             let resp = await doApiMethod(url, "PUT", _dataBody);
             if (resp.data) {
-                toast.success("Your profile changed successfully!");
                 const uploadSuccess = await uploadAvatarUpdate(resp.data._id, fileRef);
-                uploadSuccess ?
+                if (uploadSuccess) {
+                    toast.success("Your profile changed successfully!");
                     nav("/myProfile")
-                    : toast.error("There was a problem uploading the image");
+                }
+                else toast.error("There was a problem uploading the image");
             }
             else {
                 toast.error("There problem, try again later")
