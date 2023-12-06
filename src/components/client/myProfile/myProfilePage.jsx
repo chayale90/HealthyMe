@@ -4,11 +4,12 @@ import { useDispatch, useSelector } from 'react-redux'
 import SettingsIcon from '@mui/icons-material/Settings';
 import { useNavigate } from 'react-router-dom';
 import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
+// project imports
 import NavBarMyProfile from './navBarMyProfile';
 import CheckUserComp from '../../auth/checkComps/checkUserComp';
-import { setOpenFollowers, setOpenFollowings } from "../../../features/dialogSlice"
-import { setUserIdFollowers, setUserIdFollowings } from "../../../features/dialogSlice"
-import MyInfo from '../../../services/myInfo';
+import { setOpenFollowers, setOpenFollowings } from "@/features/dialogSlice"
+import { setUserIdFollowers, setUserIdFollowings } from "@/features/dialogSlice"
+import MyInfo from '@/services/myInfo';
 
 export default function MyProfilePage() {
   const nav = useNavigate()
@@ -45,7 +46,7 @@ export default function MyProfilePage() {
     } else if (user.img_url == "" && user.sex == "female") {
       return "/images/woman.png";
     } else {
-      return user.img_url;
+      return user.img_url+"?"+Date.now();
     }
   }, [user]);
 

@@ -121,7 +121,7 @@ export default function Header() {
     } else if (user.img_url == "" && user.sex == "female") {
       return "/images/woman.png";
     } else {
-      return user.img_url;
+      return user.img_url+"?"+Date.now();
     }
   }, [user]);
 
