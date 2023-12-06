@@ -27,7 +27,7 @@ export default function FoodItem({ item, onLikeClick }) {
     } else if (otherUser.img_url == "" && otherUser.sex == "female") {
         return "/images/woman.png";
     } else {
-        return otherUser.img_url;
+      return `${otherUser.img_url}?${Date.now()}`;
     }
 }, [otherUser]);
 

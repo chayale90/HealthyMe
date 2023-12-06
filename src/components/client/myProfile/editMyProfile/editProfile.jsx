@@ -63,7 +63,6 @@ export default function EditProfile({ displayProfile, returnToMyDetails }) {
 
 
     const handleChange = (e) => {
-        // console.log(fileRef.current.files[0].name);
         setfileChosen(fileRef.current.files[0].name)
         const file = e.target.files[0];
         const reader = new FileReader();
@@ -72,7 +71,6 @@ export default function EditProfile({ displayProfile, returnToMyDetails }) {
         }
         reader.readAsDataURL(file);
         setDisplayDiv("none")
-
     }
 
     const removeIMG = () => {
@@ -89,7 +87,7 @@ export default function EditProfile({ displayProfile, returnToMyDetails }) {
         } else if (user.img_url == "" && user.sex == "female") {
             return "/images/woman.png";
         } else {
-            return user.img_url;
+            return `${user.img_url}?${Date.now()}`;
         }
     }, [user]);
 
@@ -114,7 +112,6 @@ export default function EditProfile({ displayProfile, returnToMyDetails }) {
                                         <div className='d-flex mb-4 pb-1 w-75 justify-content-between'>
                                             <IconButton
                                                 onClick={() => { returnToMyDetails() }}
-
                                             >
                                                 <ArrowBackIcon />
                                             </IconButton>
@@ -123,7 +120,6 @@ export default function EditProfile({ displayProfile, returnToMyDetails }) {
 
                                         <div className='text-center d-flex justify-content-center mb-5 '>
                                             <input
-                                                // {...register('img_url', { required: true })}
                                                 type="file" id="actual-btn"
                                                 ref={fileRef}
                                                 hidden
@@ -173,7 +169,6 @@ export default function EditProfile({ displayProfile, returnToMyDetails }) {
                                                 fullWidth
                                                 variant="outlined"
                                                 label="My motto"
-                                            // onChange={handleChange('info')}
                                             />
                                             {errors.info && <div className='text-danger s12'>Enter valid Motto</div>}
                                         </div>
@@ -195,7 +190,6 @@ export default function EditProfile({ displayProfile, returnToMyDetails }) {
                                 :
                                 <div>Loading...</div>
                         }
-
                     </Paper>
                 </Dialog>
             </ThemeProvider>
