@@ -23,7 +23,7 @@ export default function AddFood() {
     const nav = useNavigate();
     const fileRef = useRef();
     const [selectedOption, setSelectedOption] = useState("");
-    const [fileChosen, setFileChosen] = useState("");
+    const [fileNameChosen, setFileNameChosen] = useState("");
     const [image, setImage] = useState(null);
     const [displayDiv, setDisplayDiv] = useState("block");
     const [displayProgress, setDisplayProgress] = useState("none");
@@ -31,6 +31,7 @@ export default function AddFood() {
 
     const onSubAddFood = async (bodyFormData) => {
         setDisplayProgress("flex");
+        console.log(bodyFormData);
         const url = `${API_URL}/foods`;
         try {
             const resp = await doApiMethod(url, "POST", bodyFormData);
@@ -44,29 +45,30 @@ export default function AddFood() {
             }
         } catch (err) {
             console.log(err);
-            alert("There was a problem, or the category URL already exists in the system");
+            alert("There was a problem, try again later");
         } finally {
             setDisplayProgress("none");
         }
     };
 
 
-    const handleChange = (e) => {
-        setFileChosen(fileRef.current.files[0].name)
+    const handleFile = (e) => {    
+        setFileNameChosen(fileRef.current.files[0].name);
         const file = e.target.files[0];
         const reader = new FileReader();
         reader.onloadend = () => {
             setImage(reader.result);
         }
         reader.readAsDataURL(file);
-        setDisplayDiv("none")
+        setDisplayDiv("none");
+     
     }
 
     const removeIMG = () => {
         setImage(null);
         fileRef.current.value = null;
-        setDisplayDiv("block")
-        setFileChosen("")
+        setDisplayDiv("block");
+        setFileNameChosen("");
     }
 
     return (
@@ -74,7 +76,6 @@ export default function AddFood() {
             <CheckUserActiveComp />
             <form onSubmit={handleSubmit(onSubAddFood)}>
                 <ThemeProvider theme={theme}>
-
                     <div className='mx-auto navButtons'>
                         <div>
                             <IconButton
@@ -109,18 +110,21 @@ export default function AddFood() {
                             {errors.name && <div className='text-danger s14'>{errors?.name?.message}</div>}
                         </div>
 
-
                         {/* file */}
                         <div className='text-center mt-5'>
                             <div style={{ display: displayDiv }}>
                                 <input
-                                    // {...register('img_url', { required: true })}
-                                    type="file" id="actual-btn"
+                                    name="food_image"
+                                    type="file"
+                                    id="fileInput"
                                     ref={fileRef}
-                                    hidden
-                                    onInput={handleChange}
+                                    onInput={handleFile}
+                                    required
                                 />
-                                <label style={{ cursor: 'pointer' }} className='mb-1 addPhotoDiv' htmlFor="actual-btn"><AddAPhotoIcon sx={{ color: "#A435F0" }} />Add photo</label>
+                                <label style={{ cursor: 'pointer' }} className='mb-1 addPhotoDiv' htmlFor="fileInput">
+                                    <AddAPhotoIcon sx={{ color: "#A435F0" }} />
+                                    Add photo
+                                </label>
                             </div>
                             {image &&
                                 <div
@@ -135,9 +139,7 @@ export default function AddFood() {
                             }
 
                             {image && <img className='addPhotoDiv' src={image} alt="Uploaded" style={{ position: 'relative', zIndex: 0 }} />}
-                            <span id="file-chosen">{fileChosen}</span>
-                            {/* {errors.img_url &&displayDiv == "block"? <div className='text-danger s14'>Img is requried</div>:""} */}
-                            {displayDiv == "block" ? <div className='text-danger s14'>Img is requried</div> : ""}
+                            <span id="file-chosen">{fileNameChosen}</span>
                         </div>
 
 
